@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<appender name="console" class="org.apache.log4j.ConsoleAppender">
+		<param name="Target" value="System.out" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="fileAppender" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="DEBUG" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="2MB" />
+		<param name="File" value="${gamble.loggingRoot}/gamble_biz.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<appender name="fileAppender2" class="org.apache.log4j.RollingFileAppender">
+		<param name="Threshold" value="WARM" />
+		<param name="Append" value="true" />
+		<param name="MaxFileSize" value="20MB" />
+		<param name="File" value="${gamble.loggingRoot}/gamble.log" />
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss} %-5p %c:%L - %m%n" />
+		</layout>
+	</appender>
+
+	<logger name="com.hannuus.gamble">
+		<level value="debug" />
+		<appender-ref ref="fileAppender" />
+	</logger>
+
+	<!-- 打印执行SQL的配置(请修改 root 对应的LEVEL为DEBUG), MyBatis 3 的日志输出只支持DEBUG级别 -->
+	<logger name="org.apache.ibatis">
+		<level value="DEBUG" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="org.apache.ibatis.common.jdbc.SimpleDataSource">
+		<level value="WARM" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="com.ibatis.common.jdbc.ScriptRunner">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="com.ibatis.sqlmap.engine.impl.SqlMapClientDelegate">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="java.sql.Connection">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="java.sql.Statement">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="java.sql.PreparedStatement">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+
+	<!-- 下面配置一些第三方包的日志过滤级别，用于避免刷屏 -->
+	<logger name="org.springframework">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="com.opensymphony">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+	<logger name="org.apache">
+		<level value="WARN" />
+		<appender-ref ref="fileAppender2" />
+	</logger>
+
+	<root>
+		<priority value="WARM" />
+		<appender-ref ref="console" />
+	</root>
+</log4j:configuration>
