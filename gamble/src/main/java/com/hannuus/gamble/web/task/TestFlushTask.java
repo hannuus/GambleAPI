@@ -1,4 +1,4 @@
-package com.hannuus.gamble.web.tast;
+package com.hannuus.gamble.web.task;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
