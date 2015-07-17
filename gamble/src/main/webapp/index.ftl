@@ -2,11 +2,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<title>welcome</title>
+<title>Welcome</title>
 </head>
 <body>
-<#list list as model>
-   <p>${model.id!''} &nbsp; ${model.provinceName!''}<p>
-</#list>
+Hello world!
 </body>
 </html>

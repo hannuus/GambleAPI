@@ -2,39 +2,44 @@ package com.hannuus.gamble.web.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hannuus.gamble.bean.Province;
+import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.vo.JsonVo;
-import com.hannuus.gamble.web.service.IBaseInfoService;
+import com.hannuus.gamble.web.service.ITopicService;
 
 /**
- * The system base info action, like province/city/district etc.
+ * 
  * @author aelns
  *
  */
 @Controller
-@RequestMapping("/baseInfo")
-public class BaseInfoJSONAction extends BaseAction {
+@RequestMapping("/topic")
+public class TopicAction extends BaseAction {
+	
 	
 	@Autowired
-	IBaseInfoService baseInfoService;
+	ITopicService topicService;
 	
-	private static final Logger logger = Logger.getLogger(BaseInfoJSONAction.class);
+	private static final Logger logger = Logger.getLogger(TopicAction.class);
 	
 	@ResponseBody
-	@RequestMapping(value = "/province.json", method = RequestMethod.GET)
-	public JsonVo<List<Province>> province(ModelMap modelMap) {
-		JsonVo<List<Province>> json = new JsonVo<List<Province>>();
+	@RequestMapping(value = "/category/{categoryId}", method = {RequestMethod.GET, RequestMethod.POST})
+	public JsonVo<List<Topic>> created(@PathVariable int categoryId) {
+		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
-			List<Province> list = baseInfoService.getAllProvinceList();
+			List<Topic> list = topicService.findByCategoryID(categoryId);
 			if (CollectionUtils.isNotEmpty(list)) {
 				json.setT(list);
 			}
