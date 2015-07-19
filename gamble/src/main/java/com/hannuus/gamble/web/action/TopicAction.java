@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hannuus.gamble.bean.Topic;
+import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.service.ITopicService;
 
@@ -37,12 +38,15 @@ public class TopicAction extends BaseAction {
 		try {
 			List<Topic> list = topicService.findByCategoryID(categoryId);
 			if (CollectionUtils.isNotEmpty(list)) {
-				json.setT(list);
+				json.setResult(list);
+				json.setStatus(JsonResultStatus.Success.getValue());
+			} else {
+				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
 		} catch (Exception e) {
 			logger.error(e);
-			json.setResult(false);
-			json.setMsg(e.getMessage());
+			json.setErrmsg(e.getMessage());
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}

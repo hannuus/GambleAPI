@@ -104,8 +104,8 @@
 		<location>/404.htm</location>
 	</error-page>
 	
-	<error-page>
-		<error-code>500</error-code>
-		<location>/500.htm</location>
-	</error-page>
+<!-- 	<error-page> -->
+<!-- 		<error-code>500</error-code> -->
+<!-- 		<location>/500.htm</location> -->
+<!-- 	</error-page> -->
 </web-app>

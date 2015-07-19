@@ -1,69 +1,76 @@
 package com.hannuus.gamble.vo;
 
-import java.util.HashMap;
+//import java.util.HashMap;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.hannuus.gamble.web.exception.ValidateException;
+//import com.hannuus.gamble.comm.JSONStatus;
+//import com.hannuus.gamble.web.exception.ValidateException;
 
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class JsonVo<T> {
-	/**
-	 * 结果
-	 */
-	private boolean result;
 	
-	private String msg;
+	private String errcode;
+	
+	private String errmsg;
+	
+	private String status;
 
 	/**
 	 * 具体每个输入错误的消息
 	 */
-	private HashMap<String, String> errors = new HashMap<String, String>();
+//	private HashMap<String, String> errors = new HashMap<String, String>();
 
 	/**
 	 * 返回的数据
 	 */
-	private T t;
+	private T result;
 
-	public boolean isResult() {
+	public String getErrcode() {
+		return errcode;
+	}
+
+	public void setErrcode(String errcode) {
+		this.errcode = errcode;
+	}
+
+	public String getErrmsg() {
+		return errmsg;
+	}
+
+	public void setErrmsg(String errmsg) {
+		this.errmsg = errmsg;
+	}
+
+//	public HashMap<String, String> getErrors() {
+//		return errors;
+//	}
+//
+//	public void setErrors(HashMap<String, String> errors) {
+//		this.errors = errors;
+//	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+	
+	public T getResult() {
 		return result;
 	}
 
-	public void setResult(boolean result) {
+	public void setResult(T result) {
 		this.result = result;
 	}
-
-	public String getMsg() {
-		return msg;
-	}
-
-	public void setMsg(String msg) {
-		this.msg = msg;
-	}
-
-	public HashMap<String, String> getErrors() {
-		return errors;
-	}
-
-	public void setErrors(HashMap<String, String> errors) {
-		this.errors = errors;
-	}
-
-	public T getT() {
-		return t;
-	}
-
-	public void setT(T t) {
-		this.t = t;
-	}
-
-	public void check() throws ValidateException {
-		if (this.getErrors().size() > 0) {
-			this.setResult(false);
-			throw new ValidateException("Oops...Some Errors Happend.");
-		} else {
-			this.setResult(true);
-		}
-	}
+//
+//	public void check() throws ValidateException {
+//		if (this.getErrors().size() > 0) {
+//			this.status = JSONStatus.Failed.getValue();
+//			throw new ValidateException("Oops...Some Errors Happend.");
+//		}
+//	}
 }

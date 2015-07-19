@@ -23,12 +23,10 @@ public class BaseAction {
 	 * @throws ValidateException
 	 */
 	protected <T> void validate(JsonVo<T> json) throws ValidateException {
-		if (json.getErrors().size() > 0) {
-			json.setResult(false);
-			throw new ValidateException("Errors");
-		} else {
-			json.setResult(true);
-		}
+//		if (json.getErrors().size() > 0) {
+//			json.setStatus(JSONStatus.Failed.getValue());
+//			throw new ValidateException("Oops...Some Errors Happend.");
+//		}
 	}
 	
 	protected String getReqParam(String key) {
