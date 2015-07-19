@@ -33,7 +33,7 @@ public class TopicAction extends BaseAction {
 	
 	@ResponseBody
 	@RequestMapping(value = "/category/{categoryId}", method = {RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<Topic>> created(@PathVariable int categoryId) {
+	public JsonVo<List<Topic>> listByCategory(@PathVariable int categoryId) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
 			List<Topic> list = topicService.findByCategoryID(categoryId);
