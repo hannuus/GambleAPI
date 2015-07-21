@@ -25,7 +25,7 @@ public interface ITopicService {
 	 * @param topicId
 	 * @return deleted or not
 	 */
-	boolean delete(int topicId);
+	boolean delete(Long topicId);
 	
 	/**
 	 * 
@@ -33,26 +33,26 @@ public interface ITopicService {
 	 * @param state
 	 * @return updated or not
 	 */
-	boolean updateTopicState(int topicId, int state);
+	boolean updateTopicState(Long topicId, int state);
 	
 	/**
 	 * find topic by topic ID
 	 * @param topicId
 	 * @return The Topic
 	 */
-	Topic findById(int topicId);
+	Topic findById(Long topicId);
 	
 	/**
 	 *  find topic by category ID
 	 * @param categoryId
 	 * @return Topic list
 	 */
-	List<Topic> findByCategoryID(int categoryId);
+	List<Topic> findByCategoryID(Long categoryId);
 	
 	/**
 	 * find topic by specia ID
 	 * @param speciaId
 	 * @return Topic list
 	 */
-	List<Topic> findBySpeciaId(int speciaId);
+	List<Topic> findBySpeciaId(Long speciaId);
 }

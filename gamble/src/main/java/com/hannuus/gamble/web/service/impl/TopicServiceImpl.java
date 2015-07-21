@@ -29,32 +29,32 @@ public class TopicServiceImpl implements ITopicService {
 	}
 
 	@Override
-	public boolean delete(int topicId) {
+	public boolean delete(Long topicId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean updateTopicState(int topicId, int state) {
+	public boolean updateTopicState(Long topicId, int state) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public Topic findById(int topicId) {
+	public Topic findById(Long topicId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public List<Topic> findByCategoryID(int categoryId) {
+	public List<Topic> findByCategoryID(Long categoryId) {
 		TopicExample example = new TopicExample();
-		example.createCriteria().andCategoryIdEqualTo(categoryId);
+		example.createCriteria().andCategoryIdEqualTo(categoryId.intValue());
 		return topicMapper.selectByExample(example);
 	}
 
 	@Override
-	public List<Topic> findBySpeciaId(int speciaId) {
+	public List<Topic> findBySpeciaId(Long speciaId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

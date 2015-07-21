@@ -10,12 +10,12 @@ import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
 public class DateSerializer extends JsonSerializer<Date> {
-
+	
+	private static final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:MM:ss");
 	@Override
 	public void serialize(Date value, JsonGenerator jg,
 			SerializerProvider provider) throws IOException,
 			JsonProcessingException {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd hh:MM:ss");
 		jg.writeString(sdf.format(value));
 	}
 }

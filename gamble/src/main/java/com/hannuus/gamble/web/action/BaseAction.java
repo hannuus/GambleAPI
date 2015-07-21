@@ -8,25 +8,30 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.hannuus.gamble.utils.HttpUtils;
-import com.hannuus.gamble.vo.JsonVo;
-import com.hannuus.gamble.web.exception.ValidateException;
+import com.hannuus.gamble.web.exception.GambleException;
 
 
 public class BaseAction {
 	
 	
 	/**
-	 * Validate results
-	 * 
-	 * @param <T>
-	 * @param json
-	 * @throws ValidateException
+	 *  validate the API path is invalid</br>
+	 *  validate access token</br>
+	 *  validate user permission</br>
+	 *  validate sign</br>
+	 *  validate timestamp, if server (timestamp - client timestamp) > {timeout-times}</br> 
+	 *  like 10 minutes, then return the timeout response</br>
+	 *  
+	 * @param
+	 * @param HttpServletRequest request
+	 * @throws GambleException
 	 */
-	protected <T> void validate(JsonVo<T> json) throws ValidateException {
-//		if (json.getErrors().size() > 0) {
-//			json.setStatus(JSONStatus.Failed.getValue());
-//			throw new ValidateException("Oops...Some Errors Happend.");
-//		}
+	protected void validate(HttpServletRequest request) throws GambleException {
+		// TODO validate the API is valid
+		// TODO validate access token
+		// TODO validate user permission
+		// TODO validate sign
+		// TODO validate timestamp, if server (timestamp - client timestamp) > {timeout-times, like 10 minutes} return the timeout error code
 	}
 	
 	protected String getReqParam(String key) {
