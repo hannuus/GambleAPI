@@ -2,19 +2,30 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
-public class Reply {
-    private Long id;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.hannuus.gamble.vo.serializer.DateSerializer;
+import com.hannuus.gamble.vo.serializer.LongSerializer;
+
+public class Reply {
+	
+	@JsonSerialize(using=LongSerializer.class)
+    private Long id;
+	
+	@JsonSerialize(using=LongSerializer.class)
     private Long topicId;
 
     private String title;
 
+    @JsonSerialize(using=LongSerializer.class)
     private Long userId;
 
+    @JsonSerialize(using=DateSerializer.class)
     private Date modifiedOn;
 
     private Date createdOn;
 
+    @JsonSerialize(using=LongSerializer.class)
     private Long parentId;
 
     private String content;

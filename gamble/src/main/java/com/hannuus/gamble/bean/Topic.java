@@ -2,35 +2,55 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
-public class Topic {
-    private Long id;
+import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.hannuus.gamble.vo.serializer.DateSerializer;
+import com.hannuus.gamble.vo.serializer.IntegerSerializer;
+import com.hannuus.gamble.vo.serializer.LongSerializer;
+
+public class Topic {
+	@JsonSerialize(using=LongSerializer.class)
+    private Long id;
+	
+	@JsonSerialize(using=LongSerializer.class)
     private Long categoryId;
 
+	@JsonSerialize(using=LongSerializer.class)
     private Long speciaId;
-
+	
+	@JsonSerialize(using=LongSerializer.class)
     private Long userId;
-
+	
+	@JsonSerialize(using=LongSerializer.class)
     private Boolean enabled;
 
+	@JsonSerialize(using=LongSerializer.class)
     private Long hits;
-
+	
+	@JsonSerialize(using=LongSerializer.class)
     private Long replyCount;
-
+	
+	@JsonSerialize(using=LongSerializer.class)
     private Long modifiedBy;
 
+	@JsonSerialize(using=LongSerializer.class)
     private Date modifiedOn;
 
+	@JsonSerialize(using=LongSerializer.class)
     private Long repliedBy;
 
+	@JsonSerialize(using=LongSerializer.class)
     private Long repliedOn;
 
+	@JsonSerialize(using=LongSerializer.class)
     private Long iconId;
 
+	@JsonSerialize(using=IntegerSerializer.class)
     private Integer state;
 
     private String imgUrl;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date createdOn;
 
     private String content;
