@@ -17,6 +17,7 @@ import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
+import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
 import com.hannuus.gamble.web.service.ITopicService;
 
 /**
@@ -35,7 +36,7 @@ public class TopicAction extends BaseAction {
 	private static final Logger logger = Logger.getLogger(TopicAction.class);
 
 	@ResponseBody
-	@RequestMapping(value = "/listByCategory.json", method = {RequestMethod.GET})
+	@RequestMapping(value = "/listByCategoryID.json", method = {RequestMethod.GET})
 	public JsonVo<List<Topic>> listByCategory(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
@@ -69,9 +70,11 @@ public class TopicAction extends BaseAction {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
 			validate(request);
-			// TODO validate arguments
-			// TODO do the service logic
 			Topic topic = new Topic();
+			if (!validateCreateArguments(topic)) {
+				throw new ArgumentsIncorrectException();
+			}
+			// TODO do the service logic
 			if(topicService.create(topic)) {
 				json.setStatus(JsonResultStatus.Success.getValue());
 			} else {
@@ -84,5 +87,15 @@ public class TopicAction extends BaseAction {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
+	}
+	
+	/**
+	 * 
+	 * @param topic
+	 * @return
+	 */
+	private boolean validateCreateArguments(Topic topic) {
+		// TODO validate arguments
+		return false;
 	}
 }

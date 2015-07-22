@@ -7,28 +7,28 @@ import com.hannuus.gamble.bean.Topic;
 public interface ITopicService {
 	
 	/**
-	 * create a new topic
+	 * 发帖
 	 * @param topic
 	 * @return created or not
 	 */
 	boolean create(Topic topic);
 	
 	/**
-	 * update the topic
+	 * 更新帖子
 	 * @param topic
 	 * @return updated or not
 	 */
 	boolean update(Topic topic);
 	
 	/**
-	 * delete topic by topic ID
+	 * 删除帖子, 不物理删除, 将状态设置为-1(will delete)
 	 * @param topicId
 	 * @return deleted or not
 	 */
 	boolean delete(Long topicId);
 	
 	/**
-	 * 
+	 * 更新帖子的状态
 	 * @param topicId
 	 * @param state
 	 * @return updated or not
@@ -36,23 +36,41 @@ public interface ITopicService {
 	boolean updateTopicState(Long topicId, int state);
 	
 	/**
-	 * find topic by topic ID
+	 * 查询根据ID帖子
 	 * @param topicId
 	 * @return The Topic
 	 */
 	Topic findById(Long topicId);
 	
 	/**
-	 *  find topic by category ID
+	 *  根据分类ID查询帖子
 	 * @param categoryId
 	 * @return Topic list
 	 */
 	List<Topic> findByCategoryID(Long categoryId);
 	
 	/**
-	 * find topic by specia ID
+	 * 分页查询分类下的帖子
+	 * @param categoryId
+	 * @param startIndex
+	 * @param pageIndex
+	 * @return
+	 */
+	List<Topic> findCategoryTopicsByPage(Long categoryId, int startIndex, int pageSize);
+	
+	/**
+	 * 根据专题ID查询
 	 * @param speciaId
 	 * @return Topic list
 	 */
 	List<Topic> findBySpeciaId(Long speciaId);
+	
+	/**
+	 * 分页查询专题下的帖子
+	 * @param speciaId
+	 * @param startIndex
+	 * @param pageSize
+	 * @return
+	 */
+	List<Topic> findSpeciaTopicsByPage(Long speciaId, int startIndex, int pageSize);
 }

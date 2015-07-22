@@ -10,11 +10,11 @@ public class GambleException extends RuntimeException {
 	private String code;
 	private String reasoning;
 	
-	
 	public GambleException() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+	
 	public GambleException(String code, String reasoning) {
 		super();
 		this.code = code;

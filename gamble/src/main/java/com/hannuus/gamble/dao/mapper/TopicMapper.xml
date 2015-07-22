@@ -1,45 +1,45 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hannuus.gamble.dao.TopicMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.gamble.bean.Topic" >
-    <id column="ID" property="id" jdbcType="INTEGER" />
-    <result column="category_id" property="categoryId" jdbcType="INTEGER" />
-    <result column="specia_id" property="speciaId" jdbcType="INTEGER" />
-    <result column="user_id" property="userId" jdbcType="INTEGER" />
-    <result column="enabled" property="enabled" jdbcType="BIT" />
-    <result column="hits" property="hits" jdbcType="INTEGER" />
-    <result column="reply_count" property="replyCount" jdbcType="INTEGER" />
-    <result column="modified_by" property="modifiedBy" jdbcType="INTEGER" />
-    <result column="modified_on" property="modifiedOn" jdbcType="TIMESTAMP" />
-    <result column="replied_by" property="repliedBy" jdbcType="INTEGER" />
-    <result column="replied_on" property="repliedOn" jdbcType="INTEGER" />
-    <result column="icon_id" property="iconId" jdbcType="INTEGER" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
-    <result column="created_on" property="createdOn" jdbcType="TIMESTAMP" />
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hannuus.gamble.dao.TopicMapper">
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.bean.Topic">
+    <id column="ID" jdbcType="BIGINT" property="id" />
+    <result column="category_id" jdbcType="BIGINT" property="categoryId" />
+    <result column="specia_id" jdbcType="BIGINT" property="speciaId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="hits" jdbcType="BIGINT" property="hits" />
+    <result column="reply_count" jdbcType="BIGINT" property="replyCount" />
+    <result column="modified_by" jdbcType="BIGINT" property="modifiedBy" />
+    <result column="modified_on" jdbcType="TIMESTAMP" property="modifiedOn" />
+    <result column="replied_by" jdbcType="BIGINT" property="repliedBy" />
+    <result column="replied_on" jdbcType="BIGINT" property="repliedOn" />
+    <result column="icon_id" jdbcType="BIGINT" property="iconId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="created_on" jdbcType="TIMESTAMP" property="createdOn" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.hannuus.gamble.bean.Topic" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hannuus.gamble.bean.Topic">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
   </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -50,25 +50,25 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
                   and ${criterion.condition}
                 </when>
-                <when test="criterion.singleValue" >
+                <when test="criterion.singleValue">
                   and ${criterion.condition} #{criterion.value}
                 </when>
-                <when test="criterion.betweenValue" >
+                <when test="criterion.betweenValue">
                   and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
                 </when>
-                <when test="criterion.listValue" >
+                <when test="criterion.listValue">
                   and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
                     #{listItem}
                   </foreach>
                 </when>
@@ -79,16 +79,16 @@
       </foreach>
     </where>
   </sql>
-  <sql id="Base_Column_List" >
+  <sql id="Base_Column_List">
     ID, category_id, specia_id, user_id, enabled, hits, reply_count, modified_by, modified_on, 
     replied_by, replied_on, icon_id, state, img_url, created_on
   </sql>
-  <sql id="Blob_Column_List" >
+  <sql id="Blob_Column_List">
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hannuus.gamble.bean.TopicExample" >
+  <select id="selectByExampleWithBLOBs" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="ResultMapWithBLOBs">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
@@ -96,32 +96,480 @@
     ,
     <include refid="Blob_Column_List" />
     from bbs_topic
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.bean.TopicExample" >
+  <select id="selectByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="BaseResultMap">
     select
-    <if test="distinct" >
+    <if test="distinct">
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
     from bbs_topic
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
-    <if test="orderByClause != null" >
+    <if test="orderByClause != null">
       order by ${orderByClause}
     </if>
-    <if test="limitStart != null and limitStart>=0" >
+    <if test="limitStart != null and limitStart&gt;=0">
       limit #{limitStart} , #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_topic
+    where ID = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from bbs_topic
+    where ID = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.bean.TopicExample">
+    delete from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bbs_topic (category_id, specia_id, user_id, 
+      enabled, hits, reply_count, 
+      modified_by, modified_on, replied_by, 
+      replied_on, icon_id, state, 
+      img_url, created_on, content
+      )
+    values (#{categoryId,jdbcType=BIGINT}, #{speciaId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
+      #{enabled,jdbcType=BIT}, #{hits,jdbcType=BIGINT}, #{replyCount,jdbcType=BIGINT}, 
+      #{modifiedBy,jdbcType=BIGINT}, #{modifiedOn,jdbcType=TIMESTAMP}, #{repliedBy,jdbcType=BIGINT}, 
+      #{repliedOn,jdbcType=BIGINT}, #{iconId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{createdOn,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Long">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bbs_topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="speciaId != null">
+        specia_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="replyCount != null">
+        reply_count,
+      </if>
+      <if test="modifiedBy != null">
+        modified_by,
+      </if>
+      <if test="modifiedOn != null">
+        modified_on,
+      </if>
+      <if test="repliedBy != null">
+        replied_by,
+      </if>
+      <if test="repliedOn != null">
+        replied_on,
+      </if>
+      <if test="iconId != null">
+        icon_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="createdOn != null">
+        created_on,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="speciaId != null">
+        #{speciaId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=BIGINT},
+      </if>
+      <if test="replyCount != null">
+        #{replyCount,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedBy != null">
+        #{modifiedBy,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedOn != null">
+        #{modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repliedBy != null">
+        #{repliedBy,jdbcType=BIGINT},
+      </if>
+      <if test="repliedOn != null">
+        #{repliedOn,jdbcType=BIGINT},
+      </if>
+      <if test="iconId != null">
+        #{iconId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultType="java.lang.Integer">
+    select count(*) from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bbs_topic
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="record.speciaId != null">
+        specia_id = #{record.speciaId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+      <if test="record.hits != null">
+        hits = #{record.hits,jdbcType=BIGINT},
+      </if>
+      <if test="record.replyCount != null">
+        reply_count = #{record.replyCount,jdbcType=BIGINT},
+      </if>
+      <if test="record.modifiedBy != null">
+        modified_by = #{record.modifiedBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.modifiedOn != null">
+        modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repliedBy != null">
+        replied_by = #{record.repliedBy,jdbcType=BIGINT},
+      </if>
+      <if test="record.repliedOn != null">
+        replied_on = #{record.repliedOn,jdbcType=BIGINT},
+      </if>
+      <if test="record.iconId != null">
+        icon_id = #{record.iconId,jdbcType=BIGINT},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgUrl != null">
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdOn != null">
+        created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bbs_topic
+    set ID = #{record.id,jdbcType=BIGINT},
+      category_id = #{record.categoryId,jdbcType=BIGINT},
+      specia_id = #{record.speciaId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      enabled = #{record.enabled,jdbcType=BIT},
+      hits = #{record.hits,jdbcType=BIGINT},
+      reply_count = #{record.replyCount,jdbcType=BIGINT},
+      modified_by = #{record.modifiedBy,jdbcType=BIGINT},
+      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{record.repliedBy,jdbcType=BIGINT},
+      replied_on = #{record.repliedOn,jdbcType=BIGINT},
+      icon_id = #{record.iconId,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bbs_topic
+    set ID = #{record.id,jdbcType=BIGINT},
+      category_id = #{record.categoryId,jdbcType=BIGINT},
+      specia_id = #{record.speciaId,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      enabled = #{record.enabled,jdbcType=BIT},
+      hits = #{record.hits,jdbcType=BIGINT},
+      reply_count = #{record.replyCount,jdbcType=BIGINT},
+      modified_by = #{record.modifiedBy,jdbcType=BIGINT},
+      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{record.repliedBy,jdbcType=BIGINT},
+      replied_on = #{record.repliedOn,jdbcType=BIGINT},
+      icon_id = #{record.iconId,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      created_on = #{record.createdOn,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    <set>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=BIGINT},
+      </if>
+      <if test="speciaId != null">
+        specia_id = #{speciaId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=BIGINT},
+      </if>
+      <if test="replyCount != null">
+        reply_count = #{replyCount,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedBy != null">
+        modified_by = #{modifiedBy,jdbcType=BIGINT},
+      </if>
+      <if test="modifiedOn != null">
+        modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repliedBy != null">
+        replied_by = #{repliedBy,jdbcType=BIGINT},
+      </if>
+      <if test="repliedOn != null">
+        replied_on = #{repliedOn,jdbcType=BIGINT},
+      </if>
+      <if test="iconId != null">
+        icon_id = #{iconId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        created_on = #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    set category_id = #{categoryId,jdbcType=BIGINT},
+      specia_id = #{speciaId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      enabled = #{enabled,jdbcType=BIT},
+      hits = #{hits,jdbcType=BIGINT},
+      reply_count = #{replyCount,jdbcType=BIGINT},
+      modified_by = #{modifiedBy,jdbcType=BIGINT},
+      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{repliedBy,jdbcType=BIGINT},
+      replied_on = #{repliedOn,jdbcType=BIGINT},
+      icon_id = #{iconId,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      created_on = #{createdOn,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    set category_id = #{categoryId,jdbcType=BIGINT},
+      specia_id = #{speciaId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      enabled = #{enabled,jdbcType=BIT},
+      hits = #{hits,jdbcType=BIGINT},
+      reply_count = #{replyCount,jdbcType=BIGINT},
+      modified_by = #{modifiedBy,jdbcType=BIGINT},
+      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{repliedBy,jdbcType=BIGINT},
+      replied_on = #{repliedOn,jdbcType=BIGINT},
+      icon_id = #{iconId,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      created_on = #{createdOn,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.bean.Topic">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="specia_id" jdbcType="INTEGER" property="speciaId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="reply_count" jdbcType="INTEGER" property="replyCount" />
+    <result column="modified_by" jdbcType="INTEGER" property="modifiedBy" />
+    <result column="modified_on" jdbcType="TIMESTAMP" property="modifiedOn" />
+    <result column="replied_by" jdbcType="INTEGER" property="repliedBy" />
+    <result column="replied_on" jdbcType="INTEGER" property="repliedOn" />
+    <result column="icon_id" jdbcType="INTEGER" property="iconId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="created_on" jdbcType="TIMESTAMP" property="createdOn" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hannuus.gamble.bean.Topic">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, category_id, specia_id, user_id, enabled, hits, reply_count, modified_by, modified_on, 
+    replied_by, replied_on, icon_id, state, img_url, created_on
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart&gt;=0">
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
     ,
@@ -129,18 +577,18 @@
     from bbs_topic
     where ID = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from bbs_topic
     where ID = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.gamble.bean.TopicExample" >
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.bean.TopicExample">
     delete from bbs_topic
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hannuus.gamble.bean.Topic" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  <insert id="insert" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into bbs_topic (category_id, specia_id, user_id, 
@@ -156,169 +604,169 @@
       #{imgUrl,jdbcType=VARCHAR}, #{createdOn,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.Topic" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into bbs_topic
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="categoryId != null" >
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
         category_id,
       </if>
-      <if test="speciaId != null" >
+      <if test="speciaId != null">
         specia_id,
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         user_id,
       </if>
-      <if test="enabled != null" >
+      <if test="enabled != null">
         enabled,
       </if>
-      <if test="hits != null" >
+      <if test="hits != null">
         hits,
       </if>
-      <if test="replyCount != null" >
+      <if test="replyCount != null">
         reply_count,
       </if>
-      <if test="modifiedBy != null" >
+      <if test="modifiedBy != null">
         modified_by,
       </if>
-      <if test="modifiedOn != null" >
+      <if test="modifiedOn != null">
         modified_on,
       </if>
-      <if test="repliedBy != null" >
+      <if test="repliedBy != null">
         replied_by,
       </if>
-      <if test="repliedOn != null" >
+      <if test="repliedOn != null">
         replied_on,
       </if>
-      <if test="iconId != null" >
+      <if test="iconId != null">
         icon_id,
       </if>
-      <if test="state != null" >
+      <if test="state != null">
         state,
       </if>
-      <if test="imgUrl != null" >
+      <if test="imgUrl != null">
         img_url,
       </if>
-      <if test="createdOn != null" >
+      <if test="createdOn != null">
         created_on,
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content,
       </if>
     </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="categoryId != null" >
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
         #{categoryId,jdbcType=INTEGER},
       </if>
-      <if test="speciaId != null" >
+      <if test="speciaId != null">
         #{speciaId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         #{userId,jdbcType=INTEGER},
       </if>
-      <if test="enabled != null" >
+      <if test="enabled != null">
         #{enabled,jdbcType=BIT},
       </if>
-      <if test="hits != null" >
+      <if test="hits != null">
         #{hits,jdbcType=INTEGER},
       </if>
-      <if test="replyCount != null" >
+      <if test="replyCount != null">
         #{replyCount,jdbcType=INTEGER},
       </if>
-      <if test="modifiedBy != null" >
+      <if test="modifiedBy != null">
         #{modifiedBy,jdbcType=INTEGER},
       </if>
-      <if test="modifiedOn != null" >
+      <if test="modifiedOn != null">
         #{modifiedOn,jdbcType=TIMESTAMP},
       </if>
-      <if test="repliedBy != null" >
+      <if test="repliedBy != null">
         #{repliedBy,jdbcType=INTEGER},
       </if>
-      <if test="repliedOn != null" >
+      <if test="repliedOn != null">
         #{repliedOn,jdbcType=INTEGER},
       </if>
-      <if test="iconId != null" >
+      <if test="iconId != null">
         #{iconId,jdbcType=INTEGER},
       </if>
-      <if test="state != null" >
+      <if test="state != null">
         #{state,jdbcType=INTEGER},
       </if>
-      <if test="imgUrl != null" >
+      <if test="imgUrl != null">
         #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="createdOn != null" >
+      <if test="createdOn != null">
         #{createdOn,jdbcType=TIMESTAMP},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         #{content,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultType="java.lang.Integer">
     select count(*) from bbs_topic
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <update id="updateByExampleSelective" parameterType="map" >
+  <update id="updateByExampleSelective" parameterType="map">
     update bbs_topic
-    <set >
-      <if test="record.id != null" >
+    <set>
+      <if test="record.id != null">
         ID = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.categoryId != null" >
+      <if test="record.categoryId != null">
         category_id = #{record.categoryId,jdbcType=INTEGER},
       </if>
-      <if test="record.speciaId != null" >
+      <if test="record.speciaId != null">
         specia_id = #{record.speciaId,jdbcType=INTEGER},
       </if>
-      <if test="record.userId != null" >
+      <if test="record.userId != null">
         user_id = #{record.userId,jdbcType=INTEGER},
       </if>
-      <if test="record.enabled != null" >
+      <if test="record.enabled != null">
         enabled = #{record.enabled,jdbcType=BIT},
       </if>
-      <if test="record.hits != null" >
+      <if test="record.hits != null">
         hits = #{record.hits,jdbcType=INTEGER},
       </if>
-      <if test="record.replyCount != null" >
+      <if test="record.replyCount != null">
         reply_count = #{record.replyCount,jdbcType=INTEGER},
       </if>
-      <if test="record.modifiedBy != null" >
+      <if test="record.modifiedBy != null">
         modified_by = #{record.modifiedBy,jdbcType=INTEGER},
       </if>
-      <if test="record.modifiedOn != null" >
+      <if test="record.modifiedOn != null">
         modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.repliedBy != null" >
+      <if test="record.repliedBy != null">
         replied_by = #{record.repliedBy,jdbcType=INTEGER},
       </if>
-      <if test="record.repliedOn != null" >
+      <if test="record.repliedOn != null">
         replied_on = #{record.repliedOn,jdbcType=INTEGER},
       </if>
-      <if test="record.iconId != null" >
+      <if test="record.iconId != null">
         icon_id = #{record.iconId,jdbcType=INTEGER},
       </if>
-      <if test="record.state != null" >
+      <if test="record.state != null">
         state = #{record.state,jdbcType=INTEGER},
       </if>
-      <if test="record.imgUrl != null" >
+      <if test="record.imgUrl != null">
         img_url = #{record.imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="record.createdOn != null" >
+      <if test="record.createdOn != null">
         created_on = #{record.createdOn,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.content != null" >
+      <if test="record.content != null">
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
     </set>
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
+  <update id="updateByExampleWithBLOBs" parameterType="map">
     update bbs_topic
     set ID = #{record.id,jdbcType=INTEGER},
       category_id = #{record.categoryId,jdbcType=INTEGER},
@@ -336,11 +784,11 @@
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
       created_on = #{record.createdOn,jdbcType=TIMESTAMP},
       content = #{record.content,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByExample" parameterType="map" >
+  <update id="updateByExample" parameterType="map">
     update bbs_topic
     set ID = #{record.id,jdbcType=INTEGER},
       category_id = #{record.categoryId,jdbcType=INTEGER},
@@ -357,62 +805,62 @@
       state = #{record.state,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
       created_on = #{record.createdOn,jdbcType=TIMESTAMP}
-    <if test="_parameter != null" >
+    <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.bean.Topic" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.bean.Topic">
     update bbs_topic
-    <set >
-      <if test="categoryId != null" >
+    <set>
+      <if test="categoryId != null">
         category_id = #{categoryId,jdbcType=INTEGER},
       </if>
-      <if test="speciaId != null" >
+      <if test="speciaId != null">
         specia_id = #{speciaId,jdbcType=INTEGER},
       </if>
-      <if test="userId != null" >
+      <if test="userId != null">
         user_id = #{userId,jdbcType=INTEGER},
       </if>
-      <if test="enabled != null" >
+      <if test="enabled != null">
         enabled = #{enabled,jdbcType=BIT},
       </if>
-      <if test="hits != null" >
+      <if test="hits != null">
         hits = #{hits,jdbcType=INTEGER},
       </if>
-      <if test="replyCount != null" >
+      <if test="replyCount != null">
         reply_count = #{replyCount,jdbcType=INTEGER},
       </if>
-      <if test="modifiedBy != null" >
+      <if test="modifiedBy != null">
         modified_by = #{modifiedBy,jdbcType=INTEGER},
       </if>
-      <if test="modifiedOn != null" >
+      <if test="modifiedOn != null">
         modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
       </if>
-      <if test="repliedBy != null" >
+      <if test="repliedBy != null">
         replied_by = #{repliedBy,jdbcType=INTEGER},
       </if>
-      <if test="repliedOn != null" >
+      <if test="repliedOn != null">
         replied_on = #{repliedOn,jdbcType=INTEGER},
       </if>
-      <if test="iconId != null" >
+      <if test="iconId != null">
         icon_id = #{iconId,jdbcType=INTEGER},
       </if>
-      <if test="state != null" >
+      <if test="state != null">
         state = #{state,jdbcType=INTEGER},
       </if>
-      <if test="imgUrl != null" >
+      <if test="imgUrl != null">
         img_url = #{imgUrl,jdbcType=VARCHAR},
       </if>
-      <if test="createdOn != null" >
+      <if test="createdOn != null">
         created_on = #{createdOn,jdbcType=TIMESTAMP},
       </if>
-      <if test="content != null" >
+      <if test="content != null">
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
     </set>
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.bean.Topic" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.bean.Topic">
     update bbs_topic
     set category_id = #{categoryId,jdbcType=INTEGER},
       specia_id = #{speciaId,jdbcType=INTEGER},
@@ -431,7 +879,903 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.bean.Topic" >
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      specia_id = #{speciaId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BIT},
+      hits = #{hits,jdbcType=INTEGER},
+      reply_count = #{replyCount,jdbcType=INTEGER},
+      modified_by = #{modifiedBy,jdbcType=INTEGER},
+      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{repliedBy,jdbcType=INTEGER},
+      replied_on = #{repliedOn,jdbcType=INTEGER},
+      icon_id = #{iconId,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      created_on = #{createdOn,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.bean.Topic">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="specia_id" jdbcType="INTEGER" property="speciaId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="reply_count" jdbcType="INTEGER" property="replyCount" />
+    <result column="modified_by" jdbcType="INTEGER" property="modifiedBy" />
+    <result column="modified_on" jdbcType="TIMESTAMP" property="modifiedOn" />
+    <result column="replied_by" jdbcType="INTEGER" property="repliedBy" />
+    <result column="replied_on" jdbcType="INTEGER" property="repliedOn" />
+    <result column="icon_id" jdbcType="INTEGER" property="iconId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="created_on" jdbcType="TIMESTAMP" property="createdOn" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hannuus.gamble.bean.Topic">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, category_id, specia_id, user_id, enabled, hits, reply_count, modified_by, modified_on, 
+    replied_by, replied_on, icon_id, state, img_url, created_on
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart&gt;=0">
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_topic
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bbs_topic
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.bean.TopicExample">
+    delete from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bbs_topic (category_id, specia_id, user_id, 
+      enabled, hits, reply_count, 
+      modified_by, modified_on, replied_by, 
+      replied_on, icon_id, state, 
+      img_url, created_on, content
+      )
+    values (#{categoryId,jdbcType=INTEGER}, #{speciaId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{enabled,jdbcType=BIT}, #{hits,jdbcType=INTEGER}, #{replyCount,jdbcType=INTEGER}, 
+      #{modifiedBy,jdbcType=INTEGER}, #{modifiedOn,jdbcType=TIMESTAMP}, #{repliedBy,jdbcType=INTEGER}, 
+      #{repliedOn,jdbcType=INTEGER}, #{iconId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{createdOn,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bbs_topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="speciaId != null">
+        specia_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="replyCount != null">
+        reply_count,
+      </if>
+      <if test="modifiedBy != null">
+        modified_by,
+      </if>
+      <if test="modifiedOn != null">
+        modified_on,
+      </if>
+      <if test="repliedBy != null">
+        replied_by,
+      </if>
+      <if test="repliedOn != null">
+        replied_on,
+      </if>
+      <if test="iconId != null">
+        icon_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="createdOn != null">
+        created_on,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="speciaId != null">
+        #{speciaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="replyCount != null">
+        #{replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedBy != null">
+        #{modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedOn != null">
+        #{modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repliedBy != null">
+        #{repliedBy,jdbcType=INTEGER},
+      </if>
+      <if test="repliedOn != null">
+        #{repliedOn,jdbcType=INTEGER},
+      </if>
+      <if test="iconId != null">
+        #{iconId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultType="java.lang.Integer">
+    select count(*) from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bbs_topic
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.speciaId != null">
+        specia_id = #{record.speciaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+      <if test="record.hits != null">
+        hits = #{record.hits,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyCount != null">
+        reply_count = #{record.replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiedBy != null">
+        modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiedOn != null">
+        modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repliedBy != null">
+        replied_by = #{record.repliedBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.repliedOn != null">
+        replied_on = #{record.repliedOn,jdbcType=INTEGER},
+      </if>
+      <if test="record.iconId != null">
+        icon_id = #{record.iconId,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgUrl != null">
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdOn != null">
+        created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bbs_topic
+    set ID = #{record.id,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      specia_id = #{record.speciaId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=BIT},
+      hits = #{record.hits,jdbcType=INTEGER},
+      reply_count = #{record.replyCount,jdbcType=INTEGER},
+      modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{record.repliedBy,jdbcType=INTEGER},
+      replied_on = #{record.repliedOn,jdbcType=INTEGER},
+      icon_id = #{record.iconId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bbs_topic
+    set ID = #{record.id,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      specia_id = #{record.speciaId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=BIT},
+      hits = #{record.hits,jdbcType=INTEGER},
+      reply_count = #{record.replyCount,jdbcType=INTEGER},
+      modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{record.repliedBy,jdbcType=INTEGER},
+      replied_on = #{record.repliedOn,jdbcType=INTEGER},
+      icon_id = #{record.iconId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      created_on = #{record.createdOn,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    <set>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="speciaId != null">
+        specia_id = #{speciaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="replyCount != null">
+        reply_count = #{replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedBy != null">
+        modified_by = #{modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedOn != null">
+        modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repliedBy != null">
+        replied_by = #{repliedBy,jdbcType=INTEGER},
+      </if>
+      <if test="repliedOn != null">
+        replied_on = #{repliedOn,jdbcType=INTEGER},
+      </if>
+      <if test="iconId != null">
+        icon_id = #{iconId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        created_on = #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      specia_id = #{speciaId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BIT},
+      hits = #{hits,jdbcType=INTEGER},
+      reply_count = #{replyCount,jdbcType=INTEGER},
+      modified_by = #{modifiedBy,jdbcType=INTEGER},
+      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{repliedBy,jdbcType=INTEGER},
+      replied_on = #{repliedOn,jdbcType=INTEGER},
+      icon_id = #{iconId,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      created_on = #{createdOn,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      specia_id = #{speciaId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BIT},
+      hits = #{hits,jdbcType=INTEGER},
+      reply_count = #{replyCount,jdbcType=INTEGER},
+      modified_by = #{modifiedBy,jdbcType=INTEGER},
+      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{repliedBy,jdbcType=INTEGER},
+      replied_on = #{repliedOn,jdbcType=INTEGER},
+      icon_id = #{iconId,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      created_on = #{createdOn,jdbcType=TIMESTAMP}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.bean.Topic">
+    <id column="ID" jdbcType="INTEGER" property="id" />
+    <result column="category_id" jdbcType="INTEGER" property="categoryId" />
+    <result column="specia_id" jdbcType="INTEGER" property="speciaId" />
+    <result column="user_id" jdbcType="INTEGER" property="userId" />
+    <result column="enabled" jdbcType="BIT" property="enabled" />
+    <result column="hits" jdbcType="INTEGER" property="hits" />
+    <result column="reply_count" jdbcType="INTEGER" property="replyCount" />
+    <result column="modified_by" jdbcType="INTEGER" property="modifiedBy" />
+    <result column="modified_on" jdbcType="TIMESTAMP" property="modifiedOn" />
+    <result column="replied_by" jdbcType="INTEGER" property="repliedBy" />
+    <result column="replied_on" jdbcType="INTEGER" property="repliedOn" />
+    <result column="icon_id" jdbcType="INTEGER" property="iconId" />
+    <result column="state" jdbcType="INTEGER" property="state" />
+    <result column="img_url" jdbcType="VARCHAR" property="imgUrl" />
+    <result column="created_on" jdbcType="TIMESTAMP" property="createdOn" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.hannuus.gamble.bean.Topic">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    ID, category_id, specia_id, user_id, enabled, hits, reply_count, modified_by, modified_on, 
+    replied_by, replied_on, icon_id, state, img_url, created_on
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart&gt;=0">
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from bbs_topic
+    where ID = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from bbs_topic
+    where ID = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.bean.TopicExample">
+    delete from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bbs_topic (category_id, specia_id, user_id, 
+      enabled, hits, reply_count, 
+      modified_by, modified_on, replied_by, 
+      replied_on, icon_id, state, 
+      img_url, created_on, content
+      )
+    values (#{categoryId,jdbcType=INTEGER}, #{speciaId,jdbcType=INTEGER}, #{userId,jdbcType=INTEGER}, 
+      #{enabled,jdbcType=BIT}, #{hits,jdbcType=INTEGER}, #{replyCount,jdbcType=INTEGER}, 
+      #{modifiedBy,jdbcType=INTEGER}, #{modifiedOn,jdbcType=TIMESTAMP}, #{repliedBy,jdbcType=INTEGER}, 
+      #{repliedOn,jdbcType=INTEGER}, #{iconId,jdbcType=INTEGER}, #{state,jdbcType=INTEGER}, 
+      #{imgUrl,jdbcType=VARCHAR}, #{createdOn,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.Topic">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into bbs_topic
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        category_id,
+      </if>
+      <if test="speciaId != null">
+        specia_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="enabled != null">
+        enabled,
+      </if>
+      <if test="hits != null">
+        hits,
+      </if>
+      <if test="replyCount != null">
+        reply_count,
+      </if>
+      <if test="modifiedBy != null">
+        modified_by,
+      </if>
+      <if test="modifiedOn != null">
+        modified_on,
+      </if>
+      <if test="repliedBy != null">
+        replied_by,
+      </if>
+      <if test="repliedOn != null">
+        replied_on,
+      </if>
+      <if test="iconId != null">
+        icon_id,
+      </if>
+      <if test="state != null">
+        state,
+      </if>
+      <if test="imgUrl != null">
+        img_url,
+      </if>
+      <if test="createdOn != null">
+        created_on,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="categoryId != null">
+        #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="speciaId != null">
+        #{speciaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        #{enabled,jdbcType=BIT},
+      </if>
+      <if test="hits != null">
+        #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="replyCount != null">
+        #{replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedBy != null">
+        #{modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedOn != null">
+        #{modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repliedBy != null">
+        #{repliedBy,jdbcType=INTEGER},
+      </if>
+      <if test="repliedOn != null">
+        #{repliedOn,jdbcType=INTEGER},
+      </if>
+      <if test="iconId != null">
+        #{iconId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hannuus.gamble.bean.TopicExample" resultType="java.lang.Integer">
+    select count(*) from bbs_topic
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update bbs_topic
+    <set>
+      <if test="record.id != null">
+        ID = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.categoryId != null">
+        category_id = #{record.categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="record.speciaId != null">
+        specia_id = #{record.speciaId,jdbcType=INTEGER},
+      </if>
+      <if test="record.userId != null">
+        user_id = #{record.userId,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null">
+        enabled = #{record.enabled,jdbcType=BIT},
+      </if>
+      <if test="record.hits != null">
+        hits = #{record.hits,jdbcType=INTEGER},
+      </if>
+      <if test="record.replyCount != null">
+        reply_count = #{record.replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiedBy != null">
+        modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.modifiedOn != null">
+        modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.repliedBy != null">
+        replied_by = #{record.repliedBy,jdbcType=INTEGER},
+      </if>
+      <if test="record.repliedOn != null">
+        replied_on = #{record.repliedOn,jdbcType=INTEGER},
+      </if>
+      <if test="record.iconId != null">
+        icon_id = #{record.iconId,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null">
+        state = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.imgUrl != null">
+        img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdOn != null">
+        created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update bbs_topic
+    set ID = #{record.id,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      specia_id = #{record.speciaId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=BIT},
+      hits = #{record.hits,jdbcType=INTEGER},
+      reply_count = #{record.replyCount,jdbcType=INTEGER},
+      modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{record.repliedBy,jdbcType=INTEGER},
+      replied_on = #{record.repliedOn,jdbcType=INTEGER},
+      icon_id = #{record.iconId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update bbs_topic
+    set ID = #{record.id,jdbcType=INTEGER},
+      category_id = #{record.categoryId,jdbcType=INTEGER},
+      specia_id = #{record.speciaId,jdbcType=INTEGER},
+      user_id = #{record.userId,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=BIT},
+      hits = #{record.hits,jdbcType=INTEGER},
+      reply_count = #{record.replyCount,jdbcType=INTEGER},
+      modified_by = #{record.modifiedBy,jdbcType=INTEGER},
+      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{record.repliedBy,jdbcType=INTEGER},
+      replied_on = #{record.repliedOn,jdbcType=INTEGER},
+      icon_id = #{record.iconId,jdbcType=INTEGER},
+      state = #{record.state,jdbcType=INTEGER},
+      img_url = #{record.imgUrl,jdbcType=VARCHAR},
+      created_on = #{record.createdOn,jdbcType=TIMESTAMP}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    <set>
+      <if test="categoryId != null">
+        category_id = #{categoryId,jdbcType=INTEGER},
+      </if>
+      <if test="speciaId != null">
+        specia_id = #{speciaId,jdbcType=INTEGER},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null">
+        enabled = #{enabled,jdbcType=BIT},
+      </if>
+      <if test="hits != null">
+        hits = #{hits,jdbcType=INTEGER},
+      </if>
+      <if test="replyCount != null">
+        reply_count = #{replyCount,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedBy != null">
+        modified_by = #{modifiedBy,jdbcType=INTEGER},
+      </if>
+      <if test="modifiedOn != null">
+        modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="repliedBy != null">
+        replied_by = #{repliedBy,jdbcType=INTEGER},
+      </if>
+      <if test="repliedOn != null">
+        replied_on = #{repliedOn,jdbcType=INTEGER},
+      </if>
+      <if test="iconId != null">
+        icon_id = #{iconId,jdbcType=INTEGER},
+      </if>
+      <if test="state != null">
+        state = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="imgUrl != null">
+        img_url = #{imgUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="createdOn != null">
+        created_on = #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.bean.Topic">
+    update bbs_topic
+    set category_id = #{categoryId,jdbcType=INTEGER},
+      specia_id = #{speciaId,jdbcType=INTEGER},
+      user_id = #{userId,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=BIT},
+      hits = #{hits,jdbcType=INTEGER},
+      reply_count = #{replyCount,jdbcType=INTEGER},
+      modified_by = #{modifiedBy,jdbcType=INTEGER},
+      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      replied_by = #{repliedBy,jdbcType=INTEGER},
+      replied_on = #{repliedOn,jdbcType=INTEGER},
+      icon_id = #{iconId,jdbcType=INTEGER},
+      state = #{state,jdbcType=INTEGER},
+      img_url = #{imgUrl,jdbcType=VARCHAR},
+      created_on = #{createdOn,jdbcType=TIMESTAMP},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where ID = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.bean.Topic">
     update bbs_topic
     set category_id = #{categoryId,jdbcType=INTEGER},
       specia_id = #{speciaId,jdbcType=INTEGER},
