@@ -4,6 +4,7 @@ import java.util.Date;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
+import com.hannuus.gamble.vo.serializer.BooleanSerializer;
 import com.hannuus.gamble.vo.serializer.DateSerializer;
 import com.hannuus.gamble.vo.serializer.IntegerSerializer;
 import com.hannuus.gamble.vo.serializer.LongSerializer;
@@ -21,7 +22,7 @@ public class Topic {
 	@JsonSerialize(using=LongSerializer.class)
     private Long userId;
 	
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=BooleanSerializer.class)
     private Boolean enabled;
 
 	@JsonSerialize(using=LongSerializer.class)

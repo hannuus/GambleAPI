@@ -2,6 +2,7 @@ package com.hannuus.gamble.vo;
 
 //import java.util.HashMap;
 
+import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 //import com.hannuus.gamble.comm.JSONStatus;
@@ -11,10 +12,13 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class JsonVo<T> {
 	
+	@JsonProperty("ERRCODE")
 	private String errcode;
 	
+	@JsonProperty("ERRMSG")
 	private String errmsg;
 	
+	@JsonProperty("STATUS")
 	private String status;
 
 	/**
@@ -25,6 +29,7 @@ public class JsonVo<T> {
 	/**
 	 * 返回的数据
 	 */
+	@JsonProperty("RESULT")
 	private T result;
 
 	public String getErrcode() {
