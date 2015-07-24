@@ -195,13 +195,6 @@
             <tx:method name="insert*" propagation="REQUIRED" rollback-for="Exception" />
             <tx:method name="update*" propagation="REQUIRED" rollback-for="Exception" />
             <tx:method name="delete*" propagation="REQUIRED" rollback-for="Exception" />
-            <tx:method name="createOrder" propagation="REQUIRED" rollback-for="Exception" />
-            <tx:method name="shipmentOrder" propagation="REQUIRED" rollback-for="Exception" />
-            <tx:method name="createPayDetail" propagation="REQUIRED" rollback-for="Exception" />
-            <tx:method name="payOrderSucc" propagation="REQUIRED" rollback-for="Exception" />
-            <tx:method name="confirmReceiptOrder" propagation="REQUIRED" rollback-for="Exception" />
-            <tx:method name="doReturndOrder" propagation="REQUIRED" rollback-for="Exception" />
-            <tx:method name="returndOrderSuccess" propagation="REQUIRED" rollback-for="Exception" />
         </tx:attributes>
     </tx:advice>
     <!-- 配置事务的切入点 -->

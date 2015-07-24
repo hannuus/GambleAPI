@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.bean.TopicExample;
+import com.hannuus.gamble.comm.SystemConstants;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.web.service.ITopicService;
 
@@ -17,37 +18,35 @@ public class TopicServiceImpl implements ITopicService {
 	TopicMapper topicMapper;
 	
 	@Override
-	public boolean create(Topic topic) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean addTopic(Topic topic) {
+		return topicMapper.insert(topic) > 0;
 	}
 
 	@Override
-	public boolean update(Topic topic) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean updateTopic(Topic topic) {
+		return topicMapper.updateByPrimaryKeySelective(topic) > 0;
 	}
 
 	@Override
-	public boolean delete(Long topicId) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean deleteTopic(Long topicId) {
+		return updateTopicState(topicId, -1);
 	}
 
 	@Override
 	public boolean updateTopicState(Long topicId, int state) {
-		// TODO Auto-generated method stub
-		return false;
+		Topic topic = new Topic();
+		topic.setId(topicId);
+		topic.setState(state);
+		return topicMapper.updateByPrimaryKeySelective(topic) > 0;
 	}
 
 	@Override
 	public Topic findById(Long topicId) {
-		// TODO Auto-generated method stub
-		return null;
+		return topicMapper.selectByPrimaryKey(topicId);
 	}
 
 	@Override
-	public List<Topic> findByCategoryID(Long categoryId) {
+	public List<Topic> findByCategoryId(Long categoryId) {
 		TopicExample example = new TopicExample();
 		example.createCriteria().andCategoryIdEqualTo(categoryId);
 		return topicMapper.selectByExample(example);
@@ -55,22 +54,33 @@ public class TopicServiceImpl implements ITopicService {
 
 	@Override
 	public List<Topic> findBySpeciaId(Long speciaId) {
-		// TODO Auto-generated method stub
-		return null;
+		TopicExample example = new TopicExample();
+		example.createCriteria().andSpeciaIdEqualTo(speciaId);
+		return topicMapper.selectByExample(example);
 	}
 
 	@Override
 	public List<Topic> findCategoryTopicsByPage(Long categoryId,
-			int startIndex, int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+			int pageNumber, int pageSize) {
+		TopicExample example = new TopicExample();
+		int pageIndex = 0;
+		pageIndex = (pageNumber - 1) * SystemConstants.DEFAULT_PAGE_SIZE;
+		example.setLimitStart(pageIndex);
+		example.setLimitEnd(pageSize);
+		example.createCriteria().andCategoryIdEqualTo(categoryId);
+		return topicMapper.selectByExample(example);
 	}
 
 	@Override
-	public List<Topic> findSpeciaTopicsByPage(Long speciaId, int startIndex,
+	public List<Topic> findSpeciaTopicsByPage(Long speciaId, int pageNumber,
 			int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		TopicExample example = new TopicExample();
+		int pageIndex = 0;
+		pageIndex = (pageNumber - 1) * SystemConstants.DEFAULT_PAGE_SIZE;
+		example.setLimitStart(pageIndex);
+		example.setLimitEnd(pageSize);
+		example.createCriteria().andSpeciaIdEqualTo(speciaId);
+		return topicMapper.selectByExample(example);
 	}
 
 }

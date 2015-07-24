@@ -1,4 +1,4 @@
-package com.hannuus.gamble.web.constant;
+package com.hannuus.gamble.comm;
 
 import com.hannuus.gamble.utils.PropertyUtils;
 
@@ -6,7 +6,7 @@ import com.hannuus.gamble.utils.PropertyUtils;
  * System constant
  * 
  */
-public class SystemConstant {
+public class SystemConstants {
 
 	/**
 	 * deployment root
@@ -17,6 +17,11 @@ public class SystemConstant {
 	 * upload folder
 	 */
 	public static String UPLOAD_FOLDER = "upload/";
+	
+	/**
+	 * user logo folder
+	 */
+	public static String UPLOAD_FOLDER_USER_LOGO = "upload/logo";
 	/**
 	 * upload admin folder
 	 */
@@ -38,5 +43,7 @@ public class SystemConstant {
 	public static final String USER_KEY = "user_key";
 	
 	public static final String ADMIN_USER_KEY = "admin_user_key";
+
+	public static final int DEFAULT_PAGE_SIZE = 12;
 
 }

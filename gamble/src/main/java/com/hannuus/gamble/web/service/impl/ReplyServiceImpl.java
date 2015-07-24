@@ -5,10 +5,10 @@ import java.util.List;
 import com.hannuus.gamble.bean.Reply;
 import com.hannuus.gamble.web.service.IReplyService;
 
-public class IReplyServiceImpl implements IReplyService{
+public class ReplyServiceImpl implements IReplyService{
 
 	@Override
-	public boolean AddReply(Reply reply) {
+	public boolean addReply(Reply reply) {
 		// TODO Auto-generated method stub
 		return false;
 	}
@@ -26,7 +26,7 @@ public class IReplyServiceImpl implements IReplyService{
 	}
 
 	@Override
-	public List<Reply> findReplysByPage(Long topicId, int startIndex,
+	public List<Reply> findReplysByPage(Long topicId, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
@@ -39,7 +39,7 @@ public class IReplyServiceImpl implements IReplyService{
 	}
 
 	@Override
-	public List<Reply> findChildReplyByPage(Long replyId, int startIndex,
+	public List<Reply> findChildReplyByPage(Long replyId, int pageNumber,
 			int pageSize) {
 		// TODO Auto-generated method stub
 		return null;

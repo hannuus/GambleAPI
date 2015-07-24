@@ -11,21 +11,21 @@ public interface ITopicService {
 	 * @param topic
 	 * @return created or not
 	 */
-	boolean create(Topic topic);
+	boolean addTopic(Topic topic);
 	
 	/**
 	 * 更新帖子
 	 * @param topic
 	 * @return updated or not
 	 */
-	boolean update(Topic topic);
+	boolean updateTopic(Topic topic);
 	
 	/**
 	 * 删除帖子, 不物理删除, 将状态设置为-1(will delete)
 	 * @param topicId
 	 * @return deleted or not
 	 */
-	boolean delete(Long topicId);
+	boolean deleteTopic(Long topicId);
 	
 	/**
 	 * 更新帖子的状态
@@ -47,7 +47,7 @@ public interface ITopicService {
 	 * @param categoryId
 	 * @return Topic list
 	 */
-	List<Topic> findByCategoryID(Long categoryId);
+	List<Topic> findByCategoryId(Long categoryId);
 	
 	/**
 	 * 分页查询分类下的帖子

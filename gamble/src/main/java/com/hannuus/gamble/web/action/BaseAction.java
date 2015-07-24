@@ -4,6 +4,7 @@ import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
@@ -13,7 +14,7 @@ import com.hannuus.gamble.web.exception.GambleException;
 
 public class BaseAction {
 	
-	
+	private Logger logger = Logger.getLogger(getClass());
 	/**
 	 *  validate the API path is invalid</br>
 	 *  validate access token</br>
@@ -37,6 +38,36 @@ public class BaseAction {
 	protected String getReqParam(String key) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		return request.getParameter(key);
+	}
+	
+	protected Long getLongReqParam(String key, Long defaultValue) {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		try {
+			return Long.valueOf(request.getParameter(key));
+		} catch (Exception e) {
+			logger.error(e);
+			return defaultValue;
+		}
+	}
+	
+	protected Integer getIntegerReqParam(String key, Integer defaultValue) {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		try {
+			return Integer.valueOf(request.getParameter(key));
+		} catch (Exception e) {
+			logger.error(e);
+			return defaultValue;
+		}
+	}
+	
+	protected Double getDoubleReqParam(String key, Double defaultValue) {
+		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
+		try {
+			return Double.valueOf(request.getParameter(key));
+		} catch (Exception e) {
+			logger.error(e);
+			return defaultValue;
+		}
 	}
 	
 	protected void setSession(String key, Object value) {

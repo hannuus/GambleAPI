@@ -29,21 +29,20 @@ import com.hannuus.gamble.web.service.ITopicService;
 @RequestMapping("/topic")
 public class TopicAction extends BaseAction {
 	
-	
 	@Autowired
 	ITopicService topicService;
 	
 	private static final Logger logger = Logger.getLogger(TopicAction.class);
 
 	@ResponseBody
-	@RequestMapping(value = "/listByCategoryID.json", method = {RequestMethod.GET})
+	@RequestMapping(value = "/listByCategoryId.json", method = {RequestMethod.GET})
 	public JsonVo<List<Topic>> listByCategory(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
 			validate(request);
 			// TODO validate arguments
 			// TODO do the service logic
-			List<Topic> list = topicService.findByCategoryID(Long.valueOf(getReqParam("categoryId")));
+			List<Topic> list = topicService.findByCategoryId(getLongReqParam("categoryId", 0L));
 			if (CollectionUtils.isNotEmpty(list)) {
 				json.setResult(list);
 				json.setStatus(JsonResultStatus.Success.getValue());
@@ -75,7 +74,7 @@ public class TopicAction extends BaseAction {
 				throw new ArgumentsIncorrectException();
 			}
 			// TODO do the service logic
-			if(topicService.create(topic)) {
+			if(topicService.addTopic(topic)) {
 				json.setStatus(JsonResultStatus.Success.getValue());
 			} else {
 				json.setStatus(JsonResultStatus.Failed.getValue());

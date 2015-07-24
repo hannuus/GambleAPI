@@ -11,7 +11,7 @@ public interface IReplyService {
 	 * @param comment
 	 * @return
 	 */
-	boolean AddReply(Reply reply);
+	boolean addReply(Reply reply);
 	
 	/**
 	 * 删除一条评论, 不物理删除, 修改评论的状态为-1
@@ -30,11 +30,11 @@ public interface IReplyService {
 	/**
 	 * 分页查询一个主题的评论
 	 * @param topicId
-	 * @param startIndex
+	 * @param pageNUmber
 	 * @param pageSize
 	 * @return
 	 */
-	List<Reply> findReplysByPage(Long topicId, int startIndex, int pageSize);
+	List<Reply> findReplysByPage(Long topicId, int pageNUmber, int pageSize);
 	
 	/***
 	 * 获取回复, 即获取子评论
@@ -46,9 +46,9 @@ public interface IReplyService {
 	/**
 	 * 分页获取子评论
 	 * @param replyId
-	 * @param startIndex
+	 * @param pageNumber
 	 * @param pageSize
 	 * @return
 	 */
-	List<Reply> findChildReplyByPage(Long replyId, int startIndex, int pageSize);
+	List<Reply> findChildReplyByPage(Long replyId, int pageNumber, int pageSize);
 }

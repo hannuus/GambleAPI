@@ -4,7 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.lang3.StringUtils;
 
-import com.hannuus.gamble.web.constant.SystemConstant;
+import com.hannuus.gamble.comm.SystemConstants;
 
 
 public class HttpUtils {
@@ -68,6 +68,6 @@ public class HttpUtils {
 	 * @return
 	 */
 	public static String getRealPath() {
-		return SystemConstant.ESQUIFY_WEB_ROOT;
+		return SystemConstants.ESQUIFY_WEB_ROOT;
 	}
 }
