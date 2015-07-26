@@ -57,4 +57,20 @@ public interface IUserRelationService {
 	 * @return
 	 */
 	UserRelation findById(Long relationId);
+	
+	/**
+	 * 添加关注
+	 * @param fromId
+	 * @param toid
+	 * @return
+	 */
+	boolean addFollow(Long fromId, Long toId);
+	
+	/**
+	 * 取消关注
+	 * @param fromId
+	 * @param toId
+	 * @return
+	 */
+	boolean cancelFollow(Long fromId, Long toId);
 }
