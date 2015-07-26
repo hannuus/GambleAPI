@@ -62,6 +62,50 @@ CREATE TABLE `bbs_topic` (
 
 insert  into `bbs_topic`(`ID`,`category_id`,`specia_id`,`content`,`user_id`,`enabled`,`hits`,`reply_count`,`modified_by`,`modified_on`,`replied_by`,`replied_on`,`icon_id`,`state`,`img_url`,`created_on`) values (1,1,2,NULL,1,'',1,1,1,'0000-00-00 00:00:00',1,0,NULL,NULL,NULL,NULL);
 
+/*Table structure for table `bbs_user` */
+
+DROP TABLE IF EXISTS `bbs_user`;
+
+CREATE TABLE `bbs_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'ID标识',
+  `user_name` varchar(100) DEFAULT NULL COMMENT '域名名称,唯一值[用户名]',
+  `nick_name` varchar(100) DEFAULT NULL COMMENT '昵称',
+  `password` varchar(100) DEFAULT NULL COMMENT '密码',
+  `email` varchar(100) DEFAULT NULL COMMENT 'Email',
+  `head_url` varchar(100) DEFAULT NULL COMMENT '用户头像',
+  `introduction` varchar(800) DEFAULT NULL COMMENT '自我介绍',
+  `signature` varchar(4000) DEFAULT NULL COMMENT '个性签名',
+  `topic_count` int(11) DEFAULT NULL COMMENT '发贴数',
+  `reply_count` int(11) DEFAULT NULL COMMENT '帖子回复数',
+  `best_topic_count` int(11) DEFAULT NULL COMMENT '精华贴子数',
+  `last_topic_id` bigint(20) DEFAULT NULL COMMENT '最后发贴ID',
+  `last_reply_id` bigint(20) DEFAULT NULL COMMENT '最后回复贴ID',
+  `amount` bigint(20) DEFAULT NULL COMMENT '积分',
+  `state` int(1) DEFAULT NULL COMMENT '用户状态',
+  `created_on` datetime DEFAULT NULL COMMENT '创建时间',
+  `fans_count` int(11) DEFAULT NULL COMMENT '粉丝数量',
+  `follow_count` int(11) DEFAULT NULL COMMENT '关注对象数量',
+  `mobile` bigint(20) DEFAULT NULL COMMENT '手机号码',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `bbs_user` */
+
+/*Table structure for table `bbs_user_relation` */
+
+DROP TABLE IF EXISTS `bbs_user_relation`;
+
+CREATE TABLE `bbs_user_relation` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户关系ID',
+  `create_time` datetime DEFAULT NULL COMMENT '创建时间',
+  `relation_type` int(11) DEFAULT NULL COMMENT '关系类型, 0关注, 1收藏',
+  `from_id` bigint(20) DEFAULT NULL COMMENT '用户ID',
+  `to_id` bigint(20) DEFAULT NULL COMMENT '被关联用户ID',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+/*Data for the table `bbs_user_relation` */
+
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
 /*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;

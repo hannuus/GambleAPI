@@ -9,6 +9,7 @@ import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.bean.TopicExample;
 import com.hannuus.gamble.comm.SystemConstants;
 import com.hannuus.gamble.dao.TopicMapper;
+import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 import com.hannuus.gamble.web.service.ITopicService;
 
 @Service
@@ -81,6 +82,13 @@ public class TopicServiceImpl implements ITopicService {
 		example.setLimitEnd(pageSize);
 		example.createCriteria().andSpeciaIdEqualTo(speciaId);
 		return topicMapper.selectByExample(example);
+	}
+
+	@Override
+	public List<Topic> searchByPage(SearchTopicParamDTO dto, int pageNumber,
+			int pageSize) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

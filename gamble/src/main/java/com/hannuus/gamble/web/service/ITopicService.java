@@ -3,6 +3,7 @@ package com.hannuus.gamble.web.service;
 import java.util.List;
 
 import com.hannuus.gamble.bean.Topic;
+import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 
 public interface ITopicService {
 	
@@ -56,7 +57,7 @@ public interface ITopicService {
 	 * @param pageIndex
 	 * @return
 	 */
-	List<Topic> findCategoryTopicsByPage(Long categoryId, int startIndex, int pageSize);
+	List<Topic> findCategoryTopicsByPage(Long categoryId, int pageNumber, int pageSize);
 	
 	/**
 	 * 根据专题ID查询
@@ -72,5 +73,14 @@ public interface ITopicService {
 	 * @param pageSize
 	 * @return
 	 */
-	List<Topic> findSpeciaTopicsByPage(Long speciaId, int startIndex, int pageSize);
+	List<Topic> findSpeciaTopicsByPage(Long speciaId, int pageNumber, int pageSize);
+	
+	/**
+	 * 搜索（查询热门词汇、tags；据作者、标题、内容搜索）
+	 * @param dto
+	 * @param pageNumber
+	 * @param pageSize
+	 * @return
+	 */
+	List<Topic> searchByPage(SearchTopicParamDTO dto, int pageNumber, int pageSize);
 }
