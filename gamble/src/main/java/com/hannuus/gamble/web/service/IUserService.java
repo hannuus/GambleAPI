@@ -87,18 +87,20 @@ public interface IUserService {
 	/**
 	 * 绑定邮箱
 	 * @param userId
-	 * @param emai
+	 * @param email
+	 * @param code 验证码
 	 * @return
 	 */
-	boolean bindEmail(Long userId, String emai);
+	boolean bindEmail(Long userId, String email, String code);
 	
 	/**
 	 * 绑定手机
 	 * @param userId
 	 * @param mobile
+	 * @param code 验证码
 	 * @return
 	 */
-	boolean bindMobile(Long userId, Long mobile);
+	boolean bindMobile(Long userId, Long mobile, String code);
 	
 	/**
 	 * 更新积分, 如果amount为负数, 即为扣除积分

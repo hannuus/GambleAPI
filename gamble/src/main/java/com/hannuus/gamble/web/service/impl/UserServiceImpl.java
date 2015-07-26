@@ -70,18 +70,6 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public boolean bindEmail(Long userId, String emai) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public boolean bindMobile(Long userId, Long mobile) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
 	public boolean updateUserAmount(Long userId, int amount) {
 		// TODO Auto-generated method stub
 		return false;
@@ -95,6 +83,18 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public boolean isLock(Long userId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean bindEmail(Long userId, String email, String code) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean bindMobile(Long userId, Long mobile, String code) {
 		// TODO Auto-generated method stub
 		return false;
 	}
