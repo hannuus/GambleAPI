@@ -67,10 +67,28 @@ public interface IUserRelationService {
 	boolean addFollow(Long fromId, Long toId);
 	
 	/**
+	 * 批量添加关注
+	 * @param fromId
+	 * @param toIds
+	 * @return
+	 */
+	boolean addFollows(Long fromId, List<Long> toIds);
+	
+	/**
 	 * 取消关注
 	 * @param fromId
 	 * @param toId
 	 * @return
 	 */
 	boolean cancelFollow(Long fromId, Long toId);
+	
+	/**
+	 * 批量取消关注
+	 * @param fromId
+	 * @param toIds
+	 * @return
+	 */
+	boolean cancelFollows(Long fromId, List<Long> toIds);
+	
+	
 }

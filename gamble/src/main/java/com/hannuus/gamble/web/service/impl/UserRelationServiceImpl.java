@@ -53,4 +53,28 @@ public class UserRelationServiceImpl implements IUserRelationService {
 		return null;
 	}
 
+	@Override
+	public boolean addFollow(Long fromId, Long toId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean cancelFollow(Long fromId, Long toId) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean cancelFollows(Long fromId, List<Long> toIds) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean addFollows(Long fromId, List<Long> toIds) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }
