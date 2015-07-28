@@ -45,7 +45,7 @@ public interface IUserRelationService {
 	boolean deleteUserRelation(Long relationId);
 	
 	/**
-	 * 更新用户关系
+	 * 更新用户关系, 应该不需要此接口
 	 * @param userRelation
 	 * @return
 	 */
@@ -56,7 +56,7 @@ public interface IUserRelationService {
 	 * @param relationId
 	 * @return
 	 */
-	UserRelation findById(Long relationId);
+	UserRelation findRelationById(Long relationId);
 	
 	/**
 	 * 添加关注

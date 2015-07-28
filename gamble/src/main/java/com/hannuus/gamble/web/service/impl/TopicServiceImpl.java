@@ -42,19 +42,19 @@ public class TopicServiceImpl implements ITopicService {
 	}
 
 	@Override
-	public Topic findById(Long topicId) {
+	public Topic findTopicsById(Long topicId) {
 		return topicMapper.selectByPrimaryKey(topicId);
 	}
 
 	@Override
-	public List<Topic> findByCategoryId(Long categoryId) {
+	public List<Topic> findTopicsByCategoryId(Long categoryId) {
 		TopicExample example = new TopicExample();
 		example.createCriteria().andCategoryIdEqualTo(categoryId);
 		return topicMapper.selectByExample(example);
 	}
 
 	@Override
-	public List<Topic> findBySpeciaId(Long speciaId) {
+	public List<Topic> findTopicsBySpeciaId(Long speciaId) {
 		TopicExample example = new TopicExample();
 		example.createCriteria().andSpeciaIdEqualTo(speciaId);
 		return topicMapper.selectByExample(example);

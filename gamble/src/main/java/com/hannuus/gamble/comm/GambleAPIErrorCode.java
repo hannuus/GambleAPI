@@ -1,5 +1,10 @@
 package com.hannuus.gamble.comm;
 
+/**
+ * all error code message shows in http://localhost:8080/gamble/api/docs/errorCodes
+ * @author aelns
+ *
+ */
 public enum GambleAPIErrorCode {
 	
 	ArgumentsIncorrect("10001", "参数不正确"),

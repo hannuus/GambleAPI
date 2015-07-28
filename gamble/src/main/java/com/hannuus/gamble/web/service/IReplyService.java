@@ -21,11 +21,18 @@ public interface IReplyService {
 	boolean deleteReply(Long replyId);
 	
 	/**
+	 * 更新评论
+	 * @param reply
+	 * @return
+	 */
+	boolean updateReply(Reply reply);
+	
+	/**
 	 * 查询一个主题的所有评论
 	 * @param topicId
 	 * @return
 	 */
-	List<Reply> findByTopicId(Long topicId);
+	List<Reply> findReplysByTopicId(Long topicId);
 	
 	/**
 	 * 分页查询一个主题的评论

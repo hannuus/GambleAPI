@@ -48,7 +48,7 @@ public class UserRelationServiceImpl implements IUserRelationService {
 	}
 
 	@Override
-	public UserRelation findById(Long relationId) {
+	public UserRelation findRelationById(Long relationId) {
 		// TODO Auto-generated method stub
 		return null;
 	}

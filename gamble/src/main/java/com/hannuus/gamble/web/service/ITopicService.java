@@ -41,14 +41,14 @@ public interface ITopicService {
 	 * @param topicId
 	 * @return The Topic
 	 */
-	Topic findById(Long topicId);
+	Topic findTopicsById(Long topicId);
 	
 	/**
 	 *  根据分类ID查询帖子
 	 * @param categoryId
 	 * @return Topic list
 	 */
-	List<Topic> findByCategoryId(Long categoryId);
+	List<Topic> findTopicsByCategoryId(Long categoryId);
 	
 	/**
 	 * 分页查询分类下的帖子
@@ -64,7 +64,7 @@ public interface ITopicService {
 	 * @param speciaId
 	 * @return Topic list
 	 */
-	List<Topic> findBySpeciaId(Long speciaId);
+	List<Topic> findTopicsBySpeciaId(Long speciaId);
 	
 	/**
 	 * 分页查询专题下的帖子

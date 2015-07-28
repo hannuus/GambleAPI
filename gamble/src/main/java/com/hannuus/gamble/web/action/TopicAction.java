@@ -42,7 +42,7 @@ public class TopicAction extends BaseAction {
 			validate(request);
 			// TODO validate arguments
 			// TODO do the service logic
-			List<Topic> list = topicService.findByCategoryId(getLongReqParam("categoryId", 0L));
+			List<Topic> list = topicService.findTopicsByCategoryId(getLongReqParam("categoryId", 0L));
 			if (CollectionUtils.isNotEmpty(list)) {
 				json.setResult(list);
 				json.setStatus(JsonResultStatus.Success.getValue());

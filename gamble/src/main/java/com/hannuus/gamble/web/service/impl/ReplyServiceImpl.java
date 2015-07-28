@@ -20,7 +20,7 @@ public class ReplyServiceImpl implements IReplyService{
 	}
 
 	@Override
-	public List<Reply> findByTopicId(Long topicId) {
+	public List<Reply> findReplysByTopicId(Long topicId) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -43,6 +43,12 @@ public class ReplyServiceImpl implements IReplyService{
 			int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public boolean updateReply(Reply reply) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 }
