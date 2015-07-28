@@ -12,9 +12,9 @@ import java.security.NoSuchAlgorithmException;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-public class MD5Util {
+public class MD5Utils {
 	
-	private static final Logger logger = LogManager.getLogger(MD5Util.class);
+	private static final Logger logger = LogManager.getLogger(MD5Utils.class);
 	
 	/**
 	 * 默认的密码字符串组合，用来将字节转换成 16 进制表示的字符
@@ -85,7 +85,7 @@ public class MD5Util {
             while ((len = inputStream.read(bytes)) > 0) {  
                 messagedigest.update(bytes, 0, len);  
             }  
-            name = MD5Util.bufferToHex(messagedigest.digest());   
+            name = MD5Utils.bufferToHex(messagedigest.digest());   
             inputStream.close();              
         } catch (MalformedURLException e) {  
             logger.error(e.getMessage(),e);  

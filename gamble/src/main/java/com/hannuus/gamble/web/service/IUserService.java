@@ -3,6 +3,8 @@ package com.hannuus.gamble.web.service;
 import java.util.List;
 
 import com.hannuus.gamble.bean.User;
+import com.hannuus.gamble.web.exception.api.NotFoundAnyDataException;
+import com.hannuus.gamble.web.exception.api.UserPointsNotEnoughException;
 
 public interface IUserService {
 	
@@ -108,7 +110,7 @@ public interface IUserService {
 	 * @param point
 	 * @return
 	 */
-	boolean updateUserAmount(Long userId, int amount);
+	boolean updateUserAmount(Long userId, int amount)  throws UserPointsNotEnoughException;
 	
 	/**
 	 * 锁定用户, 修改用户的状态, 用户将不能进行任何操作
@@ -122,5 +124,13 @@ public interface IUserService {
 	 * @param userId
 	 * @return
 	 */
-	boolean isLock(Long userId);
+	boolean isLock(Long userId) throws NotFoundAnyDataException;
+	
+	/**
+	 * 更新用户状态
+	 * @param userId
+	 * @param state
+	 * @return
+	 */
+	boolean updateUserState(Long userId, int state);
 }

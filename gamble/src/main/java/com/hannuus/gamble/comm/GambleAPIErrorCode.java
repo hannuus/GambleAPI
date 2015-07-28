@@ -12,7 +12,9 @@ public enum GambleAPIErrorCode {
 	EmptyFile("10003", "没有要上传的文件"),
 	UnSupportFileSize("10004", "文件大小错误, 不能超过2M"),
 	UnSupoortFileType("10005", "文件类型错误, 只支持jpg, jpe, gif, png格式照片"),
-	ImageUploadFailed("10006", "文件上传失败");
+	ImageUploadFailed("10006", "文件上传失败"),
+	UserPointsNotEnough("10007", "用户积分余额不足"),
+	NotFoundAnyData("10008", "没有找到相关的数据");
 	
 	private String code;
 	private String reasoning;

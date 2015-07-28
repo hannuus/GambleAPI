@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.bean.TopicExample;
 import com.hannuus.gamble.comm.SystemConstants;
+import com.hannuus.gamble.comm.TopicStates;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 import com.hannuus.gamble.web.service.ITopicService;
@@ -30,7 +31,7 @@ public class TopicServiceImpl implements ITopicService {
 
 	@Override
 	public boolean deleteTopic(Long topicId) {
-		return updateTopicState(topicId, -1);
+		return updateTopicState(topicId, TopicStates.Willdelete.getValue());
 	}
 
 	@Override

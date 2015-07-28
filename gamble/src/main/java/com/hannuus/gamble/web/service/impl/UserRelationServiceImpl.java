@@ -2,12 +2,20 @@ package com.hannuus.gamble.web.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.hannuus.gamble.bean.UserRelation;
+import com.hannuus.gamble.bean.UserRelationExample;
+import com.hannuus.gamble.comm.UserRelationTypes;
+import com.hannuus.gamble.dao.UserRelationMapper;
 import com.hannuus.gamble.web.dto.UserInfoDTO;
 import com.hannuus.gamble.web.service.IUserRelationService;
 
 public class UserRelationServiceImpl implements IUserRelationService {
-
+	
+	@Autowired
+	UserRelationMapper userRelationMapper;
+	
 	@Override
 	public List<UserInfoDTO> findFriendsListByPage(Long userId, int pageNumber,
 			int pageSize) {
@@ -31,50 +39,54 @@ public class UserRelationServiceImpl implements IUserRelationService {
 
 	@Override
 	public boolean addUserRelation(UserRelation userRelation) {
-		// TODO Auto-generated method stub
-		return false;
+		return userRelationMapper.insert(userRelation) > 0;
 	}
 
 	@Override
 	public boolean deleteUserRelation(Long relationId) {
-		// TODO Auto-generated method stub
-		return false;
+		return userRelationMapper.deleteByPrimaryKey(relationId) > 0;
 	}
 
 	@Override
 	public boolean updateRelation(UserRelation userRelation) {
-		// TODO Auto-generated method stub
-		return false;
+		return userRelationMapper.updateByPrimaryKeySelective(userRelation) > 0;
 	}
 
 	@Override
 	public UserRelation findRelationById(Long relationId) {
-		// TODO Auto-generated method stub
-		return null;
+		return userRelationMapper.selectByPrimaryKey(relationId);
 	}
 
 	@Override
 	public boolean addFollow(Long fromId, Long toId) {
-		// TODO Auto-generated method stub
-		return false;
+		UserRelation relation = new UserRelation();
+		relation.setFromId(fromId);
+		relation.setToId(toId);
+		relation.setRelationType(UserRelationTypes.Follow.getValue());
+		return userRelationMapper.insert(relation) > 0;
 	}
 
 	@Override
 	public boolean cancelFollow(Long fromId, Long toId) {
-		// TODO Auto-generated method stub
-		return false;
+		UserRelationExample example = new UserRelationExample();
+		example.createCriteria().andFromIdEqualTo(fromId).andToIdEqualTo(toId)
+				.andRelationTypeEqualTo(UserRelationTypes.Follow.getValue());
+		return userRelationMapper.deleteByExample(example) > 0;
 	}
 
 	@Override
 	public boolean cancelFollows(Long fromId, List<Long> toIds) {
-		// TODO Auto-generated method stub
-		return false;
+		UserRelationExample example = new UserRelationExample();
+		example.createCriteria().andFromIdEqualTo(fromId).andToIdIn(toIds)
+				.andRelationTypeEqualTo(UserRelationTypes.Follow.getValue());
+		return userRelationMapper.deleteByExample(example) > 0;
 	}
 
 	@Override
 	public boolean addFollows(Long fromId, List<Long> toIds) {
-		// TODO Auto-generated method stub
-		return false;
+		for (Long toId : toIds) {
+			addFollow(fromId, toId);
+		}
+		return true;
 	}
-
 }
