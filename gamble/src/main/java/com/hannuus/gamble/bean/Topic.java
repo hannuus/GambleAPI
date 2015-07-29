@@ -4,49 +4,47 @@ import java.util.Date;
 
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.hannuus.gamble.vo.serializer.BooleanSerializer;
 import com.hannuus.gamble.vo.serializer.DateSerializer;
-import com.hannuus.gamble.vo.serializer.IntegerSerializer;
-import com.hannuus.gamble.vo.serializer.LongSerializer;
+import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
 
 public class Topic {
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long id;
 	
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long categoryId;
 
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long speciaId;
 	
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long userId;
 	
-	@JsonSerialize(using=BooleanSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Boolean enabled;
 
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long hits;
 	
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long replyCount;
 	
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long modifiedBy;
 
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Date modifiedOn;
 
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long repliedBy;
 
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long repliedOn;
 
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long iconId;
 
-	@JsonSerialize(using=IntegerSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Integer state;
 
     private String imgUrl;

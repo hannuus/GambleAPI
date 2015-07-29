@@ -5,19 +5,19 @@ import java.util.Date;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.hannuus.gamble.vo.serializer.DateSerializer;
-import com.hannuus.gamble.vo.serializer.LongSerializer;
+import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
 
 public class Reply {
 	
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long id;
 	
-	@JsonSerialize(using=LongSerializer.class)
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long topicId;
 
     private String title;
 
-    @JsonSerialize(using=LongSerializer.class)
+    @JsonSerialize(using=StringFormatSerializer.class)
     private Long userId;
 
     @JsonSerialize(using=DateSerializer.class)
@@ -25,7 +25,7 @@ public class Reply {
 
     private Date createdOn;
 
-    @JsonSerialize(using=LongSerializer.class)
+    @JsonSerialize(using=StringFormatSerializer.class)
     private Long parentId;
 
     private String content;

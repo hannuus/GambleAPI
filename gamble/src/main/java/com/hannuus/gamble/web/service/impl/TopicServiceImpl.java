@@ -7,8 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.bean.TopicExample;
-import com.hannuus.gamble.comm.SystemConstants;
-import com.hannuus.gamble.comm.TopicStates;
+import com.hannuus.gamble.comm.TopicState;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 import com.hannuus.gamble.web.service.ITopicService;
@@ -31,7 +30,7 @@ public class TopicServiceImpl implements ITopicService {
 
 	@Override
 	public boolean deleteTopic(Long topicId) {
-		return updateTopicState(topicId, TopicStates.Willdelete.getValue());
+		return updateTopicState(topicId, TopicState.Willdelete.value());
 	}
 
 	@Override
@@ -66,7 +65,7 @@ public class TopicServiceImpl implements ITopicService {
 			int pageNumber, int pageSize) {
 		TopicExample example = new TopicExample();
 		int pageIndex = 0;
-		pageIndex = (pageNumber - 1) * SystemConstants.DEFAULT_PAGE_SIZE;
+		pageIndex = (pageNumber - 1) * pageSize;
 		example.setLimitStart(pageIndex);
 		example.setLimitEnd(pageSize);
 		example.createCriteria().andCategoryIdEqualTo(categoryId);
@@ -78,7 +77,7 @@ public class TopicServiceImpl implements ITopicService {
 			int pageSize) {
 		TopicExample example = new TopicExample();
 		int pageIndex = 0;
-		pageIndex = (pageNumber - 1) * SystemConstants.DEFAULT_PAGE_SIZE;
+		pageIndex = (pageNumber - 1) * pageSize;
 		example.setLimitStart(pageIndex);
 		example.setLimitEnd(pageSize);
 		example.createCriteria().andSpeciaIdEqualTo(speciaId);
@@ -90,6 +89,13 @@ public class TopicServiceImpl implements ITopicService {
 			int pageSize) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public int countTopicsByCategoryId(Long categoryId) {
+		TopicExample example = new TopicExample();
+		example.createCriteria().andCategoryIdEqualTo(categoryId);
+		return topicMapper.countByExample(example);
 	}
 
 }

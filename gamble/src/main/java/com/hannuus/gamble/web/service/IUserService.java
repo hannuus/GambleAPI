@@ -133,4 +133,18 @@ public interface IUserService {
 	 * @return
 	 */
 	boolean updateUserState(Long userId, int state);
+	
+	/**
+	 * 根据userIds查询用户
+	 * @param userIds
+	 * @return
+	 */
+	List<User> findUserByIds(List<Long> userIds);
+	
+	/**
+	 * 根据userIds分页查询用户
+	 * @param userIds
+	 * @return
+	 */
+	List<User> findUsersByPage(List<Long> userIds, int pageNumber, int pageSize);
 }

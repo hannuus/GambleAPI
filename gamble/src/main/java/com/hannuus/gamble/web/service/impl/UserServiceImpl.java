@@ -7,8 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.bean.UserExample;
-import com.hannuus.gamble.comm.SystemConstants;
-import com.hannuus.gamble.comm.UserStates;
+import com.hannuus.gamble.comm.UserState;
 import com.hannuus.gamble.dao.UserMapper;
 import com.hannuus.gamble.web.exception.api.NotFoundAnyDataException;
 import com.hannuus.gamble.web.exception.api.UserPointsNotEnoughException;
@@ -31,7 +30,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public boolean deleteUser(Long userId) {
-		return updateUserState(userId, UserStates.Willdelete.getValue());
+		return updateUserState(userId, UserState.Willdelete.value());
 	}
 
 	@Override
@@ -43,7 +42,7 @@ public class UserServiceImpl implements IUserService {
 	public List<User> findUserByPage(int pageNumber, int pageSize) {
 		UserExample example = new UserExample();
 		int pageIndex = 0;
-		pageIndex = (pageNumber - 1) * SystemConstants.DEFAULT_PAGE_SIZE;
+		pageIndex = (pageNumber - 1) * pageSize;
 		example.setLimitStart(pageIndex);
 		example.setLimitEnd(pageSize);
 		return userMapper.selectByExample(example);
@@ -105,7 +104,7 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public boolean lockUser(Long userId) {
 		User user = new User();
-		user.setState(UserStates.Locked.getValue());
+		user.setState(UserState.Locked.value());
 		return userMapper.updateByPrimaryKeySelective(user) > 0;
 	}
 
@@ -115,7 +114,7 @@ public class UserServiceImpl implements IUserService {
 		if (null == user) {
 			throw new NotFoundAnyDataException();
 		}
-		return user.getState() != UserStates.Locked.getValue();
+		return user.getState() != UserState.Locked.value();
 	}
 
 	@Override
@@ -136,6 +135,26 @@ public class UserServiceImpl implements IUserService {
 		user.setId(userId);
 		user.setState(state);
 		return userMapper.updateByPrimaryKeySelective(user) > 0;
+	}
+
+	@Override
+	public List<User> findUserByIds(List<Long> userIds) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andIdIn(userIds).andStateEqualTo(UserState.Normal.value());
+		return userMapper.selectByExample(userExample);
+	}
+
+	@Override
+	public List<User> findUsersByPage(List<Long> userIds, int pageNumber,
+			int pageSize) {
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andIdIn(userIds).andStateEqualTo(UserState.Normal.value());
+		// set pagination info
+		int pageIndex = 0;
+		pageIndex = (pageNumber - 1) * pageSize;
+		userExample.setLimitStart(pageIndex);
+		userExample.setLimitEnd(pageSize);
+		return userMapper.selectByExample(userExample);
 	}
 
 }

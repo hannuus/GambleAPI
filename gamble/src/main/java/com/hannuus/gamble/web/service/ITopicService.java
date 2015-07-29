@@ -60,6 +60,12 @@ public interface ITopicService {
 	List<Topic> findCategoryTopicsByPage(Long categoryId, int pageNumber, int pageSize);
 	
 	/**
+	 * 统计Category下的主题数量
+	 * @param categoryId
+	 * @return
+	 */
+	int countTopicsByCategoryId(Long categoryId);
+	/**
 	 * 根据专题ID查询
 	 * @param speciaId
 	 * @return Topic list

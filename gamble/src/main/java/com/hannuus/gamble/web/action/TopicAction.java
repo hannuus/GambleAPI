@@ -5,7 +5,6 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.CollectionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -35,15 +34,19 @@ public class TopicAction extends BaseAction {
 	private static final Logger logger = Logger.getLogger(TopicAction.class);
 
 	@ResponseBody
-	@RequestMapping(value = "/listByCategoryId.json", method = {RequestMethod.GET})
+	@RequestMapping(value = "/listByCategoryId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<Topic>> listByCategory(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
+		setCrossOrigin(response);
 		try {
 			validate(request);
 			// TODO validate arguments
 			// TODO do the service logic
-			List<Topic> list = topicService.findTopicsByCategoryId(getLongReqParam("categoryId", 0L));
-			if (CollectionUtils.isNotEmpty(list)) {
+			Long categoryId = getLongReqParam("categoryId", 0L);
+			int total = topicService.countTopicsByCategoryId(categoryId);
+			json.setTotal(total);
+			if (total > 0) {
+				List<Topic> list = topicService.findTopicsByCategoryId(categoryId);
 				json.setResult(list);
 				json.setStatus(JsonResultStatus.Success.getValue());
 			} else {

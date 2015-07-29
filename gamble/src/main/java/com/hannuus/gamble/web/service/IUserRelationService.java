@@ -2,8 +2,8 @@ package com.hannuus.gamble.web.service;
 
 import java.util.List;
 
+import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.bean.UserRelation;
-import com.hannuus.gamble.web.dto.UserInfoDTO;
 
 public interface IUserRelationService {
 	
@@ -12,14 +12,14 @@ public interface IUserRelationService {
 	 * @param userId
 	 * @return
 	 */
-	List<UserInfoDTO> findFriendsListByPage(Long userId, int pageNumber, int pageSize);
+	List<User> findFriendsListByPage(Long userId, int pageNumber, int pageSize);
 	
 	/**
 	 * 查找关注列表, 我关注的人
 	 * @param userId
 	 * @return
 	 */
-	List<UserInfoDTO> findFollowListByPage(Long userId, int pageNumber, int pageSize);
+	List<User> findFollowListByPage(Long userId, int pageNumber, int pageSize);
 	
 	/**
 	 * 查找粉丝, 关注我的人
@@ -28,7 +28,7 @@ public interface IUserRelationService {
 	 * @param pageSize
 	 * @return
 	 */
-	List<UserInfoDTO> findFansListByPage(Long userId, int pageNumber, int pageSize);
+	List<User> findFansListByPage(Long userId, int pageNumber, int pageSize);
 	
 	/**
 	 * 添加用户关系

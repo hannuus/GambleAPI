@@ -7,12 +7,12 @@ import org.codehaus.jackson.JsonProcessingException;
 import org.codehaus.jackson.map.JsonSerializer;
 import org.codehaus.jackson.map.SerializerProvider;
 
-public class DoubleSerializer extends JsonSerializer<Double> {
+public class StringFormatSerializer extends JsonSerializer<Object> {
 
 	@Override
-	public void serialize(Double value, JsonGenerator jg,
+	public void serialize(Object value, JsonGenerator jgen,
 			SerializerProvider provider) throws IOException,
 			JsonProcessingException {
-		jg.writeString(value.toString());
+		jgen.writeString(value.toString());
 	}
 }

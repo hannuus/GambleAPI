@@ -3,6 +3,7 @@ package com.hannuus.gamble.web.action;
 import java.io.File;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
@@ -93,5 +94,16 @@ public class BaseAction {
 	protected String getBasePathNotPort() {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		return HttpUtils.getBasePathNotPort(request);
+	}
+	
+	/**
+	 * 设置是否允许跨域访问
+	 * @param response
+	 */
+	protected void setCrossOrigin(HttpServletResponse response) {
+		response.setHeader("Access-Control-Allow-Origin", "*");
+		response.addHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS");
+		response.addHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With"); 
+		response.addHeader("Access-Control-Max-Age", "30");
 	}
 }

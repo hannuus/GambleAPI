@@ -2,15 +2,26 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
+import org.codehaus.jackson.map.annotate.JsonSerialize;
+
+import com.hannuus.gamble.vo.serializer.DateSerializer;
+import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
+
 public class UserRelation {
+	
+	@JsonSerialize(using=StringFormatSerializer.class)
     private Long id;
-
+	
+	@JsonSerialize(using=DateSerializer.class)
     private Date createTime;
-
+    
+    @JsonSerialize(using=StringFormatSerializer.class)
     private Integer relationType;
-
+    
+    @JsonSerialize(using=StringFormatSerializer.class)
     private Long fromId;
-
+    
+    @JsonSerialize(using=StringFormatSerializer.class)
     private Long toId;
 
     public Long getId() {

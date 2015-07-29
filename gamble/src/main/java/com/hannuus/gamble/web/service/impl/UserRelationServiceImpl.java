@@ -1,40 +1,110 @@
 package com.hannuus.gamble.web.service.impl;
 
+import java.util.Collection;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import com.google.common.collect.Lists;
+import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.bean.UserRelation;
 import com.hannuus.gamble.bean.UserRelationExample;
-import com.hannuus.gamble.comm.UserRelationTypes;
+import com.hannuus.gamble.bean.UserRelationExample.Criteria;
+import com.hannuus.gamble.comm.UserRelationType;
 import com.hannuus.gamble.dao.UserRelationMapper;
-import com.hannuus.gamble.web.dto.UserInfoDTO;
 import com.hannuus.gamble.web.service.IUserRelationService;
+import com.hannuus.gamble.web.service.IUserService;
 
 public class UserRelationServiceImpl implements IUserRelationService {
 	
 	@Autowired
 	UserRelationMapper userRelationMapper;
 	
+	@Autowired
+	IUserService userService;
+	
 	@Override
-	public List<UserInfoDTO> findFriendsListByPage(Long userId, int pageNumber,
+	public List<User> findFriendsListByPage(Long userId, int pageNumber,
 			int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		// find follow Ids
+		UserRelationExample followRelationexample = new UserRelationExample();
+		Criteria followCriteria = followRelationexample.createCriteria();
+		followCriteria.andFromIdEqualTo(userId);
+		followCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		List<UserRelation> myFollowList = userRelationMapper.selectByExample(followRelationexample);
+		List<Long> followIds = Lists.newArrayList();
+		if (CollectionUtils.isNotEmpty(myFollowList)) {
+			for (UserRelation userRelation : myFollowList) {
+				followIds.add(userRelation.getToId());
+			}
+		}
+		// find fans Ids
+		UserRelationExample fansRelationexample = new UserRelationExample();
+		Criteria fansCriteria = fansRelationexample.createCriteria();
+		fansCriteria.andToIdEqualTo(userId);
+		fansCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		List<UserRelation> myFansList = userRelationMapper.selectByExample(fansRelationexample);
+		List<Long> fansIds = Lists.newArrayList();
+		if (CollectionUtils.isNotEmpty(myFansList)) {
+			for (UserRelation userRelation : myFansList) {
+				fansIds.add(userRelation.getToId());
+			}
+		}
+		@SuppressWarnings("unchecked")
+		Collection<Long> friendsIds = CollectionUtils.union(followIds, fansIds);
+		return userService.findUsersByPage(Lists.newArrayList(friendsIds), pageNumber, pageSize);
 	}
 
 	@Override
-	public List<UserInfoDTO> findFollowListByPage(Long userId, int pageNumber,
+	public List<User> findFollowListByPage(Long userId, int pageNumber,
 			int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		UserRelationExample userRelationexample = new UserRelationExample();
+		Criteria criteria = userRelationexample.createCriteria();
+		criteria.andFromIdEqualTo(userId);
+		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		// set pagination info
+		int pageIndex = 0;
+		pageIndex = (pageNumber - 1) * pageSize;
+		userRelationexample.setLimitStart(pageIndex);
+		userRelationexample.setLimitEnd(pageSize);
+		// find my follow relationship
+		List<UserRelation> myFollowList = userRelationMapper.selectByExample(userRelationexample);
+		if (CollectionUtils.isNotEmpty(myFollowList)) {
+			List<Long> userIds = Lists.newArrayList();
+			for (UserRelation userRelation : myFollowList) {
+				userIds.add(userRelation.getToId());
+			}
+			// find follow list user detail
+			return userService.findUserByIds(userIds);
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
-	public List<UserInfoDTO> findFansListByPage(Long userId, int pageNumber,
+	public List<User> findFansListByPage(Long userId, int pageNumber,
 			int pageSize) {
-		// TODO Auto-generated method stub
-		return null;
+		UserRelationExample userRelationexample = new UserRelationExample();
+		Criteria criteria = userRelationexample.createCriteria();
+		criteria.andToIdEqualTo(userId);
+		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		// set pagination info
+		int pageIndex = 0;
+		pageIndex = (pageNumber - 1) * pageSize;
+		userRelationexample.setLimitStart(pageIndex);
+		userRelationexample.setLimitEnd(pageSize);
+		// find my fans relationship
+		List<UserRelation> myFansList = userRelationMapper.selectByExample(userRelationexample);
+		if (CollectionUtils.isNotEmpty(myFansList)) {
+			List<Long> userIds = Lists.newArrayList();
+			for (UserRelation userRelation : myFansList) {
+				userIds.add(userRelation.getToId());
+			}
+			// find follow list user detail
+			return userService.findUserByIds(userIds);
+		}
+		return Collections.emptyList();
 	}
 
 	@Override
@@ -62,7 +132,7 @@ public class UserRelationServiceImpl implements IUserRelationService {
 		UserRelation relation = new UserRelation();
 		relation.setFromId(fromId);
 		relation.setToId(toId);
-		relation.setRelationType(UserRelationTypes.Follow.getValue());
+		relation.setRelationType(UserRelationType.Follow.value());
 		return userRelationMapper.insert(relation) > 0;
 	}
 
@@ -70,7 +140,7 @@ public class UserRelationServiceImpl implements IUserRelationService {
 	public boolean cancelFollow(Long fromId, Long toId) {
 		UserRelationExample example = new UserRelationExample();
 		example.createCriteria().andFromIdEqualTo(fromId).andToIdEqualTo(toId)
-				.andRelationTypeEqualTo(UserRelationTypes.Follow.getValue());
+				.andRelationTypeEqualTo(UserRelationType.Follow.value());
 		return userRelationMapper.deleteByExample(example) > 0;
 	}
 
@@ -78,7 +148,7 @@ public class UserRelationServiceImpl implements IUserRelationService {
 	public boolean cancelFollows(Long fromId, List<Long> toIds) {
 		UserRelationExample example = new UserRelationExample();
 		example.createCriteria().andFromIdEqualTo(fromId).andToIdIn(toIds)
-				.andRelationTypeEqualTo(UserRelationTypes.Follow.getValue());
+				.andRelationTypeEqualTo(UserRelationType.Follow.value());
 		return userRelationMapper.deleteByExample(example) > 0;
 	}
 

@@ -1,13 +1,9 @@
 package com.hannuus.gamble.vo;
 
-//import java.util.HashMap;
-
 import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-//import com.hannuus.gamble.comm.JSONStatus;
-//import com.hannuus.gamble.web.exception.ValidateException;
-
+import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class JsonVo<T> {
@@ -20,11 +16,17 @@ public class JsonVo<T> {
 	
 	@JsonProperty("STATUS")
 	private String status;
+	
+	@JsonSerialize(using=StringFormatSerializer.class)
+	private Integer total;
+	
+	public Integer getTotal() {
+		return total;
+	}
 
-	/**
-	 * 具体每个输入错误的消息
-	 */
-//	private HashMap<String, String> errors = new HashMap<String, String>();
+	public void setTotal(Integer total) {
+		this.total = total;
+	}
 
 	/**
 	 * 返回的数据
@@ -47,15 +49,7 @@ public class JsonVo<T> {
 	public void setErrmsg(String errmsg) {
 		this.errmsg = errmsg;
 	}
-
-//	public HashMap<String, String> getErrors() {
-//		return errors;
-//	}
-//
-//	public void setErrors(HashMap<String, String> errors) {
-//		this.errors = errors;
-//	}
-
+	
 	public String getStatus() {
 		return status;
 	}
@@ -71,11 +65,4 @@ public class JsonVo<T> {
 	public void setResult(T result) {
 		this.result = result;
 	}
-//
-//	public void check() throws ValidateException {
-//		if (this.getErrors().size() > 0) {
-//			this.status = JSONStatus.Failed.getValue();
-//			throw new ValidateException("Oops...Some Errors Happend.");
-//		}
-//	}
 }
