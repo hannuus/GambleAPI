@@ -34,7 +34,7 @@ public class BaseAction {
 	protected void logErrorMessages(JsonVo<List<Topic>> json, GambleException e) {
 		logger.error(e);
 		json.setErrcode(e.getCode());
-		json.setErrmsg(e.getMessage());
+		json.setErrmsg(e.getReasoning());
 		json.setStatus(JsonResultStatus.Failed.getValue());
 	}
 	
