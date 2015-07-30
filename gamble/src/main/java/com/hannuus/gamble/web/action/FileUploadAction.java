@@ -54,8 +54,8 @@ public class FileUploadAction {
 	private JsonVo<String> doUpload(MultipartFile file, String uploadPath) {
 		JsonVo<String> json = new JsonVo<String>();
 		json.setStatus(JsonResultStatus.Failed.getValue());
-		json.setErrcode(GambleAPIErrorCode.EmptyFile.getCode()); 
-		json.setErrmsg(GambleAPIErrorCode.EmptyFile.getReasoning());
+		json.setErrcode(GambleAPIErrorCode.EmptyUploadFile.getCode()); 
+		json.setErrmsg(GambleAPIErrorCode.EmptyUploadFile.getReasoning());
 		if (!file.isEmpty()) {
 			try {
 				String fileNamePath = uploadPath + System.currentTimeMillis()

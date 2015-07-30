@@ -11,11 +11,17 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.hannuus.gamble.utils.HttpUtils;
 import com.hannuus.gamble.web.exception.GambleException;
+import com.hannuus.gamble.web.exception.api.CanNotAccessException;
+import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
+import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
+import com.hannuus.gamble.web.exception.api.InvalidSignException;
+import com.hannuus.gamble.web.exception.api.TimeoutCallingException;
 
 
 public class BaseAction {
 	
 	private Logger logger = Logger.getLogger(getClass());
+	
 	/**
 	 *  validate the API path is invalid</br>
 	 *  validate access token</br>
@@ -28,12 +34,67 @@ public class BaseAction {
 	 * @param HttpServletRequest request
 	 * @throws GambleException
 	 */
-	protected void validate(HttpServletRequest request) throws GambleException {
-		// TODO validate the API is valid
-		// TODO validate access token
-		// TODO validate user permission
-		// TODO validate sign
-		// TODO validate timestamp, if server (timestamp - client timestamp) > {timeout-times, like 10 minutes} return the timeout error code
+	protected void validateRequest(HttpServletRequest request) throws GambleException {
+		if (requestPathIsInvalid(request)) {
+			throw new InvalidRequestURLException(request.getRequestURL() + " is invalid");
+		}
+		if (accessTokenIsInvalid(request)) {
+			throw new InvalidAccessTokenException();
+		}
+		if (userNotHavePermission(request)) {
+			throw new CanNotAccessException();
+		}
+		if (isInvalidSign(request)) {
+			throw new InvalidSignException();
+		}
+		if (isTimeoutCall(request)) {
+			throw new TimeoutCallingException();
+		}
+	}
+	/**
+	 * validate timestamp, if server (timestamp - client timestamp) > {timeout-times, like 10 minutes} return the timeout error code
+	 * @param request
+	 * @return
+	 */
+	private boolean isTimeoutCall(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	/**
+	 * validate sign
+	 * @param request
+	 * @return
+	 */
+	private boolean isInvalidSign(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	/**
+	 * validate user permission
+	 * @param request
+	 * @return
+	 */
+	private boolean userNotHavePermission(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	/**
+	 * validate the access token
+	 * @param request
+	 * @return
+	 */
+	private boolean accessTokenIsInvalid(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+	/**
+	 * validate the API is valid
+	 * @param request
+	 * @return
+	 */
+	private boolean requestPathIsInvalid(HttpServletRequest request) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	/**
 	 * get a String request parameter

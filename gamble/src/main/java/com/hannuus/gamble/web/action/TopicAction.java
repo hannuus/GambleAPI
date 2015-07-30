@@ -51,7 +51,7 @@ public class TopicAction extends BaseAction {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		setCrossOrigin(response);
 		try {
-			validate(request);
+			validateRequest(request);
 			Long categoryId = getLongReqParam("categoryId", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -85,11 +85,8 @@ public class TopicAction extends BaseAction {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		setCrossOrigin(response);
 		try {
-			// 验证是否允许访问API
-			validate(request);
-			// 初始化Topic
+			validateRequest(request);
 			initTopic(topic);
-			// 验证参数是否正确
 			validateAddTopicArguments(topic);
 			if(topicService.addTopic(topic)) {
 				json.setStatus(JsonResultStatus.Success.getValue());
