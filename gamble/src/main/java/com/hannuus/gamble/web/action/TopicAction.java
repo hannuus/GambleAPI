@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang.StringUtils;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -35,8 +34,6 @@ public class TopicAction extends BaseAction {
 	
 	@Autowired
 	ITopicService topicService;
-	
-	private static final Logger logger = Logger.getLogger(TopicAction.class);
 	
 	/**
 	 * 获取板块下的topic
@@ -66,10 +63,7 @@ public class TopicAction extends BaseAction {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
 		} catch (GambleException e) {
-			logger.error(e);
-			json.setErrcode(e.getCode());
-			json.setErrmsg(e.getMessage());
-			json.setStatus(JsonResultStatus.Failed.getValue());
+			logErrorMessages(json, e);
 		}
 		return json;
 	}
@@ -94,21 +88,9 @@ public class TopicAction extends BaseAction {
 				json.setStatus(JsonResultStatus.Failed.getValue());
 			}
 		} catch (GambleException e) {
-			logger.error(e);
-			json.setErrcode(e.getCode());
-			json.setErrmsg(e.getReasoning());
-			json.setStatus(JsonResultStatus.Failed.getValue());
+			logErrorMessages(json, e);
 		}
 		return json;
-	}
-
-	private void initTopic(Topic topic) throws GambleException {
-		topic.setCreatedOn(new Date());
-		topic.setEnabled(true);// 默认启用
-		topic.setFollowCount(0L);
-		topic.setHits(0L);
-		topic.setReplyCount(0L);
-		topic.setState(TopicState.Normal.value());
 	}
 	
 	/**
@@ -129,5 +111,14 @@ public class TopicAction extends BaseAction {
 		if (StringUtils.isBlank(topic.getContent())) {
 			throw new ArgumentsIncorrectException("content不能为空");
 		}
+	}
+
+	private void initTopic(Topic topic) throws GambleException {
+		topic.setCreatedOn(new Date());
+		topic.setEnabled(true);// 默认启用
+		topic.setFollowCount(0L);
+		topic.setHits(0L);
+		topic.setReplyCount(0L);
+		topic.setState(TopicState.Normal.value());
 	}
 }

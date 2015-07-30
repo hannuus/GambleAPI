@@ -1,6 +1,7 @@
 package com.hannuus.gamble.web.action;
 
 import java.io.File;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -9,7 +10,10 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.utils.HttpUtils;
+import com.hannuus.gamble.vo.JsonResultStatus;
+import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.CanNotAccessException;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
@@ -21,6 +25,18 @@ import com.hannuus.gamble.web.exception.api.TimeoutCallingException;
 public class BaseAction {
 	
 	private Logger logger = Logger.getLogger(getClass());
+	
+	/**
+	 * log error messages
+	 * @param json
+	 * @param e
+	 */
+	protected void logErrorMessages(JsonVo<List<Topic>> json, GambleException e) {
+		logger.error(e);
+		json.setErrcode(e.getCode());
+		json.setErrmsg(e.getMessage());
+		json.setStatus(JsonResultStatus.Failed.getValue());
+	}
 	
 	/**
 	 *  validate the API path is invalid</br>
