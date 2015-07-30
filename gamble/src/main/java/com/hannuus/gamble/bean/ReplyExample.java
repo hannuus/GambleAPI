@@ -554,6 +554,246 @@ public class ReplyExample {
             addCriterion("parent_id not between", value1, value2, "parentId");
             return (Criteria) this;
         }
+
+        public Criteria andUpCountIsNull() {
+            addCriterion("up_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountIsNotNull() {
+            addCriterion("up_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountEqualTo(Long value) {
+            addCriterion("up_count =", value, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountNotEqualTo(Long value) {
+            addCriterion("up_count <>", value, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountGreaterThan(Long value) {
+            addCriterion("up_count >", value, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountGreaterThanOrEqualTo(Long value) {
+            addCriterion("up_count >=", value, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountLessThan(Long value) {
+            addCriterion("up_count <", value, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountLessThanOrEqualTo(Long value) {
+            addCriterion("up_count <=", value, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountIn(List<Long> values) {
+            addCriterion("up_count in", values, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountNotIn(List<Long> values) {
+            addCriterion("up_count not in", values, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountBetween(Long value1, Long value2) {
+            addCriterion("up_count between", value1, value2, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andUpCountNotBetween(Long value1, Long value2) {
+            addCriterion("up_count not between", value1, value2, "upCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountIsNull() {
+            addCriterion("down_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountIsNotNull() {
+            addCriterion("down_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountEqualTo(Long value) {
+            addCriterion("down_count =", value, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountNotEqualTo(Long value) {
+            addCriterion("down_count <>", value, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountGreaterThan(Long value) {
+            addCriterion("down_count >", value, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountGreaterThanOrEqualTo(Long value) {
+            addCriterion("down_count >=", value, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountLessThan(Long value) {
+            addCriterion("down_count <", value, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountLessThanOrEqualTo(Long value) {
+            addCriterion("down_count <=", value, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountIn(List<Long> values) {
+            addCriterion("down_count in", values, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountNotIn(List<Long> values) {
+            addCriterion("down_count not in", values, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountBetween(Long value1, Long value2) {
+            addCriterion("down_count between", value1, value2, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andDownCountNotBetween(Long value1, Long value2) {
+            addCriterion("down_count not between", value1, value2, "downCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountIsNull() {
+            addCriterion("collection_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountIsNotNull() {
+            addCriterion("collection_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountEqualTo(Long value) {
+            addCriterion("collection_count =", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountNotEqualTo(Long value) {
+            addCriterion("collection_count <>", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountGreaterThan(Long value) {
+            addCriterion("collection_count >", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountGreaterThanOrEqualTo(Long value) {
+            addCriterion("collection_count >=", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountLessThan(Long value) {
+            addCriterion("collection_count <", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountLessThanOrEqualTo(Long value) {
+            addCriterion("collection_count <=", value, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountIn(List<Long> values) {
+            addCriterion("collection_count in", values, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountNotIn(List<Long> values) {
+            addCriterion("collection_count not in", values, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountBetween(Long value1, Long value2) {
+            addCriterion("collection_count between", value1, value2, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andCollectionCountNotBetween(Long value1, Long value2) {
+            addCriterion("collection_count not between", value1, value2, "collectionCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountIsNull() {
+            addCriterion("reply_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountIsNotNull() {
+            addCriterion("reply_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountEqualTo(Long value) {
+            addCriterion("reply_count =", value, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountNotEqualTo(Long value) {
+            addCriterion("reply_count <>", value, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountGreaterThan(Long value) {
+            addCriterion("reply_count >", value, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountGreaterThanOrEqualTo(Long value) {
+            addCriterion("reply_count >=", value, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountLessThan(Long value) {
+            addCriterion("reply_count <", value, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountLessThanOrEqualTo(Long value) {
+            addCriterion("reply_count <=", value, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountIn(List<Long> values) {
+            addCriterion("reply_count in", values, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountNotIn(List<Long> values) {
+            addCriterion("reply_count not in", values, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountBetween(Long value1, Long value2) {
+            addCriterion("reply_count between", value1, value2, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyCountNotBetween(Long value1, Long value2) {
+            addCriterion("reply_count not between", value1, value2, "replyCount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

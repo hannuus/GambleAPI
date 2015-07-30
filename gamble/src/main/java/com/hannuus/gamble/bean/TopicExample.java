@@ -1034,6 +1034,196 @@ public class TopicExample {
             addCriterion("created_on not between", value1, value2, "createdOn");
             return (Criteria) this;
         }
+
+        public Criteria andTitleIsNull() {
+            addCriterion("title is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIsNotNull() {
+            addCriterion("title is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleEqualTo(String value) {
+            addCriterion("title =", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleNotEqualTo(String value) {
+            addCriterion("title <>", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleGreaterThan(String value) {
+            addCriterion("title >", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleGreaterThanOrEqualTo(String value) {
+            addCriterion("title >=", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleLessThan(String value) {
+            addCriterion("title <", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleLessThanOrEqualTo(String value) {
+            addCriterion("title <=", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleLike(String value) {
+            addCriterion("title like", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleNotLike(String value) {
+            addCriterion("title not like", value, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleIn(List<String> values) {
+            addCriterion("title in", values, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleNotIn(List<String> values) {
+            addCriterion("title not in", values, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleBetween(String value1, String value2) {
+            addCriterion("title between", value1, value2, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTitleNotBetween(String value1, String value2) {
+            addCriterion("title not between", value1, value2, "title");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdIsNull() {
+            addCriterion("tag_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdIsNotNull() {
+            addCriterion("tag_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdEqualTo(Long value) {
+            addCriterion("tag_id =", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdNotEqualTo(Long value) {
+            addCriterion("tag_id <>", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdGreaterThan(Long value) {
+            addCriterion("tag_id >", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("tag_id >=", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdLessThan(Long value) {
+            addCriterion("tag_id <", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdLessThanOrEqualTo(Long value) {
+            addCriterion("tag_id <=", value, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdIn(List<Long> values) {
+            addCriterion("tag_id in", values, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdNotIn(List<Long> values) {
+            addCriterion("tag_id not in", values, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdBetween(Long value1, Long value2) {
+            addCriterion("tag_id between", value1, value2, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andTagIdNotBetween(Long value1, Long value2) {
+            addCriterion("tag_id not between", value1, value2, "tagId");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountIsNull() {
+            addCriterion("follow_count is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountIsNotNull() {
+            addCriterion("follow_count is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountEqualTo(Long value) {
+            addCriterion("follow_count =", value, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountNotEqualTo(Long value) {
+            addCriterion("follow_count <>", value, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountGreaterThan(Long value) {
+            addCriterion("follow_count >", value, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountGreaterThanOrEqualTo(Long value) {
+            addCriterion("follow_count >=", value, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountLessThan(Long value) {
+            addCriterion("follow_count <", value, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountLessThanOrEqualTo(Long value) {
+            addCriterion("follow_count <=", value, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountIn(List<Long> values) {
+            addCriterion("follow_count in", values, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountNotIn(List<Long> values) {
+            addCriterion("follow_count not in", values, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountBetween(Long value1, Long value2) {
+            addCriterion("follow_count between", value1, value2, "followCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andFollowCountNotBetween(Long value1, Long value2) {
+            addCriterion("follow_count not between", value1, value2, "followCount");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

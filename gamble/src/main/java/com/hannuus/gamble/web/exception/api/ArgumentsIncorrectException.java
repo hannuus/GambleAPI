@@ -10,4 +10,8 @@ public class ArgumentsIncorrectException extends GambleException {
 	public ArgumentsIncorrectException() {
 		super(GambleAPIErrorCode.ArgumentsIncorrect.getCode(), GambleAPIErrorCode.ArgumentsIncorrect.getReasoning());
 	}
+
+	public ArgumentsIncorrectException(String reasoning) {
+		super(GambleAPIErrorCode.ArgumentsIncorrect.getCode(), reasoning);
+	}
 }

@@ -50,14 +50,14 @@ public class TopicServiceImpl implements ITopicService {
 	public List<Topic> findTopicsByCategoryId(Long categoryId) {
 		TopicExample example = new TopicExample();
 		example.createCriteria().andCategoryIdEqualTo(categoryId);
-		return topicMapper.selectByExample(example);
+		return topicMapper.selectByExampleWithBLOBs(example);
 	}
 
 	@Override
 	public List<Topic> findTopicsBySpeciaId(Long speciaId) {
 		TopicExample example = new TopicExample();
 		example.createCriteria().andSpeciaIdEqualTo(speciaId);
-		return topicMapper.selectByExample(example);
+		return topicMapper.selectByExampleWithBLOBs(example);
 	}
 
 	@Override
@@ -69,7 +69,7 @@ public class TopicServiceImpl implements ITopicService {
 		example.setLimitStart(pageIndex);
 		example.setLimitEnd(pageSize);
 		example.createCriteria().andCategoryIdEqualTo(categoryId);
-		return topicMapper.selectByExample(example);
+		return topicMapper.selectByExampleWithBLOBs(example);
 	}
 
 	@Override
@@ -81,7 +81,7 @@ public class TopicServiceImpl implements ITopicService {
 		example.setLimitStart(pageIndex);
 		example.setLimitEnd(pageSize);
 		example.createCriteria().andSpeciaIdEqualTo(speciaId);
-		return topicMapper.selectByExample(example);
+		return topicMapper.selectByExampleWithBLOBs(example);
 	}
 
 	@Override

@@ -2,25 +2,15 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
-import org.codehaus.jackson.annotate.JsonIgnore;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
-import com.hannuus.gamble.vo.serializer.DateSerializer;
-import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
-
 public class User {
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long id;
-    
-    @JsonIgnore
+
     private String userName;
 
     private String nickName;
-    
-    @JsonIgnore
+
     private String password;
-    
-    @JsonIgnore
+
     private String email;
 
     private String headUrl;
@@ -28,38 +18,27 @@ public class User {
     private String introduction;
 
     private String signature;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Integer topicCount;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Integer replyCount;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Integer bestTopicCount;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Long lastTopicId;
 
-    @JsonSerialize(using=StringFormatSerializer.class)
     private Long lastReplyId;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Long amount;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Integer state;
-    
-    @JsonSerialize(using=DateSerializer.class)
+
     private Date createdOn;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Integer fansCount;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
+
     private Integer followCount;
-    
-    @JsonIgnore
+
     private Long mobile;
 
     public Long getId() {

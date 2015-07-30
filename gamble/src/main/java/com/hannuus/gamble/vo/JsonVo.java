@@ -1,6 +1,6 @@
 package com.hannuus.gamble.vo;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+//import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
@@ -8,13 +8,13 @@ import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class JsonVo<T> {
 	
-	@JsonProperty("ERRCODE")
+//	@JsonProperty("ERRCODE")
 	private String errcode;
 	
-	@JsonProperty("ERRMSG")
+//	@JsonProperty("ERRMSG")
 	private String errmsg;
 	
-	@JsonProperty("STATUS")
+//	@JsonProperty("STATUS")
 	private String status;
 	
 	@JsonSerialize(using=StringFormatSerializer.class)
@@ -31,7 +31,7 @@ public class JsonVo<T> {
 	/**
 	 * 返回的数据
 	 */
-	@JsonProperty("RESULT")
+//	@JsonProperty("RESULT")
 	private T result;
 
 	public String getErrcode() {

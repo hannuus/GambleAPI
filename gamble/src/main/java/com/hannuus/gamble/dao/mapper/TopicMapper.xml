@@ -17,6 +17,9 @@
     <result column="state" property="state" jdbcType="INTEGER" />
     <result column="img_url" property="imgUrl" jdbcType="VARCHAR" />
     <result column="created_on" property="createdOn" jdbcType="TIMESTAMP" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="tag_id" property="tagId" jdbcType="BIGINT" />
+    <result column="follow_count" property="followCount" jdbcType="BIGINT" />
   </resultMap>
   <resultMap id="ResultMapWithBLOBs" type="com.hannuus.gamble.bean.Topic" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
@@ -81,7 +84,7 @@
   </sql>
   <sql id="Base_Column_List" >
     ID, category_id, specia_id, user_id, enabled, hits, reply_count, modified_by, modified_on, 
-    replied_by, replied_on, icon_id, state, img_url, created_on
+    replied_by, replied_on, icon_id, state, img_url, created_on, title, tag_id, follow_count
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -147,13 +150,15 @@
       enabled, hits, reply_count, 
       modified_by, modified_on, replied_by, 
       replied_on, icon_id, state, 
-      img_url, created_on, content
+      img_url, created_on, title, 
+      tag_id, follow_count, content
       )
     values (#{categoryId,jdbcType=BIGINT}, #{speciaId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
       #{enabled,jdbcType=BIT}, #{hits,jdbcType=BIGINT}, #{replyCount,jdbcType=BIGINT}, 
       #{modifiedBy,jdbcType=BIGINT}, #{modifiedOn,jdbcType=TIMESTAMP}, #{repliedBy,jdbcType=BIGINT}, 
       #{repliedOn,jdbcType=BIGINT}, #{iconId,jdbcType=BIGINT}, #{state,jdbcType=INTEGER}, 
-      #{imgUrl,jdbcType=VARCHAR}, #{createdOn,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR}
+      #{imgUrl,jdbcType=VARCHAR}, #{createdOn,jdbcType=TIMESTAMP}, #{title,jdbcType=VARCHAR}, 
+      #{tagId,jdbcType=BIGINT}, #{followCount,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.Topic" >
@@ -204,6 +209,15 @@
       <if test="createdOn != null" >
         created_on,
       </if>
+      <if test="title != null" >
+        title,
+      </if>
+      <if test="tagId != null" >
+        tag_id,
+      </if>
+      <if test="followCount != null" >
+        follow_count,
+      </if>
       <if test="content != null" >
         content,
       </if>
@@ -250,6 +264,15 @@
       </if>
       <if test="createdOn != null" >
         #{createdOn,jdbcType=TIMESTAMP},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tagId != null" >
+        #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="followCount != null" >
+        #{followCount,jdbcType=BIGINT},
       </if>
       <if test="content != null" >
         #{content,jdbcType=LONGVARCHAR},
@@ -310,6 +333,15 @@
       <if test="record.createdOn != null" >
         created_on = #{record.createdOn,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.title != null" >
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tagId != null" >
+        tag_id = #{record.tagId,jdbcType=BIGINT},
+      </if>
+      <if test="record.followCount != null" >
+        follow_count = #{record.followCount,jdbcType=BIGINT},
+      </if>
       <if test="record.content != null" >
         content = #{record.content,jdbcType=LONGVARCHAR},
       </if>
@@ -335,6 +367,9 @@
       state = #{record.state,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
       created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR},
+      tag_id = #{record.tagId,jdbcType=BIGINT},
+      follow_count = #{record.followCount,jdbcType=BIGINT},
       content = #{record.content,jdbcType=LONGVARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
@@ -356,7 +391,10 @@
       icon_id = #{record.iconId,jdbcType=BIGINT},
       state = #{record.state,jdbcType=INTEGER},
       img_url = #{record.imgUrl,jdbcType=VARCHAR},
-      created_on = #{record.createdOn,jdbcType=TIMESTAMP}
+      created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      title = #{record.title,jdbcType=VARCHAR},
+      tag_id = #{record.tagId,jdbcType=BIGINT},
+      follow_count = #{record.followCount,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -406,6 +444,15 @@
       <if test="createdOn != null" >
         created_on = #{createdOn,jdbcType=TIMESTAMP},
       </if>
+      <if test="title != null" >
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="tagId != null" >
+        tag_id = #{tagId,jdbcType=BIGINT},
+      </if>
+      <if test="followCount != null" >
+        follow_count = #{followCount,jdbcType=BIGINT},
+      </if>
       <if test="content != null" >
         content = #{content,jdbcType=LONGVARCHAR},
       </if>
@@ -428,6 +475,9 @@
       state = #{state,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR},
       created_on = #{createdOn,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      tag_id = #{tagId,jdbcType=BIGINT},
+      follow_count = #{followCount,jdbcType=BIGINT},
       content = #{content,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
@@ -446,7 +496,10 @@
       icon_id = #{iconId,jdbcType=BIGINT},
       state = #{state,jdbcType=INTEGER},
       img_url = #{imgUrl,jdbcType=VARCHAR},
-      created_on = #{createdOn,jdbcType=TIMESTAMP}
+      created_on = #{createdOn,jdbcType=TIMESTAMP},
+      title = #{title,jdbcType=VARCHAR},
+      tag_id = #{tagId,jdbcType=BIGINT},
+      follow_count = #{followCount,jdbcType=BIGINT}
     where ID = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

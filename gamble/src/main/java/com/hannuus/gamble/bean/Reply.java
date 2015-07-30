@@ -2,31 +2,28 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
-import com.hannuus.gamble.vo.serializer.DateSerializer;
-import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
-
 public class Reply {
-	
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long id;
-	
-	@JsonSerialize(using=StringFormatSerializer.class)
+
     private Long topicId;
 
     private String title;
 
-    @JsonSerialize(using=StringFormatSerializer.class)
     private Long userId;
 
-    @JsonSerialize(using=DateSerializer.class)
     private Date modifiedOn;
 
     private Date createdOn;
 
-    @JsonSerialize(using=StringFormatSerializer.class)
     private Long parentId;
+
+    private Long upCount;
+
+    private Long downCount;
+
+    private Long collectionCount;
+
+    private Long replyCount;
 
     private String content;
 
@@ -84,6 +81,38 @@ public class Reply {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Long getUpCount() {
+        return upCount;
+    }
+
+    public void setUpCount(Long upCount) {
+        this.upCount = upCount;
+    }
+
+    public Long getDownCount() {
+        return downCount;
+    }
+
+    public void setDownCount(Long downCount) {
+        this.downCount = downCount;
+    }
+
+    public Long getCollectionCount() {
+        return collectionCount;
+    }
+
+    public void setCollectionCount(Long collectionCount) {
+        this.collectionCount = collectionCount;
+    }
+
+    public Long getReplyCount() {
+        return replyCount;
+    }
+
+    public void setReplyCount(Long replyCount) {
+        this.replyCount = replyCount;
     }
 
     public String getContent() {

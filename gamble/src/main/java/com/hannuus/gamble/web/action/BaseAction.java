@@ -35,57 +35,94 @@ public class BaseAction {
 		// TODO validate sign
 		// TODO validate timestamp, if server (timestamp - client timestamp) > {timeout-times, like 10 minutes} return the timeout error code
 	}
-	
-	protected String getReqParam(String key) {
+	/**
+	 * get a String request parameter
+	 * @param key
+	 * @return
+	 */
+	protected String getStringReqParam(String key) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		return request.getParameter(key);
 	}
 	
+	/**
+	 * get a long parameter from request
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	protected Long getLongReqParam(String key, Long defaultValue) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		try {
 			return Long.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("get " + key + " error: " + e);
 			return defaultValue;
 		}
 	}
 	
+	/**
+	 * get a integer parameter from request
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	protected Integer getIntegerReqParam(String key, Integer defaultValue) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		try {
 			return Integer.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("get " + key + " error: " + e);
 			return defaultValue;
 		}
 	}
 	
+	/**
+	 * get a double parameter from request
+	 * @param key
+	 * @param defaultValue
+	 * @return
+	 */
 	protected Double getDoubleReqParam(String key, Double defaultValue) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		try {
 			return Double.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(e);
+			logger.error("get " + key + " error: " + e);
 			return defaultValue;
 		}
 	}
 	
+	/**
+	 * set session
+	 * @param key
+	 * @param value
+	 */
 	protected void setSession(String key, Object value) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		request.getSession().setAttribute(key, value);
 	}
-	
+	/**
+	 * get sessin
+	 * @param key
+	 * @return
+	 */
 	protected Object getSession(String key) {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		return request.getSession().getAttribute(key);
 	}
-	
+	/**
+	 * get local disk path
+	 * @return
+	 */
 	protected String getLocalDiskPath() {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		return request.getSession().getServletContext().getRealPath("/") + File.separator;
 	}
-	
+	/**
+	 * get base path
+	 * @return
+	 */
 	protected String  getBasePath() {
 		HttpServletRequest request = ((ServletRequestAttributes)RequestContextHolder.getRequestAttributes()).getRequest();
 		return HttpUtils.getBasePath(request);
@@ -97,7 +134,7 @@ public class BaseAction {
 	}
 	
 	/**
-	 * 设置是否允许跨域访问
+	 * set allow origin domain request with response header properties
 	 * @param response
 	 */
 	protected void setCrossOrigin(HttpServletResponse response) {

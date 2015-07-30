@@ -2,55 +2,42 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
-import org.codehaus.jackson.map.annotate.JsonSerialize;
-
-import com.hannuus.gamble.vo.serializer.DateSerializer;
-import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
-
 public class Topic {
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long id;
-	
-	@JsonSerialize(using=StringFormatSerializer.class)
+
     private Long categoryId;
 
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long speciaId;
-	
-	@JsonSerialize(using=StringFormatSerializer.class)
+
     private Long userId;
-	
-	@JsonSerialize(using=StringFormatSerializer.class)
+
     private Boolean enabled;
 
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long hits;
-	
-	@JsonSerialize(using=StringFormatSerializer.class)
+
     private Long replyCount;
-	
-	@JsonSerialize(using=StringFormatSerializer.class)
+
     private Long modifiedBy;
 
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Date modifiedOn;
 
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long repliedBy;
 
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long repliedOn;
 
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Long iconId;
 
-	@JsonSerialize(using=StringFormatSerializer.class)
     private Integer state;
 
     private String imgUrl;
-    
-    @JsonSerialize(using=DateSerializer.class)
+
     private Date createdOn;
+
+    private String title;
+
+    private Long tagId;
+
+    private Long followCount;
 
     private String content;
 
@@ -172,6 +159,30 @@ public class Topic {
 
     public void setCreatedOn(Date createdOn) {
         this.createdOn = createdOn;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
+    }
+
+    public Long getTagId() {
+        return tagId;
+    }
+
+    public void setTagId(Long tagId) {
+        this.tagId = tagId;
+    }
+
+    public Long getFollowCount() {
+        return followCount;
+    }
+
+    public void setFollowCount(Long followCount) {
+        this.followCount = followCount;
     }
 
     public String getContent() {
