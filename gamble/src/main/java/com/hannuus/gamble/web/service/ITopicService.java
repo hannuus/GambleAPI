@@ -89,4 +89,11 @@ public interface ITopicService {
 	 * @return
 	 */
 	List<Topic> searchByPage(SearchTopicParamDTO dto, int pageNumber, int pageSize);
+	
+	/**
+	 * 统计主题下中的帖子数量
+	 * @param speciaId
+	 * @return
+	 */
+	int countTopicsBySpeciaId(Long speciaId);
 }

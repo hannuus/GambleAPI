@@ -1,6 +1,6 @@
 package com.hannuus.gamble.web.exception;
 
-public class GambleException extends RuntimeException {
+public class GambleException extends Exception {
 
 	/**
 	 * 

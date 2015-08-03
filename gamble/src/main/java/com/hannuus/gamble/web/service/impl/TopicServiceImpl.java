@@ -98,4 +98,11 @@ public class TopicServiceImpl implements ITopicService {
 		return topicMapper.countByExample(example);
 	}
 
+	@Override
+	public int countTopicsBySpeciaId(Long speciaId) {
+		TopicExample example = new TopicExample();
+		example.createCriteria().andSpeciaIdEqualTo(speciaId);
+		return topicMapper.countByExample(example);
+	}
+
 }

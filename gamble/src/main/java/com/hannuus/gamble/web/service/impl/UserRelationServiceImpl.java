@@ -101,7 +101,7 @@ public class UserRelationServiceImpl implements IUserRelationService {
 			for (UserRelation userRelation : myFansList) {
 				userIds.add(userRelation.getToId());
 			}
-			// find follow list user detail
+			// find fans user detail
 			return userService.findUserByIds(userIds);
 		}
 		return Collections.emptyList();

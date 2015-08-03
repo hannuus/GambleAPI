@@ -41,7 +41,7 @@ public interface IReplyService {
 	 * @param pageSize
 	 * @return
 	 */
-	List<Reply> findReplysByPage(Long topicId, int pageNUmber, int pageSize);
+	List<Reply> findReplysByPage(Long topicId, int pageNumber, int pageSize);
 	
 	/***
 	 * 获取回复, 即获取子评论
@@ -57,5 +57,26 @@ public interface IReplyService {
 	 * @param pageSize
 	 * @return
 	 */
-	List<Reply> findChildReplyByPage(Long replyId, int pageNumber, int pageSize);
+	List<Reply> findChildReplyByPage(Long parentId, int pageNumber, int pageSize);
+	
+	/**
+	 * 统计主题的评论数
+	 * @param topicId
+	 * @return
+	 */
+	int countByToticId(Long topicId);
+	
+	/**
+	 * 统计回复数量
+	 * @param parentId
+	 * @return
+	 */
+	int countChildReplys(Long parentId);
+	
+	/**
+	 * 根据ID查询
+	 * @param replyId
+	 * @return
+	 */
+	Reply findReplyById(Long replyId);
 }

@@ -51,10 +51,10 @@ public class ReplyServiceImpl implements IReplyService{
 	}
 
 	@Override
-	public List<Reply> findChildReplyByPage(Long replyId, int pageNumber,
+	public List<Reply> findChildReplyByPage(Long parentId, int pageNumber,
 			int pageSize) {
 		ReplyExample example = new ReplyExample();
-		example.createCriteria().andParentIdEqualTo(replyId);
+		example.createCriteria().andParentIdEqualTo(parentId);
 		int pageIndex = 0;
 		pageIndex = (pageNumber - 1) * pageSize;
 		example.setLimitStart(pageIndex);
@@ -63,8 +63,26 @@ public class ReplyServiceImpl implements IReplyService{
 	}
 
 	@Override
+	public int countByToticId(Long topicId) {
+		ReplyExample example = new ReplyExample();
+		example.createCriteria().andTopicIdEqualTo(topicId);
+		return replyMapper.countByExample(example);
+	}
+
+	@Override
 	public boolean updateReply(Reply reply) {
 		return replyMapper.updateByPrimaryKeySelective(reply) > 0;
 	}
 
+	@Override
+	public int countChildReplys(Long parentId) {
+		ReplyExample example = new ReplyExample();
+		example.createCriteria().andParentIdEqualTo(parentId);
+		return replyMapper.countByExample(example);
+	}
+
+	@Override
+	public Reply findReplyById(Long replyId) {
+		return replyMapper.selectByPrimaryKey(replyId);
+	}
 }

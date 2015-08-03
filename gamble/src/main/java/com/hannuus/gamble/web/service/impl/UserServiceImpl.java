@@ -157,4 +157,10 @@ public class UserServiceImpl implements IUserService {
 		return userMapper.selectByExample(userExample);
 	}
 
+	@Override
+	public int countUsers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
 }

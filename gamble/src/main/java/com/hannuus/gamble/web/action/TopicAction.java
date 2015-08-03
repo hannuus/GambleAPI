@@ -3,9 +3,11 @@ package com.hannuus.gamble.web.action;
 import java.util.Date;
 import java.util.List;
 
+import javax.management.openmbean.InvalidOpenTypeException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +29,8 @@ import com.hannuus.gamble.web.service.ITopicService;
  * 
  * @author aelns
  *
+ * TODO need more test 
+ *
  */
 @Controller
 @RequestMapping("/topic")
@@ -34,6 +38,38 @@ public class TopicAction extends BaseAction {
 	
 	@Autowired
 	ITopicService topicService;
+	
+	/**
+	 * 获取主题详情
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
+	public JsonVo<Topic> detail(HttpServletRequest request, HttpServletResponse response) {
+		JsonVo<Topic> json = new JsonVo<Topic>();
+		setCrossOrigin(response);
+		try {
+			validateRequest(request);
+			Long topicId = getLongReqParam("id", 0L);
+			json.setTotal(0);
+			Topic topic = topicService.findTopicsById(topicId);
+			if (null != topic) {
+				json.setTotal(1);
+				json.setResult(topic);
+				json.setStatus(JsonResultStatus.Success.getValue());
+			} else {
+				json.setStatus(JsonResultStatus.EmptyResult.getValue());
+			}
+		} catch (GambleException e) {
+			logErrorMessages(json, e);
+		} catch (Exception e) {
+			logUnknowErrorMessages(json, e);
+		}
+		return json;
+	}
 	
 	/**
 	 * 获取板块下的topic
@@ -52,18 +88,51 @@ public class TopicAction extends BaseAction {
 			Long categoryId = getLongReqParam("categoryId", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			
 			int total = topicService.countTopicsByCategoryId(categoryId);
 			json.setTotal(total);
-			if (total > 0) {
-				List<Topic> list = topicService.findCategoryTopicsByPage(categoryId, pageNumber, pageSize);
-				json.setResult(list);
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
+			List<Topic> list = topicService.findCategoryTopicsByPage(categoryId, pageNumber, pageSize);
+			json.setResult(list);
+			json.setStatus(JsonResultStatus.Success.getValue());
+			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
 		} catch (GambleException e) {
 			logErrorMessages(json, e);
+		} catch (Exception e) {
+			logUnknowErrorMessages(json, e);
+		}
+		return json;
+	}
+	
+	/**
+	 * 获取板块下的topic
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/listBySpeciaId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
+	public JsonVo<List<Topic>> listBySpecia(HttpServletRequest request, HttpServletResponse response) {
+		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
+		setCrossOrigin(response);
+		try {
+			validateRequest(request);
+			Long speciaId = getLongReqParam("speciaId", 0L);
+			int pageNumber = getIntegerReqParam("pageNumber", 1);
+			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+			int total = topicService.countTopicsBySpeciaId(speciaId);
+			json.setTotal(total);
+			List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId, pageNumber, pageSize);
+			json.setResult(list);
+			json.setStatus(JsonResultStatus.Success.getValue());
+			if (CollectionUtils.isEmpty(list)) {
+				json.setStatus(JsonResultStatus.EmptyResult.getValue());
+			}
+		} catch (GambleException e) {
+			logErrorMessages(json, e);
+		} catch (Exception e) {
+			logUnknowErrorMessages(json, e);
 		}
 		return json;
 	}
@@ -89,18 +158,20 @@ public class TopicAction extends BaseAction {
 			}
 		} catch (GambleException e) {
 			logErrorMessages(json, e);
+		} catch (Exception e) {
+			logUnknowErrorMessages(json, e);
 		}
 		return json;
 	}
 	
 	/**
-	 * 验证参数是否正确
+	 * 验证发帖参数是否正确
 	 * @param topic
 	 * @return
 	 */
 	private void validateAddTopicArguments(Topic topic) throws ArgumentsIncorrectException {
 		if (null == topic.getCategoryId() || topic.getCategoryId() < 0) {
-			throw new ArgumentsIncorrectException("categoryId不能为空");
+			throw new ArgumentsIncorrectException("categoryId无效");
 		}
 		if (null == topic.getUserId() || topic.getUserId() < 0) {
 			throw new ArgumentsIncorrectException("userId不能为空");
@@ -112,6 +183,61 @@ public class TopicAction extends BaseAction {
 			throw new ArgumentsIncorrectException("content不能为空");
 		}
 	}
+	
+	/**
+	 * 发帖
+	 * @param Topic
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/update", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String title,
+			String content, HttpServletRequest request, HttpServletResponse response) {
+		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
+		setCrossOrigin(response);
+		try {
+			validateRequest(request);
+			validateUpdateTopicArguments(id, title, content);
+			Topic topic = new Topic();
+			topic.setId(id);
+			topic.setTitle(title);
+			topic.setContent(content);
+			topic.setModifiedBy(getLoginUserId());
+			topic.setModifiedOn(new Date());
+			if(topicService.updateTopic(topic)) {
+				json.setStatus(JsonResultStatus.Success.getValue());
+			} else {
+				json.setStatus(JsonResultStatus.Failed.getValue());
+			}
+		} catch (GambleException e) {
+			logErrorMessages(json, e);
+		} catch (Exception e) {
+			logUnknowErrorMessages(json, e);
+		}
+		return json;
+	}
+	/**
+	 * 验证更新贴子的参数是否正确
+	 * @param id
+	 * @param title
+	 * @param content
+	 * @throws ArgumentsIncorrectException
+	 */
+	private void validateUpdateTopicArguments(Long topicId, String title,
+			String content) throws ArgumentsIncorrectException {
+		if (null == topicId || topicId < 0L) {
+			throw new ArgumentsIncorrectException("topicId无效");
+		}
+		if (null == topicService.findTopicsById(topicId)) {
+			throw new ArgumentsIncorrectException("帖子不存在");
+		}
+		if (StringUtils.isBlank(title)) {
+			throw new ArgumentsIncorrectException("title不能为空");
+		}
+		if (StringUtils.isBlank(content)) {
+			throw new ArgumentsIncorrectException("content不能为空");
+		}
+	}
 
 	private void initTopic(Topic topic) throws GambleException {
 		topic.setCreatedOn(new Date());
@@ -120,5 +246,43 @@ public class TopicAction extends BaseAction {
 		topic.setHits(0L);
 		topic.setReplyCount(0L);
 		topic.setState(TopicState.Normal.value());
+	}
+	
+	/**
+	 * 发帖
+	 * @param Topic
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/delete", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
+		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
+		setCrossOrigin(response);
+		try {
+			validateRequest(request);
+			validateDelete(request, id);
+			if(topicService.deleteTopic(id)) {
+				json.setStatus(JsonResultStatus.Success.getValue());
+			} else {
+				json.setStatus(JsonResultStatus.Failed.getValue());
+			}
+		} catch (GambleException e) {
+			logErrorMessages(json, e);
+		} catch (Exception e) {
+			logUnknowErrorMessages(json, e);
+		}
+		return json;
+	}
+
+	private void validateDelete(HttpServletRequest request, Long id) throws GambleException {
+		Topic topic = topicService.findTopicsById(id);
+		if (null == topic) {
+			throw new ArgumentsIncorrectException("帖子不存在");
+		}
+		Long userId = topic.getUserId();
+		// 只能删除自己的帖子
+		if (getLoginUserId() != userId) {
+			throw new InvalidOpenTypeException();
+		}
 	}
 }

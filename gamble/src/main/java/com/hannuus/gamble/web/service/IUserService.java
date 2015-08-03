@@ -147,4 +147,10 @@ public interface IUserService {
 	 * @return
 	 */
 	List<User> findUsersByPage(List<Long> userIds, int pageNumber, int pageSize);
+	
+	/**
+	 * 统计用户数量
+	 * @return
+	 */
+	int countUsers();
 }

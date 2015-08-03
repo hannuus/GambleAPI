@@ -1,16 +1,17 @@
 package com.hannuus.gamble.web.action;
 
 import java.io.File;
-import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.hannuus.gamble.bean.Topic;
+import com.hannuus.gamble.bean.User;
+import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.utils.HttpUtils;
 import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
@@ -20,21 +21,44 @@ import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
 import com.hannuus.gamble.web.exception.api.InvalidSignException;
 import com.hannuus.gamble.web.exception.api.TimeoutCallingException;
+import com.hannuus.gamble.web.service.IAccessTokenService;
 
 
 public class BaseAction {
 	
 	private Logger logger = Logger.getLogger(getClass());
 	
+	@Autowired
+	IAccessTokenService accessTokenService;
+	
+	protected Long getLoginUserId() {
+		String accessToken = getStringReqParam("accessToken");
+		User user = accessTokenService.getUserByAccessToken(accessToken);
+		return null == user? null : user.getId();
+	}
+
+	
 	/**
 	 * log error messages
 	 * @param json
 	 * @param e
 	 */
-	protected void logErrorMessages(JsonVo<List<Topic>> json, GambleException e) {
+	protected void logErrorMessages(JsonVo<?> json, GambleException e) {
 		logger.error(e);
 		json.setErrcode(e.getCode());
 		json.setErrmsg(e.getReasoning());
+		json.setStatus(JsonResultStatus.Failed.getValue());
+	}
+	
+	/**
+	 * 
+	 * @param json
+	 * @param e
+	 */
+	protected void logUnknowErrorMessages(JsonVo<?> json, Exception e) {
+		logger.error(e);
+		json.setErrcode(GambleAPIErrorCode.UnKnowException.getCode());
+		json.setErrmsg(e.getMessage());
 		json.setStatus(JsonResultStatus.Failed.getValue());
 	}
 	
@@ -51,65 +75,67 @@ public class BaseAction {
 	 * @throws GambleException
 	 */
 	protected void validateRequest(HttpServletRequest request) throws GambleException {
-		if (requestPathIsInvalid(request)) {
+		if (requestPathInvalid(request)) {
 			throw new InvalidRequestURLException(request.getRequestURL() + " is invalid");
 		}
-		if (accessTokenIsInvalid(request)) {
+		if (accessTokenInvalid(request)) {
 			throw new InvalidAccessTokenException();
 		}
-		if (userNotHavePermission(request)) {
+		if (permissionNotDefine(request)) {
 			throw new CanNotAccessException();
 		}
-		if (isInvalidSign(request)) {
+		if (signInvalid(request)) {
 			throw new InvalidSignException();
 		}
-		if (isTimeoutCall(request)) {
+		if (timeout(request)) {
 			throw new TimeoutCallingException();
 		}
 	}
 	/**
-	 * validate timestamp, if server (timestamp - client timestamp) > {timeout-times, like 10 minutes} return the timeout error code
+	 * 验证请求是否超时, 比如客户端的请求时间和服务端响应的时间相差10分钟, 则返回超时调用
 	 * @param request
 	 * @return
 	 */
-	private boolean isTimeoutCall(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	private boolean timeout(HttpServletRequest request) {
+		// TODO cuesky
 		return false;
 	}
 	/**
-	 * validate sign
+	 * validate sign, 
+	 * 为了防止参数被篡改, client传过来的参数应该是根据对参数名进行自然排序后用私钥对传递的参数(key/value)进行加密后生成一个sign, 
+	 * 客户端将sign传递给服务端, server使用client的公钥进行验证sign
 	 * @param request
 	 * @return
 	 */
-	private boolean isInvalidSign(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	private boolean signInvalid(HttpServletRequest request) {
+		// TODO cuesky
 		return false;
 	}
 	/**
-	 * validate user permission
+	 * 验证用户是否有权限访问此API
 	 * @param request
 	 * @return
 	 */
-	private boolean userNotHavePermission(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	private boolean permissionNotDefine(HttpServletRequest request) {
+		// TODO cuesky
 		return false;
 	}
 	/**
-	 * validate the access token
+	 * 验证client的accessToken是否有效
 	 * @param request
 	 * @return
 	 */
-	private boolean accessTokenIsInvalid(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	private boolean accessTokenInvalid(HttpServletRequest request) {
+		// TODO cuesky
 		return false;
 	}
 	/**
-	 * validate the API is valid
+	 * 验证请求的路径是否有效, 比如请求的路径可能已经无效, 或者是后台设置了暂时禁止访问
 	 * @param request
 	 * @return
 	 */
-	private boolean requestPathIsInvalid(HttpServletRequest request) {
-		// TODO Auto-generated method stub
+	private boolean requestPathInvalid(HttpServletRequest request) {
+		// TODO cuesky
 		return false;
 	}
 	/**

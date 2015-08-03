@@ -18,8 +18,9 @@ public enum GambleAPIErrorCode {
 	InvalidRequestPath("10009", "无效的请求路径"), 
 	InvaliAccessToken("10010", "无效的AccessToken"),
 	CanNotAccessResource("10011", "无权访问次资源"),
-	InvalidSign("10012", "sign验证失败"),
-	
+	InvalidSign("10012", "sign验证失败"), 
+	InvalidOpration("10013", "无效的操作"),
+	UnKnowException("10014", "未知的异常"),
 	;
 	
 	private String code;
