@@ -10,6 +10,8 @@ public class User {
     private String nickName;
 
     private String password;
+    
+    private String confimPassword;// 逻辑字段, DB中不存在
 
     private String email;
 
@@ -192,4 +194,12 @@ public class User {
     public void setMobile(Long mobile) {
         this.mobile = mobile;
     }
+
+	public String getConfimPassword() {
+		return confimPassword;
+	}
+
+	public void setConfimPassword(String confimPassword) {
+		this.confimPassword = confimPassword;
+	}
 }

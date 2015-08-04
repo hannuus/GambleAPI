@@ -28,32 +28,7 @@ public class UserRelationServiceImpl implements IUserRelationService {
 	@Override
 	public List<User> findFriendsListByPage(Long userId, int pageNumber,
 			int pageSize) {
-		// find follow Ids
-		UserRelationExample followRelationexample = new UserRelationExample();
-		Criteria followCriteria = followRelationexample.createCriteria();
-		followCriteria.andFromIdEqualTo(userId);
-		followCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
-		List<UserRelation> myFollowList = userRelationMapper.selectByExample(followRelationexample);
-		List<Long> followIds = Lists.newArrayList();
-		if (CollectionUtils.isNotEmpty(myFollowList)) {
-			for (UserRelation userRelation : myFollowList) {
-				followIds.add(userRelation.getToId());
-			}
-		}
-		// find fans Ids
-		UserRelationExample fansRelationexample = new UserRelationExample();
-		Criteria fansCriteria = fansRelationexample.createCriteria();
-		fansCriteria.andToIdEqualTo(userId);
-		fansCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
-		List<UserRelation> myFansList = userRelationMapper.selectByExample(fansRelationexample);
-		List<Long> fansIds = Lists.newArrayList();
-		if (CollectionUtils.isNotEmpty(myFansList)) {
-			for (UserRelation userRelation : myFansList) {
-				fansIds.add(userRelation.getToId());
-			}
-		}
-		@SuppressWarnings("unchecked")
-		Collection<Long> friendsIds = CollectionUtils.union(followIds, fansIds);
+		Collection<Long> friendsIds = getFriendsIds(userId);
 		return userService.findUsersByPage(Lists.newArrayList(friendsIds), pageNumber, pageSize);
 	}
 
@@ -158,5 +133,57 @@ public class UserRelationServiceImpl implements IUserRelationService {
 			addFollow(fromId, toId);
 		}
 		return true;
+	}
+
+	@Override
+	public int countFriends(Long userId) {
+		Collection<Long> friendsIds = getFriendsIds(userId);
+		return friendsIds.size();
+	}
+
+	private Collection<Long> getFriendsIds(Long userId) {
+		UserRelationExample followRelationexample = new UserRelationExample();
+		Criteria followCriteria = followRelationexample.createCriteria();
+		followCriteria.andFromIdEqualTo(userId);
+		followCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		List<UserRelation> myFollowList = userRelationMapper.selectByExample(followRelationexample);
+		List<Long> followIds = Lists.newArrayList();
+		if (CollectionUtils.isNotEmpty(myFollowList)) {
+			for (UserRelation userRelation : myFollowList) {
+				followIds.add(userRelation.getToId());
+			}
+		}
+		// find fans Ids
+		UserRelationExample fansRelationexample = new UserRelationExample();
+		Criteria fansCriteria = fansRelationexample.createCriteria();
+		fansCriteria.andToIdEqualTo(userId);
+		fansCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		List<UserRelation> myFansList = userRelationMapper.selectByExample(fansRelationexample);
+		List<Long> fansIds = Lists.newArrayList();
+		if (CollectionUtils.isNotEmpty(myFansList)) {
+			for (UserRelation userRelation : myFansList) {
+				fansIds.add(userRelation.getToId());
+			}
+		}
+		Collection<Long> friendsIds = getFriendsIds(userId);
+		return friendsIds;
+	}
+
+	@Override
+	public int countFollows(Long userId) {
+		UserRelationExample userRelationexample = new UserRelationExample();
+		Criteria criteria = userRelationexample.createCriteria();
+		criteria.andFromIdEqualTo(userId);
+		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		return userRelationMapper.countByExample(userRelationexample);
+	}
+
+	@Override
+	public int countFans(Long userId) {
+		UserRelationExample userRelationexample = new UserRelationExample();
+		Criteria criteria = userRelationexample.createCriteria();
+		criteria.andToIdEqualTo(userId);
+		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		return userRelationMapper.countByExample(userRelationexample);
 	}
 }

@@ -90,5 +90,21 @@ public interface IUserRelationService {
 	 */
 	boolean cancelFollows(Long fromId, List<Long> toIds);
 	
+	/**
+	 * 统计朋友数量
+	 * @return
+	 */
+	int countFriends(Long userId);
 	
+	/**
+	 * 统计关注数量
+	 * @return
+	 */
+	int countFollows(Long userId);
+	
+	/**
+	 * 统计粉丝数量
+	 * @return
+	 */
+	int countFans(Long userId);
 }

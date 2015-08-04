@@ -85,7 +85,7 @@ public class TopicAction extends BaseAction {
 		setCrossOrigin(response);
 		try {
 			validateRequest(request);
-			Long categoryId = getLongReqParam("categoryId", 0L);
+			Long categoryId = getLongReqParam("id", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
 			int total = topicService.countTopicsByCategoryId(categoryId);
