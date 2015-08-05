@@ -3,7 +3,7 @@ package com.hannuus.gamble.utils;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-public class DateUtil {
+public class DateUtils {
 	/**
 	 * yyyy-MM-dd
 	 */
