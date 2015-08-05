@@ -1,6 +1,7 @@
 package com.hannuus.gamble.web.action;
 
 import java.io.File;
+import java.util.Date;
 import java.util.List;
 
 import javax.management.openmbean.InvalidOpenTypeException;
@@ -19,11 +20,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.comm.SystemConstants;
+import com.hannuus.gamble.comm.UserState;
 import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
-import com.hannuus.gamble.web.service.IUserRelationService;
 import com.hannuus.gamble.web.service.IUserService;
 
 /**
@@ -40,9 +41,6 @@ public class UserAction extends BaseAction {
 	@Autowired
 	IUserService userService;
 	
-	@Autowired
-	IUserRelationService userRelationService;
-	
 	/**
 	 * 新增用户
 	 * @param modelMap
@@ -53,12 +51,12 @@ public class UserAction extends BaseAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.OPTIONS})
-	public JsonVo<List<User>> create(ModelMap modelMap, User user, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<User>> add(ModelMap modelMap, User user, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		setCrossOrigin(response);
 		try {
 			validateRequest(request);
-			initUser(user);
+			initAddUser(user);
 			validateAddUserArguments(user);
 			if(userService.addUser(user)) {
 				json.setStatus(JsonResultStatus.Success.getValue());
@@ -291,7 +289,16 @@ public class UserAction extends BaseAction {
 		File file = new File(SystemConstants.UPLOAD_FOLDER_USER_LOGO + File.separator + headImage);
 		return file.exists();
 	}
-	//	更新个性签名
+    
+    /**
+     * 更新个性签名
+     * @param modelMap
+     * @param id
+     * @param signature
+     * @param request
+     * @param response
+     * @return
+     */
     @ResponseBody
 	@RequestMapping(value = "/updateSignature", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<User>> updateSignature(ModelMap modelMap, Long id, String signature, HttpServletRequest request, HttpServletResponse response) {
@@ -361,112 +368,15 @@ public class UserAction extends BaseAction {
 		return json;
 	}
 
-    /**
-     * 查找好友列表, 彼此互相关注的人
-     * @param modelMap
-     * @param id
-     * @param request
-     * @param response
-     * @return
-     */
-    @ResponseBody
-	@RequestMapping(value = "/friends.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<User>> friends(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
-		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
-		try {
-			validateRequest(request);
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = userRelationService.countFriends(id);
-			json.setTotal(total);
-			List<User> list = userRelationService.findFriendsListByPage(id, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
-		}
-		return json;
-	}
-    
-    /**
-     * 查找关注列表, 我关注的人
-     * @param modelMap
-     * @param id
-     * @param request
-     * @param response
-     * @return
-     */
-    @ResponseBody
-	@RequestMapping(value = "/follows.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<User>> follows(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
-		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
-		try {
-			validateRequest(request);
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = userRelationService.countFollows(id);
-			json.setTotal(total);
-			List<User> list = userRelationService.findFollowListByPage(id, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
-		}
-		return json;
-	}
-    /**
-     * 查找粉丝, 关注我的人
-     * @param modelMap
-     * @param id
-     * @param request
-     * @param response
-     * @return
-     */
-    @ResponseBody
-	@RequestMapping(value = "/fans.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<User>> fans(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
-		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
-		try {
-			validateRequest(request);
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = userRelationService.countFans(id);
-			json.setTotal(total);
-			List<User> list = userRelationService.findFansListByPage(id, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
-		}
-		return json;
-	}
-//	添加用户关系
-//	删除用户关系
-//	添加关注
-//	批量添加关注
-//	取消关注
-//	批量取消关注
-	private void initUser(User user) {
-		// TODO Auto-generated method stub
-		
+	private void initAddUser(User user) {
+		user.setCreatedOn(new Date());
+		user.setState(UserState.Normal.value());
+		user.setTopicCount(0);
+		user.setAmount(0L);
+		user.setBestTopicCount(0);
+		user.setFansCount(0);
+		user.setFollowCount(0);
+		user.setReplyCount(0);
 	}
 
 }
