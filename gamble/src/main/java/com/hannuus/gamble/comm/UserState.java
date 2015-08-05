@@ -13,7 +13,7 @@ public enum UserState {
 	
 	static {
 		valueMap.put(UserState.Willdelete, -1);
-		valueMap.put(UserState.Locked, -1);
+		valueMap.put(UserState.Locked, 0);
 		valueMap.put(UserState.Normal, 1);
 		
 		for (UserState state : valueMap.keySet()) {

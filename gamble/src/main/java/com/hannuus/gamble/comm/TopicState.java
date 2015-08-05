@@ -12,7 +12,7 @@ public enum TopicState {
 	private static Map<Integer, TopicState> instanceMap = Maps.newConcurrentMap();
 	
 	static {
-		valueMap.put(TopicState.Normal, 1);
+		valueMap.put(TopicState.Normal, 0);
 		valueMap.put(TopicState.Willdelete, -1);
 		
 		for (TopicState state : valueMap.keySet()) {
