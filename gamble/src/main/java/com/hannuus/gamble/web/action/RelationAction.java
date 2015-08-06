@@ -47,7 +47,6 @@ public class RelationAction extends BaseAction {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
 			int total = userRelationService.countFriends(id);
@@ -58,8 +57,6 @@ public class RelationAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -80,7 +77,6 @@ public class RelationAction extends BaseAction {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
 			int total = userRelationService.countFollows(id);
@@ -91,8 +87,6 @@ public class RelationAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -112,7 +106,6 @@ public class RelationAction extends BaseAction {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
 			int total = userRelationService.countFans(id);
@@ -123,8 +116,6 @@ public class RelationAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -196,9 +187,9 @@ public class RelationAction extends BaseAction {
      * 验证取消关注参数
      * @param fromId
      * @param toIdsList
-     * @throws GambleException
+     * @throws Exception 
      */
-	private void validateCanselFollowsArguments(Long fromId, List<Long> toIdsList) throws GambleException {
+	private void validateCanselFollowsArguments(Long fromId, List<Long> toIdsList) throws Exception {
 		if (null == fromId) {
 			throw new ArgumentsIncorrectException("fromId参数无效");
 		}

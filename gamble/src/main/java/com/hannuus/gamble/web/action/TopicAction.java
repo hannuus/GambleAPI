@@ -52,7 +52,6 @@ public class TopicAction extends BaseAction {
 		JsonVo<Topic> json = new JsonVo<Topic>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			Long topicId = getLongReqParam("id", 0L);
 			json.setTotal(0);
 			Topic topic = topicService.findTopicsById(topicId);
@@ -63,8 +62,6 @@ public class TopicAction extends BaseAction {
 			} else {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -80,11 +77,10 @@ public class TopicAction extends BaseAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/listByCategoryId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<Topic>> listByCategory(HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<Topic>> listByCategoryId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			Long categoryId = getLongReqParam("id", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -96,8 +92,6 @@ public class TopicAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -113,11 +107,10 @@ public class TopicAction extends BaseAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/listBySpeciaId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<Topic>> listBySpecia(HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<Topic>> listBySpeciaId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			Long speciaId = getLongReqParam("speciaId", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -129,8 +122,6 @@ public class TopicAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -274,7 +265,7 @@ public class TopicAction extends BaseAction {
 		return json;
 	}
 
-	private void validateDelete(HttpServletRequest request, Long id) throws GambleException {
+	private void validateDelete(HttpServletRequest request, Long id) throws Exception {
 		Topic topic = topicService.findTopicsById(id);
 		if (null == topic) {
 			throw new ArgumentsIncorrectException("帖子不存在");

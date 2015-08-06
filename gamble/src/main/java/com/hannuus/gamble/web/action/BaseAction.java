@@ -12,6 +12,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
+import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.utils.HttpUtils;
 import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
@@ -19,9 +20,7 @@ import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.CanNotAccessException;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
-import com.hannuus.gamble.web.exception.api.InvalidSignException;
-import com.hannuus.gamble.web.exception.api.TimeoutCallingException;
-import com.hannuus.gamble.web.service.IAccessTokenService;
+import com.hannuus.gamble.web.service.ILoginService;
 
 
 public class BaseAction {
@@ -29,10 +28,10 @@ public class BaseAction {
 	private Logger logger = Logger.getLogger(getClass());
 	
 	@Autowired
-	IAccessTokenService accessTokenService;
+	ILoginService accessTokenService;
 	
-	protected Long getLoginUserId() {
-		String accessToken = getStringReqParam("accessToken");
+	protected Long getLoginUserId() throws Exception {
+		String accessToken = getStringReqParam(R.request.access_token);
 		User user = accessTokenService.getUserByAccessToken(accessToken);
 		return null == user? null : user.getId();
 	}
@@ -63,60 +62,30 @@ public class BaseAction {
 	}
 	
 	/**
-	 *  validate the API path is invalid</br>
 	 *  validate access token</br>
 	 *  validate user permission</br>
-	 *  validate sign</br>
-	 *  validate timestamp, if server (timestamp - client timestamp) > {timeout-times}</br> 
-	 *  like 10 minutes, then return the timeout response</br>
 	 *  
 	 * @param
 	 * @param HttpServletRequest request
 	 * @throws GambleException
 	 */
 	protected void validateRequest(HttpServletRequest request) throws GambleException {
-		if (requestPathInvalid(request)) {
-			throw new InvalidRequestURLException(request.getRequestURL() + " is invalid");
-		}
 		if (accessTokenInvalid(request)) {
 			throw new InvalidAccessTokenException();
 		}
-		if (permissionNotDefine(request)) {
+		if (permissionNotDefined(request)) {
 			throw new CanNotAccessException();
 		}
-		if (signInvalid(request)) {
-			throw new InvalidSignException();
+		if (requestPathInvalid(request)) {
+			throw new InvalidRequestURLException();
 		}
-		if (timeout(request)) {
-			throw new TimeoutCallingException();
-		}
-	}
-	/**
-	 * 验证请求是否超时, 比如客户端的请求时间和服务端响应的时间相差10分钟, 则返回超时调用
-	 * @param request
-	 * @return
-	 */
-	private boolean timeout(HttpServletRequest request) {
-		// TODO cuesky
-		return false;
-	}
-	/**
-	 * validate sign, 
-	 * 为了防止参数被篡改, client传过来的参数应该是根据对参数名进行自然排序后用私钥对传递的参数(key/value)进行加密后生成一个sign, 
-	 * 客户端将sign传递给服务端, server使用client的公钥进行验证sign
-	 * @param request
-	 * @return
-	 */
-	private boolean signInvalid(HttpServletRequest request) {
-		// TODO cuesky
-		return false;
 	}
 	/**
 	 * 验证用户是否有权限访问此API
 	 * @param request
 	 * @return
 	 */
-	private boolean permissionNotDefine(HttpServletRequest request) {
+	private boolean permissionNotDefined(HttpServletRequest request) {
 		// TODO cuesky
 		return false;
 	}
@@ -130,13 +99,17 @@ public class BaseAction {
 		return false;
 	}
 	/**
-	 * 验证请求的路径是否有效, 比如请求的路径可能已经无效, 或者是后台设置了暂时禁止访问
+	 * 验证请求的路径是否有效, 
+	 * 比如请求的路径可能已经无效, 或者是后台设置了暂时禁止访问, 
+	 * 目前默认返回true, 后期可能实现
+	 * 
+	 * FIXME
+	 * 
 	 * @param request
 	 * @return
 	 */
 	private boolean requestPathInvalid(HttpServletRequest request) {
-		// TODO cuesky
-		return false;
+		return true;
 	}
 	/**
 	 * get a String request parameter
