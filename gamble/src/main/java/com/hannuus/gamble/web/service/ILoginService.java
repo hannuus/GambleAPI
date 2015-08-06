@@ -6,7 +6,7 @@ import com.hannuus.gamble.bean.User;
 public interface ILoginService {
 	
 	/**
-	 * 根据accessToken获取用户信息通过下划线"_"分割原始的token信息获取用户ID
+	 * 根据accessToken获取用户信息
 	 * @param accessToken
 	 * @return
 	 * @throws Exception
