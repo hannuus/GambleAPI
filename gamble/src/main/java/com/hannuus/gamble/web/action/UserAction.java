@@ -112,7 +112,7 @@ public class UserAction extends BaseAction {
 		return json;
 	}
 	
-	private void validateDelete(HttpServletRequest request, Long id) throws GambleException {
+	private void validateDelete(HttpServletRequest request, Long id) throws Exception {
 		User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -133,7 +133,6 @@ public class UserAction extends BaseAction {
 		JsonVo<User> json = new JsonVo<User>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			Long userId = getLongReqParam("id", 0L);
 			json.setTotal(0);
 			User user = userService.findUserById(userId);
@@ -144,8 +143,6 @@ public class UserAction extends BaseAction {
 			} else {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -160,11 +157,10 @@ public class UserAction extends BaseAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/listUsers.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<User>> listByCategory(User user, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<User>> listUsers(User user, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
 			int total = userService.countUsers();
@@ -175,8 +171,6 @@ public class UserAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -216,7 +210,7 @@ public class UserAction extends BaseAction {
 		return json;
 	}
 	
-	private void validateUpdateNickNameArguments(Long id, String nickName) throws GambleException {
+	private void validateUpdateNickNameArguments(Long id, String nickName) throws Exception {
 		User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -265,9 +259,9 @@ public class UserAction extends BaseAction {
 	 * 
 	 * @param id
 	 * @param headImage
-	 * @throws GambleException
+	 * @throws Exception 
 	 */
-	private void validateUpdateHeadImageArguments(Long id, String headImage) throws GambleException {
+	private void validateUpdateHeadImageArguments(Long id, String headImage) throws Exception {
 		User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -323,7 +317,7 @@ public class UserAction extends BaseAction {
 		return json;
 	}
     
-    private void validateUpdateSignatureArguments(Long id, String signature) throws GambleException {
+    private void validateUpdateSignatureArguments(Long id, String signature) throws Exception {
     	User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -354,7 +348,6 @@ public class UserAction extends BaseAction {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			if(userService.isLock(id)) {
 				json.setStatus(JsonResultStatus.Success.getValue());
 			} else {

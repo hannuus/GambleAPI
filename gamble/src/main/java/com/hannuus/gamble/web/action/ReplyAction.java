@@ -45,7 +45,6 @@ public class ReplyAction extends BaseAction {
 		JsonVo<Reply> json = new JsonVo<Reply>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			Long replyId = getLongReqParam("id", 0L);
 			json.setTotal(0);
 			Reply topic = replyService.findReplyById(replyId);
@@ -56,8 +55,6 @@ public class ReplyAction extends BaseAction {
 			} else {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -166,7 +163,6 @@ public class ReplyAction extends BaseAction {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			Long topicId = getLongReqParam("topicId", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -178,8 +174,6 @@ public class ReplyAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -198,7 +192,6 @@ public class ReplyAction extends BaseAction {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		setCrossOrigin(response);
 		try {
-			validateRequest(request);
 			Long parentId = getLongReqParam("parentId", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -210,8 +203,6 @@ public class ReplyAction extends BaseAction {
 			if (CollectionUtils.isEmpty(list)) {
 				json.setStatus(JsonResultStatus.EmptyResult.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}
@@ -239,8 +230,9 @@ public class ReplyAction extends BaseAction {
 	 * 验证删除
 	 * @param request
 	 * @param replyId
+	 * @throws Exception 
 	 */
-	private void validateDelete(HttpServletRequest request, Long replyId)  throws GambleException  {
+	private void validateDelete(HttpServletRequest request, Long replyId)  throws Exception  {
 		Reply reply = replyService.findReplyById(replyId);
 		if (null == reply) {
 			throw new ArgumentsIncorrectException("评论不存在");
