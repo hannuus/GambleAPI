@@ -15,7 +15,6 @@ public final class R {
 	public static final class request {
 
 		public static final String timestamp = "timestamp";
-
 		public static final String access_token = "accessToken";
 
 	}
@@ -24,6 +23,7 @@ public final class R {
 	public static final class session {
 
 		public static final String user = "userInSession";
+		public static final String access_token = "accessToken";
 
 	}
 
