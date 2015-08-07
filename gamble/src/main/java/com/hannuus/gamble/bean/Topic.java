@@ -23,7 +23,7 @@ public class Topic {
 
     private Long repliedBy;
 
-    private Long repliedOn;
+    private Date repliedOn;
 
     private Long iconId;
 
@@ -121,11 +121,11 @@ public class Topic {
         this.repliedBy = repliedBy;
     }
 
-    public Long getRepliedOn() {
+    public Date getRepliedOn() {
         return repliedOn;
     }
 
-    public void setRepliedOn(Long repliedOn) {
+    public void setRepliedOn(Date repliedOn) {
         this.repliedOn = repliedOn;
     }
 

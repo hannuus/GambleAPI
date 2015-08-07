@@ -6,6 +6,7 @@ import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 import com.hannuus.gamble.bean.User;
@@ -17,6 +18,7 @@ import com.hannuus.gamble.dao.UserRelationMapper;
 import com.hannuus.gamble.web.service.IUserRelationService;
 import com.hannuus.gamble.web.service.IUserService;
 
+@Service
 public class UserRelationServiceImpl implements IUserRelationService {
 	
 	@Autowired

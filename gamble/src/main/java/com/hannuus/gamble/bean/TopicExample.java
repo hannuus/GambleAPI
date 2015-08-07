@@ -735,52 +735,52 @@ public class TopicExample {
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnEqualTo(Long value) {
+        public Criteria andRepliedOnEqualTo(Date value) {
             addCriterion("replied_on =", value, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnNotEqualTo(Long value) {
+        public Criteria andRepliedOnNotEqualTo(Date value) {
             addCriterion("replied_on <>", value, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnGreaterThan(Long value) {
+        public Criteria andRepliedOnGreaterThan(Date value) {
             addCriterion("replied_on >", value, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnGreaterThanOrEqualTo(Long value) {
+        public Criteria andRepliedOnGreaterThanOrEqualTo(Date value) {
             addCriterion("replied_on >=", value, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnLessThan(Long value) {
+        public Criteria andRepliedOnLessThan(Date value) {
             addCriterion("replied_on <", value, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnLessThanOrEqualTo(Long value) {
+        public Criteria andRepliedOnLessThanOrEqualTo(Date value) {
             addCriterion("replied_on <=", value, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnIn(List<Long> values) {
+        public Criteria andRepliedOnIn(List<Date> values) {
             addCriterion("replied_on in", values, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnNotIn(List<Long> values) {
+        public Criteria andRepliedOnNotIn(List<Date> values) {
             addCriterion("replied_on not in", values, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnBetween(Long value1, Long value2) {
+        public Criteria andRepliedOnBetween(Date value1, Date value2) {
             addCriterion("replied_on between", value1, value2, "repliedOn");
             return (Criteria) this;
         }
 
-        public Criteria andRepliedOnNotBetween(Long value1, Long value2) {
+        public Criteria andRepliedOnNotBetween(Date value1, Date value2) {
             addCriterion("replied_on not between", value1, value2, "repliedOn");
             return (Criteria) this;
         }

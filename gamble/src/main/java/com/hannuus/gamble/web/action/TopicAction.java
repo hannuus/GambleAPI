@@ -69,7 +69,7 @@ public class TopicAction extends BaseAction {
 	}
 	
 	/**
-	 * 获取板块下的topic
+	 * 获取某个板块下的topic
 	 * 
 	 * @param request
 	 * @param response

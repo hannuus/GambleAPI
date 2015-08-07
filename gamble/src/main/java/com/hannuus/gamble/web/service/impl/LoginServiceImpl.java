@@ -3,6 +3,7 @@ package com.hannuus.gamble.web.service.impl;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.hannuus.gamble.bean.AccessToken;
@@ -11,6 +12,7 @@ import com.hannuus.gamble.utils.AESHelper;
 import com.hannuus.gamble.web.service.ILoginService;
 import com.hannuus.gamble.web.service.IUserService;
 
+@Service
 public class LoginServiceImpl implements ILoginService {
 	
 	@Autowired
