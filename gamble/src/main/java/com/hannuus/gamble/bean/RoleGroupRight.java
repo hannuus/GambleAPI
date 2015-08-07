@@ -2,12 +2,12 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
-public class RuleGroup {
+public class RoleGroupRight {
     private Long id;
 
-    private String name;
+    private Long groupId;
 
-    private String key;
+    private Long manageId;
 
     private Date createdOn;
 
@@ -19,20 +19,20 @@ public class RuleGroup {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public Long getGroupId() {
+        return groupId;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setGroupId(Long groupId) {
+        this.groupId = groupId;
     }
 
-    public String getKey() {
-        return key;
+    public Long getManageId() {
+        return manageId;
     }
 
-    public void setKey(String key) {
-        this.key = key == null ? null : key.trim();
+    public void setManageId(Long manageId) {
+        this.manageId = manageId;
     }
 
     public Date getCreatedOn() {

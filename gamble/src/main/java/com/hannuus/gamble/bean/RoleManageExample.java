@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RuleRuleManageExample {
+public class RoleManageExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,7 +15,7 @@ public class RuleRuleManageExample {
 
     protected Integer limitEnd;
 
-    public RuleRuleManageExample() {
+    public RoleManageExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 

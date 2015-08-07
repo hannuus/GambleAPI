@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hannuus.gamble.dao.RuleRuleManageMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.gamble.bean.RuleRuleManage" >
+<mapper namespace="com.hannuus.gamble.dao.RoleGroupRightMapper" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.bean.RoleGroupRight" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="key" property="key" jdbcType="VARCHAR" />
+    <result column="group_id" property="groupId" jdbcType="BIGINT" />
+    <result column="manage_id" property="manageId" jdbcType="BIGINT" />
     <result column="created_on" property="createdOn" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -66,16 +66,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, key, created_on
+    id, group_id, manage_id, created_on
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.bean.RuleRuleManageExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.bean.RoleGroupRightExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from bbs_rule_manage
+    from bbs_role_group_right
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -89,73 +89,73 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from bbs_rule_manage
+    from bbs_role_group_right
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from bbs_rule_manage
+    delete from bbs_role_group_right
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.gamble.bean.RuleRuleManageExample" >
-    delete from bbs_rule_manage
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.bean.RoleGroupRightExample" >
+    delete from bbs_role_group_right
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hannuus.gamble.bean.RuleRuleManage" >
+  <insert id="insert" parameterType="com.hannuus.gamble.bean.RoleGroupRight" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_rule_manage (name, key, created_on
+    insert into bbs_role_group_right (group_id, manage_id, created_on
       )
-    values (#{name,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, #{createdOn,jdbcType=TIMESTAMP}
+    values (#{groupId,jdbcType=BIGINT}, #{manageId,jdbcType=BIGINT}, #{createdOn,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.RuleRuleManage" >
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.bean.RoleGroupRight" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_rule_manage
+    insert into bbs_role_group_right
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="name != null" >
-        name,
+      <if test="groupId != null" >
+        group_id,
       </if>
-      <if test="key != null" >
-        key,
+      <if test="manageId != null" >
+        manage_id,
       </if>
       <if test="createdOn != null" >
         created_on,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
+      <if test="groupId != null" >
+        #{groupId,jdbcType=BIGINT},
       </if>
-      <if test="key != null" >
-        #{key,jdbcType=VARCHAR},
+      <if test="manageId != null" >
+        #{manageId,jdbcType=BIGINT},
       </if>
       <if test="createdOn != null" >
         #{createdOn,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hannuus.gamble.bean.RuleRuleManageExample" resultType="java.lang.Integer" >
-    select count(*) from bbs_rule_manage
+  <select id="countByExample" parameterType="com.hannuus.gamble.bean.RoleGroupRightExample" resultType="java.lang.Integer" >
+    select count(*) from bbs_role_group_right
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update bbs_rule_manage
+    update bbs_role_group_right
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=BIGINT},
       </if>
-      <if test="record.key != null" >
-        key = #{record.key,jdbcType=VARCHAR},
+      <if test="record.manageId != null" >
+        manage_id = #{record.manageId,jdbcType=BIGINT},
       </if>
       <if test="record.createdOn != null" >
         created_on = #{record.createdOn,jdbcType=TIMESTAMP},
@@ -166,23 +166,23 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update bbs_rule_manage
+    update bbs_role_group_right
     set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
-      key = #{record.key,jdbcType=VARCHAR},
+      group_id = #{record.groupId,jdbcType=BIGINT},
+      manage_id = #{record.manageId,jdbcType=BIGINT},
       created_on = #{record.createdOn,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.bean.RuleRuleManage" >
-    update bbs_rule_manage
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.bean.RoleGroupRight" >
+    update bbs_role_group_right
     <set >
-      <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+      <if test="groupId != null" >
+        group_id = #{groupId,jdbcType=BIGINT},
       </if>
-      <if test="key != null" >
-        key = #{key,jdbcType=VARCHAR},
+      <if test="manageId != null" >
+        manage_id = #{manageId,jdbcType=BIGINT},
       </if>
       <if test="createdOn != null" >
         created_on = #{createdOn,jdbcType=TIMESTAMP},
@@ -190,10 +190,10 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.bean.RuleRuleManage" >
-    update bbs_rule_manage
-    set name = #{name,jdbcType=VARCHAR},
-      key = #{key,jdbcType=VARCHAR},
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.bean.RoleGroupRight" >
+    update bbs_role_group_right
+    set group_id = #{groupId,jdbcType=BIGINT},
+      manage_id = #{manageId,jdbcType=BIGINT},
       created_on = #{createdOn,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>

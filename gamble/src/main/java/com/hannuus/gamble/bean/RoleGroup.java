@@ -2,7 +2,7 @@ package com.hannuus.gamble.bean;
 
 import java.util.Date;
 
-public class RuleRuleManage {
+public class RoleGroup {
     private Long id;
 
     private String name;
