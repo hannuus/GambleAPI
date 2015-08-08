@@ -1,4 +1,4 @@
-package com.hannuus.core;
+package com.hannuus.core.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.security.InvalidKeyException;

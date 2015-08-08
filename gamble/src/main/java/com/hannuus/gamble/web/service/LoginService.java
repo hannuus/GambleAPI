@@ -1,6 +1,6 @@
 package com.hannuus.gamble.web.service;
 
-import com.hannuus.model.gamble.AccessToken;
+import com.hannuus.domain.gamble.AccessToken;
 import com.hannuus.model.gamble.User;
 
 

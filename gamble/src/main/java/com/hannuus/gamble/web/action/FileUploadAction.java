@@ -18,8 +18,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.comm.SystemConstants;
-import com.hannuus.gamble.vo.JsonResultStatus;
-import com.hannuus.gamble.vo.JsonVo;
+import com.hannuus.core.json.JsonResultStatus;
+import com.hannuus.core.json.JsonVo;
 
 
 @Controller

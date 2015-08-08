@@ -1,4 +1,4 @@
-package com.hannuus.gamble.vo;
+package com.hannuus.gamble.utils;
 
 import java.util.List;
 

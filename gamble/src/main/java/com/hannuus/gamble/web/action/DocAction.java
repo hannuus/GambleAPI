@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Maps;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
-import com.hannuus.gamble.vo.JsonResultStatus;
-import com.hannuus.gamble.vo.JsonVo;
+import com.hannuus.core.json.JsonResultStatus;
+import com.hannuus.core.json.JsonVo;
 
 @Controller
 @RequestMapping("/docs")

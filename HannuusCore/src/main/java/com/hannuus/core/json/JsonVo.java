@@ -1,9 +1,9 @@
-package com.hannuus.gamble.vo;
+package com.hannuus.core.json;
 
 //import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.hannuus.core.StringFormatSerializer;
+import com.hannuus.core.json.StringFormatSerializer;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class JsonVo<T> {

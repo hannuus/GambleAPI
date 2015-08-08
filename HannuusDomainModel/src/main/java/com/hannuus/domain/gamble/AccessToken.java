@@ -1,7 +1,7 @@
-package com.hannuus.model.gamble;
+package com.hannuus.domain.gamble;
 
 import com.google.gson.Gson;
-import com.hannuus.core.AESHelper;
+import com.hannuus.core.utils.AESHelper;
 
 /**
  * 用作与mobile client保持session。<br>
@@ -10,7 +10,7 @@ import com.hannuus.core.AESHelper;
  * @author aelns
  * @author cuesky
  * @date 2015年8月7日 上午1:40:24
- * @see com.hannuus.core.AESHelper
+ * @see com.hannuus.core.utils.AESHelper
  * @see com.hannuus.gamble.web.action.BaseAction#isAccessTokenValid()
  */
 public class AccessToken {

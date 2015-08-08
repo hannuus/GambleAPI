@@ -1,4 +1,4 @@
-package com.hannuus.core;
+package com.hannuus.core.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;

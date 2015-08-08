@@ -1,4 +1,4 @@
-package com.hannuus.core;
+package com.hannuus.core.utils;
 
 import javax.mail.Authenticator;
 import javax.mail.PasswordAuthentication;

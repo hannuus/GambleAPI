@@ -12,11 +12,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.hannuus.core.json.JsonResultStatus;
+import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.utils.HttpUtils;
-import com.hannuus.gamble.vo.JsonResultStatus;
-import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.CanNotAccessException;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;

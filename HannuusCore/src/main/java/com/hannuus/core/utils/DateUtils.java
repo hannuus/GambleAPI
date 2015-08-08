@@ -1,4 +1,4 @@
-package com.hannuus.core;
+package com.hannuus.core.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;

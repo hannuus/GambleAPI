@@ -1,4 +1,4 @@
-package com.hannuus.gamble.vo;
+package com.hannuus.core.json;
 
 public enum JsonResultStatus {
 	Success("0"),

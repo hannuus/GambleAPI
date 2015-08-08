@@ -1,4 +1,4 @@
-package com.hannuus.core;
+package com.hannuus.core.json;
 
 import java.io.IOException;
 import java.text.SimpleDateFormat;
