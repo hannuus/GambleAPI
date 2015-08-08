@@ -12,10 +12,10 @@ import com.hannuus.gamble.comm.UserState;
 import com.hannuus.gamble.dao.UserMapper;
 import com.hannuus.gamble.web.exception.api.NotFoundAnyDataException;
 import com.hannuus.gamble.web.exception.api.UserPointsNotEnoughException;
-import com.hannuus.gamble.web.service.IUserService;
+import com.hannuus.gamble.web.service.UserService;
 
 @Service
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	UserMapper userMapper;

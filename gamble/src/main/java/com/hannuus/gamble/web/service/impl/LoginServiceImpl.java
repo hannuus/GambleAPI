@@ -9,14 +9,14 @@ import com.google.gson.Gson;
 import com.hannuus.gamble.bean.AccessToken;
 import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.utils.AESHelper;
-import com.hannuus.gamble.web.service.ILoginService;
-import com.hannuus.gamble.web.service.IUserService;
+import com.hannuus.gamble.web.service.LoginService;
+import com.hannuus.gamble.web.service.UserService;
 
 @Service
-public class LoginServiceImpl implements ILoginService {
+public class LoginServiceImpl implements LoginService {
 	
 	@Autowired
-	IUserService userService;
+	UserService userService;
 	
 	@Override
 	public User getUserByAccessToken(String accessToken) throws Exception {

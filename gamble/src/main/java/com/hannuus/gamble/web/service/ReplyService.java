@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.hannuus.gamble.bean.Reply;
 
-public interface IReplyService {
+public interface ReplyService {
 	
 	/**
 	 * 添加一条评论

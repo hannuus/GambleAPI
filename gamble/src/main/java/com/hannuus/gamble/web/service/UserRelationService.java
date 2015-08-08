@@ -5,7 +5,7 @@ import java.util.List;
 import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.bean.UserRelation;
 
-public interface IUserRelationService {
+public interface UserRelationService {
 	
 	/**
 	 * 查找好友列表, 彼此互相关注的人
