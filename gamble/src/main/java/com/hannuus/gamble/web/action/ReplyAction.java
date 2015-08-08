@@ -23,7 +23,7 @@ import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
-import com.hannuus.gamble.web.service.IReplyService;
+import com.hannuus.gamble.web.service.ReplyService;
 
 /**
  * 
@@ -37,7 +37,7 @@ import com.hannuus.gamble.web.service.IReplyService;
 public class ReplyAction extends BaseAction {
 	
 	@Autowired
-	IReplyService replyService;
+	ReplyService replyService;
 	
 	@ResponseBody
 	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})

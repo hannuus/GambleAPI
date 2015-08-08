@@ -23,7 +23,7 @@ import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
-import com.hannuus.gamble.web.service.IUserRelationService;
+import com.hannuus.gamble.web.service.UserRelationService;
 
 @Controller
 @RequestMapping("relation")
@@ -31,7 +31,7 @@ public class RelationAction extends BaseAction {
 	
 	
 	@Autowired
-	IUserRelationService userRelationService;
+	UserRelationService userRelationService;
 
     /**
      * 查找好友列表, 彼此互相关注的人

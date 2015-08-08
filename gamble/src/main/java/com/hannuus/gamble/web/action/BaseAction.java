@@ -22,15 +22,17 @@ import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.CanNotAccessException;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
-import com.hannuus.gamble.web.service.ILoginService;
+import com.hannuus.gamble.web.service.LoginService;
+import com.hannuus.gamble.web.service.PermissionService;
 
 public class BaseAction {
 
 	private Logger logger = Logger.getLogger(getClass());
 
 	@Autowired
-	ILoginService accessTokenService;
-	
+	LoginService accessTokenService;
+	@Autowired
+	PermissionService permissionService;
 
 	protected Long getLoginUserId() throws Exception {
 		String accessToken = getStringReqParam(R.request.access_token);
@@ -92,8 +94,30 @@ public class BaseAction {
 	 * @return
 	 */
 	private boolean isPermissionDefined(HttpServletRequest request) {
-		// TODO cuesky
-		return true;
+		JsonVo<Boolean> json = new JsonVo<Boolean>();
+		boolean flag = false;
+		Long loginUserId = null;
+		try {
+			loginUserId = getLoginUserId();
+		} catch (Exception e) {
+			logUnknowErrorMessages(json, e);
+		}
+		if (loginUserId == null) {
+			return false;
+		}
+		String permissionPath = getPermissionPath(request);
+		flag = permissionService.isPermissionDefined(permissionPath,
+				loginUserId);
+		return flag;
+	}
+
+	/**
+	 * @param request
+	 * @return 获取到方法级别的路径。例如:"/user/add"
+	 */
+	private String getPermissionPath(HttpServletRequest request) {
+		String permissionPath = request.getRequestURI();
+		return permissionPath;
 	}
 
 	/**

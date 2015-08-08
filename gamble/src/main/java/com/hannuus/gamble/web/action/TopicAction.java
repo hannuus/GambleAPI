@@ -23,7 +23,7 @@ import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
-import com.hannuus.gamble.web.service.ITopicService;
+import com.hannuus.gamble.web.service.TopicService;
 
 /**
  * 
@@ -37,7 +37,7 @@ import com.hannuus.gamble.web.service.ITopicService;
 public class TopicAction extends BaseAction {
 	
 	@Autowired
-	ITopicService topicService;
+	TopicService topicService;
 	
 	/**
 	 * 获取主题详情
