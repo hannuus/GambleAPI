@@ -50,7 +50,6 @@ public class TopicAction extends BaseAction {
 	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<Topic> detail(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<Topic> json = new JsonVo<Topic>();
-		setCrossOrigin(response);
 		try {
 			Long topicId = getLongReqParam("id", 0L);
 			json.setTotal(0);
@@ -79,7 +78,6 @@ public class TopicAction extends BaseAction {
 	@RequestMapping(value = "/listByCategoryId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<Topic>> listByCategoryId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		setCrossOrigin(response);
 		try {
 			Long categoryId = getLongReqParam("id", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
@@ -109,7 +107,6 @@ public class TopicAction extends BaseAction {
 	@RequestMapping(value = "/listBySpeciaId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<Topic>> listBySpeciaId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		setCrossOrigin(response);
 		try {
 			Long speciaId = getLongReqParam("speciaId", 0L);
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
@@ -137,7 +134,6 @@ public class TopicAction extends BaseAction {
 	@RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<Topic>> create(ModelMap modelMap, Topic topic, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			initTopic(topic);
@@ -181,11 +177,10 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/update", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/update.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String title,
 			String content, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			validateUpdateTopicArguments(id, title, content);
@@ -245,10 +240,9 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			validateDelete(request, id);

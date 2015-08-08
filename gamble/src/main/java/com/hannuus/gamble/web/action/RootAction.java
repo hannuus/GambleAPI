@@ -30,7 +30,7 @@ public class RootAction extends BaseAction {
 	}
 	
 	@ResponseBody
-	@RequestMapping(value = "/login", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/login.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<String> isLock(ModelMap modelMap, String userName, String password, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<String> json = new JsonVo<String>();
 		json.setStatus(JsonResultStatus.Failed.getValue());

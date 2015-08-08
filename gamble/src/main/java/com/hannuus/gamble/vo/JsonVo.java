@@ -3,7 +3,7 @@ package com.hannuus.gamble.vo;
 //import org.codehaus.jackson.annotate.JsonProperty;
 import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.hannuus.gamble.vo.serializer.StringFormatSerializer;
+import com.hannuus.core.StringFormatSerializer;
 
 @JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
 public class JsonVo<T> {

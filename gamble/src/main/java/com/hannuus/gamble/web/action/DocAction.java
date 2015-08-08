@@ -20,7 +20,7 @@ import com.hannuus.gamble.vo.JsonVo;
 public class DocAction extends BaseAction {
 	
 	@ResponseBody
-	@RequestMapping(value = "/errorCodes", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/errorCodes.json", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<Map<String, String>> listByCategory(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<Map<String, String>> json = new JsonVo<Map<String, String>>();
 		Map<String, String> map = Maps.newHashMap();

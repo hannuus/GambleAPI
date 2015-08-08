@@ -45,7 +45,6 @@ public class RelationAction extends BaseAction {
 	@RequestMapping(value = "/friends.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> friends(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -75,7 +74,6 @@ public class RelationAction extends BaseAction {
 	@RequestMapping(value = "/follows.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> follows(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -104,7 +102,6 @@ public class RelationAction extends BaseAction {
 	@RequestMapping(value = "/fans.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> fans(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -131,10 +128,9 @@ public class RelationAction extends BaseAction {
      * @return
      */
     @ResponseBody
-	@RequestMapping(value = "/addFollows", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/addFollows.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<UserRelation>> addFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<UserRelation>> json = new JsonVo<List<UserRelation>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			validateAddFollowsArguments(fromId, toIds);
@@ -162,10 +158,9 @@ public class RelationAction extends BaseAction {
      * @return
      */
     @ResponseBody
-   	@RequestMapping(value = "/canselFollows", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+   	@RequestMapping(value = "/canselFollows.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
    	public JsonVo<List<UserRelation>> canselFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) {
    		JsonVo<List<UserRelation>> json = new JsonVo<List<UserRelation>>();
-   		setCrossOrigin(response);
    		try {
    			validateRequest(request);
    			List<Long> toIdsList = convertToIds(toIds);

@@ -30,13 +30,13 @@ public class BaseAction {
 	private Logger logger = Logger.getLogger(getClass());
 
 	@Autowired
-	LoginService accessTokenService;
+	LoginService loginService;
 	@Autowired
 	PermissionService permissionService;
 
 	protected Long getLoginUserId() throws Exception {
 		String accessToken = getStringReqParam(R.request.access_token);
-		User user = accessTokenService.getUserByAccessToken(accessToken);
+		User user = loginService.getUserByAccessToken(accessToken);
 		return null == user ? null : user.getId();
 	}
 

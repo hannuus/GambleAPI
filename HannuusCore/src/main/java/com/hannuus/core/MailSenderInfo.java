@@ -1,4 +1,4 @@
-package com.hannuus.gamble.utils;
+package com.hannuus.core;
 
 import java.util.Properties;
 

@@ -50,10 +50,9 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/add.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<User>> add(ModelMap modelMap, User user, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			initAddUser(user);
@@ -92,10 +91,9 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<User>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			validateDelete(request, id);
@@ -131,7 +129,6 @@ public class UserAction extends BaseAction {
 	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<User> detail(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<User> json = new JsonVo<User>();
-		setCrossOrigin(response);
 		try {
 			Long userId = getLongReqParam("id", 0L);
 			json.setTotal(0);
@@ -159,7 +156,6 @@ public class UserAction extends BaseAction {
 	@RequestMapping(value = "/listUsers.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> listUsers(User user, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			int pageNumber = getIntegerReqParam("pageNumber", 1);
 			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
@@ -187,10 +183,9 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateNickName", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/updateNickName.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<Topic>> updateNickName(ModelMap modelMap, Long id, String nickName, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			validateUpdateNickNameArguments(id, nickName);
@@ -233,10 +228,9 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateHeadImage", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/updateHeadImage.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<User>> updateHeadImage(ModelMap modelMap, Long id, String imageURL, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			validateUpdateHeadImageArguments(id, imageURL);
@@ -294,10 +288,9 @@ public class UserAction extends BaseAction {
      * @return
      */
     @ResponseBody
-	@RequestMapping(value = "/updateSignature", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/updateSignature.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<User>> updateSignature(ModelMap modelMap, Long id, String signature, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			validateRequest(request);
 			validateUpdateSignatureArguments(id, signature);
@@ -343,10 +336,9 @@ public class UserAction extends BaseAction {
      * @return
      */
     @ResponseBody
-	@RequestMapping(value = "/isLock", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/isLock.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
 	public JsonVo<List<User>> isLock(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		setCrossOrigin(response);
 		try {
 			if(userService.isLock(id)) {
 				json.setStatus(JsonResultStatus.Success.getValue());

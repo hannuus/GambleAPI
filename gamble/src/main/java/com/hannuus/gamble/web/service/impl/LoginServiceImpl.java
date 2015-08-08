@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
-import com.hannuus.gamble.utils.AESHelper;
+import com.hannuus.core.AESHelper;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.UserService;
 import com.hannuus.model.gamble.AccessToken;
