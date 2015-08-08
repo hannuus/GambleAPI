@@ -6,7 +6,7 @@ import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.web.exception.api.NotFoundAnyDataException;
 import com.hannuus.gamble.web.exception.api.UserPointsNotEnoughException;
 
-public interface IUserService {
+public interface UserService {
 	
 	/**
 	 * 新增用户

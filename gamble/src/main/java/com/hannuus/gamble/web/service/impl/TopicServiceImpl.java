@@ -10,10 +10,10 @@ import com.hannuus.gamble.bean.TopicExample;
 import com.hannuus.gamble.comm.TopicState;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
-import com.hannuus.gamble.web.service.ITopicService;
+import com.hannuus.gamble.web.service.TopicService;
 
 @Service
-public class TopicServiceImpl implements ITopicService {
+public class TopicServiceImpl implements TopicService {
 	
 	@Autowired
 	TopicMapper topicMapper;

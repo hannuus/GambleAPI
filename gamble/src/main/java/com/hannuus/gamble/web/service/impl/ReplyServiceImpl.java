@@ -8,10 +8,10 @@ import org.springframework.stereotype.Service;
 import com.hannuus.gamble.bean.Reply;
 import com.hannuus.gamble.bean.ReplyExample;
 import com.hannuus.gamble.dao.ReplyMapper;
-import com.hannuus.gamble.web.service.IReplyService;
+import com.hannuus.gamble.web.service.ReplyService;
 
 @Service
-public class ReplyServiceImpl implements IReplyService{
+public class ReplyServiceImpl implements ReplyService{
 	
 	@Autowired
 	ReplyMapper replyMapper;

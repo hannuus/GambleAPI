@@ -15,17 +15,17 @@ import com.hannuus.gamble.bean.UserRelationExample;
 import com.hannuus.gamble.bean.UserRelationExample.Criteria;
 import com.hannuus.gamble.comm.UserRelationType;
 import com.hannuus.gamble.dao.UserRelationMapper;
-import com.hannuus.gamble.web.service.IUserRelationService;
-import com.hannuus.gamble.web.service.IUserService;
+import com.hannuus.gamble.web.service.UserRelationService;
+import com.hannuus.gamble.web.service.UserService;
 
 @Service
-public class UserRelationServiceImpl implements IUserRelationService {
+public class UserRelationServiceImpl implements UserRelationService {
 	
 	@Autowired
 	UserRelationMapper userRelationMapper;
 	
 	@Autowired
-	IUserService userService;
+	UserService userService;
 	
 	@Override
 	public List<User> findFriendsListByPage(Long userId, int pageNumber,

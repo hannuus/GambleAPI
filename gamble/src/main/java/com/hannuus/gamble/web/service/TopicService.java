@@ -5,7 +5,7 @@ import java.util.List;
 import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 
-public interface ITopicService {
+public interface TopicService {
 	
 	/**
 	 * 发帖
