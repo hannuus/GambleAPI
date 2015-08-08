@@ -25,7 +25,7 @@ import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
-import com.hannuus.gamble.web.service.IUserService;
+import com.hannuus.gamble.web.service.UserService;
 
 /**
  * 
@@ -39,7 +39,7 @@ import com.hannuus.gamble.web.service.IUserService;
 public class UserAction extends BaseAction {
 	
 	@Autowired
-	IUserService userService;
+	UserService userService;
 	
 	/**
 	 * 新增用户

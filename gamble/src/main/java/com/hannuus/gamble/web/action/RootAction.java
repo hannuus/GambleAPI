@@ -14,14 +14,14 @@ import com.hannuus.gamble.bean.AccessToken;
 import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
-import com.hannuus.gamble.web.service.ILoginService;
+import com.hannuus.gamble.web.service.LoginService;
 
 @Controller
 @RequestMapping("/")
 public class RootAction extends BaseAction {
 	
 	@Autowired
-	ILoginService loginService;
+	LoginService loginService;
 	
 	@RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
 	public String index(ModelMap modelMap) {
