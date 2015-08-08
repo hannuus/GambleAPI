@@ -5,12 +5,12 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hannuus.gamble.bean.Topic;
-import com.hannuus.gamble.bean.TopicExample;
 import com.hannuus.gamble.comm.TopicState;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 import com.hannuus.gamble.web.service.TopicService;
+import com.hannuus.model.gamble.Topic;
+import com.hannuus.model.gamble.TopicExample;
 
 @Service
 public class TopicServiceImpl implements TopicService {

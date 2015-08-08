@@ -1,6 +1,7 @@
 package com.hannuus.gamble.web.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.dao.RoleManageMapper;
 import com.hannuus.gamble.web.service.PermissionService;
@@ -9,6 +10,7 @@ import com.hannuus.gamble.web.service.PermissionService;
  * @author cuesky
  * @date 2015年8月8日 下午5:45:33
  */
+@Service
 public class PermissionServiceImpl implements PermissionService {
 
 	@Autowired

@@ -6,13 +6,13 @@ import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hannuus.gamble.bean.User;
-import com.hannuus.gamble.bean.UserExample;
 import com.hannuus.gamble.comm.UserState;
 import com.hannuus.gamble.dao.UserMapper;
 import com.hannuus.gamble.web.exception.api.NotFoundAnyDataException;
 import com.hannuus.gamble.web.exception.api.UserPointsNotEnoughException;
 import com.hannuus.gamble.web.service.UserService;
+import com.hannuus.model.gamble.User;
+import com.hannuus.model.gamble.UserExample;
 
 @Service
 public class UserServiceImpl implements UserService {

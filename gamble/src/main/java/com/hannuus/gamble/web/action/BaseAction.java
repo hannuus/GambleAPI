@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.hannuus.gamble.bean.User;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.utils.HttpUtils;
@@ -24,6 +23,7 @@ import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.PermissionService;
+import com.hannuus.model.gamble.User;
 
 public class BaseAction {
 

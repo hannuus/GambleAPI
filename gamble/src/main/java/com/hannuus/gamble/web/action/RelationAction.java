@@ -15,8 +15,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
 import com.google.common.collect.Lists;
-import com.hannuus.gamble.bean.User;
-import com.hannuus.gamble.bean.UserRelation;
 import com.hannuus.gamble.comm.SystemConstants;
 import com.hannuus.gamble.comm.UserRelationType;
 import com.hannuus.gamble.vo.JsonResultStatus;
@@ -24,6 +22,8 @@ import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
 import com.hannuus.gamble.web.service.UserRelationService;
+import com.hannuus.model.gamble.User;
+import com.hannuus.model.gamble.UserRelation;
 
 @Controller
 @RequestMapping("relation")

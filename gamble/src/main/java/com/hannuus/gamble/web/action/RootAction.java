@@ -10,11 +10,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hannuus.gamble.bean.AccessToken;
 import com.hannuus.gamble.vo.JsonResultStatus;
 import com.hannuus.gamble.vo.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.service.LoginService;
+import com.hannuus.model.gamble.AccessToken;
 
 @Controller
 @RequestMapping("/")

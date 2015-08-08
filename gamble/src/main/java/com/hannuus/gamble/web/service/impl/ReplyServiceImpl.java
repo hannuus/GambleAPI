@@ -5,10 +5,10 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hannuus.gamble.bean.Reply;
-import com.hannuus.gamble.bean.ReplyExample;
 import com.hannuus.gamble.dao.ReplyMapper;
 import com.hannuus.gamble.web.service.ReplyService;
+import com.hannuus.model.gamble.Reply;
+import com.hannuus.model.gamble.ReplyExample;
 
 @Service
 public class ReplyServiceImpl implements ReplyService{

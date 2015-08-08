@@ -218,6 +218,36 @@
 			<artifactId>json</artifactId>
 			<version>20090211</version>
 		</dependency>
+		<dependency>
+			<groupId>com.hannuus</groupId>
+			<artifactId>HannuusCore</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hannuus</groupId>
+			<artifactId>HannuusDAO</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hannuus</groupId>
+			<artifactId>HannuusDomainModel</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-core</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-annotations</artifactId>
+			<version>2.1.0</version>
+		</dependency>
 	</dependencies>
 
 
@@ -228,11 +258,11 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
-				<version>3.1</version>
+				<version>2.0.2</version>
 				<configuration>
 					<encoding>UTF-8</encoding>
-					<source>1.6</source>
-					<target>1.6</target>
+					<source>1.7</source>
+					<target>1.7</target>
 					<meminitial>512m</meminitial>
 					<maxmem>1024m</maxmem>
 					<fork>true</fork>

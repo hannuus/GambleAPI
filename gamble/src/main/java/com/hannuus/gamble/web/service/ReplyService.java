@@ -2,7 +2,8 @@ package com.hannuus.gamble.web.service;
 
 import java.util.List;
 
-import com.hannuus.gamble.bean.Reply;
+import com.hannuus.model.gamble.Reply;
+
 
 public interface ReplyService {
 	

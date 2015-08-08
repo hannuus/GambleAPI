@@ -2,8 +2,9 @@ package com.hannuus.gamble.web.service;
 
 import java.util.List;
 
-import com.hannuus.gamble.bean.User;
-import com.hannuus.gamble.bean.UserRelation;
+import com.hannuus.model.gamble.User;
+import com.hannuus.model.gamble.UserRelation;
+
 
 public interface UserRelationService {
 	

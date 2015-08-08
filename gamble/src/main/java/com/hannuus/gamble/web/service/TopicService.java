@@ -2,8 +2,8 @@ package com.hannuus.gamble.web.service;
 
 import java.util.List;
 
-import com.hannuus.gamble.bean.Topic;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
+import com.hannuus.model.gamble.Topic;
 
 public interface TopicService {
 	
