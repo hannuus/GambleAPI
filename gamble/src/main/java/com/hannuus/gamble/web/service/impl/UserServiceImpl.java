@@ -161,8 +161,23 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int countUsers() {
-		// TODO Auto-generated method stub
-		return 0;
+		UserExample userExample = new UserExample();
+		userExample.createCriteria().andStateEqualTo(UserState.Normal.value());
+		return userMapper.countByExample(userExample);
+	}
+
+	@Override
+	public boolean updateUserTopicCount(Long userId, int number) {
+		User user = findUserById(userId);
+		user.setTopicCount(user.getTopicCount() == null ? 0 : user.getTopicCount() + number);
+		return userMapper.updateByPrimaryKeySelective(user) > 0;
+	}
+
+	@Override
+	public boolean updateUserReplyCount(Long userId, int number) {
+		User user = findUserById(userId);
+		user.setReplyCount(user.getReplyCount() == null ? 0 : user.getReplyCount() + number);
+		return userMapper.updateByPrimaryKeySelective(user) > 0;
 	}
 
 }

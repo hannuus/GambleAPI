@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.dao.ReplyMapper;
 import com.hannuus.gamble.web.service.ReplyService;
+import com.hannuus.gamble.web.service.UserService;
 import com.hannuus.model.gamble.Reply;
 import com.hannuus.model.gamble.ReplyExample;
 
@@ -16,14 +17,28 @@ public class ReplyServiceImpl implements ReplyService{
 	@Autowired
 	ReplyMapper replyMapper;
 	
+	@Autowired
+	UserService userService;
+	
 	@Override
 	public boolean addReply(Reply reply) {
-		return replyMapper.insert(reply) > 0;
+		boolean added = replyMapper.insert(reply) > 0;
+		if (added) {
+			// 用户的帖子统计数量加1
+			userService.updateUserReplyCount(reply.getUserId(), 1);
+		}
+		return added;
 	}
 
 	@Override
 	public boolean deleteReply(Long replyId) {
-		return replyMapper.deleteByPrimaryKey(replyId) > 0;
+		boolean deleted = replyMapper.deleteByPrimaryKey(replyId) > 0;
+		if (deleted) {
+			// 用户的帖子统计数量减1
+			Reply reply = findReplyById(replyId);
+			userService.updateUserReplyCount(reply.getUserId(), -1);
+		}
+		return deleted;
 	}
 
 	@Override

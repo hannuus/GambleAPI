@@ -154,4 +154,16 @@ public interface UserService {
 	 */
 	int countUsers();
 	
+	/**
+	 * 修改用户的发帖数
+	 * @param userId
+	 */
+	boolean updateUserTopicCount(Long userId, int number);
+	
+	/**
+	 * 修改用户的回帖数
+	 * @param userId
+	 * @return
+	 */
+	boolean updateUserReplyCount(Long userId, int number);
 }

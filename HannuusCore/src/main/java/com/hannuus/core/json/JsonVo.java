@@ -5,7 +5,7 @@ import org.codehaus.jackson.map.annotate.JsonSerialize;
 
 import com.hannuus.core.json.StringFormatSerializer;
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_NULL)
+@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
 public class JsonVo<T> {
 	
 //	@JsonProperty("ERRCODE")

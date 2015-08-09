@@ -240,11 +240,13 @@ public class ReplyAction extends BaseAction {
 	/**
 	 * 初始化reply
 	 * @param reply
+	 * @throws Exception 
 	 */
-	private void initReply(Reply reply) {
+	private void initReply(Reply reply) throws Exception {
 		reply.setCreatedOn(new Date());
 		reply.setReplyCount(0L);
 		reply.setUpCount(0L);
+		reply.setUserId(getLoginUserId());
 	}
 	/**
 	 * 验证添加评论参数

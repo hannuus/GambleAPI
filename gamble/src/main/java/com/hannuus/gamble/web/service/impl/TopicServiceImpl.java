@@ -9,6 +9,7 @@ import com.hannuus.gamble.comm.TopicState;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 import com.hannuus.gamble.web.service.TopicService;
+import com.hannuus.gamble.web.service.UserService;
 import com.hannuus.model.gamble.Topic;
 import com.hannuus.model.gamble.TopicExample;
 
@@ -18,9 +19,16 @@ public class TopicServiceImpl implements TopicService {
 	@Autowired
 	TopicMapper topicMapper;
 	
+	@Autowired
+	UserService userService;
+	
 	@Override
 	public boolean addTopic(Topic topic) {
-		return topicMapper.insert(topic) > 0;
+		boolean added = topicMapper.insert(topic) > 0;
+		if (added) {
+			userService.updateUserTopicCount(topic.getUserId(), 1);
+		}
+		return added;
 	}
 
 	@Override
@@ -30,7 +38,12 @@ public class TopicServiceImpl implements TopicService {
 
 	@Override
 	public boolean deleteTopic(Long topicId) {
-		return updateTopicState(topicId, TopicState.Willdelete.value());
+		boolean deleted = updateTopicState(topicId, TopicState.Willdelete.value());
+		if (deleted) {
+			Topic topic = findTopicsById(topicId);
+			userService.updateUserTopicCount(topic.getUserId(), -1);
+		}
+		return deleted;
 	}
 
 	@Override
