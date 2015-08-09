@@ -13,7 +13,7 @@ mysql 5.5</br>
 	执行gamble项目根目录下的: gamble_bbs.sql</br>
 
 API返回的错误码可以查询:</br>
-	http://localhost:8080/gamble/api/docs/errorCodes</br>
+	http://localhost:8080/gamble/api/docs/errorCodes.json</br>
 
 
 项目介绍:</br>
