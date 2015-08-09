@@ -12,7 +12,7 @@ public interface LoginService {
 	 * @return
 	 * @throws Exception
 	 */
-	User getUserByAccessToken(String accessToken) throws Exception;
+	User getUserByAccessToken(String accessToken);
 	
 	/**
 	 * 用户登录, 需要确认client传递时是否是加密过的参数, 如果是, 则需要进行相应的解密
@@ -22,5 +22,5 @@ public interface LoginService {
 	 * @return AccessToken
 	 * @throws Exception 
 	 */
-	AccessToken userLogin(String userName, String password) throws Exception;
+	AccessToken userLogin(String userName, String password);
 }

@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.domain.AccessToken;
-import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.service.LoginService;
 
 @Controller
@@ -40,8 +39,6 @@ public class RootAction extends BaseAction {
 				json.setResult(accessToken.toString());
 				json.setStatus(JsonResultStatus.Success.getValue());
 			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
 		} catch (Exception e) {
 			logUnknowErrorMessages(json, e);
 		}

@@ -13,9 +13,12 @@ import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.SecretKeySpec;
 
+import org.apache.log4j.Logger;
+
 public class AESHelper {
 	
-	private static final String password = "gamble"; 
+	private static final String password = "gamble";
+	private static final Logger logger = Logger.getLogger(AESHelper.class);
 	
 	/**
 	 * 加密
@@ -39,16 +42,22 @@ public class AESHelper {
 			return parseByte2HexStr(result); // 加密
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (NoSuchPaddingException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (InvalidKeyException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (IllegalBlockSizeException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (BadPaddingException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		return null;
 	}
@@ -75,14 +84,19 @@ public class AESHelper {
 			return new String(result); // 解密
 		} catch (NoSuchAlgorithmException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (NoSuchPaddingException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (InvalidKeyException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (IllegalBlockSizeException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}catch (BadPaddingException e) {
 			e.printStackTrace();
+			logger.error(e);
 		}
 		
 		return null;

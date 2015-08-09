@@ -19,12 +19,12 @@ public class LoginServiceImpl implements LoginService {
 	UserService userService;
 	
 	@Override
-	public User getUserByAccessToken(String accessToken) throws Exception {
+	public User getUserByAccessToken(String accessToken) {
 		Long userId = getUserIdByAccessToken(accessToken);
 		return userService.findUserById(userId);
 	}
 
-	private Long getUserIdByAccessToken(String accessToken) throws Exception {
+	private Long getUserIdByAccessToken(String accessToken) {
 		AccessToken token = new Gson().fromJson(AESHelper.decrypt(accessToken), AccessToken.class);
 		if (null != token) {
 			return Long.valueOf(token.getId());
@@ -33,7 +33,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public AccessToken userLogin(String userName, String password) throws Exception {
+	public AccessToken userLogin(String userName, String password) {
 		User user = login(userName, password);
 		if (null != user) {
 			return getAccessTokenByUser(user);
@@ -46,7 +46,7 @@ public class LoginServiceImpl implements LoginService {
 		return null;
 	}
 
-	private AccessToken getAccessTokenByUser(User user) throws Exception {
+	private AccessToken getAccessTokenByUser(User user){
 		AccessToken token = new AccessToken();
 		token.setId(user.getId().toString());
 		token.setTimestamp(String.valueOf(new Date().getTime()));

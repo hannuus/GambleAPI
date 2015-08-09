@@ -34,7 +34,7 @@ public class BaseAction {
 	@Autowired
 	PermissionService permissionService;
 
-	protected Long getLoginUserId() throws Exception {
+	protected Long getLoginUserId() {
 		String accessToken = getStringReqParam(R.request.access_token);
 		User user = loginService.getUserByAccessToken(accessToken);
 		return null == user ? null : user.getId();
@@ -94,14 +94,8 @@ public class BaseAction {
 	 * @return
 	 */
 	private boolean isPermissionDefined(HttpServletRequest request) {
-		JsonVo<Boolean> json = new JsonVo<Boolean>();
 		boolean flag = false;
-		Long loginUserId = null;
-		try {
-			loginUserId = getLoginUserId();
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
-		}
+		Long loginUserId = getLoginUserId();
 		if (loginUserId == null) {
 			return false;
 		}

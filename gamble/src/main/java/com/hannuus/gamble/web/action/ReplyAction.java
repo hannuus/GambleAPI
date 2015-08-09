@@ -242,7 +242,7 @@ public class ReplyAction extends BaseAction {
 	 * @param reply
 	 * @throws Exception 
 	 */
-	private void initReply(Reply reply) throws Exception {
+	private void initReply(Reply reply) {
 		reply.setCreatedOn(new Date());
 		reply.setReplyCount(0L);
 		reply.setUpCount(0L);
