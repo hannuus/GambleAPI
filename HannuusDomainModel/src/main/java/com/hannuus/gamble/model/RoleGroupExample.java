@@ -1,4 +1,4 @@
-package com.hannuus.model.gamble;
+package com.hannuus.gamble.model;
 
 import java.util.ArrayList;
 import java.util.Date;

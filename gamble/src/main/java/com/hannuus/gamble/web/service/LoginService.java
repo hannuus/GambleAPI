@@ -1,7 +1,7 @@
 package com.hannuus.gamble.web.service;
 
-import com.hannuus.domain.gamble.AccessToken;
-import com.hannuus.model.gamble.User;
+import com.hannuus.gamble.domain.AccessToken;
+import com.hannuus.gamble.model.User;
 
 
 public interface LoginService {

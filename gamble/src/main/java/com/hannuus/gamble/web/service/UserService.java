@@ -2,9 +2,9 @@ package com.hannuus.gamble.web.service;
 
 import java.util.List;
 
+import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.exception.api.NotFoundAnyDataException;
 import com.hannuus.gamble.web.exception.api.UserPointsNotEnoughException;
-import com.hannuus.model.gamble.User;
 
 public interface UserService {
 	

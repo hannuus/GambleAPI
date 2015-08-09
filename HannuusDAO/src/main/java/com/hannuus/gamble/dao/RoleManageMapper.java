@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
-import com.hannuus.model.gamble.RoleManage;
-import com.hannuus.model.gamble.RoleManageExample;
+import com.hannuus.gamble.model.RoleManage;
+import com.hannuus.gamble.model.RoleManageExample;
 
 public interface RoleManageMapper {
 

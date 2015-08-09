@@ -1,8 +1,10 @@
 package com.hannuus.gamble.dao;
 
-import com.hannuus.model.gamble.Topic;
-import com.hannuus.model.gamble.TopicExample;
+import com.hannuus.gamble.model.Topic;
+import com.hannuus.gamble.model.TopicExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface TopicMapper {

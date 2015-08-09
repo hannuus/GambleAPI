@@ -7,11 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.comm.TopicState;
 import com.hannuus.gamble.dao.TopicMapper;
+import com.hannuus.gamble.model.Topic;
+import com.hannuus.gamble.model.TopicExample;
 import com.hannuus.gamble.web.dto.SearchTopicParamDTO;
 import com.hannuus.gamble.web.service.TopicService;
 import com.hannuus.gamble.web.service.UserService;
-import com.hannuus.model.gamble.Topic;
-import com.hannuus.model.gamble.TopicExample;
 
 @Service
 public class TopicServiceImpl implements TopicService {

@@ -1,8 +1,10 @@
 package com.hannuus.gamble.dao;
 
-import com.hannuus.model.gamble.RoleGroupRight;
-import com.hannuus.model.gamble.RoleGroupRightExample;
+import com.hannuus.gamble.model.RoleGroupRight;
+import com.hannuus.gamble.model.RoleGroupRightExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleGroupRightMapper {

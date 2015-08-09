@@ -1,4 +1,4 @@
-package com.hannuus.domain.gamble;
+package com.hannuus.gamble.domain;
 
 import com.google.gson.Gson;
 import com.hannuus.core.utils.AESHelper;

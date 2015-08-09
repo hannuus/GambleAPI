@@ -1,10 +1,10 @@
-package com.hannuus.model.gamble;
+package com.hannuus.gamble.model;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class RoleGroupRightExample {
+public class UserRelationExample {
     protected String orderByClause;
 
     protected boolean distinct;
@@ -15,7 +15,7 @@ public class RoleGroupRightExample {
 
     protected Integer limitEnd;
 
-    public RoleGroupRightExample() {
+    public UserRelationExample() {
         oredCriteria = new ArrayList<Criteria>();
     }
 
@@ -185,183 +185,243 @@ public class RoleGroupRightExample {
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdIsNull() {
-            addCriterion("group_id is null");
+        public Criteria andCreateTimeIsNull() {
+            addCriterion("create_time is null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdIsNotNull() {
-            addCriterion("group_id is not null");
+        public Criteria andCreateTimeIsNotNull() {
+            addCriterion("create_time is not null");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdEqualTo(Long value) {
-            addCriterion("group_id =", value, "groupId");
+        public Criteria andCreateTimeEqualTo(Date value) {
+            addCriterion("create_time =", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdNotEqualTo(Long value) {
-            addCriterion("group_id <>", value, "groupId");
+        public Criteria andCreateTimeNotEqualTo(Date value) {
+            addCriterion("create_time <>", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdGreaterThan(Long value) {
-            addCriterion("group_id >", value, "groupId");
+        public Criteria andCreateTimeGreaterThan(Date value) {
+            addCriterion("create_time >", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("group_id >=", value, "groupId");
+        public Criteria andCreateTimeGreaterThanOrEqualTo(Date value) {
+            addCriterion("create_time >=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdLessThan(Long value) {
-            addCriterion("group_id <", value, "groupId");
+        public Criteria andCreateTimeLessThan(Date value) {
+            addCriterion("create_time <", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdLessThanOrEqualTo(Long value) {
-            addCriterion("group_id <=", value, "groupId");
+        public Criteria andCreateTimeLessThanOrEqualTo(Date value) {
+            addCriterion("create_time <=", value, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdIn(List<Long> values) {
-            addCriterion("group_id in", values, "groupId");
+        public Criteria andCreateTimeIn(List<Date> values) {
+            addCriterion("create_time in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdNotIn(List<Long> values) {
-            addCriterion("group_id not in", values, "groupId");
+        public Criteria andCreateTimeNotIn(List<Date> values) {
+            addCriterion("create_time not in", values, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdBetween(Long value1, Long value2) {
-            addCriterion("group_id between", value1, value2, "groupId");
+        public Criteria andCreateTimeBetween(Date value1, Date value2) {
+            addCriterion("create_time between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andGroupIdNotBetween(Long value1, Long value2) {
-            addCriterion("group_id not between", value1, value2, "groupId");
+        public Criteria andCreateTimeNotBetween(Date value1, Date value2) {
+            addCriterion("create_time not between", value1, value2, "createTime");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdIsNull() {
-            addCriterion("manage_id is null");
+        public Criteria andRelationTypeIsNull() {
+            addCriterion("relation_type is null");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdIsNotNull() {
-            addCriterion("manage_id is not null");
+        public Criteria andRelationTypeIsNotNull() {
+            addCriterion("relation_type is not null");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdEqualTo(Long value) {
-            addCriterion("manage_id =", value, "manageId");
+        public Criteria andRelationTypeEqualTo(Integer value) {
+            addCriterion("relation_type =", value, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdNotEqualTo(Long value) {
-            addCriterion("manage_id <>", value, "manageId");
+        public Criteria andRelationTypeNotEqualTo(Integer value) {
+            addCriterion("relation_type <>", value, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdGreaterThan(Long value) {
-            addCriterion("manage_id >", value, "manageId");
+        public Criteria andRelationTypeGreaterThan(Integer value) {
+            addCriterion("relation_type >", value, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdGreaterThanOrEqualTo(Long value) {
-            addCriterion("manage_id >=", value, "manageId");
+        public Criteria andRelationTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("relation_type >=", value, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdLessThan(Long value) {
-            addCriterion("manage_id <", value, "manageId");
+        public Criteria andRelationTypeLessThan(Integer value) {
+            addCriterion("relation_type <", value, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdLessThanOrEqualTo(Long value) {
-            addCriterion("manage_id <=", value, "manageId");
+        public Criteria andRelationTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("relation_type <=", value, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdIn(List<Long> values) {
-            addCriterion("manage_id in", values, "manageId");
+        public Criteria andRelationTypeIn(List<Integer> values) {
+            addCriterion("relation_type in", values, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdNotIn(List<Long> values) {
-            addCriterion("manage_id not in", values, "manageId");
+        public Criteria andRelationTypeNotIn(List<Integer> values) {
+            addCriterion("relation_type not in", values, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdBetween(Long value1, Long value2) {
-            addCriterion("manage_id between", value1, value2, "manageId");
+        public Criteria andRelationTypeBetween(Integer value1, Integer value2) {
+            addCriterion("relation_type between", value1, value2, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andManageIdNotBetween(Long value1, Long value2) {
-            addCriterion("manage_id not between", value1, value2, "manageId");
+        public Criteria andRelationTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("relation_type not between", value1, value2, "relationType");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnIsNull() {
-            addCriterion("created_on is null");
+        public Criteria andFromIdIsNull() {
+            addCriterion("from_id is null");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnIsNotNull() {
-            addCriterion("created_on is not null");
+        public Criteria andFromIdIsNotNull() {
+            addCriterion("from_id is not null");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnEqualTo(Date value) {
-            addCriterion("created_on =", value, "createdOn");
+        public Criteria andFromIdEqualTo(Long value) {
+            addCriterion("from_id =", value, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnNotEqualTo(Date value) {
-            addCriterion("created_on <>", value, "createdOn");
+        public Criteria andFromIdNotEqualTo(Long value) {
+            addCriterion("from_id <>", value, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnGreaterThan(Date value) {
-            addCriterion("created_on >", value, "createdOn");
+        public Criteria andFromIdGreaterThan(Long value) {
+            addCriterion("from_id >", value, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnGreaterThanOrEqualTo(Date value) {
-            addCriterion("created_on >=", value, "createdOn");
+        public Criteria andFromIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("from_id >=", value, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnLessThan(Date value) {
-            addCriterion("created_on <", value, "createdOn");
+        public Criteria andFromIdLessThan(Long value) {
+            addCriterion("from_id <", value, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnLessThanOrEqualTo(Date value) {
-            addCriterion("created_on <=", value, "createdOn");
+        public Criteria andFromIdLessThanOrEqualTo(Long value) {
+            addCriterion("from_id <=", value, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnIn(List<Date> values) {
-            addCriterion("created_on in", values, "createdOn");
+        public Criteria andFromIdIn(List<Long> values) {
+            addCriterion("from_id in", values, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnNotIn(List<Date> values) {
-            addCriterion("created_on not in", values, "createdOn");
+        public Criteria andFromIdNotIn(List<Long> values) {
+            addCriterion("from_id not in", values, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnBetween(Date value1, Date value2) {
-            addCriterion("created_on between", value1, value2, "createdOn");
+        public Criteria andFromIdBetween(Long value1, Long value2) {
+            addCriterion("from_id between", value1, value2, "fromId");
             return (Criteria) this;
         }
 
-        public Criteria andCreatedOnNotBetween(Date value1, Date value2) {
-            addCriterion("created_on not between", value1, value2, "createdOn");
+        public Criteria andFromIdNotBetween(Long value1, Long value2) {
+            addCriterion("from_id not between", value1, value2, "fromId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdIsNull() {
+            addCriterion("to_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdIsNotNull() {
+            addCriterion("to_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdEqualTo(Long value) {
+            addCriterion("to_id =", value, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdNotEqualTo(Long value) {
+            addCriterion("to_id <>", value, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdGreaterThan(Long value) {
+            addCriterion("to_id >", value, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("to_id >=", value, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdLessThan(Long value) {
+            addCriterion("to_id <", value, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdLessThanOrEqualTo(Long value) {
+            addCriterion("to_id <=", value, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdIn(List<Long> values) {
+            addCriterion("to_id in", values, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdNotIn(List<Long> values) {
+            addCriterion("to_id not in", values, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdBetween(Long value1, Long value2) {
+            addCriterion("to_id between", value1, value2, "toId");
+            return (Criteria) this;
+        }
+
+        public Criteria andToIdNotBetween(Long value1, Long value2) {
+            addCriterion("to_id not between", value1, value2, "toId");
             return (Criteria) this;
         }
     }

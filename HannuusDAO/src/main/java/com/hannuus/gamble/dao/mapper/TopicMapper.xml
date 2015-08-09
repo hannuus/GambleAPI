@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hannuus.gamble.dao.TopicMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.model.gamble.Topic" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.Topic" >
     <id column="ID" property="id" jdbcType="BIGINT" />
     <result column="category_id" property="categoryId" jdbcType="BIGINT" />
     <result column="specia_id" property="speciaId" jdbcType="BIGINT" />
@@ -21,7 +21,7 @@
     <result column="tag_id" property="tagId" jdbcType="BIGINT" />
     <result column="follow_count" property="followCount" jdbcType="BIGINT" />
   </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.hannuus.model.gamble.Topic" extends="BaseResultMap" >
+  <resultMap id="ResultMapWithBLOBs" type="com.hannuus.gamble.model.Topic" extends="BaseResultMap" >
     <result column="content" property="content" jdbcType="LONGVARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
@@ -89,7 +89,7 @@
   <sql id="Blob_Column_List" >
     content
   </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hannuus.model.gamble.TopicExample" >
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hannuus.gamble.model.TopicExample" >
     select
     <if test="distinct" >
       distinct
@@ -106,7 +106,7 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.model.gamble.TopicExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.TopicExample" >
     select
     <if test="distinct" >
       distinct
@@ -136,13 +136,13 @@
     delete from bbs_topic
     where ID = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.model.gamble.TopicExample" >
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.TopicExample" >
     delete from bbs_topic
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hannuus.model.gamble.Topic" >
+  <insert id="insert" parameterType="com.hannuus.gamble.model.Topic" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -161,7 +161,7 @@
       #{tagId,jdbcType=BIGINT}, #{followCount,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.model.gamble.Topic" >
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.Topic" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -279,7 +279,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hannuus.model.gamble.TopicExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.TopicExample" resultType="java.lang.Integer" >
     select count(*) from bbs_topic
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -399,7 +399,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.model.gamble.Topic" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.Topic" >
     update bbs_topic
     <set >
       <if test="categoryId != null" >
@@ -459,7 +459,7 @@
     </set>
     where ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.model.gamble.Topic" >
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.model.Topic" >
     update bbs_topic
     set category_id = #{categoryId,jdbcType=BIGINT},
       specia_id = #{speciaId,jdbcType=BIGINT},
@@ -481,7 +481,7 @@
       content = #{content,jdbcType=LONGVARCHAR}
     where ID = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.model.gamble.Topic" >
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Topic" >
     update bbs_topic
     set category_id = #{categoryId,jdbcType=BIGINT},
       specia_id = #{speciaId,jdbcType=BIGINT},

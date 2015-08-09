@@ -1,8 +1,10 @@
 package com.hannuus.gamble.dao;
 
-import com.hannuus.model.gamble.UserRight;
-import com.hannuus.model.gamble.UserRightExample;
+import com.hannuus.gamble.model.UserRight;
+import com.hannuus.gamble.model.UserRightExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserRightMapper {

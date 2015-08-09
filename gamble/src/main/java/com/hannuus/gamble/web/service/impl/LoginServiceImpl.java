@@ -7,10 +7,10 @@ import org.springframework.stereotype.Service;
 
 import com.google.gson.Gson;
 import com.hannuus.core.utils.AESHelper;
-import com.hannuus.domain.gamble.AccessToken;
+import com.hannuus.gamble.domain.AccessToken;
+import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.UserService;
-import com.hannuus.model.gamble.User;
 
 @Service
 public class LoginServiceImpl implements LoginService {

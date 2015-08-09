@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.hannuus.domain.gamble.AccessToken;
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
+import com.hannuus.gamble.domain.AccessToken;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.service.LoginService;
 

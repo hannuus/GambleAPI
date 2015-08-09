@@ -1,8 +1,10 @@
 package com.hannuus.gamble.dao;
 
-import com.hannuus.model.gamble.UserRelation;
-import com.hannuus.model.gamble.UserRelationExample;
+import com.hannuus.gamble.model.UserRelation;
+import com.hannuus.gamble.model.UserRelationExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface UserRelationMapper {

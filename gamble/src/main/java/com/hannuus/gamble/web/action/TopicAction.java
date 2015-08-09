@@ -18,12 +18,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hannuus.gamble.comm.SystemConstants;
 import com.hannuus.gamble.comm.TopicState;
+import com.hannuus.gamble.model.Topic;
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
 import com.hannuus.gamble.web.service.TopicService;
-import com.hannuus.model.gamble.Topic;
 
 /**
  * 

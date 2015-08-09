@@ -11,12 +11,12 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 import com.hannuus.gamble.comm.UserRelationType;
 import com.hannuus.gamble.dao.UserRelationMapper;
+import com.hannuus.gamble.model.User;
+import com.hannuus.gamble.model.UserRelation;
+import com.hannuus.gamble.model.UserRelationExample;
+import com.hannuus.gamble.model.UserRelationExample.Criteria;
 import com.hannuus.gamble.web.service.UserRelationService;
 import com.hannuus.gamble.web.service.UserService;
-import com.hannuus.model.gamble.User;
-import com.hannuus.model.gamble.UserRelation;
-import com.hannuus.model.gamble.UserRelationExample;
-import com.hannuus.model.gamble.UserRelationExample.Criteria;
 
 @Service
 public class UserRelationServiceImpl implements UserRelationService {

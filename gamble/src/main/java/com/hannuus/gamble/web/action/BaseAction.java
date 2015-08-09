@@ -16,6 +16,7 @@ import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.comm.R;
+import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.utils.HttpUtils;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.CanNotAccessException;
@@ -23,7 +24,6 @@ import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.PermissionService;
-import com.hannuus.model.gamble.User;
 
 public class BaseAction {
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hannuus.gamble.dao.UserMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.model.gamble.User" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.User" >
     <id column="id" property="id" jdbcType="BIGINT" />
     <result column="user_name" property="userName" jdbcType="VARCHAR" />
     <result column="nick_name" property="nickName" jdbcType="VARCHAR" />
@@ -85,7 +85,7 @@
     reply_count, best_topic_count, last_topic_id, last_reply_id, amount, state, created_on, 
     fans_count, follow_count, mobile
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.model.gamble.UserExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserExample" >
     select
     <if test="distinct" >
       distinct
@@ -113,13 +113,13 @@
     delete from bbs_user
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.model.gamble.UserExample" >
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserExample" >
     delete from bbs_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hannuus.model.gamble.User" >
+  <insert id="insert" parameterType="com.hannuus.gamble.model.User" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -138,7 +138,7 @@
       #{fansCount,jdbcType=INTEGER}, #{followCount,jdbcType=INTEGER}, #{mobile,jdbcType=BIGINT}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.model.gamble.User" >
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.User" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
@@ -256,7 +256,7 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hannuus.model.gamble.UserExample" resultType="java.lang.Integer" >
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.UserExample" resultType="java.lang.Integer" >
     select count(*) from bbs_user
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
@@ -352,7 +352,7 @@
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.model.gamble.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.User" >
     update bbs_user
     <set >
       <if test="userName != null" >
@@ -412,7 +412,7 @@
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.model.gamble.User" >
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.User" >
     update bbs_user
     set user_name = #{userName,jdbcType=VARCHAR},
       nick_name = #{nickName,jdbcType=VARCHAR},
