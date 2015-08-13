@@ -2,13 +2,17 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+
 public class RoleManage {
     private Long id;
 
     private String name;
 
     private String key;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date createdOn;
 
     public Long getId() {

@@ -11,6 +11,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 	<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+	<jackson.version>2.6.1</jackson.version>
   </properties>
 
   <dependencies>
@@ -19,16 +20,6 @@
 		<artifactId>junit</artifactId>
 		<version>3.8.1</version>
 		<scope>test</scope>
-	</dependency>
-	<dependency>
-		<groupId>org.codehaus.jackson</groupId>
-		<artifactId>jackson-core-lgpl</artifactId>
-		<version>1.9.13</version>
-	</dependency>
-	<dependency>
-		<groupId>org.codehaus.jackson</groupId>
-		<artifactId>jackson-mapper-lgpl</artifactId>
-		<version>1.9.13</version>
 	</dependency>
 	<dependency>
 		<groupId>log4j</groupId>
@@ -85,5 +76,26 @@
 			<artifactId>core</artifactId>
 			<version>2.3.0</version>
 	</dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-core</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-databind</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+ 
+    <dependency>
+        <groupId>com.fasterxml.jackson.core</groupId>
+        <artifactId>jackson-annotations</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
+    <dependency>
+        <groupId>com.fasterxml.jackson.module</groupId>
+        <artifactId>jackson-module-jaxb-annotations</artifactId>
+        <version>${jackson.version}</version>
+    </dependency>
   </dependencies>
 </project>

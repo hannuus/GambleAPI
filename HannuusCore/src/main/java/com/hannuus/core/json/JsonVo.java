@@ -1,23 +1,22 @@
 package com.hannuus.core.json;
 
-//import org.codehaus.jackson.annotate.JsonProperty;
-import org.codehaus.jackson.map.annotate.JsonSerialize;
 
-import com.hannuus.core.json.StringFormatSerializer;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
-@JsonSerialize(include = JsonSerialize.Inclusion.NON_EMPTY)
+@JsonInclude(JsonInclude.Include.NON_NULL)
 public class JsonVo<T> {
 	
-//	@JsonProperty("ERRCODE")
+	@JsonProperty("\"ERRCODE\"")
 	private String errcode;
 	
-//	@JsonProperty("ERRMSG")
+	@JsonProperty("\"ERRMSG\"")
 	private String errmsg;
 	
-//	@JsonProperty("STATUS")
+	@JsonProperty("\"STATUS\"")
 	private String status;
 	
-	@JsonSerialize(using=StringFormatSerializer.class)
+	@JsonProperty("\"TOTAL\"")
 	private Integer total;
 	
 	public Integer getTotal() {
@@ -31,7 +30,7 @@ public class JsonVo<T> {
 	/**
 	 * 返回的数据
 	 */
-//	@JsonProperty("RESULT")
+	@JsonProperty("\"RESULT\"")
 	private T result;
 
 	public String getErrcode() {

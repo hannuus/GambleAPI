@@ -2,15 +2,21 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
-public class Topic {
-    private Long id;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+import com.hannuus.core.json.StringFormatSerializer;
 
+public class Topic {
+	
+    private Long id;
+	
     private Long categoryId;
 
     private Long speciaId;
 
     private Long userId;
-
+    
+    @JsonSerialize(using=StringFormatSerializer.class)
     private Boolean enabled;
 
     private Long hits;
@@ -18,11 +24,13 @@ public class Topic {
     private Long replyCount;
 
     private Long modifiedBy;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date modifiedOn;
-
+    
     private Long repliedBy;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date repliedOn;
 
     private Long iconId;
@@ -30,7 +38,8 @@ public class Topic {
     private Integer state;
 
     private String imgUrl;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date createdOn;
 
     private String title;

@@ -2,6 +2,9 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+
 public class UserRight {
     private Long id;
 
@@ -12,7 +15,8 @@ public class UserRight {
     private Long userId;
 
     private Boolean enabled;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date createdOn;
 
     public Long getId() {

@@ -45,10 +45,8 @@ public class ReplyAction extends BaseAction {
 		JsonVo<Reply> json = new JsonVo<Reply>();
 		try {
 			Long replyId = getLongReqParam("id", 0L);
-			json.setTotal(0);
 			Reply topic = replyService.findReplyById(replyId);
 			if (null != topic) {
-				json.setTotal(1);
 				json.setResult(topic);
 				json.setStatus(JsonResultStatus.Success.getValue());
 			} else {

@@ -52,10 +52,8 @@ public class TopicAction extends BaseAction {
 		JsonVo<Topic> json = new JsonVo<Topic>();
 		try {
 			Long topicId = getLongReqParam("id", 0L);
-			json.setTotal(0);
 			Topic topic = topicService.findTopicsById(topicId);
 			if (null != topic) {
-				json.setTotal(1);
 				json.setResult(topic);
 				json.setStatus(JsonResultStatus.Success.getValue());
 			} else {
@@ -66,7 +64,7 @@ public class TopicAction extends BaseAction {
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 获取某个板块下的topic
 	 * 
@@ -95,7 +93,7 @@ public class TopicAction extends BaseAction {
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 获取板块下的topic
 	 * 

@@ -2,9 +2,13 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+
 public class UserRelation {
     private Long id;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date createTime;
 
     private Integer relationType;

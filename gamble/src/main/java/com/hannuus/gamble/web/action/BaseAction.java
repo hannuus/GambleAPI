@@ -52,7 +52,6 @@ public class BaseAction {
 		json.setErrmsg(e.getReasoning());
 		json.setStatus(JsonResultStatus.Failed.getValue());
 	}
-
 	/**
 	 * 
 	 * @param json

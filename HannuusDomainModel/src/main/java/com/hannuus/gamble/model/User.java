@@ -2,6 +2,9 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+
 public class User {
     private Long id;
 
@@ -34,7 +37,8 @@ public class User {
     private Long amount;
 
     private Integer state;
-
+    
+    @JsonSerialize(using=DateSerializer.class)
     private Date createdOn;
 
     private Integer fansCount;

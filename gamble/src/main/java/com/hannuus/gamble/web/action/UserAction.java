@@ -131,10 +131,8 @@ public class UserAction extends BaseAction {
 		JsonVo<User> json = new JsonVo<User>();
 		try {
 			Long userId = getLongReqParam("id", 0L);
-			json.setTotal(0);
 			User user = userService.findUserById(userId);
 			if (null != user) {
-				json.setTotal(1);
 				json.setResult(user);
 				json.setStatus(JsonResultStatus.Success.getValue());
 			} else {
