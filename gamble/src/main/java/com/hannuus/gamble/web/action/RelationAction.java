@@ -128,7 +128,7 @@ public class RelationAction extends BaseAction {
      * @return
      */
     @ResponseBody
-	@RequestMapping(value = "/addFollows.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/addFollows.json", method = {RequestMethod.POST})
 	public JsonVo<List<UserRelation>> addFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<UserRelation>> json = new JsonVo<List<UserRelation>>();
 		try {
@@ -158,7 +158,7 @@ public class RelationAction extends BaseAction {
      * @return
      */
     @ResponseBody
-   	@RequestMapping(value = "/canselFollows.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+   	@RequestMapping(value = "/canselFollows.json", method = {RequestMethod.POST})
    	public JsonVo<List<UserRelation>> canselFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) {
    		JsonVo<List<UserRelation>> json = new JsonVo<List<UserRelation>>();
    		try {

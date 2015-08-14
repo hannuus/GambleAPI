@@ -27,16 +27,6 @@
 		<version>2.2.2</version>
 	</dependency>
 	<dependency>
-		<groupId>org.codehaus.jackson</groupId>
-		<artifactId>jackson-core-lgpl</artifactId>
-		<version>1.9.13</version>
-	</dependency>
-	<dependency>
-		<groupId>org.codehaus.jackson</groupId>
-		<artifactId>jackson-mapper-lgpl</artifactId>
-		<version>1.9.13</version>
-	</dependency>
-	<dependency>
 		<groupId>com.hannuus</groupId>
 		<artifactId>HannuusCore</artifactId>
 		<version>0.0.1-SNAPSHOT</version>

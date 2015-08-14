@@ -50,7 +50,7 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/add.json", method = {RequestMethod.POST})
 	public JsonVo<List<User>> add(ModelMap modelMap, User user, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		try {
@@ -91,7 +91,7 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
 	public JsonVo<List<User>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		try {
@@ -181,7 +181,7 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateNickName.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/updateNickName.json", method = {RequestMethod.POST})
 	public JsonVo<List<Topic>> updateNickName(ModelMap modelMap, Long id, String nickName, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
@@ -226,7 +226,7 @@ public class UserAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/updateHeadImage.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/updateHeadImage.json", method = {RequestMethod.POST})
 	public JsonVo<List<User>> updateHeadImage(ModelMap modelMap, Long id, String imageURL, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		try {
@@ -286,7 +286,7 @@ public class UserAction extends BaseAction {
      * @return
      */
     @ResponseBody
-	@RequestMapping(value = "/updateSignature.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/updateSignature.json", method = {RequestMethod.POST})
 	public JsonVo<List<User>> updateSignature(ModelMap modelMap, Long id, String signature, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		try {
@@ -334,7 +334,7 @@ public class UserAction extends BaseAction {
      * @return
      */
     @ResponseBody
-	@RequestMapping(value = "/isLock.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/isLock.json", method = {RequestMethod.POST})
 	public JsonVo<List<User>> isLock(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
 		try {

@@ -177,6 +177,17 @@
 			<artifactId>HannuusDomainModel</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		<dependency>
+            <groupId>baidu</groupId>
+            <artifactId>bacc-api-lib</artifactId>
+            <version>3.0.1</version>
+        </dependency>
+        <dependency>
+			<groupId>net.sf.ezmorph</groupId>
+			<artifactId>ezmorph</artifactId>
+			<version>1.0.6</version>
+		</dependency>
+        
 	</dependencies>
 
 	<build>

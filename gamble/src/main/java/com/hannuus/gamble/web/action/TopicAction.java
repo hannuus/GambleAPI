@@ -47,7 +47,7 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
+	@RequestMapping(value = "/detail.json", method = {RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<Topic> detail(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<Topic> json = new JsonVo<Topic>();
 		try {
@@ -129,7 +129,7 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/add", method = {RequestMethod.POST})
 	public JsonVo<List<Topic>> create(ModelMap modelMap, Topic topic, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
@@ -175,7 +175,7 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/update.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/update.json", method = {RequestMethod.POST})
 	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String title,
 			String content, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
@@ -238,7 +238,7 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
 	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {

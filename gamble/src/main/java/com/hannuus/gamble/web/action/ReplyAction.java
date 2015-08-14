@@ -64,7 +64,7 @@ public class ReplyAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/add.json", method = {RequestMethod.POST})
 	public JsonVo<List<Reply>> create(ModelMap modelMap, Reply reply, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		try {
@@ -93,7 +93,7 @@ public class ReplyAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
 	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
@@ -122,7 +122,7 @@ public class ReplyAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/update.json", method = {RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/update.json", method = {RequestMethod.POST})
 	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String content, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		try {
@@ -152,7 +152,7 @@ public class ReplyAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/listByTopicId.json", method = {RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS})
+	@RequestMapping(value = "/listByTopicId.json", method = {RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<Reply>> listByTopicId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		try {
@@ -180,7 +180,7 @@ public class ReplyAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/listChilds.json", method = { RequestMethod.GET, RequestMethod.POST, RequestMethod.OPTIONS })
+	@RequestMapping(value = "/listChilds.json", method = { RequestMethod.GET, RequestMethod.POST })
 	public JsonVo<List<Reply>> listChilds(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		try {
