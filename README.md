@@ -21,6 +21,10 @@ API返回的错误码可以查询:</br>
 	HannuusDAO 使用到的DAO都在这</br>
 	HannuusCore 一些使用频繁的类</br>
 
+<br>
+项目中依赖了bccs-api-3.0.1.jar, 由于在公共的maven仓库里找不到, 需要将这个jar添加到你的本地仓库, 执行以下的命令(注意-Dfile=bccs-api-3.0.1.jar的路径需要修改正确):
+mvn install:install-file -DgroupId=baidu -DartifactId=bacc-api-lib -Dversion=3.0.1 -Dpackaging=jar -Dfile=bccs-api-3.0.1.jar
+<br>
 </br>
 API开发分配计划:</br>
 Carson: </br>
