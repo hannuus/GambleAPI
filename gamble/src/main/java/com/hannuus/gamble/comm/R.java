@@ -37,4 +37,27 @@ public final class R {
 
 	}
 
+	public static final class baidupush {
+
+		public static final String api_key = "eMl56e2c5izUBNLwywhUCSiK";
+
+		public static final String secret_key = "4lSzEPDLPCgvyK3q49ekzp38TNaBKgYl";
+
+		/** 有效时间，单位second */
+		public static final Integer msg_expires = 3600;
+
+		/** 定时推送时间，必需超过当前时间一分钟，单位second */
+		public static final Long msg_send_time = System.currentTimeMillis() / 1000 + 1 * 60;
+
+		/** 透传消息(不支持IOS) */
+		public static final Integer msg_type_message = 0;
+
+		/** 通知 */
+		public static final Integer msg_type_notification = 1;
+
+		public static final Integer device_type_android = 3;
+		public static final Integer device_type_ios = 4;
+
+	}
+
 }
