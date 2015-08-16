@@ -3,6 +3,7 @@ package com.hannuus.gamble.web.action;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -10,8 +11,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.baidu.yun.push.exception.PushClientException;
+import com.baidu.yun.push.exception.PushServerException;
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
+import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.domain.PushMessage;
 import com.hannuus.gamble.web.service.PushService;
 
@@ -24,17 +28,14 @@ import com.hannuus.gamble.web.service.PushService;
 @Controller
 @RequestMapping("/push")
 public class PushAction extends BaseAction {
-
+	
+	private Logger logger = Logger.getLogger(PushAction.class);
+	
 	@Autowired
 	PushService pushService;
 
 	// TODO cuesky
 	// 根据fromId和toId构造title或者description或者customContent以简化PushMessage封装
-
-	// FIXME aelns
-	// 针对PushClientException和PushServerException封装一下自定义异常
-	// 然后提供一个抛出异常的代码模板
-	// 参见personal方法2段代码
 
 	/**
 	 * 评论
@@ -69,21 +70,19 @@ public class PushAction extends BaseAction {
 			Long fromId, Long toId, HttpServletRequest request,
 			HttpServletResponse response) {
 		// TODO cuesky
-
-		// try {
-		// pushService.pushMsgToAll(message);
-		// } catch (PushClientException | PushServerException e) {//擦，新特性？
-		// e.printStackTrace();
-		// }
-
-		// try {
-		// pushService.pushMsgToAll(message);
-		// } catch (PushClientException e) {
-		// e.printStackTrace();
-		// } catch (PushServerException e) {
-		// e.printStackTrace();
-		// }
-		return null;
+		JsonVo<String> json = new JsonVo<String>();
+		try {
+			pushService.pushMsgToAll(message);
+		} catch (PushClientException e) {
+			logger.error(e);
+			json.setErrcode(GambleAPIErrorCode.PushClient.getCode());
+			json.setErrmsg(GambleAPIErrorCode.PushClient.getReasoning() + " 详细:" + e.getMessage());
+		} catch (PushServerException e) {
+			logger.error(e);
+			json.setErrcode(GambleAPIErrorCode.PushServer.getCode());
+			json.setErrmsg(GambleAPIErrorCode.PushServer.getReasoning() + " 详细:" + e.getMessage());
+		}
+		return json;
 	}
 
 	/**

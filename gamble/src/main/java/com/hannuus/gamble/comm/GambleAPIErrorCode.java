@@ -20,7 +20,9 @@ public enum GambleAPIErrorCode {
 	CanNotAccessResource("10011", "无权访问此资源"),
 	InvalidSign("10012", "sign验证失败"), 
 	InvalidOpration("10013", "无效的操作"),
-	UnKnowException("10014", "未知的异常"),
+	UnKnowException("10014", "未知的异常"), 
+	PushClient("10015", "推送Client异常"), 
+	PushServer("10016", "推送Server异常"),
 	;
 	
 	private String code;
