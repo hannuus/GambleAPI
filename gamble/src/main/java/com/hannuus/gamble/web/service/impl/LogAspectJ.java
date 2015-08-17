@@ -18,8 +18,8 @@ public class LogAspectJ {
 	public Logger logger = Logger.getLogger(LogAspectJ.class);
 
 	/**
-	 * 使用@Pointcut注解定义一个切入点，切入点的名字为anyMethod()， 切入点正则表达式execution(* com.hannuus.gamble.web.action.*(..))
-	 * 的意思是拦截com.hannuus.gamble.web.action.*类中的所有方法， 不论方法参数有无，也不管返回结果为何类型。
+	 * 使用@Pointcut注解定义一个切入点，切入点的名字为anyMethod()， 切入点正则表达式  execution(* com.hannuus.gamble.web.action.*Action.*(..))
+	 * 的意思是拦截com.hannuus.gamble.web.action.*Action类中的所有方法， 不论方法参数有无，也不管返回结果为何类型。
 	 * */
 	@Pointcut("execution(* com.hannuus.gamble.web.action.*Action.*(..))")
 	private void anyMethod() {
