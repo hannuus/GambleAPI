@@ -21,11 +21,11 @@ public class DocAction extends BaseAction {
 	
 	@ResponseBody
 	@RequestMapping(value = "/errorCodes.json", method = {RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<Map<String, String>> listByCategory(HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<Map<String, String>> errorCodes(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<Map<String, String>> json = new JsonVo<Map<String, String>>();
 		Map<String, String> map = Maps.newHashMap();
 		for (GambleAPIErrorCode errorCode : GambleAPIErrorCode.values()) {
-			map.put("\"" +errorCode.getCode() + "\"", errorCode.getReasoning());
+			map.put(errorCode.getCode(), errorCode.getReasoning());
 		}
 		json.setResult(map);
 		json.setStatus(JsonResultStatus.Success.getValue());

@@ -210,7 +210,10 @@
         <aop:pointcut id="targetMethod" expression="execution(* com.hannuus.gamble.web.service.impl.*ServiceImpl.*(..))" />
         <aop:advisor advice-ref="txAdvice" pointcut-ref="targetMethod" />
     </aop:config>
-    
-    
+
+	<!-- 开启基于@AspectJ切面的注解处理器 -->
+	<aop:aspectj-autoproxy />
+	<bean id="logAspectJ" class="com.hannuus.gamble.web.service.impl.LogAspectJ" />
+	
 
 </beans>

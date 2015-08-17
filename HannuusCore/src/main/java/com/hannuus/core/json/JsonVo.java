@@ -7,16 +7,16 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(JsonInclude.Include.NON_NULL)
 public class JsonVo<T> {
 	
-	@JsonProperty("\"ERRCODE\"")
+	@JsonProperty("ERRCODE")
 	private String errcode;
 	
-	@JsonProperty("\"ERRMSG\"")
+	@JsonProperty("ERRMSG")
 	private String errmsg;
 	
-	@JsonProperty("\"STATUS\"")
+	@JsonProperty("STATUS")
 	private String status;
 	
-	@JsonProperty("\"TOTAL\"")
+	@JsonProperty("TOTAL")
 	private Integer total;
 	
 	public Integer getTotal() {
@@ -30,7 +30,7 @@ public class JsonVo<T> {
 	/**
 	 * 返回的数据
 	 */
-	@JsonProperty("\"RESULT\"")
+	@JsonProperty("RESULT")
 	private T result;
 
 	public String getErrcode() {
