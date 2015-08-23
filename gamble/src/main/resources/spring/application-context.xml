@@ -129,27 +129,23 @@
 
 	<!-- Apache Shiro -->
 	<bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
-		<!-- <property name="realm" ref="userRealm" /> -->
+		<property name="realm" ref="userRealm" />
 	</bean>
 
 	<bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor" />
-
-	<bean
-		class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator"
-		depends-on="lifecycleBeanPostProcessor" />
-	<bean
-		class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
-		<property name="securityManager" ref="securityManager" />
-	</bean>
 
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/index.htm"></property>
 		<property name="unauthorizedUrl" value="/unauthorized.flt"></property>
 		<property name="filterChainDefinitions">
-			<!-- 先设置为匿名访问，以后再设置 -->
 			<value>
+				<!-- 放开所有权限 -->
 				/**=anon
+				<!-- 常规配置 -->
+				<!-- /index.htm=anon -->
+				<!-- /api/login.json*=anon -->
+				<!-- /**=authc -->
 			</value>
 		</property>
 	</bean>
