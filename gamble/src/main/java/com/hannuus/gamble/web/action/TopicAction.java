@@ -58,8 +58,7 @@ public class TopicAction extends BaseAction {
 		if (null == topic) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
-		throw new NullPointerException();
-//		return json;
+		return json;
 	}
 
 	/**
