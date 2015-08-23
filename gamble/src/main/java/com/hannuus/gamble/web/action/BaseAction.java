@@ -9,16 +9,17 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.hannuus.core.json.JsonResultStatus;
-import com.hannuus.core.json.JsonVo;
-import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.utils.HttpUtils;
+import com.hannuus.gamble.web.exception.ErrorMessage;
 import com.hannuus.gamble.web.exception.GambleException;
+import com.hannuus.gamble.web.exception.MappingJacksonJsonViewExd;
 import com.hannuus.gamble.web.exception.api.CanNotAccessException;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
@@ -31,37 +32,22 @@ public class BaseAction {
 
 	@Autowired
 	LoginService loginService;
+	
 	@Autowired
 	PermissionService permissionService;
+	
+	private MappingJacksonJsonViewExd  jsonView = new MappingJacksonJsonViewExd();  
+	  
+	@ExceptionHandler(Exception.class)  
+	public ModelAndView handleAnyException( Exception ex )
+	{
+	    return new ModelAndView(jsonView, "error", new ErrorMessage(ex));  
+	}
 
 	protected Long getLoginUserId() {
 		String accessToken = getStringReqParam(R.request.access_token);
 		User user = loginService.getUserByAccessToken(accessToken);
 		return null == user ? null : user.getId();
-	}
-
-	/**
-	 * log error messages
-	 * 
-	 * @param json
-	 * @param e
-	 */
-	protected void logErrorMessages(JsonVo<?> json, GambleException e) {
-		logger.error(e);
-		json.setErrcode(e.getCode());
-		json.setErrmsg(e.getReasoning());
-		json.setStatus(JsonResultStatus.Failed.getValue());
-	}
-	/**
-	 * 
-	 * @param json
-	 * @param e
-	 */
-	protected void logUnknowErrorMessages(JsonVo<?> json, Exception e) {
-		logger.error(e);
-		json.setErrcode(GambleAPIErrorCode.UnKnowException.getCode());
-		json.setErrmsg(e.getMessage());
-		json.setStatus(JsonResultStatus.Failed.getValue());
 	}
 
 	/**

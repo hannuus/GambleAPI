@@ -43,6 +43,7 @@ public class LoginServiceImpl implements LoginService {
 
 	private User login(String userName, String password) {
 		// TODO Auto-generated method stub
+		// TODO 比如你有两个手机， 但是你是一个用户， 推送消息时需要两台设备都要推送， userId和channelID是一对多的关系
 		return null;
 	}
 

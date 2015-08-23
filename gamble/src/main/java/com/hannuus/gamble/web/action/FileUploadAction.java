@@ -79,7 +79,6 @@ public class FileUploadAction {
 				}
 				// 转存图片
 				file.transferTo(new File(filePath));
-				json.setStatus(JsonResultStatus.Success.getValue());
 				json.setResult(fileNamePath);
 			} catch (Exception e) {
 				logger.error(e.getMessage(), e);

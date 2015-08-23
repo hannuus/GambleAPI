@@ -45,19 +45,14 @@ public class RelationAction extends BaseAction {
 	@RequestMapping(value = "/friends.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> friends(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = userRelationService.countFriends(id);
-			json.setTotal(total);
-			List<User> list = userRelationService.findFriendsListByPage(id, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = userRelationService.countFriends(id);
+		json.setTotal(total);
+		List<User> list = userRelationService.findFriendsListByPage(id, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -74,19 +69,14 @@ public class RelationAction extends BaseAction {
 	@RequestMapping(value = "/follows.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> follows(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = userRelationService.countFollows(id);
-			json.setTotal(total);
-			List<User> list = userRelationService.findFollowListByPage(id, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = userRelationService.countFollows(id);
+		json.setTotal(total);
+		List<User> list = userRelationService.findFollowListByPage(id, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -102,19 +92,14 @@ public class RelationAction extends BaseAction {
 	@RequestMapping(value = "/fans.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> fans(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = userRelationService.countFans(id);
-			json.setTotal(total);
-			List<User> list = userRelationService.findFansListByPage(id, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = userRelationService.countFans(id);
+		json.setTotal(total);
+		List<User> list = userRelationService.findFansListByPage(id, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -126,24 +111,17 @@ public class RelationAction extends BaseAction {
      * @param request
      * @param response
      * @return
+     * @throws GambleException 
      */
     @ResponseBody
 	@RequestMapping(value = "/addFollows.json", method = {RequestMethod.POST})
-	public JsonVo<List<UserRelation>> addFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<UserRelation>> addFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<UserRelation>> json = new JsonVo<List<UserRelation>>();
-		try {
-			validateRequest(request);
-			validateAddFollowsArguments(fromId, toIds);
-			UserRelation relation = initUserRelation(fromId, toIds, UserRelationType.Follow);
-			if(userRelationService.addUserRelation(relation)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateAddFollowsArguments(fromId, toIds);
+		UserRelation relation = initUserRelation(fromId, toIds, UserRelationType.Follow);
+		if(!userRelationService.addUserRelation(relation)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -156,25 +134,18 @@ public class RelationAction extends BaseAction {
      * @param request
      * @param response
      * @return
+     * @throws GambleException 
      */
     @ResponseBody
    	@RequestMapping(value = "/canselFollows.json", method = {RequestMethod.POST})
-   	public JsonVo<List<UserRelation>> canselFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) {
+   	public JsonVo<List<UserRelation>> canselFollows(ModelMap modelMap, Long fromId, String toIds, HttpServletRequest request, HttpServletResponse response) throws GambleException {
    		JsonVo<List<UserRelation>> json = new JsonVo<List<UserRelation>>();
-   		try {
-   			validateRequest(request);
-   			List<Long> toIdsList = convertToIds(toIds);
-   			validateCanselFollowsArguments(fromId, toIdsList);
-   			if(userRelationService.cancelFollows(fromId, toIdsList)) {
-   				json.setStatus(JsonResultStatus.Success.getValue());
-   			} else {
-   				json.setStatus(JsonResultStatus.Failed.getValue());
-   			}
-   		} catch (GambleException e) {
-   			logErrorMessages(json, e);
-   		} catch (Exception e) {
-   			logUnknowErrorMessages(json, e);
-   		}
+		validateRequest(request);
+		List<Long> toIdsList = convertToIds(toIds);
+		validateCanselFollowsArguments(fromId, toIdsList);
+		if (!userRelationService.cancelFollows(fromId, toIdsList)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
+		}
    		return json;
    	}
     
@@ -184,7 +155,7 @@ public class RelationAction extends BaseAction {
      * @param toIdsList
      * @throws Exception 
      */
-	private void validateCanselFollowsArguments(Long fromId, List<Long> toIdsList) throws Exception {
+	private void validateCanselFollowsArguments(Long fromId, List<Long> toIdsList) throws GambleException {
 		if (null == fromId) {
 			throw new ArgumentsIncorrectException("fromId参数无效");
 		}

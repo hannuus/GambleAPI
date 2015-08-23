@@ -13,9 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baidu.yun.push.exception.PushClientException;
 import com.baidu.yun.push.exception.PushServerException;
-import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
-import com.hannuus.gamble.comm.GambleAPIErrorCode;
 import com.hannuus.gamble.domain.PushMessage;
 import com.hannuus.gamble.web.service.PushService;
 
@@ -29,6 +27,7 @@ import com.hannuus.gamble.web.service.PushService;
 @RequestMapping("/push")
 public class PushAction extends BaseAction {
 	
+	@SuppressWarnings("unused")
 	private Logger logger = Logger.getLogger(PushAction.class);
 	
 	@Autowired
@@ -63,25 +62,17 @@ public class PushAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws PushServerException 
+	 * @throws PushClientException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/personal.json", method = { RequestMethod.POST })
 	public JsonVo<String> personal(ModelMap modelMap, PushMessage message,
 			Long fromId, Long toId, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws PushClientException, PushServerException {
 		// TODO cuesky
 		JsonVo<String> json = new JsonVo<String>();
-		try {
-			pushService.pushMsgToAll(message);
-		} catch (PushClientException e) {
-			logger.error(e);
-			json.setErrcode(GambleAPIErrorCode.PushClient.getCode());
-			json.setErrmsg(GambleAPIErrorCode.PushClient.getReasoning() + " 详细:" + e.getMessage());
-		} catch (PushServerException e) {
-			logger.error(e);
-			json.setErrcode(GambleAPIErrorCode.PushServer.getCode());
-			json.setErrmsg(GambleAPIErrorCode.PushServer.getReasoning() + " 详细:" + e.getMessage());
-		}
+		pushService.pushMsgToAll(message);
 		return json;
 	}
 
@@ -111,18 +102,15 @@ public class PushAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws PushServerException 
+	 * @throws PushClientException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/advertising.json", method = { RequestMethod.POST })
 	public JsonVo<String> advertising(ModelMap modelMap, PushMessage message,
-			HttpServletRequest request, HttpServletResponse response) {
+			HttpServletRequest request, HttpServletResponse response) throws PushClientException, PushServerException {
 		JsonVo<String> json = new JsonVo<String>();
-		try {
-			pushService.pushMsgToAll(message);
-			json.setStatus(JsonResultStatus.Success.getValue());
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
-		}
+		pushService.pushMsgToAll(message);
 		return json;
 	}
 
@@ -151,19 +139,16 @@ public class PushAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws PushServerException 
+	 * @throws PushClientException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/system.json", method = { RequestMethod.POST })
 	public JsonVo<String> system(ModelMap modelMap, PushMessage message,
 			Long userId, HttpServletRequest request,
-			HttpServletResponse response) {
+			HttpServletResponse response) throws PushClientException, PushServerException {
 		JsonVo<String> json = new JsonVo<String>();
-		try {
-			pushService.pushMsgToSingleUser(message, userId);
-			json.setStatus(JsonResultStatus.Success.getValue());
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
-		}
+		pushService.pushMsgToSingleUser(message, userId);
 		return json;
 	}
 

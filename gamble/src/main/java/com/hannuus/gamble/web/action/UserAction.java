@@ -25,6 +25,7 @@ import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
+import com.hannuus.gamble.web.exception.api.NotFoundAnyDataException;
 import com.hannuus.gamble.web.service.UserService;
 
 /**
@@ -48,24 +49,17 @@ public class UserAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/add.json", method = {RequestMethod.POST})
-	public JsonVo<List<User>> add(ModelMap modelMap, User user, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<User>> add(ModelMap modelMap, User user, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			validateRequest(request);
-			initAddUser(user);
-			validateAddUserArguments(user);
-			if(userService.addUser(user)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		initAddUser(user);
+		validateAddUserArguments(user);
+		if(!userService.addUser(user)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -89,28 +83,21 @@ public class UserAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
-	public JsonVo<List<User>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<User>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			validateRequest(request);
-			validateDelete(request, id);
-			if(userService.deleteUser(id)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateDelete(request, id);
+		if(!userService.deleteUser(id)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
 	
-	private void validateDelete(HttpServletRequest request, Long id) throws Exception {
+	private void validateDelete(HttpServletRequest request, Long id) throws GambleException {
 		User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -129,17 +116,12 @@ public class UserAction extends BaseAction {
 	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<User> detail(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<User> json = new JsonVo<User>();
-		try {
-			Long userId = getLongReqParam("id", 0L);
-			User user = userService.findUserById(userId);
-			if (null != user) {
-				json.setResult(user);
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		Long userId = getLongReqParam("id", 0L);
+		User user = userService.findUserById(userId);
+		if (null != user) {
+			json.setResult(user);
+		} else {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -154,19 +136,14 @@ public class UserAction extends BaseAction {
 	@RequestMapping(value = "/listUsers.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<User>> listUsers(User user, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = userService.countUsers();
-			json.setTotal(total);
-			List<User> list = userService.findUserByPageWithConditions(user, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = userService.countUsers();
+		json.setTotal(total);
+		List<User> list = userService.findUserByPageWithConditions(user, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -179,31 +156,24 @@ public class UserAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateNickName.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> updateNickName(ModelMap modelMap, Long id, String nickName, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<Topic>> updateNickName(ModelMap modelMap, Long id, String nickName, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			validateRequest(request);
-			validateUpdateNickNameArguments(id, nickName);
-			User user = new User();
-			user.setId(id);
-			user.setNickName(nickName);
-			if(userService.updateNickName(id, nickName)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateUpdateNickNameArguments(id, nickName);
+		User user = new User();
+		user.setId(id);
+		user.setNickName(nickName);
+		if(!userService.updateNickName(id, nickName)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
 	
-	private void validateUpdateNickNameArguments(Long id, String nickName) throws Exception {
+	private void validateUpdateNickNameArguments(Long id, String nickName) throws GambleException {
 		User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -224,26 +194,19 @@ public class UserAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/updateHeadImage.json", method = {RequestMethod.POST})
-	public JsonVo<List<User>> updateHeadImage(ModelMap modelMap, Long id, String imageURL, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<User>> updateHeadImage(ModelMap modelMap, Long id, String imageURL, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			validateRequest(request);
-			validateUpdateHeadImageArguments(id, imageURL);
-			User user = new User();
-			user.setId(id);
-			user.setHeadUrl(imageURL);
-			if(userService.updateUser(user)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateUpdateHeadImageArguments(id, imageURL);
+		User user = new User();
+		user.setId(id);
+		user.setHeadUrl(imageURL);
+		if(!userService.updateUser(user)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -253,7 +216,7 @@ public class UserAction extends BaseAction {
 	 * @param headImage
 	 * @throws Exception 
 	 */
-	private void validateUpdateHeadImageArguments(Long id, String headImage) throws Exception {
+	private void validateUpdateHeadImageArguments(Long id, String headImage) throws GambleException {
 		User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -284,31 +247,24 @@ public class UserAction extends BaseAction {
      * @param request
      * @param response
      * @return
+     * @throws GambleException 
      */
     @ResponseBody
 	@RequestMapping(value = "/updateSignature.json", method = {RequestMethod.POST})
-	public JsonVo<List<User>> updateSignature(ModelMap modelMap, Long id, String signature, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<User>> updateSignature(ModelMap modelMap, Long id, String signature, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			validateRequest(request);
-			validateUpdateSignatureArguments(id, signature);
-			User user = new User();
-			user.setId(id);
-			user.setSignature(signature);
-			if(userService.updateUser(user)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateUpdateSignatureArguments(id, signature);
+		User user = new User();
+		user.setId(id);
+		user.setSignature(signature);
+		if(!userService.updateUser(user)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
     
-    private void validateUpdateSignatureArguments(Long id, String signature) throws Exception {
+    private void validateUpdateSignatureArguments(Long id, String signature) throws GambleException {
     	User user = userService.findUserById(id);
 		if (null == user) {
 			throw new ArgumentsIncorrectException("输入的ID无效");
@@ -332,21 +288,14 @@ public class UserAction extends BaseAction {
      * @param request
      * @param response
      * @return
+     * @throws NotFoundAnyDataException 
      */
     @ResponseBody
 	@RequestMapping(value = "/isLock.json", method = {RequestMethod.POST})
-	public JsonVo<List<User>> isLock(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<User>> isLock(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<User>> json = new JsonVo<List<User>>();
-		try {
-			if(userService.isLock(id)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		if(!userService.isLock(id)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}

@@ -33,14 +33,9 @@ public class RootAction extends BaseAction {
 	public JsonVo<String> isLock(ModelMap modelMap, String userName, String password, HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<String> json = new JsonVo<String>();
 		json.setStatus(JsonResultStatus.Failed.getValue());
-		try {
-			AccessToken accessToken = loginService.userLogin(userName, password);
-			if (null != accessToken) {
-				json.setResult(accessToken.toString());
-				json.setStatus(JsonResultStatus.Success.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		AccessToken accessToken = loginService.userLogin(userName, password);
+		if (null != accessToken) {
+			json.setResult(accessToken.toString());
 		}
 		return json;
 	}

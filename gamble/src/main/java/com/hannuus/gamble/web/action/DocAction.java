@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Maps;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
-import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
 
 @Controller
@@ -28,7 +27,6 @@ public class DocAction extends BaseAction {
 			map.put(errorCode.getCode(), errorCode.getReasoning());
 		}
 		json.setResult(map);
-		json.setStatus(JsonResultStatus.Success.getValue());
 		return json;
 	}
 }

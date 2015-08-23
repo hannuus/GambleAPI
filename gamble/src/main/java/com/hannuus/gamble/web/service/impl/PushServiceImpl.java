@@ -65,8 +65,10 @@ public class PushServiceImpl implements PushService {
 		request.addMessage(msg.toString());
 
 		PushBatchUniMsgResponse response = client.pushBatchUniMsg(request);
+		if (logger.isDebugEnabled()) {
 		logger.debug("msgId: " + response.getMsgId() + ",sendTime: "
 				+ response.getSendTime());
+		}
 	}
 
 	@Override
@@ -79,8 +81,10 @@ public class PushServiceImpl implements PushService {
 		request.addMessage(msg.toString());
 
 		PushMsgToAllResponse response = client.pushMsgToAll(request);
+		if (logger.isDebugEnabled()) {
 		logger.debug("msgId: " + response.getMsgId() + ",sendTime: "
 				+ response.getSendTime());
+		}
 	}
 
 	@Override
@@ -94,8 +98,10 @@ public class PushServiceImpl implements PushService {
 
 		request.addTagName(tagName);
 		PushMsgToTagResponse response = client.pushMsgToTag(request);
-		logger.debug("msgId: " + response.getMsgId() + ",sendTime: "
-				+ response.getSendTime());
+		if (logger.isDebugEnabled()) {
+			logger.debug("msgId: " + response.getMsgId() + ",sendTime: "
+					+ response.getSendTime());
+		}
 	}
 
 }

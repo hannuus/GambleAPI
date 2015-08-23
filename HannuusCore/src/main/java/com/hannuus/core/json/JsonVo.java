@@ -14,7 +14,7 @@ public class JsonVo<T> {
 	private String errmsg;
 	
 	@JsonProperty("STATUS")
-	private String status;
+	private String status = JsonResultStatus.Success.getValue();
 	
 	@JsonProperty("TOTAL")
 	private Integer total;

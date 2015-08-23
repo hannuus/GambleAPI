@@ -43,17 +43,12 @@ public class ReplyAction extends BaseAction {
 	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<Reply> detail(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<Reply> json = new JsonVo<Reply>();
-		try {
-			Long replyId = getLongReqParam("id", 0L);
-			Reply topic = replyService.findReplyById(replyId);
-			if (null != topic) {
-				json.setResult(topic);
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		Long replyId = getLongReqParam("id", 0L);
+		Reply topic = replyService.findReplyById(replyId);
+		if (null != topic) {
+			json.setResult(topic);
+		} else {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -62,24 +57,17 @@ public class ReplyAction extends BaseAction {
 	 * 添加一条评论
 	 * @param Topic
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/add.json", method = {RequestMethod.POST})
-	public JsonVo<List<Reply>> create(ModelMap modelMap, Reply reply, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<Reply>> create(ModelMap modelMap, Reply reply, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
-		try {
-			validateRequest(request);
-			initReply(reply);
-			validateAddReplyArguments(reply);
-			if(replyService.addReply(reply)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		initReply(reply);
+		validateAddReplyArguments(reply);
+		if(!replyService.addReply(reply)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -91,23 +79,16 @@ public class ReplyAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			validateRequest(request);
-			validateDelete(request, id);
-			if(replyService.deleteReply(id)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateDelete(request, id);
+		if(!replyService.deleteReply(id)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -120,27 +101,20 @@ public class ReplyAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/update.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String content, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String content, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			validateRequest(request);
-			validateUpdateReplyArguments(id, content);
-			Reply reply = new Reply();
-			reply.setId(id);
-			reply.setContent(content);
-			reply.setModifiedOn(new Date());
-			if(replyService.updateReply(reply)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateUpdateReplyArguments(id, content);
+		Reply reply = new Reply();
+		reply.setId(id);
+		reply.setContent(content);
+		reply.setModifiedOn(new Date());
+		if(!replyService.updateReply(reply)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -155,20 +129,15 @@ public class ReplyAction extends BaseAction {
 	@RequestMapping(value = "/listByTopicId.json", method = {RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<Reply>> listByTopicId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
-		try {
-			Long topicId = getLongReqParam("topicId", 0L);
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = replyService.countByToticId(topicId);
-			json.setTotal(total);
-			List<Reply> list = replyService.findReplysByPage(topicId, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		Long topicId = getLongReqParam("topicId", 0L);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = replyService.countByToticId(topicId);
+		json.setTotal(total);
+		List<Reply> list = replyService.findReplysByPage(topicId, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -183,20 +152,15 @@ public class ReplyAction extends BaseAction {
 	@RequestMapping(value = "/listChilds.json", method = { RequestMethod.GET, RequestMethod.POST })
 	public JsonVo<List<Reply>> listChilds(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
-		try {
-			Long parentId = getLongReqParam("parentId", 0L);
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = replyService.countChildReplys(parentId);
-			json.setTotal(total);
-			List<Reply> list = replyService.findChildReplyByPage(parentId, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		Long parentId = getLongReqParam("parentId", 0L);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = replyService.countChildReplys(parentId);
+		json.setTotal(total);
+		List<Reply> list = replyService.findChildReplyByPage(parentId, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -206,7 +170,7 @@ public class ReplyAction extends BaseAction {
 	 * @param id
 	 * @param content
 	 */
-	private void validateUpdateReplyArguments(Long repLyId, String content)  throws ArgumentsIncorrectException {
+	private void validateUpdateReplyArguments(Long repLyId, String content)  throws GambleException {
 		if (null == repLyId || repLyId < 0L) {
 			throw new ArgumentsIncorrectException("ID无效");
 		}
@@ -224,7 +188,7 @@ public class ReplyAction extends BaseAction {
 	 * @param replyId
 	 * @throws Exception 
 	 */
-	private void validateDelete(HttpServletRequest request, Long replyId)  throws Exception  {
+	private void validateDelete(HttpServletRequest request, Long replyId)  throws GambleException  {
 		Reply reply = replyService.findReplyById(replyId);
 		if (null == reply) {
 			throw new ArgumentsIncorrectException("评论不存在");

@@ -23,6 +23,7 @@ import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
+import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.service.TopicService;
 
 /**
@@ -45,24 +46,20 @@ public class TopicAction extends BaseAction {
 	 * @param request
 	 * @param response
 	 * @return
+	 * @throws InvalidAccessTokenException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/detail.json", method = {RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<Topic> detail(HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<Topic> detail(HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<Topic> json = new JsonVo<Topic>();
-		try {
-			Long topicId = getLongReqParam("id", 0L);
-			Topic topic = topicService.findTopicsById(topicId);
-			if (null != topic) {
-				json.setResult(topic);
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		Long topicId = getLongReqParam("id", 0L);
+		Topic topic = topicService.findTopicsById(topicId);
+		json.setResult(topic);
+		if (null == topic) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
-		return json;
+		throw new NullPointerException();
+//		return json;
 	}
 
 	/**
@@ -76,20 +73,15 @@ public class TopicAction extends BaseAction {
 	@RequestMapping(value = "/listByCategoryId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<Topic>> listByCategoryId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			Long categoryId = getLongReqParam("id", 0L);
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = topicService.countTopicsByCategoryId(categoryId);
-			json.setTotal(total);
-			List<Topic> list = topicService.findCategoryTopicsByPage(categoryId, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		Long categoryId = getLongReqParam("id", 0L);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = topicService.countTopicsByCategoryId(categoryId);
+		json.setTotal(total);
+		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -105,20 +97,15 @@ public class TopicAction extends BaseAction {
 	@RequestMapping(value = "/listBySpeciaId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
 	public JsonVo<List<Topic>> listBySpeciaId(HttpServletRequest request, HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			Long speciaId = getLongReqParam("speciaId", 0L);
-			int pageNumber = getIntegerReqParam("pageNumber", 1);
-			int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
-			int total = topicService.countTopicsBySpeciaId(speciaId);
-			json.setTotal(total);
-			List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId, pageNumber, pageSize);
-			json.setResult(list);
-			json.setStatus(JsonResultStatus.Success.getValue());
-			if (CollectionUtils.isEmpty(list)) {
-				json.setStatus(JsonResultStatus.EmptyResult.getValue());
-			}
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		Long speciaId = getLongReqParam("speciaId", 0L);
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int total = topicService.countTopicsBySpeciaId(speciaId);
+		json.setTotal(total);
+		List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId, pageNumber, pageSize);
+		json.setResult(list);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
@@ -127,24 +114,17 @@ public class TopicAction extends BaseAction {
 	 * 发帖
 	 * @param Topic
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> create(ModelMap modelMap, Topic topic, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/add.json", method = {RequestMethod.POST})
+	public JsonVo<List<Topic>> create(ModelMap modelMap, Topic topic, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			validateRequest(request);
-			initTopic(topic);
-			validateAddTopicArguments(topic);
-			if(topicService.addTopic(topic)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		initTopic(topic);
+		validateAddTopicArguments(topic);
+		if(!topicService.addTopic(topic)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -173,30 +153,23 @@ public class TopicAction extends BaseAction {
 	 * 发帖
 	 * @param Topic
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/update.json", method = {RequestMethod.POST})
 	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String title,
-			String content, HttpServletRequest request, HttpServletResponse response) {
+			String content, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			validateRequest(request);
-			validateUpdateTopicArguments(id, title, content);
-			Topic topic = new Topic();
-			topic.setId(id);
-			topic.setTitle(title);
-			topic.setContent(content);
-			topic.setModifiedBy(getLoginUserId());
-			topic.setModifiedOn(new Date());
-			if(topicService.updateTopic(topic)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateUpdateTopicArguments(id, title, content);
+		Topic topic = new Topic();
+		topic.setId(id);
+		topic.setTitle(title);
+		topic.setContent(content);
+		topic.setModifiedBy(getLoginUserId());
+		topic.setModifiedOn(new Date());
+		if(!topicService.updateTopic(topic)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
@@ -236,28 +209,21 @@ public class TopicAction extends BaseAction {
 	 * 发帖
 	 * @param Topic
 	 * @return
+	 * @throws GambleException 
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) {
+	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		try {
-			validateRequest(request);
-			validateDelete(request, id);
-			if(topicService.deleteTopic(id)) {
-				json.setStatus(JsonResultStatus.Success.getValue());
-			} else {
-				json.setStatus(JsonResultStatus.Failed.getValue());
-			}
-		} catch (GambleException e) {
-			logErrorMessages(json, e);
-		} catch (Exception e) {
-			logUnknowErrorMessages(json, e);
+		validateRequest(request);
+		validateDelete(request, id);
+		if(!topicService.deleteTopic(id)) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
 
-	private void validateDelete(HttpServletRequest request, Long id) throws Exception {
+	private void validateDelete(HttpServletRequest request, Long id) throws GambleException {
 		Topic topic = topicService.findTopicsById(id);
 		if (null == topic) {
 			throw new ArgumentsIncorrectException("帖子不存在");
