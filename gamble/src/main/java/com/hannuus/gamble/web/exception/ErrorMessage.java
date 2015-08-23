@@ -1,6 +1,5 @@
 package com.hannuus.gamble.web.exception;
 
-import org.apache.commons.lang.StringUtils;
 import org.codehaus.jackson.annotate.JsonProperty;
 
 import com.baidu.yun.push.exception.PushClientException;
@@ -27,15 +26,28 @@ public class ErrorMessage {
 			this.errmsg = gex.getReasoning();
 		} else if (ex instanceof PushClientException) {
 			this.errcode = GambleAPIErrorCode.PushClient.getCode();
-			this.errmsg = GambleAPIErrorCode.PushClient.getReasoning() + " 详细:" + ex.getMessage();
+			this.errmsg = GambleAPIErrorCode.PushClient.getReasoning() + " 详细:" + getStackTrace(ex);
 		}  else if (ex instanceof PushServerException) {
 			this.errcode = GambleAPIErrorCode.PushServer.getCode();
-			this.errmsg = GambleAPIErrorCode.PushServer.getReasoning() + " 详细:" + ex.getMessage();
+			this.errmsg = GambleAPIErrorCode.PushServer.getReasoning() + " 详细:" + getStackTrace(ex);
 		} else {
 			this.errcode = GambleAPIErrorCode.UnKnowException.getCode();
-			this.errmsg = ex.getMessage() == null ? StringUtils.join(ex.getStackTrace(), ",") : ex.getMessage();
+			this.errmsg = getStackTrace(ex);
 		}
 		this.status = JsonResultStatus.Failed.getValue();
+	}
+	
+	private String getStackTrace(Exception ex) {
+		StringBuilder bu = new StringBuilder();
+		StackTraceElement[] elements = ex.getStackTrace();
+		for (int i = 0; i < elements.length; i++) {
+			bu.append(elements[i]);
+			for (int j = 0; j < i; j++) {
+				bu.append("\t");
+			}
+			bu.append("\n");
+		}
+		return bu.toString();
 	}
 
 
