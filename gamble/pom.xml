@@ -327,8 +327,7 @@
 			<resource>
 				<directory>src/main/resources</directory>
 				<includes>
-					<include>spring/application-context.xml</include>
-					<include>spring/spring-timetask.xml</include>
+					<include>spring/*.xml</include>
 					<!-- <include>log4j.properties</include> -->
 					<include>log4j.xml</include>
 					<include>ueditor.config.json</include>
