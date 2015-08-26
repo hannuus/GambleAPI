@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hannuus.gamble.dao.UserChannelMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.UserChannel" >
+<mapper namespace="com.hannuus.gamble.dao.RoleResourcePermissionMapper" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.RoleResourcePermission" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+    <result column="role_id" property="roleId" jdbcType="BIGINT" />
+    <result column="resource_id" property="resourceId" jdbcType="BIGINT" />
+    <result column="permission_ids" property="permissionIds" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,16 +66,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, channel_id
+    id, role_id, resource_id, permission_ids
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserChannelExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.RoleResourcePermissionExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from user_channel
+    from role_resource_permission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,65 +89,76 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from user_channel
+    from role_resource_permission
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_channel
+    delete from role_resource_permission
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserChannelExample" >
-    delete from user_channel
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.RoleResourcePermissionExample" >
+    delete from role_resource_permission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hannuus.gamble.model.UserChannel" >
+  <insert id="insert" parameterType="com.hannuus.gamble.model.RoleResourcePermission" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_channel (user_id, channel_id)
-    values (#{userId,jdbcType=BIGINT}, #{channelId,jdbcType=VARCHAR})
+    insert into role_resource_permission (role_id, resource_id, permission_ids
+      )
+    values (#{roleId,jdbcType=BIGINT}, #{resourceId,jdbcType=BIGINT}, #{permissionIds,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserChannel" >
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.RoleResourcePermission" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_channel
+    insert into role_resource_permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        user_id,
+      <if test="roleId != null" >
+        role_id,
       </if>
-      <if test="channelId != null" >
-        channel_id,
+      <if test="resourceId != null" >
+        resource_id,
+      </if>
+      <if test="permissionIds != null" >
+        permission_ids,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
+      <if test="roleId != null" >
+        #{roleId,jdbcType=BIGINT},
       </if>
-      <if test="channelId != null" >
-        #{channelId,jdbcType=VARCHAR},
+      <if test="resourceId != null" >
+        #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="permissionIds != null" >
+        #{permissionIds,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hannuus.gamble.model.UserChannelExample" resultType="java.lang.Integer" >
-    select count(*) from user_channel
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.RoleResourcePermissionExample" resultType="java.lang.Integer" >
+    select count(*) from role_resource_permission
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user_channel
+    update role_resource_permission
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=BIGINT},
+      <if test="record.roleId != null" >
+        role_id = #{record.roleId,jdbcType=BIGINT},
       </if>
-      <if test="record.channelId != null" >
-        channel_id = #{record.channelId,jdbcType=VARCHAR},
+      <if test="record.resourceId != null" >
+        resource_id = #{record.resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="record.permissionIds != null" >
+        permission_ids = #{record.permissionIds,jdbcType=VARCHAR},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -154,30 +166,35 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user_channel
+    update role_resource_permission
     set id = #{record.id,jdbcType=BIGINT},
-      user_id = #{record.userId,jdbcType=BIGINT},
-      channel_id = #{record.channelId,jdbcType=VARCHAR}
+      role_id = #{record.roleId,jdbcType=BIGINT},
+      resource_id = #{record.resourceId,jdbcType=BIGINT},
+      permission_ids = #{record.permissionIds,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.UserChannel" >
-    update user_channel
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.RoleResourcePermission" >
+    update role_resource_permission
     <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
+      <if test="roleId != null" >
+        role_id = #{roleId,jdbcType=BIGINT},
       </if>
-      <if test="channelId != null" >
-        channel_id = #{channelId,jdbcType=VARCHAR},
+      <if test="resourceId != null" >
+        resource_id = #{resourceId,jdbcType=BIGINT},
+      </if>
+      <if test="permissionIds != null" >
+        permission_ids = #{permissionIds,jdbcType=VARCHAR},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserChannel" >
-    update user_channel
-    set user_id = #{userId,jdbcType=BIGINT},
-      channel_id = #{channelId,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.RoleResourcePermission" >
+    update role_resource_permission
+    set role_id = #{roleId,jdbcType=BIGINT},
+      resource_id = #{resourceId,jdbcType=BIGINT},
+      permission_ids = #{permissionIds,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

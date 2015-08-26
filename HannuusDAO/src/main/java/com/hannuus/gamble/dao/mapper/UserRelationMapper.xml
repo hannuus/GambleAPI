@@ -3,10 +3,11 @@
 <mapper namespace="com.hannuus.gamble.dao.UserRelationMapper" >
   <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.UserRelation" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-    <result column="relation_type" property="relationType" jdbcType="INTEGER" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+    <result column="type" property="type" jdbcType="INTEGER" />
     <result column="from_id" property="fromId" jdbcType="BIGINT" />
     <result column="to_id" property="toId" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, create_time, relation_type, from_id, to_id
+    id, created_date, type, from_id, to_id, description
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserRelationExample" >
     select
@@ -76,7 +77,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from bbs_user_relation
+    from user_relation
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -90,15 +91,15 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from bbs_user_relation
+    from user_relation
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from bbs_user_relation
+    delete from user_relation
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserRelationExample" >
-    delete from bbs_user_relation
+    delete from user_relation
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -107,22 +108,22 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_user_relation (create_time, relation_type, from_id, 
-      to_id)
-    values (#{createTime,jdbcType=TIMESTAMP}, #{relationType,jdbcType=INTEGER}, #{fromId,jdbcType=BIGINT}, 
-      #{toId,jdbcType=BIGINT})
+    insert into user_relation (created_date, type, from_id, 
+      to_id, description)
+    values (#{createdDate,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{fromId,jdbcType=BIGINT}, 
+      #{toId,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserRelation" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_user_relation
+    insert into user_relation
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="createTime != null" >
-        create_time,
+      <if test="createdDate != null" >
+        created_date,
       </if>
-      <if test="relationType != null" >
-        relation_type,
+      <if test="type != null" >
+        type,
       </if>
       <if test="fromId != null" >
         from_id,
@@ -130,13 +131,16 @@
       <if test="toId != null" >
         to_id,
       </if>
+      <if test="description != null" >
+        description,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="relationType != null" >
-        #{relationType,jdbcType=INTEGER},
+      <if test="type != null" >
+        #{type,jdbcType=INTEGER},
       </if>
       <if test="fromId != null" >
         #{fromId,jdbcType=BIGINT},
@@ -144,25 +148,28 @@
       <if test="toId != null" >
         #{toId,jdbcType=BIGINT},
       </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.hannuus.gamble.model.UserRelationExample" resultType="java.lang.Integer" >
-    select count(*) from bbs_user_relation
+    select count(*) from user_relation
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update bbs_user_relation
+    update user_relation
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.createTime != null" >
-        create_time = #{record.createTime,jdbcType=TIMESTAMP},
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.relationType != null" >
-        relation_type = #{record.relationType,jdbcType=INTEGER},
+      <if test="record.type != null" >
+        type = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.fromId != null" >
         from_id = #{record.fromId,jdbcType=BIGINT},
@@ -170,30 +177,34 @@
       <if test="record.toId != null" >
         to_id = #{record.toId,jdbcType=BIGINT},
       </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update bbs_user_relation
+    update user_relation
     set id = #{record.id,jdbcType=BIGINT},
-      create_time = #{record.createTime,jdbcType=TIMESTAMP},
-      relation_type = #{record.relationType,jdbcType=INTEGER},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      type = #{record.type,jdbcType=INTEGER},
       from_id = #{record.fromId,jdbcType=BIGINT},
-      to_id = #{record.toId,jdbcType=BIGINT}
+      to_id = #{record.toId,jdbcType=BIGINT},
+      description = #{record.description,jdbcType=VARCHAR}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.UserRelation" >
-    update bbs_user_relation
+    update user_relation
     <set >
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="relationType != null" >
-        relation_type = #{relationType,jdbcType=INTEGER},
+      <if test="type != null" >
+        type = #{type,jdbcType=INTEGER},
       </if>
       <if test="fromId != null" >
         from_id = #{fromId,jdbcType=BIGINT},
@@ -201,15 +212,19 @@
       <if test="toId != null" >
         to_id = #{toId,jdbcType=BIGINT},
       </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserRelation" >
-    update bbs_user_relation
-    set create_time = #{createTime,jdbcType=TIMESTAMP},
-      relation_type = #{relationType,jdbcType=INTEGER},
+    update user_relation
+    set created_date = #{createdDate,jdbcType=TIMESTAMP},
+      type = #{type,jdbcType=INTEGER},
       from_id = #{fromId,jdbcType=BIGINT},
-      to_id = #{toId,jdbcType=BIGINT}
+      to_id = #{toId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

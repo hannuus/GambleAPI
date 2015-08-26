@@ -1,10 +1,12 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hannuus.gamble.dao.UserChannelMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.UserChannel" >
+<mapper namespace="com.hannuus.gamble.dao.UserGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.UserGroup" >
     <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="channel_id" property="channelId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="group_value" property="groupValue" jdbcType="VARCHAR" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -65,16 +67,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, user_id, channel_id
+    id, name, group_value, description, created_date
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserChannelExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserGroupExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from user_channel
+    from user_group
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,65 +90,85 @@
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
-    from user_channel
+    from user_group
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from user_channel
+    delete from user_group
     where id = #{id,jdbcType=BIGINT}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserChannelExample" >
-    delete from user_channel
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserGroupExample" >
+    delete from user_group
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hannuus.gamble.model.UserChannel" >
+  <insert id="insert" parameterType="com.hannuus.gamble.model.UserGroup" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_channel (user_id, channel_id)
-    values (#{userId,jdbcType=BIGINT}, #{channelId,jdbcType=VARCHAR})
+    insert into user_group (name, group_value, description, 
+      created_date)
+    values (#{name,jdbcType=VARCHAR}, #{groupValue,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{createdDate,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserChannel" >
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserGroup" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_channel
+    insert into user_group
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        user_id,
+      <if test="name != null" >
+        name,
       </if>
-      <if test="channelId != null" >
-        channel_id,
+      <if test="groupValue != null" >
+        group_value,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
       </if>
-      <if test="channelId != null" >
-        #{channelId,jdbcType=VARCHAR},
+      <if test="groupValue != null" >
+        #{groupValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hannuus.gamble.model.UserChannelExample" resultType="java.lang.Integer" >
-    select count(*) from user_channel
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.UserGroupExample" resultType="java.lang.Integer" >
+    select count(*) from user_group
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update user_channel
+    update user_group
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
       </if>
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=BIGINT},
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
       </if>
-      <if test="record.channelId != null" >
-        channel_id = #{record.channelId,jdbcType=VARCHAR},
+      <if test="record.groupValue != null" >
+        group_value = #{record.groupValue,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -154,30 +176,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update user_channel
+    update user_group
     set id = #{record.id,jdbcType=BIGINT},
-      user_id = #{record.userId,jdbcType=BIGINT},
-      channel_id = #{record.channelId,jdbcType=VARCHAR}
+      name = #{record.name,jdbcType=VARCHAR},
+      group_value = #{record.groupValue,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.UserChannel" >
-    update user_channel
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.UserGroup" >
+    update user_group
     <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
       </if>
-      <if test="channelId != null" >
-        channel_id = #{channelId,jdbcType=VARCHAR},
+      <if test="groupValue != null" >
+        group_value = #{groupValue,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
       </if>
     </set>
     where id = #{id,jdbcType=BIGINT}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserChannel" >
-    update user_channel
-    set user_id = #{userId,jdbcType=BIGINT},
-      channel_id = #{channelId,jdbcType=VARCHAR}
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserGroup" >
+    update user_group
+    set name = #{name,jdbcType=VARCHAR},
+      group_value = #{groupValue,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

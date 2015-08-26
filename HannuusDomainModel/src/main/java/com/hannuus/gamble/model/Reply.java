@@ -2,9 +2,6 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.hannuus.core.json.DateSerializer;
-
 public class Reply {
     private Long id;
 
@@ -13,14 +10,14 @@ public class Reply {
     private String title;
 
     private Long userId;
-    
-    @JsonSerialize(using=DateSerializer.class)
-    private Date modifiedOn;
-    
-    @JsonSerialize(using=DateSerializer.class)
-    private Date createdOn;
+
+    private Date modifiedDate;
+
+    private Date createdDate;
 
     private Long parentId;
+
+    private Integer state;
 
     private Long upCount;
 
@@ -64,20 +61,20 @@ public class Reply {
         this.userId = userId;
     }
 
-    public Date getModifiedOn() {
-        return modifiedOn;
+    public Date getModifiedDate() {
+        return modifiedDate;
     }
 
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
     public Long getParentId() {
@@ -86,6 +83,14 @@ public class Reply {
 
     public void setParentId(Long parentId) {
         this.parentId = parentId;
+    }
+
+    public Integer getState() {
+        return state;
+    }
+
+    public void setState(Integer state) {
+        this.state = state;
     }
 
     public Long getUpCount() {

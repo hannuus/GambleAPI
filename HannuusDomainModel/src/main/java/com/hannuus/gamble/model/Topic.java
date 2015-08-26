@@ -2,51 +2,48 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-import com.hannuus.core.json.DateSerializer;
-import com.hannuus.core.json.StringFormatSerializer;
-
 public class Topic {
-	
     private Long id;
-	
+
     private Long categoryId;
 
-    private Long speciaId;
+    private Long specialId;
+
+    private String title;
 
     private Long userId;
-    
-    @JsonSerialize(using=StringFormatSerializer.class)
-    private Boolean enabled;
+
+    private Integer enabled;
 
     private Long hits;
 
     private Long replyCount;
 
     private Long modifiedBy;
-    
-    @JsonSerialize(using=DateSerializer.class)
-    private Date modifiedOn;
-    
+
+    private Date modifiedDate;
+
     private Long repliedBy;
-    
-    @JsonSerialize(using=DateSerializer.class)
-    private Date repliedOn;
+
+    private Date repliedDate;
 
     private Long iconId;
 
     private Integer state;
 
-    private String imgUrl;
-    
-    @JsonSerialize(using=DateSerializer.class)
-    private Date createdOn;
+    private String imageUrl;
 
-    private String title;
+    private Date createdDate;
+
+    private Long followCount;
 
     private Long tagId;
 
-    private Long followCount;
+    private Long upCount;
+
+    private Long downCount;
+
+    private Long collectionCount;
 
     private String content;
 
@@ -66,12 +63,20 @@ public class Topic {
         this.categoryId = categoryId;
     }
 
-    public Long getSpeciaId() {
-        return speciaId;
+    public Long getSpecialId() {
+        return specialId;
     }
 
-    public void setSpeciaId(Long speciaId) {
-        this.speciaId = speciaId;
+    public void setSpecialId(Long specialId) {
+        this.specialId = specialId;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
     }
 
     public Long getUserId() {
@@ -82,11 +87,11 @@ public class Topic {
         this.userId = userId;
     }
 
-    public Boolean getEnabled() {
+    public Integer getEnabled() {
         return enabled;
     }
 
-    public void setEnabled(Boolean enabled) {
+    public void setEnabled(Integer enabled) {
         this.enabled = enabled;
     }
 
@@ -114,12 +119,12 @@ public class Topic {
         this.modifiedBy = modifiedBy;
     }
 
-    public Date getModifiedOn() {
-        return modifiedOn;
+    public Date getModifiedDate() {
+        return modifiedDate;
     }
 
-    public void setModifiedOn(Date modifiedOn) {
-        this.modifiedOn = modifiedOn;
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
     }
 
     public Long getRepliedBy() {
@@ -130,12 +135,12 @@ public class Topic {
         this.repliedBy = repliedBy;
     }
 
-    public Date getRepliedOn() {
-        return repliedOn;
+    public Date getRepliedDate() {
+        return repliedDate;
     }
 
-    public void setRepliedOn(Date repliedOn) {
-        this.repliedOn = repliedOn;
+    public void setRepliedDate(Date repliedDate) {
+        this.repliedDate = repliedDate;
     }
 
     public Long getIconId() {
@@ -154,28 +159,28 @@ public class Topic {
         this.state = state;
     }
 
-    public String getImgUrl() {
-        return imgUrl;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl == null ? null : imgUrl.trim();
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl == null ? null : imageUrl.trim();
     }
 
-    public Date getCreatedOn() {
-        return createdOn;
+    public Date getCreatedDate() {
+        return createdDate;
     }
 
-    public void setCreatedOn(Date createdOn) {
-        this.createdOn = createdOn;
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
     }
 
-    public String getTitle() {
-        return title;
+    public Long getFollowCount() {
+        return followCount;
     }
 
-    public void setTitle(String title) {
-        this.title = title == null ? null : title.trim();
+    public void setFollowCount(Long followCount) {
+        this.followCount = followCount;
     }
 
     public Long getTagId() {
@@ -186,12 +191,28 @@ public class Topic {
         this.tagId = tagId;
     }
 
-    public Long getFollowCount() {
-        return followCount;
+    public Long getUpCount() {
+        return upCount;
     }
 
-    public void setFollowCount(Long followCount) {
-        this.followCount = followCount;
+    public void setUpCount(Long upCount) {
+        this.upCount = upCount;
+    }
+
+    public Long getDownCount() {
+        return downCount;
+    }
+
+    public void setDownCount(Long downCount) {
+        this.downCount = downCount;
+    }
+
+    public Long getCollectionCount() {
+        return collectionCount;
+    }
+
+    public void setCollectionCount(Long collectionCount) {
+        this.collectionCount = collectionCount;
     }
 
     public String getContent() {

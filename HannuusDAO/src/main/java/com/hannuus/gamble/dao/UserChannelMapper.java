@@ -1,11 +1,9 @@
 package com.hannuus.gamble.dao;
 
-import java.util.List;
-
-import org.apache.ibatis.annotations.Param;
-
 import com.hannuus.gamble.model.UserChannel;
 import com.hannuus.gamble.model.UserChannelExample;
+import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface UserChannelMapper {
     int countByExample(UserChannelExample example);

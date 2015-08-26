@@ -6,9 +6,10 @@
     <result column="topic_id" property="topicId" jdbcType="BIGINT" />
     <result column="title" property="title" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="modified_on" property="modifiedOn" jdbcType="TIMESTAMP" />
-    <result column="created_on" property="createdOn" jdbcType="TIMESTAMP" />
+    <result column="modified_date" property="modifiedDate" jdbcType="TIMESTAMP" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
     <result column="parent_id" property="parentId" jdbcType="BIGINT" />
+    <result column="state" property="state" jdbcType="INTEGER" />
     <result column="up_count" property="upCount" jdbcType="BIGINT" />
     <result column="down_count" property="downCount" jdbcType="BIGINT" />
     <result column="collection_count" property="collectionCount" jdbcType="BIGINT" />
@@ -76,8 +77,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, topic_id, title, user_id, modified_on, created_on, parent_id, up_count, down_count, 
-    collection_count, reply_count
+    id, topic_id, title, user_id, modified_date, created_date, parent_id, state, up_count, 
+    down_count, collection_count, reply_count
   </sql>
   <sql id="Blob_Column_List" >
     content
@@ -91,7 +92,7 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from bbs_reply
+    from reply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -106,7 +107,7 @@
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from bbs_reply
+    from reply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -122,15 +123,15 @@
     <include refid="Base_Column_List" />
     ,
     <include refid="Blob_Column_List" />
-    from bbs_reply
+    from reply
     where id = #{id,jdbcType=BIGINT}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from bbs_reply
+    delete from reply
     where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.ReplyExample" >
-    delete from bbs_reply
+    delete from reply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -139,20 +140,22 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_reply (topic_id, title, user_id, 
-      modified_on, created_on, parent_id, 
-      up_count, down_count, collection_count, 
-      reply_count, content)
+    insert into reply (topic_id, title, user_id, 
+      modified_date, created_date, parent_id, 
+      state, up_count, down_count, 
+      collection_count, reply_count, content
+      )
     values (#{topicId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
-      #{modifiedOn,jdbcType=TIMESTAMP}, #{createdOn,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT}, 
-      #{upCount,jdbcType=BIGINT}, #{downCount,jdbcType=BIGINT}, #{collectionCount,jdbcType=BIGINT}, 
-      #{replyCount,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR})
+      #{modifiedDate,jdbcType=TIMESTAMP}, #{createdDate,jdbcType=TIMESTAMP}, #{parentId,jdbcType=BIGINT}, 
+      #{state,jdbcType=INTEGER}, #{upCount,jdbcType=BIGINT}, #{downCount,jdbcType=BIGINT}, 
+      #{collectionCount,jdbcType=BIGINT}, #{replyCount,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.hannuus.gamble.model.Reply" >
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_reply
+    insert into reply
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="topicId != null" >
         topic_id,
@@ -163,14 +166,17 @@
       <if test="userId != null" >
         user_id,
       </if>
-      <if test="modifiedOn != null" >
-        modified_on,
+      <if test="modifiedDate != null" >
+        modified_date,
       </if>
-      <if test="createdOn != null" >
-        created_on,
+      <if test="createdDate != null" >
+        created_date,
       </if>
       <if test="parentId != null" >
         parent_id,
+      </if>
+      <if test="state != null" >
+        state,
       </if>
       <if test="upCount != null" >
         up_count,
@@ -198,14 +204,17 @@
       <if test="userId != null" >
         #{userId,jdbcType=BIGINT},
       </if>
-      <if test="modifiedOn != null" >
-        #{modifiedOn,jdbcType=TIMESTAMP},
+      <if test="modifiedDate != null" >
+        #{modifiedDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="createdOn != null" >
-        #{createdOn,jdbcType=TIMESTAMP},
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
       </if>
       <if test="parentId != null" >
         #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
       </if>
       <if test="upCount != null" >
         #{upCount,jdbcType=BIGINT},
@@ -225,13 +234,13 @@
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.hannuus.gamble.model.ReplyExample" resultType="java.lang.Integer" >
-    select count(*) from bbs_reply
+    select count(*) from reply
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update bbs_reply
+    update reply
     <set >
       <if test="record.id != null" >
         id = #{record.id,jdbcType=BIGINT},
@@ -245,14 +254,17 @@
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
-      <if test="record.modifiedOn != null" >
-        modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
+      <if test="record.modifiedDate != null" >
+        modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="record.createdOn != null" >
-        created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.parentId != null" >
         parent_id = #{record.parentId,jdbcType=BIGINT},
+      </if>
+      <if test="record.state != null" >
+        state = #{record.state,jdbcType=INTEGER},
       </if>
       <if test="record.upCount != null" >
         up_count = #{record.upCount,jdbcType=BIGINT},
@@ -275,14 +287,15 @@
     </if>
   </update>
   <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update bbs_reply
+    update reply
     set id = #{record.id,jdbcType=BIGINT},
       topic_id = #{record.topicId,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=BIGINT},
-      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
-      created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       parent_id = #{record.parentId,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=INTEGER},
       up_count = #{record.upCount,jdbcType=BIGINT},
       down_count = #{record.downCount,jdbcType=BIGINT},
       collection_count = #{record.collectionCount,jdbcType=BIGINT},
@@ -293,14 +306,15 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update bbs_reply
+    update reply
     set id = #{record.id,jdbcType=BIGINT},
       topic_id = #{record.topicId,jdbcType=BIGINT},
       title = #{record.title,jdbcType=VARCHAR},
       user_id = #{record.userId,jdbcType=BIGINT},
-      modified_on = #{record.modifiedOn,jdbcType=TIMESTAMP},
-      created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       parent_id = #{record.parentId,jdbcType=BIGINT},
+      state = #{record.state,jdbcType=INTEGER},
       up_count = #{record.upCount,jdbcType=BIGINT},
       down_count = #{record.downCount,jdbcType=BIGINT},
       collection_count = #{record.collectionCount,jdbcType=BIGINT},
@@ -310,7 +324,7 @@
     </if>
   </update>
   <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.Reply" >
-    update bbs_reply
+    update reply
     <set >
       <if test="topicId != null" >
         topic_id = #{topicId,jdbcType=BIGINT},
@@ -321,14 +335,17 @@
       <if test="userId != null" >
         user_id = #{userId,jdbcType=BIGINT},
       </if>
-      <if test="modifiedOn != null" >
-        modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
+      <if test="modifiedDate != null" >
+        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
       </if>
-      <if test="createdOn != null" >
-        created_on = #{createdOn,jdbcType=TIMESTAMP},
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
       </if>
       <if test="parentId != null" >
         parent_id = #{parentId,jdbcType=BIGINT},
+      </if>
+      <if test="state != null" >
+        state = #{state,jdbcType=INTEGER},
       </if>
       <if test="upCount != null" >
         up_count = #{upCount,jdbcType=BIGINT},
@@ -349,13 +366,14 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.model.Reply" >
-    update bbs_reply
+    update reply
     set topic_id = #{topicId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=BIGINT},
-      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
-      created_on = #{createdOn,jdbcType=TIMESTAMP},
+      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
       parent_id = #{parentId,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
       up_count = #{upCount,jdbcType=BIGINT},
       down_count = #{downCount,jdbcType=BIGINT},
       collection_count = #{collectionCount,jdbcType=BIGINT},
@@ -364,13 +382,14 @@
     where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Reply" >
-    update bbs_reply
+    update reply
     set topic_id = #{topicId,jdbcType=BIGINT},
       title = #{title,jdbcType=VARCHAR},
       user_id = #{userId,jdbcType=BIGINT},
-      modified_on = #{modifiedOn,jdbcType=TIMESTAMP},
-      created_on = #{createdOn,jdbcType=TIMESTAMP},
+      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+      created_date = #{createdDate,jdbcType=TIMESTAMP},
       parent_id = #{parentId,jdbcType=BIGINT},
+      state = #{state,jdbcType=INTEGER},
       up_count = #{upCount,jdbcType=BIGINT},
       down_count = #{downCount,jdbcType=BIGINT},
       collection_count = #{collectionCount,jdbcType=BIGINT},

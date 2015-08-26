@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hannuus.gamble.dao.UserRightMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.UserRight" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
-    <result column="group_id" property="groupId" jdbcType="BIGINT" />
+<mapper namespace="com.hannuus.gamble.dao.UserGroupRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.UserGroupRelation" >
+    <id column="id" property="id" jdbcType="INTEGER" />
     <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="enabled" property="enabled" jdbcType="BIT" />
-    <result column="created_on" property="createdOn" jdbcType="TIMESTAMP" />
+    <result column="group_id" property="groupId" jdbcType="BIGINT" />
   </resultMap>
   <sql id="Example_Where_Clause" >
     <where >
@@ -68,16 +65,16 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, category_id, group_id, user_id, enabled, created_on
+    id, user_id, group_id
   </sql>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserRightExample" >
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserGroupRelationExample" >
     select
     <if test="distinct" >
       distinct
     </if>
     'true' as QUERYID,
     <include refid="Base_Column_List" />
-    from bbs_user_right
+    from user_group_relation
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
@@ -88,97 +85,68 @@
       limit #{limitStart} , #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
     select 
     <include refid="Base_Column_List" />
-    from bbs_user_right
-    where id = #{id,jdbcType=BIGINT}
+    from user_group_relation
+    where id = #{id,jdbcType=INTEGER}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from bbs_user_right
-    where id = #{id,jdbcType=BIGINT}
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_group_relation
+    where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserRightExample" >
-    delete from bbs_user_right
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserGroupRelationExample" >
+    delete from user_group_relation
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.hannuus.gamble.model.UserRight" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+  <insert id="insert" parameterType="com.hannuus.gamble.model.UserGroupRelation" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_user_right (category_id, group_id, user_id, 
-      enabled, created_on)
-    values (#{categoryId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT}, #{userId,jdbcType=BIGINT}, 
-      #{enabled,jdbcType=BIT}, #{createdOn,jdbcType=TIMESTAMP})
+    insert into user_group_relation (user_id, group_id)
+    values (#{userId,jdbcType=BIGINT}, #{groupId,jdbcType=BIGINT})
   </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserRight" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserGroupRelation" >
+    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into bbs_user_right
+    insert into user_group_relation
     <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="categoryId != null" >
-        category_id,
+      <if test="userId != null" >
+        user_id,
       </if>
       <if test="groupId != null" >
         group_id,
       </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="enabled != null" >
-        enabled,
-      </if>
-      <if test="createdOn != null" >
-        created_on,
-      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="categoryId != null" >
-        #{categoryId,jdbcType=BIGINT},
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
       </if>
       <if test="groupId != null" >
         #{groupId,jdbcType=BIGINT},
       </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="enabled != null" >
-        #{enabled,jdbcType=BIT},
-      </if>
-      <if test="createdOn != null" >
-        #{createdOn,jdbcType=TIMESTAMP},
-      </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.hannuus.gamble.model.UserRightExample" resultType="java.lang.Integer" >
-    select count(*) from bbs_user_right
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.UserGroupRelationExample" resultType="java.lang.Integer" >
+    select count(*) from user_group_relation
     <if test="_parameter != null" >
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map" >
-    update bbs_user_right
+    update user_group_relation
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.categoryId != null" >
-        category_id = #{record.categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="record.groupId != null" >
-        group_id = #{record.groupId,jdbcType=BIGINT},
+        id = #{record.id,jdbcType=INTEGER},
       </if>
       <if test="record.userId != null" >
         user_id = #{record.userId,jdbcType=BIGINT},
       </if>
-      <if test="record.enabled != null" >
-        enabled = #{record.enabled,jdbcType=BIT},
-      </if>
-      <if test="record.createdOn != null" >
-        created_on = #{record.createdOn,jdbcType=TIMESTAMP},
+      <if test="record.groupId != null" >
+        group_id = #{record.groupId,jdbcType=BIGINT},
       </if>
     </set>
     <if test="_parameter != null" >
@@ -186,45 +154,30 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map" >
-    update bbs_user_right
-    set id = #{record.id,jdbcType=BIGINT},
-      category_id = #{record.categoryId,jdbcType=BIGINT},
-      group_id = #{record.groupId,jdbcType=BIGINT},
+    update user_group_relation
+    set id = #{record.id,jdbcType=INTEGER},
       user_id = #{record.userId,jdbcType=BIGINT},
-      enabled = #{record.enabled,jdbcType=BIT},
-      created_on = #{record.createdOn,jdbcType=TIMESTAMP}
+      group_id = #{record.groupId,jdbcType=BIGINT}
     <if test="_parameter != null" >
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.UserRight" >
-    update bbs_user_right
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.UserGroupRelation" >
+    update user_group_relation
     <set >
-      <if test="categoryId != null" >
-        category_id = #{categoryId,jdbcType=BIGINT},
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
       </if>
       <if test="groupId != null" >
         group_id = #{groupId,jdbcType=BIGINT},
       </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="enabled != null" >
-        enabled = #{enabled,jdbcType=BIT},
-      </if>
-      <if test="createdOn != null" >
-        created_on = #{createdOn,jdbcType=TIMESTAMP},
-      </if>
     </set>
-    where id = #{id,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserRight" >
-    update bbs_user_right
-    set category_id = #{categoryId,jdbcType=BIGINT},
-      group_id = #{groupId,jdbcType=BIGINT},
-      user_id = #{userId,jdbcType=BIGINT},
-      enabled = #{enabled,jdbcType=BIT},
-      created_on = #{createdOn,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=BIGINT}
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserGroupRelation" >
+    update user_group_relation
+    set user_id = #{userId,jdbcType=BIGINT},
+      group_id = #{groupId,jdbcType=BIGINT}
+    where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>
