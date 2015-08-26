@@ -29,19 +29,21 @@ import com.hannuus.gamble.web.service.ReplyService;
  * 
  * @author aelns
  * 
- * TODO need more test
+ *         TODO need more test
  *
  */
 @Controller
 @RequestMapping("/reply")
 public class ReplyAction extends BaseAction {
-	
+
 	@Autowired
 	ReplyService replyService;
-	
+
 	@ResponseBody
-	@RequestMapping(value = "/detail.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<Reply> detail(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/detail.json", method = { RequestMethod.OPTIONS,
+			RequestMethod.GET, RequestMethod.POST })
+	public JsonVo<Reply> detail(HttpServletRequest request,
+			HttpServletResponse response) {
 		JsonVo<Reply> json = new JsonVo<Reply>();
 		Long replyId = getLongReqParam("id", 0L);
 		Reply topic = replyService.findReplyById(replyId);
@@ -52,125 +54,146 @@ public class ReplyAction extends BaseAction {
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 添加一条评论
+	 * 
 	 * @param Topic
 	 * @return
-	 * @throws GambleException 
+	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add.json", method = {RequestMethod.POST})
-	public JsonVo<List<Reply>> create(ModelMap modelMap, Reply reply, HttpServletRequest request, HttpServletResponse response) throws GambleException {
+	@RequestMapping(value = "/add.json", method = { RequestMethod.POST })
+	public JsonVo<List<Reply>> create(ModelMap modelMap, Reply reply,
+			HttpServletRequest request, HttpServletResponse response)
+			throws GambleException {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		validateRequest(request);
 		initReply(reply);
 		validateAddReplyArguments(reply);
-		if(!replyService.addReply(reply)) {
+		if (!replyService.addReply(reply)) {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 删除评论
+	 * 
 	 * @param modelMap
 	 * @param id
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws GambleException 
+	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) throws GambleException {
+	@RequestMapping(value = "/delete.json", method = { RequestMethod.POST })
+	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id,
+			HttpServletRequest request, HttpServletResponse response)
+			throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		validateRequest(request);
 		validateDelete(request, id);
-		if(!replyService.deleteReply(id)) {
+		if (!replyService.deleteReply(id)) {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 编辑评论
+	 * 
 	 * @param modelMap
 	 * @param id
 	 * @param content
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws GambleException 
+	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/update.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String content, HttpServletRequest request, HttpServletResponse response) throws GambleException {
+	@RequestMapping(value = "/update.json", method = { RequestMethod.POST })
+	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id,
+			String content, HttpServletRequest request,
+			HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		validateRequest(request);
 		validateUpdateReplyArguments(id, content);
 		Reply reply = new Reply();
 		reply.setId(id);
 		reply.setContent(content);
-		reply.setModifiedOn(new Date());
-		if(!replyService.updateReply(reply)) {
+		reply.setModifiedDate(new Date());
+		if (!replyService.updateReply(reply)) {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 分页查询一个主题的评论
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/listByTopicId.json", method = {RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<Reply>> listByTopicId(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/listByTopicId.json", method = {
+			RequestMethod.GET, RequestMethod.POST })
+	public JsonVo<List<Reply>> listByTopicId(HttpServletRequest request,
+			HttpServletResponse response) {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		Long topicId = getLongReqParam("topicId", 0L);
 		int pageNumber = getIntegerReqParam("pageNumber", 1);
-		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int pageSize = getIntegerReqParam("pageSize",
+				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = replyService.countByToticId(topicId);
 		json.setTotal(total);
-		List<Reply> list = replyService.findReplysByPage(topicId, pageNumber, pageSize);
+		List<Reply> list = replyService.findReplysByPage(topicId, pageNumber,
+				pageSize);
 		json.setResult(list);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 分页获取回复, 即获取子评论
+	 * 
 	 * @param request
 	 * @param response
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/listChilds.json", method = { RequestMethod.GET, RequestMethod.POST })
-	public JsonVo<List<Reply>> listChilds(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/listChilds.json", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public JsonVo<List<Reply>> listChilds(HttpServletRequest request,
+			HttpServletResponse response) {
 		JsonVo<List<Reply>> json = new JsonVo<List<Reply>>();
 		Long parentId = getLongReqParam("parentId", 0L);
 		int pageNumber = getIntegerReqParam("pageNumber", 1);
-		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int pageSize = getIntegerReqParam("pageSize",
+				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = replyService.countChildReplys(parentId);
 		json.setTotal(total);
-		List<Reply> list = replyService.findChildReplyByPage(parentId, pageNumber, pageSize);
+		List<Reply> list = replyService.findChildReplyByPage(parentId,
+				pageNumber, pageSize);
 		json.setResult(list);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 验证更新的参数是否正确
+	 * 
 	 * @param id
 	 * @param content
 	 */
-	private void validateUpdateReplyArguments(Long repLyId, String content)  throws GambleException {
+	private void validateUpdateReplyArguments(Long repLyId, String content)
+			throws GambleException {
 		if (null == repLyId || repLyId < 0L) {
 			throw new ArgumentsIncorrectException("ID无效");
 		}
@@ -181,14 +204,16 @@ public class ReplyAction extends BaseAction {
 			throw new ArgumentsIncorrectException("content不能为空");
 		}
 	}
-	
+
 	/**
 	 * 验证删除
+	 * 
 	 * @param request
 	 * @param replyId
-	 * @throws Exception 
+	 * @throws Exception
 	 */
-	private void validateDelete(HttpServletRequest request, Long replyId)  throws GambleException  {
+	private void validateDelete(HttpServletRequest request, Long replyId)
+			throws GambleException {
 		Reply reply = replyService.findReplyById(replyId);
 		if (null == reply) {
 			throw new ArgumentsIncorrectException("评论不存在");
@@ -199,19 +224,23 @@ public class ReplyAction extends BaseAction {
 			throw new InvalidOpenTypeException();
 		}
 	}
+
 	/**
 	 * 初始化reply
+	 * 
 	 * @param reply
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	private void initReply(Reply reply) {
-		reply.setCreatedOn(new Date());
+		reply.setCreatedDate(new Date());
 		reply.setReplyCount(0L);
 		reply.setUpCount(0L);
 		reply.setUserId(getLoginUserId());
 	}
+
 	/**
 	 * 验证添加评论参数
+	 * 
 	 * @param reply
 	 */
 	private void validateAddReplyArguments(Reply reply) throws GambleException {

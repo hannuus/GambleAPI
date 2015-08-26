@@ -20,18 +20,19 @@ import com.hannuus.gamble.web.service.UserService;
 
 @Service
 public class UserRelationServiceImpl implements UserRelationService {
-	
+
 	@Autowired
 	UserRelationMapper userRelationMapper;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@Override
 	public List<User> findFriendsListByPage(Long userId, int pageNumber,
 			int pageSize) {
 		Collection<Long> friendsIds = getFriendsIds(userId);
-		return userService.findUsersByPage(Lists.newArrayList(friendsIds), pageNumber, pageSize);
+		return userService.findUsersByPage(Lists.newArrayList(friendsIds),
+				pageNumber, pageSize);
 	}
 
 	@Override
@@ -40,14 +41,15 @@ public class UserRelationServiceImpl implements UserRelationService {
 		UserRelationExample userRelationexample = new UserRelationExample();
 		Criteria criteria = userRelationexample.createCriteria();
 		criteria.andFromIdEqualTo(userId);
-		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		criteria.andTypeEqualTo(UserRelationType.Follow.value());
 		// set pagination info
 		int pageIndex = 0;
 		pageIndex = (pageNumber - 1) * pageSize;
 		userRelationexample.setLimitStart(pageIndex);
 		userRelationexample.setLimitEnd(pageSize);
 		// find my follow relationship
-		List<UserRelation> myFollowList = userRelationMapper.selectByExample(userRelationexample);
+		List<UserRelation> myFollowList = userRelationMapper
+				.selectByExample(userRelationexample);
 		if (CollectionUtils.isNotEmpty(myFollowList)) {
 			List<Long> userIds = Lists.newArrayList();
 			for (UserRelation userRelation : myFollowList) {
@@ -65,14 +67,15 @@ public class UserRelationServiceImpl implements UserRelationService {
 		UserRelationExample userRelationexample = new UserRelationExample();
 		Criteria criteria = userRelationexample.createCriteria();
 		criteria.andToIdEqualTo(userId);
-		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		criteria.andTypeEqualTo(UserRelationType.Follow.value());
 		// set pagination info
 		int pageIndex = 0;
 		pageIndex = (pageNumber - 1) * pageSize;
 		userRelationexample.setLimitStart(pageIndex);
 		userRelationexample.setLimitEnd(pageSize);
 		// find my fans relationship
-		List<UserRelation> myFansList = userRelationMapper.selectByExample(userRelationexample);
+		List<UserRelation> myFansList = userRelationMapper
+				.selectByExample(userRelationexample);
 		if (CollectionUtils.isNotEmpty(myFansList)) {
 			List<Long> userIds = Lists.newArrayList();
 			for (UserRelation userRelation : myFansList) {
@@ -109,7 +112,7 @@ public class UserRelationServiceImpl implements UserRelationService {
 		UserRelation relation = new UserRelation();
 		relation.setFromId(fromId);
 		relation.setToId(toId);
-		relation.setRelationType(UserRelationType.Follow.value());
+		relation.setType(UserRelationType.Follow.value());
 		return userRelationMapper.insert(relation) > 0;
 	}
 
@@ -117,7 +120,7 @@ public class UserRelationServiceImpl implements UserRelationService {
 	public boolean cancelFollow(Long fromId, Long toId) {
 		UserRelationExample example = new UserRelationExample();
 		example.createCriteria().andFromIdEqualTo(fromId).andToIdEqualTo(toId)
-				.andRelationTypeEqualTo(UserRelationType.Follow.value());
+				.andTypeEqualTo(UserRelationType.Follow.value());
 		return userRelationMapper.deleteByExample(example) > 0;
 	}
 
@@ -125,7 +128,7 @@ public class UserRelationServiceImpl implements UserRelationService {
 	public boolean cancelFollows(Long fromId, List<Long> toIds) {
 		UserRelationExample example = new UserRelationExample();
 		example.createCriteria().andFromIdEqualTo(fromId).andToIdIn(toIds)
-				.andRelationTypeEqualTo(UserRelationType.Follow.value());
+				.andTypeEqualTo(UserRelationType.Follow.value());
 		return userRelationMapper.deleteByExample(example) > 0;
 	}
 
@@ -147,8 +150,9 @@ public class UserRelationServiceImpl implements UserRelationService {
 		UserRelationExample followRelationexample = new UserRelationExample();
 		Criteria followCriteria = followRelationexample.createCriteria();
 		followCriteria.andFromIdEqualTo(userId);
-		followCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
-		List<UserRelation> myFollowList = userRelationMapper.selectByExample(followRelationexample);
+		followCriteria.andTypeEqualTo(UserRelationType.Follow.value());
+		List<UserRelation> myFollowList = userRelationMapper
+				.selectByExample(followRelationexample);
 		List<Long> followIds = Lists.newArrayList();
 		if (CollectionUtils.isNotEmpty(myFollowList)) {
 			for (UserRelation userRelation : myFollowList) {
@@ -159,8 +163,9 @@ public class UserRelationServiceImpl implements UserRelationService {
 		UserRelationExample fansRelationexample = new UserRelationExample();
 		Criteria fansCriteria = fansRelationexample.createCriteria();
 		fansCriteria.andToIdEqualTo(userId);
-		fansCriteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
-		List<UserRelation> myFansList = userRelationMapper.selectByExample(fansRelationexample);
+		fansCriteria.andTypeEqualTo(UserRelationType.Follow.value());
+		List<UserRelation> myFansList = userRelationMapper
+				.selectByExample(fansRelationexample);
 		List<Long> fansIds = Lists.newArrayList();
 		if (CollectionUtils.isNotEmpty(myFansList)) {
 			for (UserRelation userRelation : myFansList) {
@@ -176,7 +181,7 @@ public class UserRelationServiceImpl implements UserRelationService {
 		UserRelationExample userRelationexample = new UserRelationExample();
 		Criteria criteria = userRelationexample.createCriteria();
 		criteria.andFromIdEqualTo(userId);
-		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		criteria.andTypeEqualTo(UserRelationType.Follow.value());
 		return userRelationMapper.countByExample(userRelationexample);
 	}
 
@@ -185,7 +190,7 @@ public class UserRelationServiceImpl implements UserRelationService {
 		UserRelationExample userRelationexample = new UserRelationExample();
 		Criteria criteria = userRelationexample.createCriteria();
 		criteria.andToIdEqualTo(userId);
-		criteria.andRelationTypeEqualTo(UserRelationType.Follow.value());
+		criteria.andTypeEqualTo(UserRelationType.Follow.value());
 		return userRelationMapper.countByExample(userRelationexample);
 	}
 }

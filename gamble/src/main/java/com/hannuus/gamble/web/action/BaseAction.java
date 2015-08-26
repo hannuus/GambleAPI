@@ -32,16 +32,15 @@ public class BaseAction {
 
 	@Autowired
 	LoginService loginService;
-	
+
 	@Autowired
 	PermissionService permissionService;
-	
-	private MappingJacksonJsonViewExd  jsonView = new MappingJacksonJsonViewExd();  
-	  
-	@ExceptionHandler(Exception.class)  
-	public ModelAndView handleAnyException( Exception ex )
-	{
-	    return new ModelAndView(jsonView, "error", new ErrorMessage(ex));  
+
+	private MappingJacksonJsonViewExd jsonView = new MappingJacksonJsonViewExd();
+
+	@ExceptionHandler(Exception.class)
+	public ModelAndView handleAnyException(Exception ex) {
+		return new ModelAndView(jsonView, "error", new ErrorMessage(ex));
 	}
 
 	protected Long getLoginUserId() {
@@ -79,25 +78,26 @@ public class BaseAction {
 	 * @return
 	 */
 	private boolean isPermissionDefined(HttpServletRequest request) {
-		boolean flag = false;
+		// TODO cuesky
+		// boolean flag = false;
 		Long loginUserId = getLoginUserId();
 		if (loginUserId == null) {
 			return false;
 		}
-		String permissionPath = getPermissionPath(request);
-		flag = permissionService.isPermissionDefined(permissionPath,
-				loginUserId);
-		return flag;
+		// String permissionPath = getPermissionPath(request);
+		// flag = permissionService.isPermissionDefined(permissionPath,
+		// loginUserId);
+		return true;
 	}
 
 	/**
 	 * @param request
 	 * @return 获取到方法级别的路径。例如:"/user/add"
 	 */
-	private String getPermissionPath(HttpServletRequest request) {
-		String permissionPath = request.getRequestURI();
-		return permissionPath;
-	}
+	// private String getPermissionPath(HttpServletRequest request) {
+	// String permissionPath = request.getRequestURI();
+	// return permissionPath;
+	// }
 
 	/**
 	 * 验证client提交的accessToken是否有效

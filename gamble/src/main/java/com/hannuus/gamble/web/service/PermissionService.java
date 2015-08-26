@@ -6,6 +6,6 @@ package com.hannuus.gamble.web.service;
  */
 public interface PermissionService {
 
-	boolean isPermissionDefined(String permissionPath, Long loginUserId);
+	// boolean isPermissionDefined(String permissionPath, Long loginUserId);
 
 }

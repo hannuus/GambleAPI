@@ -1,9 +1,8 @@
 package com.hannuus.gamble.web.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hannuus.gamble.dao.RoleManageMapper;
+//import com.hannuus.gamble.dao.RoleManageMapper;
 import com.hannuus.gamble.web.service.PermissionService;
 
 /**
@@ -13,14 +12,16 @@ import com.hannuus.gamble.web.service.PermissionService;
 @Service
 public class PermissionServiceImpl implements PermissionService {
 
-	@Autowired
-	RoleManageMapper roleManageMapper;
-
-	@Override
-	public boolean isPermissionDefined(String permissionPath, Long loginUserId) {
-		Integer num = roleManageMapper.containsPermission(loginUserId,
-				permissionPath);
-		return num != null;
-	}
+	// TODO cuesky
+	// @Autowired
+	// RoleManageMapper roleManageMapper;
+	//
+	// @Override
+	// public boolean isPermissionDefined(String permissionPath, Long
+	// loginUserId) {
+	// Integer num = roleManageMapper.containsPermission(loginUserId,
+	// permissionPath);
+	// return num != null;
+	// }
 
 }

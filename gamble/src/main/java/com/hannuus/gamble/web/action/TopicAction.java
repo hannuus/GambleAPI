@@ -30,27 +30,29 @@ import com.hannuus.gamble.web.service.TopicService;
  * 
  * @author aelns
  *
- * TODO need more test 
+ *         TODO need more test
  *
  */
 @Controller
 @RequestMapping("/topic")
 public class TopicAction extends BaseAction {
-	
+
 	@Autowired
 	TopicService topicService;
-	
+
 	/**
 	 * 获取主题详情
 	 * 
 	 * @param request
 	 * @param response
 	 * @return
-	 * @throws InvalidAccessTokenException 
+	 * @throws InvalidAccessTokenException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/detail.json", method = {RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<Topic> detail(HttpServletRequest request, HttpServletResponse response) throws GambleException {
+	@RequestMapping(value = "/detail.json", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public JsonVo<Topic> detail(HttpServletRequest request,
+			HttpServletResponse response) throws GambleException {
 		JsonVo<Topic> json = new JsonVo<Topic>();
 		Long topicId = getLongReqParam("id", 0L);
 		Topic topic = topicService.findTopicsById(topicId);
@@ -69,15 +71,19 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/listByCategoryId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<Topic>> listByCategoryId(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/listByCategoryId.json", method = {
+			RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST })
+	public JsonVo<List<Topic>> listByCategoryId(HttpServletRequest request,
+			HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		Long categoryId = getLongReqParam("id", 0L);
 		int pageNumber = getIntegerReqParam("pageNumber", 1);
-		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int pageSize = getIntegerReqParam("pageSize",
+				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = topicService.countTopicsByCategoryId(categoryId);
 		json.setTotal(total);
-		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId, pageNumber, pageSize);
+		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId,
+				pageNumber, pageSize);
 		json.setResult(list);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
@@ -93,47 +99,56 @@ public class TopicAction extends BaseAction {
 	 * @return
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/listBySpeciaId.json", method = {RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST})
-	public JsonVo<List<Topic>> listBySpeciaId(HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/listBySpeciaId.json", method = {
+			RequestMethod.OPTIONS, RequestMethod.GET, RequestMethod.POST })
+	public JsonVo<List<Topic>> listBySpeciaId(HttpServletRequest request,
+			HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		Long speciaId = getLongReqParam("speciaId", 0L);
 		int pageNumber = getIntegerReqParam("pageNumber", 1);
-		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int pageSize = getIntegerReqParam("pageSize",
+				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = topicService.countTopicsBySpeciaId(speciaId);
 		json.setTotal(total);
-		List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId, pageNumber, pageSize);
+		List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId,
+				pageNumber, pageSize);
 		json.setResult(list);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 发帖
+	 * 
 	 * @param Topic
 	 * @return
-	 * @throws GambleException 
+	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/add.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> create(ModelMap modelMap, Topic topic, HttpServletRequest request, HttpServletResponse response) throws GambleException {
+	@RequestMapping(value = "/add.json", method = { RequestMethod.POST })
+	public JsonVo<List<Topic>> create(ModelMap modelMap, Topic topic,
+			HttpServletRequest request, HttpServletResponse response)
+			throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		validateRequest(request);
 		initTopic(topic);
 		validateAddTopicArguments(topic);
-		if(!topicService.addTopic(topic)) {
+		if (!topicService.addTopic(topic)) {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 验证发帖参数是否正确
+	 * 
 	 * @param topic
 	 * @return
 	 */
-	private void validateAddTopicArguments(Topic topic) throws ArgumentsIncorrectException {
+	private void validateAddTopicArguments(Topic topic)
+			throws ArgumentsIncorrectException {
 		if (null == topic.getCategoryId() || topic.getCategoryId() < 0) {
 			throw new ArgumentsIncorrectException("categoryId无效");
 		}
@@ -147,17 +162,19 @@ public class TopicAction extends BaseAction {
 			throw new ArgumentsIncorrectException("content不能为空");
 		}
 	}
-	
+
 	/**
 	 * 发帖
+	 * 
 	 * @param Topic
 	 * @return
-	 * @throws GambleException 
+	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/update.json", method = {RequestMethod.POST})
+	@RequestMapping(value = "/update.json", method = { RequestMethod.POST })
 	public JsonVo<List<Topic>> update(ModelMap modelMap, Long id, String title,
-			String content, HttpServletRequest request, HttpServletResponse response) throws GambleException {
+			String content, HttpServletRequest request,
+			HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		validateRequest(request);
 		validateUpdateTopicArguments(id, title, content);
@@ -166,14 +183,16 @@ public class TopicAction extends BaseAction {
 		topic.setTitle(title);
 		topic.setContent(content);
 		topic.setModifiedBy(getLoginUserId());
-		topic.setModifiedOn(new Date());
-		if(!topicService.updateTopic(topic)) {
+		topic.setModifiedDate(new Date());
+		if (!topicService.updateTopic(topic)) {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
+
 	/**
 	 * 验证更新贴子的参数是否正确
+	 * 
 	 * @param id
 	 * @param title
 	 * @param content
@@ -196,33 +215,40 @@ public class TopicAction extends BaseAction {
 	}
 
 	private void initTopic(Topic topic) throws GambleException {
-		topic.setCreatedOn(new Date());
-		topic.setEnabled(true);// 默认启用
+		topic.setCreatedDate(new Date());
+		
+		// TODO aelns 弄个枚举啥的
+		topic.setEnabled(1);// 默认启用
+		
 		topic.setFollowCount(0L);
 		topic.setHits(0L);
 		topic.setReplyCount(0L);
 		topic.setState(TopicState.Normal.value());
 	}
-	
+
 	/**
 	 * 发帖
+	 * 
 	 * @param Topic
 	 * @return
-	 * @throws GambleException 
+	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete.json", method = {RequestMethod.POST})
-	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id, HttpServletRequest request, HttpServletResponse response) throws GambleException {
+	@RequestMapping(value = "/delete.json", method = { RequestMethod.POST })
+	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id,
+			HttpServletRequest request, HttpServletResponse response)
+			throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		validateRequest(request);
 		validateDelete(request, id);
-		if(!topicService.deleteTopic(id)) {
+		if (!topicService.deleteTopic(id)) {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		}
 		return json;
 	}
 
-	private void validateDelete(HttpServletRequest request, Long id) throws GambleException {
+	private void validateDelete(HttpServletRequest request, Long id)
+			throws GambleException {
 		Topic topic = topicService.findTopicsById(id);
 		if (null == topic) {
 			throw new ArgumentsIncorrectException("帖子不存在");

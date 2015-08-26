@@ -15,13 +15,13 @@ import com.hannuus.gamble.web.service.UserService;
 
 @Service
 public class TopicServiceImpl implements TopicService {
-	
+
 	@Autowired
 	TopicMapper topicMapper;
-	
+
 	@Autowired
 	UserService userService;
-	
+
 	@Override
 	public boolean addTopic(Topic topic) {
 		boolean added = topicMapper.insert(topic) > 0;
@@ -38,7 +38,8 @@ public class TopicServiceImpl implements TopicService {
 
 	@Override
 	public boolean deleteTopic(Long topicId) {
-		boolean deleted = updateTopicState(topicId, TopicState.Willdelete.value());
+		boolean deleted = updateTopicState(topicId,
+				TopicState.Willdelete.value());
 		if (deleted) {
 			Topic topic = findTopicsById(topicId);
 			userService.updateUserTopicCount(topic.getUserId(), -1);
@@ -67,9 +68,9 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Override
-	public List<Topic> findTopicsBySpeciaId(Long speciaId) {
+	public List<Topic> findTopicsBySpeciaId(Long specialId) {
 		TopicExample example = new TopicExample();
-		example.createCriteria().andSpeciaIdEqualTo(speciaId);
+		example.createCriteria().andSpecialIdEqualTo(specialId);
 		return topicMapper.selectByExampleWithBLOBs(example);
 	}
 
@@ -86,14 +87,14 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Override
-	public List<Topic> findSpeciaTopicsByPage(Long speciaId, int pageNumber,
+	public List<Topic> findSpeciaTopicsByPage(Long specialId, int pageNumber,
 			int pageSize) {
 		TopicExample example = new TopicExample();
 		int pageIndex = 0;
 		pageIndex = (pageNumber - 1) * pageSize;
 		example.setLimitStart(pageIndex);
 		example.setLimitEnd(pageSize);
-		example.createCriteria().andSpeciaIdEqualTo(speciaId);
+		example.createCriteria().andSpecialIdEqualTo(specialId);
 		return topicMapper.selectByExampleWithBLOBs(example);
 	}
 
@@ -112,9 +113,9 @@ public class TopicServiceImpl implements TopicService {
 	}
 
 	@Override
-	public int countTopicsBySpeciaId(Long speciaId) {
+	public int countTopicsBySpeciaId(Long specialId) {
 		TopicExample example = new TopicExample();
-		example.createCriteria().andSpeciaIdEqualTo(speciaId);
+		example.createCriteria().andSpecialIdEqualTo(specialId);
 		return topicMapper.countByExample(example);
 	}
 

@@ -16,10 +16,10 @@ import com.hannuus.gamble.web.service.UserService;
 
 @Service
 public class UserServiceImpl implements UserService {
-	
+
 	@Autowired
 	UserMapper userMapper;
-	
+
 	@Override
 	public boolean addUser(User user) {
 		return userMapper.insert(user) > 0;
@@ -93,9 +93,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public boolean updateUserAmount(Long userId, int amount) throws UserPointsNotEnoughException {
+	public boolean updateUserAmount(Long userId, int amount)
+			throws UserPointsNotEnoughException {
 		User user = findUserById(userId);
-		long off = user.getAmount() + amount;
+		int off = user.getAmount() + amount;
 		if (off < 0) {
 			throw new UserPointsNotEnoughException();
 		}
@@ -142,7 +143,8 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findUserByIds(List<Long> userIds) {
 		UserExample userExample = new UserExample();
-		userExample.createCriteria().andIdIn(userIds).andStateEqualTo(UserState.Normal.value());
+		userExample.createCriteria().andIdIn(userIds)
+				.andStateEqualTo(UserState.Normal.value());
 		return userMapper.selectByExample(userExample);
 	}
 
@@ -150,7 +152,8 @@ public class UserServiceImpl implements UserService {
 	public List<User> findUsersByPage(List<Long> userIds, int pageNumber,
 			int pageSize) {
 		UserExample userExample = new UserExample();
-		userExample.createCriteria().andIdIn(userIds).andStateEqualTo(UserState.Normal.value());
+		userExample.createCriteria().andIdIn(userIds)
+				.andStateEqualTo(UserState.Normal.value());
 		// set pagination info
 		int pageIndex = 0;
 		pageIndex = (pageNumber - 1) * pageSize;
@@ -169,14 +172,16 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public boolean updateUserTopicCount(Long userId, int number) {
 		User user = findUserById(userId);
-		user.setTopicCount(user.getTopicCount() == null ? 0 : user.getTopicCount() + number);
+		user.setTopicCount(user.getTopicCount() == null ? 0 : user
+				.getTopicCount() + number);
 		return userMapper.updateByPrimaryKeySelective(user) > 0;
 	}
 
 	@Override
 	public boolean updateUserReplyCount(Long userId, int number) {
 		User user = findUserById(userId);
-		user.setReplyCount(user.getReplyCount() == null ? 0 : user.getReplyCount() + number);
+		user.setReplyCount(user.getReplyCount() == null ? 0 : user
+				.getReplyCount() + number);
 		return userMapper.updateByPrimaryKeySelective(user) > 0;
 	}
 
