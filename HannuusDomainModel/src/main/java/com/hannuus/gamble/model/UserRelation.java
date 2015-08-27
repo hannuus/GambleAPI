@@ -2,64 +2,68 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+
 public class UserRelation {
-    private Long id;
+	private Long id;
 
-    private Date createdDate;
+	@JsonSerialize(using = DateSerializer.class)
+	private Date createdDate;
 
-    private Integer type;
+	private Integer type;
 
-    private Long fromId;
+	private Long fromId;
 
-    private Long toId;
+	private Long toId;
 
-    private String description;
+	private String description;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public Integer getType() {
-        return type;
-    }
+	public Integer getType() {
+		return type;
+	}
 
-    public void setType(Integer type) {
-        this.type = type;
-    }
+	public void setType(Integer type) {
+		this.type = type;
+	}
 
-    public Long getFromId() {
-        return fromId;
-    }
+	public Long getFromId() {
+		return fromId;
+	}
 
-    public void setFromId(Long fromId) {
-        this.fromId = fromId;
-    }
+	public void setFromId(Long fromId) {
+		this.fromId = fromId;
+	}
 
-    public Long getToId() {
-        return toId;
-    }
+	public Long getToId() {
+		return toId;
+	}
 
-    public void setToId(Long toId) {
-        this.toId = toId;
-    }
+	public void setToId(Long toId) {
+		this.toId = toId;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
 }

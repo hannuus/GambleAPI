@@ -2,74 +2,78 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+
 public class Role {
-    private Integer id;
+	private Integer id;
 
-    private String name;
+	private String name;
 
-    private String roleValue;
+	private String roleValue;
 
-    private String description;
+	private String description;
 
-    private String resourceIds;
+	private String resourceIds;
 
-    private Date createdDate;
+	@JsonSerialize(using = DateSerializer.class)
+	private Date createdDate;
 
-    private Integer available;
+	private Integer available;
 
-    public Integer getId() {
-        return id;
-    }
+	public Integer getId() {
+		return id;
+	}
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public String getRoleValue() {
-        return roleValue;
-    }
+	public String getRoleValue() {
+		return roleValue;
+	}
 
-    public void setRoleValue(String roleValue) {
-        this.roleValue = roleValue == null ? null : roleValue.trim();
-    }
+	public void setRoleValue(String roleValue) {
+		this.roleValue = roleValue == null ? null : roleValue.trim();
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
 
-    public String getResourceIds() {
-        return resourceIds;
-    }
+	public String getResourceIds() {
+		return resourceIds;
+	}
 
-    public void setResourceIds(String resourceIds) {
-        this.resourceIds = resourceIds == null ? null : resourceIds.trim();
-    }
+	public void setResourceIds(String resourceIds) {
+		this.resourceIds = resourceIds == null ? null : resourceIds.trim();
+	}
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public Integer getAvailable() {
-        return available;
-    }
+	public Integer getAvailable() {
+		return available;
+	}
 
-    public void setAvailable(Integer available) {
-        this.available = available;
-    }
+	public void setAvailable(Integer available) {
+		this.available = available;
+	}
 }

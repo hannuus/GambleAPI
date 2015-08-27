@@ -2,114 +2,119 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
+
 public class Resource {
-    private Long id;
+	private Long id;
 
-    private String name;
+	private String name;
 
-    private String resourceValue;
+	private String resourceValue;
 
-    private String description;
+	private String description;
 
-    private String type;
+	private String type;
 
-    private Integer priority;
+	private Integer priority;
 
-    private Long parentId;
+	private Long parentId;
 
-    private String parentIds;
+	private String parentIds;
 
-    private String url;
+	private String url;
 
-    private Date createdDate;
+	@JsonSerialize(using = DateSerializer.class)
+	private Date createdDate;
 
-    private Integer available;
+	private Integer available;
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(Long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
-    }
+	public void setName(String name) {
+		this.name = name == null ? null : name.trim();
+	}
 
-    public String getResourceValue() {
-        return resourceValue;
-    }
+	public String getResourceValue() {
+		return resourceValue;
+	}
 
-    public void setResourceValue(String resourceValue) {
-        this.resourceValue = resourceValue == null ? null : resourceValue.trim();
-    }
+	public void setResourceValue(String resourceValue) {
+		this.resourceValue = resourceValue == null ? null : resourceValue
+				.trim();
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setDescription(String description) {
-        this.description = description == null ? null : description.trim();
-    }
+	public void setDescription(String description) {
+		this.description = description == null ? null : description.trim();
+	}
 
-    public String getType() {
-        return type;
-    }
+	public String getType() {
+		return type;
+	}
 
-    public void setType(String type) {
-        this.type = type == null ? null : type.trim();
-    }
+	public void setType(String type) {
+		this.type = type == null ? null : type.trim();
+	}
 
-    public Integer getPriority() {
-        return priority;
-    }
+	public Integer getPriority() {
+		return priority;
+	}
 
-    public void setPriority(Integer priority) {
-        this.priority = priority;
-    }
+	public void setPriority(Integer priority) {
+		this.priority = priority;
+	}
 
-    public Long getParentId() {
-        return parentId;
-    }
+	public Long getParentId() {
+		return parentId;
+	}
 
-    public void setParentId(Long parentId) {
-        this.parentId = parentId;
-    }
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
 
-    public String getParentIds() {
-        return parentIds;
-    }
+	public String getParentIds() {
+		return parentIds;
+	}
 
-    public void setParentIds(String parentIds) {
-        this.parentIds = parentIds == null ? null : parentIds.trim();
-    }
+	public void setParentIds(String parentIds) {
+		this.parentIds = parentIds == null ? null : parentIds.trim();
+	}
 
-    public String getUrl() {
-        return url;
-    }
+	public String getUrl() {
+		return url;
+	}
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
-    }
+	public void setUrl(String url) {
+		this.url = url == null ? null : url.trim();
+	}
 
-    public Date getCreatedDate() {
-        return createdDate;
-    }
+	public Date getCreatedDate() {
+		return createdDate;
+	}
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
-    }
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
+	}
 
-    public Integer getAvailable() {
-        return available;
-    }
+	public Integer getAvailable() {
+		return available;
+	}
 
-    public void setAvailable(Integer available) {
-        this.available = available;
-    }
+	public void setAvailable(Integer available) {
+		this.available = available;
+	}
 }
