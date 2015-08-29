@@ -16,7 +16,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.model.User;
-import com.hannuus.gamble.utils.HttpUtils;
+import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.exception.ErrorMessage;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.MappingJacksonJsonViewExd;
@@ -263,13 +263,13 @@ public class BaseAction {
 	protected String getBasePath() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
-		return HttpUtils.getBasePath(request);
+		return GambleUtils.Http.getBasePath(request);
 	}
 
 	protected String getBasePathNotPort() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
-		return HttpUtils.getBasePathNotPort(request);
+		return GambleUtils.Http.getBasePathNotPort(request);
 	}
 
 	/**

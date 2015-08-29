@@ -3,6 +3,7 @@ package com.hannuus.gamble.utils;
 import java.util.List;
 
 public class Pagination<T> {
+
 	private List<T> datas;
 	private String p;
 
@@ -21,5 +22,5 @@ public class Pagination<T> {
 	public void setDatas(List<T> datas) {
 		this.datas = datas;
 	}
-	
+
 }
