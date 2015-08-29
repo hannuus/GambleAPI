@@ -141,11 +141,12 @@
 		<property name="filterChainDefinitions">
 			<value>
 				<!-- 放开所有权限 -->
-				/**=anon
+				<!-- /**=anon -->
 				<!-- 常规配置 -->
-				<!-- /index.htm=anon -->
-				<!-- /api/login.json*=anon -->
-				<!-- /**=authc -->
+				/index.htm=anon
+				/api/login.json*=anon
+				/api/test/login=anon
+				/**=authc
 			</value>
 		</property>
 	</bean>

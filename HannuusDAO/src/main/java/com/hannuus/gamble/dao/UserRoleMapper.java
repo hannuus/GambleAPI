@@ -1,30 +1,38 @@
 package com.hannuus.gamble.dao;
 
-import com.hannuus.gamble.model.UserRole;
-import com.hannuus.gamble.model.UserRoleExample;
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
+import com.hannuus.gamble.model.UserRole;
+import com.hannuus.gamble.model.UserRoleExample;
+
 public interface UserRoleMapper {
-    int countByExample(UserRoleExample example);
 
-    int deleteByExample(UserRoleExample example);
+	int countByExample(UserRoleExample example);
 
-    int deleteByPrimaryKey(Long id);
+	int deleteByExample(UserRoleExample example);
 
-    int insert(UserRole record);
+	int deleteByPrimaryKey(Long id);
 
-    int insertSelective(UserRole record);
+	int insert(UserRole record);
 
-    List<UserRole> selectByExample(UserRoleExample example);
+	int insertSelective(UserRole record);
 
-    UserRole selectByPrimaryKey(Long id);
+	List<UserRole> selectByExample(UserRoleExample example);
 
-    int updateByExampleSelective(@Param("record") UserRole record, @Param("example") UserRoleExample example);
+	UserRole selectByPrimaryKey(Long id);
 
-    int updateByExample(@Param("record") UserRole record, @Param("example") UserRoleExample example);
+	int updateByExampleSelective(@Param("record") UserRole record,
+			@Param("example") UserRoleExample example);
 
-    int updateByPrimaryKeySelective(UserRole record);
+	int updateByExample(@Param("record") UserRole record,
+			@Param("example") UserRoleExample example);
 
-    int updateByPrimaryKey(UserRole record);
+	int updateByPrimaryKeySelective(UserRole record);
+
+	int updateByPrimaryKey(UserRole record);
+
+	String[] findRoleValuesByUserName(String userName);
+
 }
