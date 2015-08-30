@@ -1,6 +1,7 @@
 package com.hannuus.gamble.web.action;
 
 import java.io.File;
+import java.text.MessageFormat;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -154,7 +155,7 @@ public class BaseAction {
 		try {
 			return Long.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error("get " + key + " error: " + e);
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", e));
 			return defaultValue;
 		}
 	}
@@ -172,7 +173,7 @@ public class BaseAction {
 		try {
 			return Integer.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error("get " + key + " error: " + e);
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", e));
 			return defaultValue;
 		}
 	}
@@ -190,7 +191,7 @@ public class BaseAction {
 		try {
 			return Double.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error("get " + key + " error: " + e);
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", e));
 			return defaultValue;
 		}
 	}
@@ -232,7 +233,7 @@ public class BaseAction {
 		try {
 			return (String) session.getAttribute(key);
 		} catch (Exception e) {
-			logger.error("get " + key + " error: " + e);
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", key, defaultValue, e));
 			return defaultValue;
 		}
 	}
