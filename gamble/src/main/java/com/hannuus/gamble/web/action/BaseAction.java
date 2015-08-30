@@ -17,16 +17,22 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.model.User;
-import com.hannuus.gamble.utils.HttpUtils;
+import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.exception.ErrorMessage;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.MappingJacksonJsonViewExd;
-import com.hannuus.gamble.web.exception.api.CanNotAccessException;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.PermissionService;
 
+/**
+ * Action基类
+ * 
+ * @author aelns
+ * @author cuesky
+ * @date 2015年8月27日 下午8:56:45
+ */
 public class BaseAction {
 
 	private Logger logger = Logger.getLogger(getClass());
@@ -64,37 +70,37 @@ public class BaseAction {
 		if (!isAccessTokenValid(request)) {
 			throw new InvalidAccessTokenException();
 		}
-		if (!isPermissionDefined(request)) {
-			throw new CanNotAccessException();
-		}
+		// 因采用shiro，故废弃
+		// if (!isPermissionDefined(request)) {
+		// throw new CanNotAccessException();
+		// }
 		if (!isRequestPathValid(request)) {
 			throw new InvalidRequestURLException();
 		}
 	}
 
-	/**
-	 * 验证用户是否有权限访问此API
-	 * 
-	 * @param request
-	 * @return
-	 */
-	private boolean isPermissionDefined(HttpServletRequest request) {
-		// TODO cuesky
-		// boolean flag = false;
-		Long loginUserId = getLoginUserId();
-		if (loginUserId == null) {
-			return false;
-		}
-		// String permissionPath = getPermissionPath(request);
-		// flag = permissionService.isPermissionDefined(permissionPath,
-		// loginUserId);
-		return true;
-	}
+	// /**
+	// * 验证用户是否有权限访问此API
+	// *
+	// * @param request
+	// * @return
+	// */
+	// private boolean isPermissionDefined(HttpServletRequest request) {
+	// // boolean flag = false;
+	// Long loginUserId = getLoginUserId();
+	// if (loginUserId == null) {
+	// return false;
+	// }
+	// // String permissionPath = getPermissionPath(request);
+	// // flag = permissionService.isPermissionDefined(permissionPath,
+	// // loginUserId);
+	// return true;
+	// }
 
-	/**
-	 * @param request
-	 * @return 获取到方法级别的路径。例如:"/user/add"
-	 */
+	// /**
+	// * @param request
+	// * @return 获取到方法级别的路径。例如:"/user/add"
+	// */
 	// private String getPermissionPath(HttpServletRequest request) {
 	// String permissionPath = request.getRequestURI();
 	// return permissionPath;
@@ -258,13 +264,13 @@ public class BaseAction {
 	protected String getBasePath() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
-		return HttpUtils.getBasePath(request);
+		return GambleUtils.Http.getBasePath(request);
 	}
 
 	protected String getBasePathNotPort() {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
-		return HttpUtils.getBasePathNotPort(request);
+		return GambleUtils.Http.getBasePathNotPort(request);
 	}
 
 	/**

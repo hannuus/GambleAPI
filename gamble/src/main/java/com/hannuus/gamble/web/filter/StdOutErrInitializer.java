@@ -3,7 +3,7 @@ package com.hannuus.gamble.web.filter;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
-import com.hannuus.gamble.utils.StdOutErrRedirect;
+import com.hannuus.gamble.utils.GambleUtils;
 
 public class StdOutErrInitializer implements ServletContextListener {
 
@@ -14,7 +14,7 @@ public class StdOutErrInitializer implements ServletContextListener {
 
 	@Override
 	public void contextInitialized(ServletContextEvent arg0) {
-		StdOutErrRedirect.redirectSystemOutAndErrToLog();
+		GambleUtils.StdOutErrRedirect.redirectSystemOutAndErrToLog();
 	}
 
 }

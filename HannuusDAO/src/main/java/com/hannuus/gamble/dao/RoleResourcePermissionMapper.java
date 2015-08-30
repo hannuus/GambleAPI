@@ -6,25 +6,33 @@ import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleResourcePermissionMapper {
-    int countByExample(RoleResourcePermissionExample example);
 
-    int deleteByExample(RoleResourcePermissionExample example);
+	int countByExample(RoleResourcePermissionExample example);
 
-    int deleteByPrimaryKey(Long id);
+	int deleteByExample(RoleResourcePermissionExample example);
 
-    int insert(RoleResourcePermission record);
+	int deleteByPrimaryKey(Long id);
 
-    int insertSelective(RoleResourcePermission record);
+	int insert(RoleResourcePermission record);
 
-    List<RoleResourcePermission> selectByExample(RoleResourcePermissionExample example);
+	int insertSelective(RoleResourcePermission record);
 
-    RoleResourcePermission selectByPrimaryKey(Long id);
+	List<RoleResourcePermission> selectByExample(
+			RoleResourcePermissionExample example);
 
-    int updateByExampleSelective(@Param("record") RoleResourcePermission record, @Param("example") RoleResourcePermissionExample example);
+	RoleResourcePermission selectByPrimaryKey(Long id);
 
-    int updateByExample(@Param("record") RoleResourcePermission record, @Param("example") RoleResourcePermissionExample example);
+	int updateByExampleSelective(
+			@Param("record") RoleResourcePermission record,
+			@Param("example") RoleResourcePermissionExample example);
 
-    int updateByPrimaryKeySelective(RoleResourcePermission record);
+	int updateByExample(@Param("record") RoleResourcePermission record,
+			@Param("example") RoleResourcePermissionExample example);
 
-    int updateByPrimaryKey(RoleResourcePermission record);
+	int updateByPrimaryKeySelective(RoleResourcePermission record);
+
+	int updateByPrimaryKey(RoleResourcePermission record);
+
+	List<RoleResourcePermission> findResourcePermissionsByUserName(
+			String userName);
 }

@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.log4j.Logger;
 
+import com.hannuus.gamble.utils.GambleUtils;
+
 /**
  * 
  * Ftl filter, for security
@@ -31,7 +33,8 @@ public class FtlFilter implements Filter {
 			throws IOException, ServletException {
 		HttpServletRequest request = (HttpServletRequest) servletRequest;
 		HttpServletResponse response = (HttpServletResponse) servletResponse;
-		response.sendRedirect(com.hannuus.gamble.utils.HttpUtils.getBasePath(request) + "/404.htm");
+		response.sendRedirect(GambleUtils.Http.getBasePath(request)
+				+ "/404.htm");
 	}
 
 	public void destroy() {
