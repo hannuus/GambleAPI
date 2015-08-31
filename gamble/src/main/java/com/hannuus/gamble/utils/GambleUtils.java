@@ -284,4 +284,33 @@ public final class GambleUtils {
 		}
 	}
 
+	public static final class Array {
+
+		public static Long[] toLongArray(String value, String split) {
+			String[] arr = value.split(split);
+			Long[] array = new Long[arr.length];
+			for (int i = 0; i < arr.length; i++) {
+				array[i] = Long.valueOf(arr[i].trim());
+			}
+			return array;
+		}
+
+		/**
+		 * 将Long数组转换成"1,2,3..."的字符串格式
+		 * 
+		 * @param ids
+		 * @return
+		 */
+		public static String toString(Long[] ids) {
+			StringBuilder b = new StringBuilder();
+			for (int i = 0; i < ids.length; i++) {
+				b.append(ids[i]);
+				b.append(", ");
+			}
+			b.deleteCharAt(b.lastIndexOf(","));
+			return b.toString();
+		}
+
+	}
+
 }

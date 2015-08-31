@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.apache.ibatis.annotations.Param;
 
+import com.hannuus.gamble.model.Role;
 import com.hannuus.gamble.model.UserRole;
 import com.hannuus.gamble.model.UserRoleExample;
 
@@ -34,5 +35,7 @@ public interface UserRoleMapper {
 	int updateByPrimaryKey(UserRole record);
 
 	String[] findRoleValuesByUserName(String userName);
+
+	List<Role> findRolesByUserId(Long userId);
 
 }

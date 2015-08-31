@@ -1,5 +1,6 @@
 package com.hannuus.gamble.web.service.impl;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -11,13 +12,22 @@ import org.springframework.util.StringUtils;
 
 import com.hannuus.gamble.dao.PermissionMapper;
 import com.hannuus.gamble.dao.ResourceMapper;
+import com.hannuus.gamble.dao.RoleMapper;
 import com.hannuus.gamble.dao.RoleResourcePermissionMapper;
+import com.hannuus.gamble.dao.UserMapper;
 import com.hannuus.gamble.dao.UserRoleMapper;
 import com.hannuus.gamble.model.Permission;
+import com.hannuus.gamble.model.PermissionExample;
 import com.hannuus.gamble.model.Resource;
+import com.hannuus.gamble.model.ResourceExample;
 import com.hannuus.gamble.model.Role;
+import com.hannuus.gamble.model.RoleExample;
 import com.hannuus.gamble.model.RoleResourcePermission;
+import com.hannuus.gamble.model.RoleResourcePermissionExample;
 import com.hannuus.gamble.model.User;
+import com.hannuus.gamble.model.UserExample;
+import com.hannuus.gamble.model.UserRole;
+import com.hannuus.gamble.model.UserRoleExample;
 import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.service.AuthService;
 
@@ -29,18 +39,20 @@ import com.hannuus.gamble.web.service.AuthService;
 public class AuthServiceImpl implements AuthService {
 
 	@Autowired
-	UserRoleMapper userRoleMapper;
+	UserMapper userMapper;
 	@Autowired
-	RoleResourcePermissionMapper roleResourcePermissionMapper;
+	RoleMapper roleMapper;
+	@Autowired
+	UserRoleMapper userRoleMapper;
 	@Autowired
 	ResourceMapper resourceMapper;
 	@Autowired
 	PermissionMapper permissionMapper;
+	@Autowired
+	RoleResourcePermissionMapper roleResourcePermissionMapper;
 
 	@Override
 	public Set<String> findStringRoles(String userName) {
-		// System.out.println(userRoleMapper.findRoleValuesByUserName(userName)
-		// .getClass() + "......");
 		String[] roleValues = userRoleMapper.findRoleValuesByUserName(userName);
 		Set<String> roles = new HashSet<String>();
 		for (String roleValue : roleValues) {
@@ -94,231 +106,284 @@ public class AuthServiceImpl implements AuthService {
 
 	@Override
 	public void addUser(User user) {
-		// TODO Auto-generated method stub
-
+		userMapper.insertSelective(user);
 	}
 
 	@Override
 	public void deleteUser(Long id) {
-		// TODO Auto-generated method stub
+		userMapper.deleteByPrimaryKey(id);
 
 	}
 
 	@Override
 	public void batchDeleteUsers(Long[] ids) {
-		// TODO Auto-generated method stub
-
+		for (Long id : ids) {
+			deleteUser(id);
+		}
 	}
 
 	@Override
 	public void updateUser(User user) {
-		// TODO Auto-generated method stub
-
+		userMapper.updateByPrimaryKeySelective(user);
 	}
 
 	@Override
 	public User findUser(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		User user = userMapper.selectByPrimaryKey(id);
+		return user;
 	}
 
 	@Override
 	public List<User> findUsers() {
-		// TODO Auto-generated method stub
-		return null;
+		List<User> list = userMapper.selectByExample(new UserExample());
+		return list;
 	}
 
 	@Override
 	public List<User> findUsersLike(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		UserExample example = new UserExample();
+		example.createCriteria().andUserNameLike("%" + name + "%");
+		List<User> list = userMapper.selectByExample(example);
+		return list;
 	}
 
 	@Override
 	public boolean isUserExists(String userName) {
-		// TODO Auto-generated method stub
-		return false;
+		UserExample example = new UserExample();
+		example.createCriteria().andUserNameEqualTo(userName);
+		int count = userMapper.countByExample(example);
+		return count >= 1;
 	}
 
 	@Override
 	public void addRole(Role role) {
-		// TODO Auto-generated method stub
-
+		roleMapper.insertSelective(role);
 	}
 
 	@Override
 	public void deleteRole(Long id) {
-		// TODO Auto-generated method stub
-
+		roleMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public void batchDeleteRoles(Long[] ids) {
-		// TODO Auto-generated method stub
-
+		for (Long id : ids) {
+			deleteRole(id);
+		}
 	}
 
 	@Override
 	public void updateRole(Role role) {
-		// TODO Auto-generated method stub
-
+		roleMapper.updateByPrimaryKeySelective(role);
 	}
 
 	@Override
 	public Role findRole(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Role role = roleMapper.selectByPrimaryKey(id);
+		return role;
 	}
 
 	@Override
 	public List<Role> findRoles() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Role> list = roleMapper.selectByExample(new RoleExample());
+		return list;
 	}
 
 	@Override
 	public List<Role> findRolesLike(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		RoleExample example = new RoleExample();
+		example.createCriteria().andNameLike("%" + name + "%");
+		List<Role> list = roleMapper.selectByExample(example);
+		return list;
 	}
 
 	@Override
 	public boolean isRoleExists(String name, String roleValue) {
-		// TODO Auto-generated method stub
-		return false;
+		RoleExample example = new RoleExample();
+		example.or().andNameEqualTo(name);
+		example.or().andRoleValueEqualTo(roleValue);
+		int count = roleMapper.countByExample(example);
+		return count >= 1;
 	}
 
 	@Override
 	public void addResource(Resource resource) {
-		// TODO Auto-generated method stub
-
+		resourceMapper.insertSelective(resource);
 	}
 
 	@Override
 	public void deleteResource(Long id) {
-		// TODO Auto-generated method stub
-
+		resourceMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public void batchDeleteResources(Long[] ids) {
-		// TODO Auto-generated method stub
-
+		for (Long id : ids) {
+			deleteResource(id);
+		}
 	}
 
 	@Override
 	public void updateResource(Resource resource) {
-		// TODO Auto-generated method stub
-
+		resourceMapper.updateByPrimaryKeySelective(resource);
 	}
 
 	@Override
 	public Resource findResource(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Resource resource = resourceMapper.selectByPrimaryKey(id);
+		return resource;
 	}
 
 	@Override
 	public List<Resource> findResources() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Resource> list = resourceMapper
+				.selectByExample(new ResourceExample());
+		return list;
 	}
 
 	@Override
 	public List<Resource> findResourcesLike(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		ResourceExample example = new ResourceExample();
+		example.createCriteria().andNameLike("%" + name + "%");
+		List<Resource> list = resourceMapper.selectByExample(example);
+		return list;
 	}
 
 	@Override
 	public boolean isResourceExists(String name, String resourceValue) {
-		// TODO Auto-generated method stub
-		return false;
+		ResourceExample example = new ResourceExample();
+		example.or().andNameEqualTo(name);
+		example.or().andResourceValueEqualTo(resourceValue);
+		int count = resourceMapper.countByExample(example);
+		return count >= 1;
 	}
 
 	@Override
 	public void addPermission(Permission permission) {
-		// TODO Auto-generated method stub
-
+		permissionMapper.insertSelective(permission);
 	}
 
 	@Override
 	public void deletePermission(Long id) {
-		// TODO Auto-generated method stub
-
+		permissionMapper.deleteByPrimaryKey(id);
 	}
 
 	@Override
 	public void batchDeletePermissions(Long[] ids) {
-		// TODO Auto-generated method stub
-
+		for (Long id : ids) {
+			deletePermission(id);
+		}
 	}
 
 	@Override
 	public void updatePermission(Permission permission) {
-		// TODO Auto-generated method stub
-
+		permissionMapper.updateByPrimaryKeySelective(permission);
 	}
 
 	@Override
 	public Permission findPermission(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		Permission permission = permissionMapper.selectByPrimaryKey(id);
+		return permission;
 	}
 
 	@Override
 	public List<Permission> findPermissions() {
-		// TODO Auto-generated method stub
-		return null;
+		List<Permission> list = permissionMapper
+				.selectByExample(new PermissionExample());
+		return list;
 	}
 
 	@Override
 	public List<Permission> findPermissionsLike(String name) {
-		// TODO Auto-generated method stub
-		return null;
+		PermissionExample example = new PermissionExample();
+		example.createCriteria().andNameLike(name);
+		List<Permission> list = permissionMapper.selectByExample(example);
+		return list;
 	}
 
 	@Override
 	public boolean isPermissionExists(String name, String permissionValue) {
-		// TODO Auto-generated method stub
-		return false;
+		PermissionExample example = new PermissionExample();
+		example.or().andNameEqualTo(name);
+		example.or().andPermissionValueEqualTo(permissionValue);
+		int count = permissionMapper.countByExample(example);
+		return count >= 1;
 	}
 
 	@Override
 	public List<Role> findRolesByUserId(Long userId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Role> list = userRoleMapper.findRolesByUserId(userId);
+		return list;
 	}
 
 	@Override
 	public void assignRoles(Long userId, Long[] roleIds) {
-		// TODO Auto-generated method stub
+		// 根据userId删除该用户所有角色
+		UserRoleExample example = new UserRoleExample();
+		example.createCriteria().andUserIdEqualTo(userId);
+		userRoleMapper.deleteByExample(example);
 
+		// 角色重新分配
+		for (Long roleId : roleIds) {
+			UserRole userRole = new UserRole();
+			userRole.setUserId(userId);
+			userRole.setRoleId(roleId);
+			userRoleMapper.insertSelective(userRole);
+		}
 	}
 
 	@Override
 	public void batchAssignRoles(Long[] userIds, Long[] roleIds) {
-		// TODO Auto-generated method stub
-
+		for (Long userId : userIds) {
+			assignRoles(userId, roleIds);
+		}
 	}
 
 	@Override
 	public List<Resource> findRBACResources(Long roleId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Resource> list = roleResourcePermissionMapper
+				.findRBACResources(roleId);
+		return list;
 	}
 
 	@Override
 	public List<Permission> findRBACPermissions(Long roleId, Long resourceId) {
-		// TODO Auto-generated method stub
-		return null;
+		List<Permission> permissions = null;
+		RoleResourcePermissionExample example = new RoleResourcePermissionExample();
+		example.createCriteria().andRoleIdEqualTo(roleId)
+				.andResourceIdEqualTo(resourceId);
+		List<RoleResourcePermission> list = roleResourcePermissionMapper
+				.selectByExample(example);
+		if (list != null && list.size() > 0) {
+			RoleResourcePermission roleResourcePermission = list.get(0);
+			String permissionIds = roleResourcePermission.getPermissionIds();
+			Long[] arr = GambleUtils.Array.toLongArray(permissionIds, ",");
+			PermissionExample ex = new PermissionExample();
+			ex.createCriteria().andIdIn(Arrays.asList(arr));
+			permissions = permissionMapper.selectByExample(ex);
+		}
+		return permissions;
 	}
 
 	@Override
 	public void assignResourceAndPermissions(Long roleId,
 			Map<Long, Long[]> permissionMap) {
-		// TODO Auto-generated method stub
+		// 清理该角色对应所有资源和权限
+		RoleResourcePermissionExample example = new RoleResourcePermissionExample();
+		example.createCriteria().andRoleIdEqualTo(roleId);
+		roleResourcePermissionMapper.deleteByExample(example);
 
+		// 授予该角色资源和权限
+		Set<Long> keySet = permissionMap.keySet();
+		for (Long resourceId : keySet) {
+			RoleResourcePermission rrp = new RoleResourcePermission();
+			rrp.setRoleId(roleId);
+			rrp.setResourceId(resourceId);
+			String permissionIds = GambleUtils.Array.toString(permissionMap
+					.get(resourceId));
+			rrp.setPermissionIds(permissionIds);
+			roleResourcePermissionMapper.insertSelective(rrp);
+		}
 	}
 
 }

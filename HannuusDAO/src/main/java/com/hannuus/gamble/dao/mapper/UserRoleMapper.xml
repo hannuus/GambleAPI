@@ -204,4 +204,10 @@
 		r.id=ur.role_id and
 		ur.user_id=u.id and u.user_name=#{userName}
 	</select>
+
+	<select id="findRolesByUserId" parameterType="java.lang.Long"
+		resultMap="com.hannuus.gamble.dao.RoleMapper.BaseResultMap">
+		select r.* from role r,user_role ur where
+		ur.user_id=#{userId} and ur.role_id=r.id
+	</select>
 </mapper>

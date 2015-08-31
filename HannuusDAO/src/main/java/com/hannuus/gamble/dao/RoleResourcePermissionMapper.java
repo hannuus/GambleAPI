@@ -1,8 +1,11 @@
 package com.hannuus.gamble.dao;
 
+import com.hannuus.gamble.model.Resource;
 import com.hannuus.gamble.model.RoleResourcePermission;
 import com.hannuus.gamble.model.RoleResourcePermissionExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface RoleResourcePermissionMapper {
@@ -35,4 +38,7 @@ public interface RoleResourcePermissionMapper {
 
 	List<RoleResourcePermission> findResourcePermissionsByUserName(
 			String userName);
+
+	List<Resource> findRBACResources(Long roleId);
+	
 }
