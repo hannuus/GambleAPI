@@ -305,7 +305,7 @@ public final class GambleUtils {
 			StringBuilder b = new StringBuilder();
 			for (int i = 0; i < ids.length; i++) {
 				b.append(ids[i]);
-				b.append(", ");
+				b.append(",");
 			}
 			b.deleteCharAt(b.lastIndexOf(","));
 			return b.toString();
