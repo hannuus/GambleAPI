@@ -60,4 +60,12 @@ public final class R {
 
 	}
 
+	public static final class page {
+
+		public static final int default_page_size = 12;
+
+		public static final String attr_key = "page";
+
+	}
+
 }
