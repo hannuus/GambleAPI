@@ -4,6 +4,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.hannuus.gamble.domain.page.PageDTO;
+import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.Resource;
 import com.hannuus.gamble.model.Role;
@@ -48,6 +50,8 @@ public interface AuthService {
 	public User findUser(Long id);
 
 	public List<User> findUsers();
+
+	public PageDTO<User> findUsersPage(PageParams params);
 
 	public List<User> findUsersLike(String name);
 

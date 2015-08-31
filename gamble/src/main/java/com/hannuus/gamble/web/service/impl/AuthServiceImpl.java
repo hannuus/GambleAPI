@@ -16,6 +16,8 @@ import com.hannuus.gamble.dao.RoleMapper;
 import com.hannuus.gamble.dao.RoleResourcePermissionMapper;
 import com.hannuus.gamble.dao.UserMapper;
 import com.hannuus.gamble.dao.UserRoleMapper;
+import com.hannuus.gamble.domain.page.PageDTO;
+import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.PermissionExample;
 import com.hannuus.gamble.model.Resource;
@@ -137,6 +139,16 @@ public class AuthServiceImpl implements AuthService {
 	public List<User> findUsers() {
 		List<User> list = userMapper.selectByExample(new UserExample());
 		return list;
+	}
+
+	@Override
+	public PageDTO<User> findUsersPage(PageParams params) {
+		int total = userMapper.countByExample(null);
+		UserExample example = new UserExample();
+		example.setLimitStart(params.getStart());
+		example.setLimitEnd(params.getPageSize());
+		List<User> list = userMapper.selectByExample(example);
+		return new PageDTO<User>(total, list);
 	}
 
 	@Override
