@@ -32,7 +32,7 @@ CREATE TABLE `permission` (
   `created_date` datetime DEFAULT NULL COMMENT '创建时间',
   `available` int(11) NOT NULL COMMENT '0-不可用 1-可用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='权限表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -80,7 +80,7 @@ CREATE TABLE `resource` (
   `created_date` datetime DEFAULT NULL COMMENT '创建时间',
   `available` int(11) NOT NULL COMMENT '0-不可用 1-可用',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='资源表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='资源表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -91,7 +91,7 @@ DROP TABLE IF EXISTS `role`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `role` (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `id` bigint(20) NOT NULL COMMENT 'PK',
   `name` varchar(100) NOT NULL COMMENT '角色名',
   `role_value` varchar(100) DEFAULT NULL COMMENT '逻辑值',
   `description` varchar(200) DEFAULT NULL COMMENT '描述',
@@ -115,7 +115,7 @@ CREATE TABLE `role_resource_permission` (
   `resource_id` bigint(20) NOT NULL COMMENT 'FK 资源ID',
   `permission_ids` varchar(200) NOT NULL COMMENT '权限ID列表（以“,”间隔）',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='角色、资源、权限关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='角色、资源、权限关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -184,7 +184,7 @@ CREATE TABLE `user` (
   `accept_image` int(11) DEFAULT NULL COMMENT 'client接收图片 0-关闭 1-开启 ',
   `accept_push_message` int(11) DEFAULT NULL COMMENT 'client接收推送消息 0-不接收 1-接收',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -264,7 +264,7 @@ CREATE TABLE `user_role` (
   `user_id` bigint(20) NOT NULL COMMENT 'FK 用户ID',
   `role_id` bigint(20) NOT NULL COMMENT 'FK 角色ID',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户、角色关联表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户、角色关联表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -276,4 +276,4 @@ CREATE TABLE `user_role` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-08-26 22:37:57
+-- Dump completed on 2015-08-31  9:25:42
