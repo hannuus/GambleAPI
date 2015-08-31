@@ -18,19 +18,29 @@ import com.hannuus.gamble.web.service.LoginService;
 @Controller
 @RequestMapping("/")
 public class RootAction extends BaseAction {
-	
+
 	@Autowired
 	LoginService loginService;
-	
-	@RequestMapping(value = "/index.htm", method = {RequestMethod.GET, RequestMethod.POST})
+
+	@RequestMapping(value = "/index.htm", method = { RequestMethod.GET,
+			RequestMethod.POST })
 	public String index(ModelMap modelMap) {
 		modelMap.put("title", "首页");
 		return "/index";
 	}
-	
+
+	@RequestMapping(value = "/unauthorized.htm", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public String unauthorized(ModelMap modelMap) {
+		modelMap.put("title", "未授权");
+		return "/unauthorized";
+	}
+
 	@ResponseBody
-	@RequestMapping(value = "/login.json", method = {RequestMethod.POST})
-	public JsonVo<String> isLock(ModelMap modelMap, String userName, String password, HttpServletRequest request, HttpServletResponse response) {
+	@RequestMapping(value = "/login.json", method = { RequestMethod.POST })
+	public JsonVo<String> isLock(ModelMap modelMap, String userName,
+			String password, HttpServletRequest request,
+			HttpServletResponse response) {
 		JsonVo<String> json = new JsonVo<String>();
 		json.setStatus(JsonResultStatus.Failed.getValue());
 		AccessToken accessToken = loginService.userLogin(userName, password);

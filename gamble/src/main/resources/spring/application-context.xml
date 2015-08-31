@@ -55,7 +55,7 @@
 	</bean>
 
 	<!-- 在XML配置文件中加入外部属性文件，当然也可以指定外部文件的编码 -->
-	<bean id="propertyConfigurer" class="com.hannuus.gamble.utils.PropertyUtils">
+	<bean id="propertyConfigurer" class="com.hannuus.gamble.utils.GambleUtils.Property">
 		<property name="locations">
 			<list>
 				<value>classpath:gamble.properties</value> <!-- 指定外部文件的编码 -->
@@ -137,7 +137,7 @@
 	<bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
 		<property name="securityManager" ref="securityManager" />
 		<property name="loginUrl" value="/index.htm"></property>
-		<property name="unauthorizedUrl" value="/unauthorized.flt"></property>
+		<property name="unauthorizedUrl" value="/unauthorized.htm"></property>
 		<property name="filterChainDefinitions">
 			<value>
 				<!-- 放开所有权限 -->
@@ -146,6 +146,7 @@
 				/index.htm=anon
 				/api/login.json*=anon
 				/api/test/login=anon
+				/api/auth/**=roles[admin]
 				/**=authc
 			</value>
 		</property>
