@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hannuus.gamble.dao.RoleMapper" >
   <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.Role" >
-    <id column="id" property="id" jdbcType="INTEGER" />
+    <id column="id" property="id" jdbcType="BIGINT" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="role_value" property="roleValue" jdbcType="VARCHAR" />
     <result column="description" property="description" jdbcType="VARCHAR" />
@@ -89,15 +89,15 @@
       limit #{limitStart} , #{limitEnd}
     </if>
   </select>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
     select 
     <include refid="Base_Column_List" />
     from role
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
     delete from role
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </delete>
   <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.RoleExample" >
     delete from role
@@ -106,7 +106,7 @@
     </if>
   </delete>
   <insert id="insert" parameterType="com.hannuus.gamble.model.Role" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into role (name, role_value, description, 
@@ -117,7 +117,7 @@
       )
   </insert>
   <insert id="insertSelective" parameterType="com.hannuus.gamble.model.Role" >
-    <selectKey resultType="java.lang.Integer" keyProperty="id" order="AFTER" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
     insert into role
@@ -172,7 +172,7 @@
     update role
     <set >
       <if test="record.id != null" >
-        id = #{record.id,jdbcType=INTEGER},
+        id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.name != null" >
         name = #{record.name,jdbcType=VARCHAR},
@@ -199,7 +199,7 @@
   </update>
   <update id="updateByExample" parameterType="map" >
     update role
-    set id = #{record.id,jdbcType=INTEGER},
+    set id = #{record.id,jdbcType=BIGINT},
       name = #{record.name,jdbcType=VARCHAR},
       role_value = #{record.roleValue,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
@@ -232,7 +232,7 @@
         available = #{available,jdbcType=INTEGER},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Role" >
     update role
@@ -242,6 +242,6 @@
       resource_ids = #{resourceIds,jdbcType=VARCHAR},
       created_date = #{createdDate,jdbcType=TIMESTAMP},
       available = #{available,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=BIGINT}
   </update>
 </mapper>

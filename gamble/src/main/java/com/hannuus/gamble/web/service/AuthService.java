@@ -185,7 +185,8 @@ public interface AuthService {
 	public List<Permission> findRBACPermissions(Long roleId, Long resourceId);
 
 	/**
-	 * 给某角色分配RRP
+	 * 给某角色分配RRP<br>
+	 * 先根据roleId清理掉该角色对应的所有资源权限，然后再授予
 	 * 
 	 * @param roleId
 	 * @param permissionMap
