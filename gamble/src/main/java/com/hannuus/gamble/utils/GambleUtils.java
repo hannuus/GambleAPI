@@ -1,8 +1,12 @@
 package com.hannuus.gamble.utils;
 
 import java.io.PrintStream;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Enumeration;
 import java.util.HashMap;
+import java.util.List;
+import java.util.ListIterator;
 import java.util.Map;
 import java.util.Properties;
 
@@ -52,6 +56,27 @@ public final class GambleUtils {
 				e.printStackTrace();
 				return null;
 			}
+		}
+
+		/**
+		 * 从permissionIds中擦除permissionId字符串
+		 * 
+		 * @param permissionIds
+		 * @param permissionId
+		 * @return
+		 */
+		public static String removePermissionId(String permissionIds,
+				Long permissionId) {
+			String[] arr = permissionIds.split(",");
+			List<String> list = new ArrayList<String>(Arrays.asList(arr));
+			ListIterator<String> iterator = list.listIterator();
+			String target = String.valueOf(permissionId);
+			while (iterator.hasNext()) {
+				if (target.equals(iterator.next())) {
+					iterator.remove();
+				}
+			}
+			return Array.toString(list);
 		}
 
 	}
@@ -305,6 +330,22 @@ public final class GambleUtils {
 			StringBuilder b = new StringBuilder();
 			for (int i = 0; i < ids.length; i++) {
 				b.append(ids[i]);
+				b.append(",");
+			}
+			b.deleteCharAt(b.lastIndexOf(","));
+			return b.toString();
+		}
+
+		/**
+		 * 将List转换成"1,2,3..."的字符串格式
+		 * 
+		 * @param ids
+		 * @return
+		 */
+		public static String toString(List<String> list) {
+			StringBuilder b = new StringBuilder();
+			for (int i = 0; i < list.size(); i++) {
+				b.append(list.get(i));
 				b.append(",");
 			}
 			b.deleteCharAt(b.lastIndexOf(","));

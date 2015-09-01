@@ -63,6 +63,13 @@ public interface AuthService {
 	 */
 	public boolean isUserExists(String userName);
 
+	/**
+	 * 根据userId清理对应的用户角色关系
+	 * 
+	 * @param userId
+	 */
+	public void deleteUserRoleByUser(Long userId);
+
 	// about role==============================================================
 
 	public void addRole(Role role);
@@ -77,6 +84,8 @@ public interface AuthService {
 
 	public List<Role> findRoles();
 
+	public PageDTO<Role> findRolesPage(PageParams params);
+
 	public List<Role> findRolesLike(String name);
 
 	/**
@@ -87,6 +96,13 @@ public interface AuthService {
 	 * @return
 	 */
 	public boolean isRoleExists(String name, String roleValue);
+
+	/**
+	 * 根据roleId清理对应的用户角色关系
+	 * 
+	 * @param roleId
+	 */
+	public void deleteUserRoleByRole(Long roleId);
 
 	// about resource==========================================================
 
@@ -101,6 +117,8 @@ public interface AuthService {
 	public Resource findResource(Long id);
 
 	public List<Resource> findResources();
+
+	public PageDTO<Resource> findResourcesPage(PageParams params);
 
 	public List<Resource> findResourcesLike(String name);
 
@@ -126,6 +144,12 @@ public interface AuthService {
 	public Permission findPermission(Long id);
 
 	public List<Permission> findPermissions();
+
+	/**
+	 * @param params
+	 * @return
+	 */
+	public PageDTO<Permission> findPermissionsPage(PageParams params);
 
 	public List<Permission> findPermissionsLike(String name);
 
@@ -197,5 +221,26 @@ public interface AuthService {
 	 */
 	public void assignResourceAndPermissions(Long roleId,
 			Map<Long, Long[]> permissionMap);
+
+	/**
+	 * 根据roleId清理对应的RBAC记录
+	 * 
+	 * @param roleId
+	 */
+	public void deleteRBACByRole(Long roleId);
+
+	/**
+	 * 根据resourceId清理对应的RBAC记录
+	 * 
+	 * @param resourceId
+	 */
+	public void deleteRBACByResource(Long resourceId);
+
+	/**
+	 * 根据permissionId清理对应的RBAC记录(擦除相应ID字符串)
+	 * 
+	 * @param permissionId
+	 */
+	public void deleteRBACByPermission(Long permissionId);
 
 }
