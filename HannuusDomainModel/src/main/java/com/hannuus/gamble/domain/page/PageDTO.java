@@ -3,6 +3,8 @@ package com.hannuus.gamble.domain.page;
 import java.util.List;
 
 /**
+ * 分页数据项封装类
+ * 
  * @author cuesky
  * @date 2015年8月31日 下午9:06:07
  * @param <T>
@@ -37,6 +39,12 @@ public class PageDTO<T> {
 
 	public void setRows(List<T> rows) {
 		this.rows = rows;
+	}
+
+	@Override
+	public String toString() {
+		return "PageDTO [total=" + total + ", rows="
+				+ (rows == null ? 0 : rows.size()) + "]";
 	}
 
 }
