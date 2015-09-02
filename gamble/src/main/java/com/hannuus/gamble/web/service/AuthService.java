@@ -9,6 +9,7 @@ import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.Resource;
 import com.hannuus.gamble.model.Role;
+import com.hannuus.gamble.model.RoleResourcePermission;
 import com.hannuus.gamble.model.User;
 
 /**
@@ -211,6 +212,14 @@ public interface AuthService {
 	 * @return
 	 */
 	public List<Permission> findRBACPermissions(Long roleId, Long resourceId);
+
+	/**
+	 * 根据roleId查询所有rrp
+	 * 
+	 * @param roleId
+	 * @return
+	 */
+	public List<RoleResourcePermission> findRrpByRole(Long roleId);
 
 	/**
 	 * 给某角色分配RRP<br>

@@ -1,6 +1,8 @@
 package com.hannuus.gamble.web.action;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,6 +16,7 @@ import com.hannuus.gamble.domain.page.PageQueryCallback;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.Resource;
 import com.hannuus.gamble.model.Role;
+import com.hannuus.gamble.model.RoleResourcePermission;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.service.AuthService;
 
@@ -384,6 +387,46 @@ public class AuthAction extends BaseAction {
 		// 清理角色
 		authService.deletePermission(id);
 		return listPermissions(map, 1, 0);
+	}
+
+	// about RBAC============================================================
+
+	/**
+	 * 以角色为单位进行维护<br>
+	 * 点击某角色后进入该UI，UI上应呈现当前角色所拥有的RP情况<br>
+	 * 注：一个角色对于同一个资源，只能出现一个权限组合，否则，应该新建一个角色
+	 * 
+	 * @param map
+	 * @param id
+	 *            角色ID
+	 * @return
+	 */
+	@RequestMapping("/toRpList")
+	public String toRpList(ModelMap map, Long id) {
+		List<RoleResourcePermission> rrps = authService.findRrpByRole(id);
+		List<Resource> resources = authService.findResources();
+		List<Permission> permissions = authService.findPermissions();
+		map.put("rrps", rrps);
+		map.put("resources", resources);
+		map.put("permissions", permissions);
+		return "/auth/rp_list";
+	}
+
+	/**
+	 * 给对应角色分配RP
+	 * 
+	 * @param map
+	 * @param roleId
+	 *            角色id
+	 * @param permissionMap
+	 *            资源id与权限ids的对应关系
+	 * @return
+	 */
+	@RequestMapping("/assignRp")
+	public ModelAndView assignRp(ModelMap map, Long roleId,
+			Map<Long, Long[]> permissionMap) {
+		authService.assignResourceAndPermissions(roleId, permissionMap);
+		return listRoles(map, 1, 0);
 	}
 
 }

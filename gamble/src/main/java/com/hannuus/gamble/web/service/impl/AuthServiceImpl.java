@@ -421,6 +421,15 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	public List<RoleResourcePermission> findRrpByRole(Long roleId) {
+		RoleResourcePermissionExample example = new RoleResourcePermissionExample();
+		example.createCriteria().andRoleIdEqualTo(roleId);
+		List<RoleResourcePermission> rrps = roleResourcePermissionMapper
+				.selectByExample(example);
+		return rrps;
+	}
+
+	@Override
 	public void assignResourceAndPermissions(Long roleId,
 			Map<Long, Long[]> permissionMap) {
 		// 清理该角色对应所有资源和权限
