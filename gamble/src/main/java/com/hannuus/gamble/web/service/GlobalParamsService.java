@@ -17,9 +17,28 @@ public interface GlobalParamsService {
 	/**
 	 * 查询所有全局参数
 	 * 
+	 * @param params
+	 *            分页参数
 	 * @return
 	 */
 	public PageDTO<GlobalParams> findGlobalParamsPage(PageParams params);
+
+	/**
+	 * 根据typeValue查询所有params
+	 * 
+	 * @param typeValue
+	 * @return
+	 */
+	public List<GlobalParams> findParamsByType(String typeValue);
+
+	/**
+	 * 根据typeValue和key查询一条GlobalParams
+	 * 
+	 * @param typeValue
+	 * @param key
+	 * @return
+	 */
+	public GlobalParams findParamsByTypeAndKey(String typeValue, String key);
 
 	/**
 	 * 查询所有参数类型

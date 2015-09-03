@@ -35,6 +35,27 @@ public class GlobalParamsServiceImpl implements GlobalParamsService {
 	}
 
 	@Override
+	public List<GlobalParams> findParamsByType(String typeValue) {
+		GlobalParamsExample example = new GlobalParamsExample();
+		example.createCriteria().andTypeValueEqualTo(typeValue).andKeyIsNull()
+				.andValueIsNull();
+		List<GlobalParams> list = globalParamsMapper.selectByExample(example);
+		return list;
+	}
+
+	@Override
+	public GlobalParams findParamsByTypeAndKey(String typeValue, String key) {
+		GlobalParamsExample example = new GlobalParamsExample();
+		example.createCriteria().andTypeValueEqualTo(typeValue)
+				.andKeyEqualTo(key);
+		List<GlobalParams> list = globalParamsMapper.selectByExample(example);
+		if (list == null || list.size() == 0) {
+			return null;
+		}
+		return list.get(0);
+	}
+
+	@Override
 	public List<GlobalParams> findParamsTypes() {
 		GlobalParamsExample example = new GlobalParamsExample();
 		example.createCriteria().andKeyIsNull().andValueIsNull();

@@ -147,6 +147,8 @@
 				/api/login.json*=anon
 				/api/test/login=anon
 				/api/auth/**=roles[admin]
+				/api/global/**=roles[admin]
+				/api/thirdparty/**=roles[admin]
 				/**=authc
 			</value>
 		</property>

@@ -6,30 +6,47 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.comm.R;
-import com.hannuus.gamble.dao.GlobalParamsMapper;
 import com.hannuus.gamble.model.GlobalParams;
-import com.hannuus.gamble.model.GlobalParamsExample;
+import com.hannuus.gamble.web.service.GlobalParamsService;
 import com.hannuus.gamble.web.service.ThirdPartyService;
 
+/**
+ * @author cuesky
+ * @date 2015年9月3日 下午9:54:02
+ */
 @Service
 public class ThirdPartyServiceImpl implements ThirdPartyService {
 
 	@Autowired
-	GlobalParamsMapper globalParamsMapper;
+	GlobalParamsService globalParamsService;
+
+	@Override
+	public List<GlobalParams> findAllThirdParty() {
+		List<GlobalParams> list = globalParamsService
+				.findParamsByType(R.global.third_party_api);
+		return list;
+	}
+
+	@Override
+	public GlobalParams findThirdParty(Long id) {
+		GlobalParams params = globalParamsService.findGlobalParams(id);
+		return params;
+	}
+
+	@Override
+	public void updateThirdParty(GlobalParams params) {
+		globalParamsService.updateGlobalParams(params);
+	}
 
 	@Override
 	public boolean isThirdPartyApiEnabled(String key) {
-		GlobalParamsExample example = new GlobalParamsExample();
-		example.createCriteria().andTypeNameEqualTo(R.global.third_party_api)
-				.andKeyEqualTo(key);
-		List<GlobalParams> list = globalParamsMapper.selectByExample(example);
-		if (list == null || list.size() == 0) {
+		GlobalParams party = globalParamsService.findParamsByTypeAndKey(
+				R.global.third_party_api, key);
+		if (party == null) {
 			return false;
 		}
-		GlobalParams globalParams = list.get(0);
-		// "0"-false "1"-true
-		String value = globalParams.getValue();
-		if ("0".equals(value)) {
+		// 0-false 1-true
+		if ("0".equals(party.getValue())) {
 			return false;
 		}
 		return true;
