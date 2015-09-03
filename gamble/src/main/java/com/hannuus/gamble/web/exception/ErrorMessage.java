@@ -44,7 +44,7 @@ public class ErrorMessage {
 	}
 	
 	public static String getStackTrace(Throwable throwable) {  
-	    if(throwable==null) {
+	    if (throwable == null) {
 	    	return "";  
 	    }
 	    String stackTrace = throwable.getStackTrace().toString();  
