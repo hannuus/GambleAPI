@@ -15,6 +15,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.utils.GambleUtils;
@@ -47,7 +48,7 @@ public class BaseAction {
 
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleAnyException(Exception ex) {
-		return new ModelAndView(jsonView, "error", new ErrorMessage(ex));
+		return new ModelAndView(jsonView, "error", new JsonVo<String>(ex));
 	}
 
 	protected Long getLoginUserId() {
@@ -161,7 +162,7 @@ public class BaseAction {
 		try {
 			return Long.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", e));
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", e));
 			return defaultValue;
 		}
 	}
@@ -179,7 +180,7 @@ public class BaseAction {
 		try {
 			return Integer.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", e));
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", e));
 			return defaultValue;
 		}
 	}
@@ -197,7 +198,7 @@ public class BaseAction {
 		try {
 			return Double.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", e));
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", e));
 			return defaultValue;
 		}
 	}
@@ -239,7 +240,7 @@ public class BaseAction {
 		try {
 			return (String) session.getAttribute(key);
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, ex details: ", key, defaultValue, e));
+			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", key, defaultValue, e));
 			return defaultValue;
 		}
 	}
