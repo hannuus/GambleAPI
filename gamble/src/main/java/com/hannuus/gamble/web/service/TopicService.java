@@ -112,4 +112,20 @@ public interface TopicService {
 	 * @return
 	 */
 	int countTopicsBySpeciaId(Long specialId);
+	
+	/**
+	 * 统计热门帖子数量
+	 * @return
+	 */
+	int countPopular(int days);
+	
+	/**
+	 * 查询热门帖子
+	 * 
+	 * @param pageNumber
+	 * @param pageSize
+	 * @param days 
+	 * @return
+	 */
+	List<Topic> findPopularTopicsByPage(int pageNumber, int pageSize, int days);
 }

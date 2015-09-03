@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hannuus.core.json.JsonResultStatus;
-import com.hannuus.core.json.JsonVo;
+import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.domain.AccessToken;
 import com.hannuus.gamble.web.service.LoginService;
 

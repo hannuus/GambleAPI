@@ -23,7 +23,6 @@ import com.hannuus.gamble.domain.page.PageWrapper;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.template.PageQueryTemplate;
 import com.hannuus.gamble.utils.GambleUtils;
-import com.hannuus.gamble.web.exception.ErrorMessage;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.MappingJacksonJsonViewExd;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;

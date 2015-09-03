@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.baidu.yun.push.exception.PushClientException;
 import com.baidu.yun.push.exception.PushServerException;
-import com.hannuus.core.json.JsonVo;
+import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.domain.PushMessage;
 import com.hannuus.gamble.web.service.PushService;
 

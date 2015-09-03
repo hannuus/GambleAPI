@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.comm.SystemConstants;
 import com.hannuus.gamble.comm.TopicState;
 import com.hannuus.gamble.model.Topic;
 import com.hannuus.core.json.JsonResultStatus;
-import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
 import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
@@ -62,6 +62,34 @@ public class TopicAction extends BaseAction {
 		}
 		return json;
 	}
+	
+	/**
+	 * 获取主题详情
+	 * 
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws InvalidAccessTokenException
+	 */
+	@ResponseBody
+	@RequestMapping(value = "/popular.json", method = { RequestMethod.GET,
+			RequestMethod.POST })
+	public JsonVo<List<Topic>> pupular(HttpServletRequest request,
+			HttpServletResponse response) throws GambleException {
+		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
+		int pageNumber = getIntegerReqParam("pageNumber", 1);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int days = getIntegerReqParam("days", 7);
+		int total = topicService.countPopular(days);
+		List<Topic> list = topicService.findPopularTopicsByPage(pageNumber, pageSize, days);
+		if (CollectionUtils.isEmpty(list)) {
+			json.setStatus(JsonResultStatus.EmptyResult.getValue());
+		} else {
+			json.setTotal(total);
+			json.setResult(list);
+		}
+		return json;
+	}
 
 	/**
 	 * 获取某个板块下的topic
@@ -81,14 +109,16 @@ public class TopicAction extends BaseAction {
 		int pageSize = getIntegerReqParam("pageSize",
 				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = topicService.countTopicsByCategoryId(categoryId);
-		json.setTotal(total);
 		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId,
 				pageNumber, pageSize);
-		json.setResult(list);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
+		} else {
+			json.setTotal(total);
+			json.setResult(list);
 		}
-		return json;
+		throw new NullPointerException();
+//		return json;
 	}
 
 	/**
@@ -128,11 +158,12 @@ public class TopicAction extends BaseAction {
 	 */
 	@ResponseBody
 	@RequestMapping(value = "/add.json", method = { RequestMethod.POST })
-	public JsonVo<List<Topic>> create(ModelMap modelMap, Topic topic,
+	public JsonVo<List<Topic>> add(ModelMap modelMap, Topic topic,
 			HttpServletRequest request, HttpServletResponse response)
 			throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		validateRequest(request);
+		// TODO
+//		validateRequest(request);
 		initTopic(topic);
 		validateAddTopicArguments(topic);
 		if (!topicService.addTopic(topic)) {
@@ -219,7 +250,9 @@ public class TopicAction extends BaseAction {
 		
 		// TODO aelns 弄个枚举啥的
 		topic.setEnabled(1);// 默认启用
-		
+		topic.setUpCount(0l);
+		topic.setDownCount(0L);
+		topic.setCollectionCount(0L);
 		topic.setFollowCount(0L);
 		topic.setHits(0L);
 		topic.setReplyCount(0L);

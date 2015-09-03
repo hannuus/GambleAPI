@@ -16,11 +16,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.comm.SystemConstants;
 import com.hannuus.gamble.model.Reply;
 import com.hannuus.gamble.model.Topic;
 import com.hannuus.core.json.JsonResultStatus;
-import com.hannuus.core.json.JsonVo;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
 import com.hannuus.gamble.web.service.ReplyService;

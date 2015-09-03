@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hannuus.core.json.JsonVo;
+import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.domain.page.PageDTO;
 import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.domain.page.PageQueryCallback;

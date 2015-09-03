@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.common.collect.Maps;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
-import com.hannuus.core.json.JsonVo;
+import com.hannuus.gamble.comm.JsonVo;
 
 @Controller
 @RequestMapping("/docs")

@@ -1,9 +1,15 @@
 package com.hannuus.gamble.web.exception;
 
-import org.codehaus.jackson.annotate.JsonProperty;
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+
+//import org.codehaus.jackson.annotate.JsonProperty;
+
 
 import com.baidu.yun.push.exception.PushClientException;
 import com.baidu.yun.push.exception.PushServerException;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.gamble.comm.GambleAPIErrorCode;
 
@@ -26,10 +32,10 @@ public class ErrorMessage {
 			this.errmsg = gex.getReasoning();
 		} else if (ex instanceof PushClientException) {
 			this.errcode = GambleAPIErrorCode.PushClient.getCode();
-			this.errmsg = GambleAPIErrorCode.PushClient.getReasoning() + " 详细:" + getStackTrace(ex);
+			this.errmsg = GambleAPIErrorCode.PushClient.getReasoning() + " Details:" + getStackTrace(ex);
 		}  else if (ex instanceof PushServerException) {
 			this.errcode = GambleAPIErrorCode.PushServer.getCode();
-			this.errmsg = GambleAPIErrorCode.PushServer.getReasoning() + " 详细:" + getStackTrace(ex);
+			this.errmsg = GambleAPIErrorCode.PushServer.getReasoning() + " Details:" + getStackTrace(ex);
 		} else {
 			this.errcode = GambleAPIErrorCode.UnKnowException.getCode();
 			this.errmsg = getStackTrace(ex);
@@ -37,19 +43,25 @@ public class ErrorMessage {
 		this.status = JsonResultStatus.Failed.getValue();
 	}
 	
-	private String getStackTrace(Exception ex) {
-		StringBuilder bu = new StringBuilder();
-		StackTraceElement[] elements = ex.getStackTrace();
-		for (int i = 0; i < elements.length; i++) {
-			bu.append(elements[i]);
-			for (int j = 0; j < i; j++) {
-				bu.append("\t");
-			}
-			bu.append("\n");
-		}
-		return bu.toString();
+	public static String getStackTrace(Throwable throwable) {  
+	    if(throwable==null) {
+	    	return "";  
+	    }
+	    String stackTrace = throwable.getStackTrace().toString();  
+	    try {  
+	        Writer writer = new StringWriter();  
+	        PrintWriter printWriter = new PrintWriter(writer);  
+	        throwable.printStackTrace(printWriter);       
+	        printWriter.flush();  
+	        writer.flush();  
+	        stackTrace = writer.toString();  
+	        printWriter.close();              
+	        writer.close();  
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }  
+	    return stackTrace;  
 	}
-
 
 	public String getErrcode() {
 		return errcode;

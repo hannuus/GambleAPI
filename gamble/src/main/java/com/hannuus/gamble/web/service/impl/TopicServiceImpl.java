@@ -1,5 +1,6 @@
 package com.hannuus.gamble.web.service.impl;
 
+import java.util.Calendar;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -117,6 +118,26 @@ public class TopicServiceImpl implements TopicService {
 		TopicExample example = new TopicExample();
 		example.createCriteria().andSpecialIdEqualTo(specialId);
 		return topicMapper.countByExample(example);
+	}
+
+	@Override
+	public int countPopular(int days) {
+		TopicExample example = new TopicExample();
+		Calendar ca = Calendar.getInstance();
+		ca.add(Calendar.DAY_OF_YEAR, -days);
+		example.createCriteria().andCreatedDateGreaterThan(ca.getTime());
+		example.setOrderByClause(" hits desc ");
+		return topicMapper.countByExample(example);
+	}
+
+	@Override
+	public List<Topic> findPopularTopicsByPage(int pageNumber, int pageSize, int days) {
+		TopicExample example = new TopicExample();
+		Calendar ca = Calendar.getInstance();
+		ca.add(Calendar.DAY_OF_YEAR, -days);
+		example.createCriteria().andCreatedDateGreaterThan(ca.getTime());
+		example.setOrderByClause(" hits desc ");
+		return topicMapper.selectByExample(example);
 	}
 
 }
