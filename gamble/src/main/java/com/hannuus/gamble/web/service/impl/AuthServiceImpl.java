@@ -16,6 +16,8 @@ import com.hannuus.gamble.dao.RoleMapper;
 import com.hannuus.gamble.dao.RoleResourcePermissionMapper;
 import com.hannuus.gamble.dao.UserMapper;
 import com.hannuus.gamble.dao.UserRoleMapper;
+import com.hannuus.gamble.domain.page.PageDTO;
+import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.PermissionExample;
 import com.hannuus.gamble.model.Resource;
@@ -112,7 +114,6 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public void deleteUser(Long id) {
 		userMapper.deleteByPrimaryKey(id);
-
 	}
 
 	@Override
@@ -140,6 +141,16 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	public PageDTO<User> findUsersPage(PageParams params) {
+		int total = userMapper.countByExample(null);
+		UserExample example = new UserExample();
+		example.setLimitStart(params.getStart());
+		example.setLimitEnd(params.getPageSize());
+		List<User> list = userMapper.selectByExample(example);
+		return new PageDTO<User>(total, list);
+	}
+
+	@Override
 	public List<User> findUsersLike(String name) {
 		UserExample example = new UserExample();
 		example.createCriteria().andUserNameLike("%" + name + "%");
@@ -153,6 +164,13 @@ public class AuthServiceImpl implements AuthService {
 		example.createCriteria().andUserNameEqualTo(userName);
 		int count = userMapper.countByExample(example);
 		return count >= 1;
+	}
+
+	@Override
+	public void deleteUserRoleByUser(Long userId) {
+		UserRoleExample example = new UserRoleExample();
+		example.createCriteria().andUserIdEqualTo(userId);
+		userRoleMapper.deleteByExample(example);
 	}
 
 	@Override
@@ -190,6 +208,16 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	public PageDTO<Role> findRolesPage(PageParams params) {
+		int total = roleMapper.countByExample(null);
+		RoleExample example = new RoleExample();
+		example.setLimitStart(params.getStart());
+		example.setLimitEnd(params.getPageSize());
+		List<Role> list = roleMapper.selectByExample(example);
+		return new PageDTO<Role>(total, list);
+	}
+
+	@Override
 	public List<Role> findRolesLike(String name) {
 		RoleExample example = new RoleExample();
 		example.createCriteria().andNameLike("%" + name + "%");
@@ -204,6 +232,13 @@ public class AuthServiceImpl implements AuthService {
 		example.or().andRoleValueEqualTo(roleValue);
 		int count = roleMapper.countByExample(example);
 		return count >= 1;
+	}
+
+	@Override
+	public void deleteUserRoleByRole(Long roleId) {
+		UserRoleExample example = new UserRoleExample();
+		example.createCriteria().andRoleIdEqualTo(roleId);
+		userRoleMapper.deleteByExample(example);
 	}
 
 	@Override
@@ -239,6 +274,16 @@ public class AuthServiceImpl implements AuthService {
 		List<Resource> list = resourceMapper
 				.selectByExample(new ResourceExample());
 		return list;
+	}
+
+	@Override
+	public PageDTO<Resource> findResourcesPage(PageParams params) {
+		int total = resourceMapper.countByExample(null);
+		ResourceExample example = new ResourceExample();
+		example.setLimitEnd(params.getStart());
+		example.setLimitEnd(params.getPageSize());
+		List<Resource> list = resourceMapper.selectByExample(example);
+		return new PageDTO<Resource>(total, list);
 	}
 
 	@Override
@@ -291,6 +336,16 @@ public class AuthServiceImpl implements AuthService {
 		List<Permission> list = permissionMapper
 				.selectByExample(new PermissionExample());
 		return list;
+	}
+
+	@Override
+	public PageDTO<Permission> findPermissionsPage(PageParams params) {
+		int total = permissionMapper.countByExample(null);
+		PermissionExample example = new PermissionExample();
+		example.setLimitStart(params.getStart());
+		example.setLimitEnd(params.getPageSize());
+		List<Permission> list = permissionMapper.selectByExample(example);
+		return new PageDTO<Permission>(total, list);
 	}
 
 	@Override
@@ -366,6 +421,15 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
+	public List<RoleResourcePermission> findRrpByRole(Long roleId) {
+		RoleResourcePermissionExample example = new RoleResourcePermissionExample();
+		example.createCriteria().andRoleIdEqualTo(roleId);
+		List<RoleResourcePermission> rrps = roleResourcePermissionMapper
+				.selectByExample(example);
+		return rrps;
+	}
+
+	@Override
 	public void assignResourceAndPermissions(Long roleId,
 			Map<Long, Long[]> permissionMap) {
 		// 清理该角色对应所有资源和权限
@@ -383,6 +447,57 @@ public class AuthServiceImpl implements AuthService {
 					.get(resourceId));
 			rrp.setPermissionIds(permissionIds);
 			roleResourcePermissionMapper.insertSelective(rrp);
+		}
+	}
+
+	@Override
+	public void deleteRBACByRole(Long roleId) {
+		RoleResourcePermissionExample example = new RoleResourcePermissionExample();
+		example.createCriteria().andRoleIdEqualTo(roleId);
+		roleResourcePermissionMapper.deleteByExample(example);
+	}
+
+	@Override
+	public void deleteRBACByResource(Long resourceId) {
+		RoleResourcePermissionExample example = new RoleResourcePermissionExample();
+		example.createCriteria().andResourceIdEqualTo(resourceId);
+		roleResourcePermissionMapper.deleteByExample(example);
+	}
+
+	@Override
+	public void deleteRBACByPermission(Long permissionId) {
+		// FIXME cuesky 算法待完善
+		RoleResourcePermissionExample example = new RoleResourcePermissionExample();
+		example.createCriteria().andPermissionIdsLike("%" + permissionId + "%");
+		List<RoleResourcePermission> list = roleResourcePermissionMapper
+				.selectByExample(example);
+		deletePermissions(list, permissionId);
+		for (RoleResourcePermission rrp : list) {
+			String permissionIds = rrp.getPermissionIds();
+			if (StringUtils.isEmpty(permissionIds.trim())) {
+				// 没有permission则删除RBAC记录
+				roleResourcePermissionMapper.deleteByPrimaryKey(rrp.getId());
+			} else {
+				// 有则更新
+				roleResourcePermissionMapper.updateByPrimaryKeySelective(rrp);
+			}
+		}
+	}
+
+	/**
+	 * 擦除permissionId字符串
+	 * 
+	 * @param list
+	 * @param permissionId
+	 */
+	private void deletePermissions(List<RoleResourcePermission> list,
+			Long permissionId) {
+		for (int i = 0; i < list.size(); i++) {
+			RoleResourcePermission rrp = list.get(i);
+			String permissionIds = rrp.getPermissionIds();
+			permissionIds = GambleUtils.Security.removePermissionId(
+					permissionIds, permissionId);
+			rrp.setPermissionIds(permissionIds);
 		}
 	}
 

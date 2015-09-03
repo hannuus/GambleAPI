@@ -37,6 +37,12 @@ public final class R {
 
 	}
 
+	/**
+	 * 百度推送
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月3日 上午9:22:58
+	 */
 	public static final class baidupush {
 
 		public static final String api_key = "eMl56e2c5izUBNLwywhUCSiK";
@@ -60,11 +66,37 @@ public final class R {
 
 	}
 
+	/**
+	 * 分页
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月3日 上午9:23:13
+	 */
 	public static final class page {
 
 		public static final int default_page_size = 12;
 
 		public static final String attr_key = "page";
+
+	}
+
+	/**
+	 * 全局参数配置
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月3日 上午9:33:22
+	 */
+	public static final class global {
+
+		public static final String third_party_api = "thirdPartyApi";
+
+		public static final String tencent_key = "tencent";
+
+		public static final String webchat_key = "webchat";
+
+		public static final String baidu_key = "baidu";
+
+		public static final String weibo_key = "weibo";
 
 	}
 

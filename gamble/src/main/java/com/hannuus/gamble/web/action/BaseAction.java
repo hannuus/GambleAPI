@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
@@ -17,7 +18,10 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.comm.R;
+import com.hannuus.gamble.domain.page.PageQueryCallback;
+import com.hannuus.gamble.domain.page.PageWrapper;
 import com.hannuus.gamble.model.User;
+import com.hannuus.gamble.template.PageQueryTemplate;
 import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.exception.ErrorMessage;
 import com.hannuus.gamble.web.exception.GambleException;
@@ -40,6 +44,8 @@ public class BaseAction {
 
 	@Autowired
 	LoginService loginService;
+	@Autowired
+	PageQueryTemplate pageQueryTemplate;
 
 	@Autowired
 	PermissionService permissionService;
@@ -287,4 +293,42 @@ public class BaseAction {
 				"Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With");
 		response.addHeader("Access-Control-Max-Age", "30");
 	}
+
+	/**
+	 * 分页查询
+	 * 
+	 * @param pageNum
+	 *            页码
+	 * @param pageSize
+	 *            页面大小
+	 * @param map
+	 *            域模型
+	 * @param callback
+	 *            分页回调
+	 */
+	protected <T> void pageQuery(int pageNum, int pageSize, ModelMap map,
+			PageQueryCallback<T> callback) {
+		pageQueryTemplate.execute(pageNum, pageSize, map, callback);
+	}
+
+	/**
+	 * 分页查询
+	 * 
+	 * @param pageNum
+	 *            页码
+	 * @param pageSize
+	 *            页面大小
+	 * @param map
+	 *            域模型
+	 * @param callback
+	 *            分页回调
+	 * @param pageWrapper
+	 *            分页包装器
+	 */
+	protected <T> void pageQuery(int pageNum, int pageSize, ModelMap map,
+			PageQueryCallback<T> callback, PageWrapper pageWrapper) {
+		pageQueryTemplate
+				.execute(pageNum, pageSize, map, callback, pageWrapper);
+	}
+
 }
