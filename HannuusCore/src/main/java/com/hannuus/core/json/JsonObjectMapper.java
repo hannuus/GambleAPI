@@ -9,8 +9,6 @@ import com.fasterxml.jackson.databind.JsonSerializer;
 import com.fasterxml.jackson.databind.ObjectMapper;  
 //import com.fasterxml.jackson.databind.PropertyNamingStrategy;
 import com.fasterxml.jackson.databind.SerializerProvider;  
-//import com.fasterxml.jackson.databind.cfg.MapperConfig;
-//import com.fasterxml.jackson.databind.introspect.AnnotatedMethod;
   
 /** 
  * @description: JSON格式转换
@@ -27,27 +25,9 @@ public class JsonObjectMapper extends ObjectMapper {
             }
         });
         
-//        this.setPropertyNamingStrategy(new MyNaming());
         this.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_SINGLE_QUOTES, true);
         this.configure(Feature.WRITE_NUMBERS_AS_STRINGS, true);
         this.configure(Feature.QUOTE_NON_NUMERIC_NUMBERS, true);
         this.configure(com.fasterxml.jackson.core.JsonParser.Feature.ALLOW_UNQUOTED_FIELD_NAMES, true);
     }
-    
-//    class MyNaming extends PropertyNamingStrategy {
-//		private static final long serialVersionUID = -6130959716402255046L;
-//
-//		@Override
-//        public String nameForGetterMethod(MapperConfig<?> config,
-//             AnnotatedMethod method, String defaultName)
-//        {
-//          return convertName(defaultName);
-//        }
-//
-//		private String convertName(String defaultName) {
-//			StringBuilder bu = new StringBuilder();
-//			bu.append("\"").append(defaultName).append("\"");
-//			return bu.toString();
-//		}
-//     }
 }  
