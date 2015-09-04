@@ -20,8 +20,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -53,8 +52,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -101,8 +99,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from
-		user_role
+		delete from user_role
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserRoleExample">
@@ -117,8 +114,7 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into user_role (user_id, role_id)
-		values
-		(#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
+		values (#{userId,jdbcType=BIGINT}, #{roleId,jdbcType=BIGINT})
 	</insert>
 	<insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserRole">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
@@ -170,10 +166,8 @@
 	<update id="updateByExample" parameterType="map">
 		update user_role
 		set id = #{record.id,jdbcType=BIGINT},
-		user_id =
-		#{record.userId,jdbcType=BIGINT},
-		role_id =
-		#{record.roleId,jdbcType=BIGINT}
+		user_id = #{record.userId,jdbcType=BIGINT},
+		role_id = #{record.roleId,jdbcType=BIGINT}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -193,11 +187,9 @@
 	<update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserRole">
 		update user_role
 		set user_id = #{userId,jdbcType=BIGINT},
-		role_id =
-		#{roleId,jdbcType=BIGINT}
+		role_id = #{roleId,jdbcType=BIGINT}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-
 	<select id="findRoleValuesByUserName" parameterType="string"
 		resultType="string">
 		select role_value from role r,user_role ur,user u where

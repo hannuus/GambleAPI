@@ -77,7 +77,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, topic_id, title, user_id, modified_date, created_date, parent_id, state, up_count, 
+    id, topic_id, title, user_id, modified_date, created_date, parent_id, `state`, up_count, 
     down_count, collection_count, reply_count
   </sql>
   <sql id="Blob_Column_List" >
@@ -142,7 +142,7 @@
     </selectKey>
     insert into reply (topic_id, title, user_id, 
       modified_date, created_date, parent_id, 
-      state, up_count, down_count, 
+      `state`, up_count, down_count, 
       collection_count, reply_count, content
       )
     values (#{topicId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, #{userId,jdbcType=BIGINT}, 
@@ -176,7 +176,7 @@
         parent_id,
       </if>
       <if test="state != null" >
-        state,
+        `state`,
       </if>
       <if test="upCount != null" >
         up_count,
@@ -264,7 +264,7 @@
         parent_id = #{record.parentId,jdbcType=BIGINT},
       </if>
       <if test="record.state != null" >
-        state = #{record.state,jdbcType=INTEGER},
+        `state` = #{record.state,jdbcType=INTEGER},
       </if>
       <if test="record.upCount != null" >
         up_count = #{record.upCount,jdbcType=BIGINT},
@@ -295,7 +295,7 @@
       modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       parent_id = #{record.parentId,jdbcType=BIGINT},
-      state = #{record.state,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=INTEGER},
       up_count = #{record.upCount,jdbcType=BIGINT},
       down_count = #{record.downCount,jdbcType=BIGINT},
       collection_count = #{record.collectionCount,jdbcType=BIGINT},
@@ -314,7 +314,7 @@
       modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       parent_id = #{record.parentId,jdbcType=BIGINT},
-      state = #{record.state,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=INTEGER},
       up_count = #{record.upCount,jdbcType=BIGINT},
       down_count = #{record.downCount,jdbcType=BIGINT},
       collection_count = #{record.collectionCount,jdbcType=BIGINT},
@@ -345,7 +345,7 @@
         parent_id = #{parentId,jdbcType=BIGINT},
       </if>
       <if test="state != null" >
-        state = #{state,jdbcType=INTEGER},
+        `state` = #{state,jdbcType=INTEGER},
       </if>
       <if test="upCount != null" >
         up_count = #{upCount,jdbcType=BIGINT},
@@ -373,7 +373,7 @@
       modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
       created_date = #{createdDate,jdbcType=TIMESTAMP},
       parent_id = #{parentId,jdbcType=BIGINT},
-      state = #{state,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
       up_count = #{upCount,jdbcType=BIGINT},
       down_count = #{downCount,jdbcType=BIGINT},
       collection_count = #{collectionCount,jdbcType=BIGINT},
@@ -389,7 +389,7 @@
       modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
       created_date = #{createdDate,jdbcType=TIMESTAMP},
       parent_id = #{parentId,jdbcType=BIGINT},
-      state = #{state,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
       up_count = #{upCount,jdbcType=BIGINT},
       down_count = #{downCount,jdbcType=BIGINT},
       collection_count = #{collectionCount,jdbcType=BIGINT},

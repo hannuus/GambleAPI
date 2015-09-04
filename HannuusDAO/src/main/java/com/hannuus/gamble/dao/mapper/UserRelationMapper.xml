@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, created_date, type, from_id, to_id, description
+    id, created_date, `type`, from_id, to_id, description
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserRelationExample" >
     select
@@ -108,7 +108,7 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_relation (created_date, type, from_id, 
+    insert into user_relation (created_date, `type`, from_id, 
       to_id, description)
     values (#{createdDate,jdbcType=TIMESTAMP}, #{type,jdbcType=INTEGER}, #{fromId,jdbcType=BIGINT}, 
       #{toId,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR})
@@ -123,7 +123,7 @@
         created_date,
       </if>
       <if test="type != null" >
-        type,
+        `type`,
       </if>
       <if test="fromId != null" >
         from_id,
@@ -169,7 +169,7 @@
         created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       </if>
       <if test="record.type != null" >
-        type = #{record.type,jdbcType=INTEGER},
+        `type` = #{record.type,jdbcType=INTEGER},
       </if>
       <if test="record.fromId != null" >
         from_id = #{record.fromId,jdbcType=BIGINT},
@@ -189,7 +189,7 @@
     update user_relation
     set id = #{record.id,jdbcType=BIGINT},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
-      type = #{record.type,jdbcType=INTEGER},
+      `type` = #{record.type,jdbcType=INTEGER},
       from_id = #{record.fromId,jdbcType=BIGINT},
       to_id = #{record.toId,jdbcType=BIGINT},
       description = #{record.description,jdbcType=VARCHAR}
@@ -204,7 +204,7 @@
         created_date = #{createdDate,jdbcType=TIMESTAMP},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=INTEGER},
+        `type` = #{type,jdbcType=INTEGER},
       </if>
       <if test="fromId != null" >
         from_id = #{fromId,jdbcType=BIGINT},
@@ -221,7 +221,7 @@
   <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserRelation" >
     update user_relation
     set created_date = #{createdDate,jdbcType=TIMESTAMP},
-      type = #{type,jdbcType=INTEGER},
+      `type` = #{type,jdbcType=INTEGER},
       from_id = #{fromId,jdbcType=BIGINT},
       to_id = #{toId,jdbcType=BIGINT},
       description = #{description,jdbcType=VARCHAR}

@@ -73,8 +73,8 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, resource_value, description, type, priority, parent_id, parent_ids, url, 
-    created_date, available
+    id, `name`, resource_value, description, `type`, priority, parent_id, parent_ids, 
+    url, created_date, available
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.ResourceExample" >
     select
@@ -114,8 +114,8 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into resource (name, resource_value, description, 
-      type, priority, parent_id, 
+    insert into resource (`name`, resource_value, description, 
+      `type`, priority, parent_id, 
       parent_ids, url, created_date, 
       available)
     values (#{name,jdbcType=VARCHAR}, #{resourceValue,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
@@ -130,7 +130,7 @@
     insert into resource
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="name != null" >
-        name,
+        `name`,
       </if>
       <if test="resourceValue != null" >
         resource_value,
@@ -139,7 +139,7 @@
         description,
       </if>
       <if test="type != null" >
-        type,
+        `type`,
       </if>
       <if test="priority != null" >
         priority,
@@ -206,7 +206,7 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.resourceValue != null" >
         resource_value = #{record.resourceValue,jdbcType=VARCHAR},
@@ -215,7 +215,7 @@
         description = #{record.description,jdbcType=VARCHAR},
       </if>
       <if test="record.type != null" >
-        type = #{record.type,jdbcType=VARCHAR},
+        `type` = #{record.type,jdbcType=VARCHAR},
       </if>
       <if test="record.priority != null" >
         priority = #{record.priority,jdbcType=INTEGER},
@@ -243,10 +243,10 @@
   <update id="updateByExample" parameterType="map" >
     update resource
     set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
       resource_value = #{record.resourceValue,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
-      type = #{record.type,jdbcType=VARCHAR},
+      `type` = #{record.type,jdbcType=VARCHAR},
       priority = #{record.priority,jdbcType=INTEGER},
       parent_id = #{record.parentId,jdbcType=BIGINT},
       parent_ids = #{record.parentIds,jdbcType=VARCHAR},
@@ -261,7 +261,7 @@
     update resource
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="resourceValue != null" >
         resource_value = #{resourceValue,jdbcType=VARCHAR},
@@ -270,7 +270,7 @@
         description = #{description,jdbcType=VARCHAR},
       </if>
       <if test="type != null" >
-        type = #{type,jdbcType=VARCHAR},
+        `type` = #{type,jdbcType=VARCHAR},
       </if>
       <if test="priority != null" >
         priority = #{priority,jdbcType=INTEGER},
@@ -295,10 +295,10 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Resource" >
     update resource
-    set name = #{name,jdbcType=VARCHAR},
+    set `name` = #{name,jdbcType=VARCHAR},
       resource_value = #{resourceValue,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
-      type = #{type,jdbcType=VARCHAR},
+      `type` = #{type,jdbcType=VARCHAR},
       priority = #{priority,jdbcType=INTEGER},
       parent_id = #{parentId,jdbcType=BIGINT},
       parent_ids = #{parentIds,jdbcType=VARCHAR},

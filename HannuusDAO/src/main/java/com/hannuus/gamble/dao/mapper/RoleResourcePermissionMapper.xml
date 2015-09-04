@@ -23,8 +23,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -56,8 +55,7 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value}
-									and
+									and ${criterion.condition} #{criterion.value} and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -104,8 +102,7 @@
 		where id = #{id,jdbcType=BIGINT}
 	</select>
 	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
-		delete from
-		role_resource_permission
+		delete from role_resource_permission
 		where id = #{id,jdbcType=BIGINT}
 	</delete>
 	<delete id="deleteByExample"
@@ -123,8 +120,7 @@
 		insert into role_resource_permission (role_id, resource_id,
 		permission_ids
 		)
-		values (#{roleId,jdbcType=BIGINT},
-		#{resourceId,jdbcType=BIGINT},
+		values (#{roleId,jdbcType=BIGINT}, #{resourceId,jdbcType=BIGINT},
 		#{permissionIds,jdbcType=VARCHAR}
 		)
 	</insert>
@@ -178,8 +174,7 @@
 				resource_id = #{record.resourceId,jdbcType=BIGINT},
 			</if>
 			<if test="record.permissionIds != null">
-				permission_ids =
-				#{record.permissionIds,jdbcType=VARCHAR},
+				permission_ids = #{record.permissionIds,jdbcType=VARCHAR},
 			</if>
 		</set>
 		<if test="_parameter != null">
@@ -190,10 +185,8 @@
 		update role_resource_permission
 		set id = #{record.id,jdbcType=BIGINT},
 		role_id = #{record.roleId,jdbcType=BIGINT},
-		resource_id =
-		#{record.resourceId,jdbcType=BIGINT},
-		permission_ids =
-		#{record.permissionIds,jdbcType=VARCHAR}
+		resource_id = #{record.resourceId,jdbcType=BIGINT},
+		permission_ids = #{record.permissionIds,jdbcType=VARCHAR}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -214,15 +207,12 @@
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.RoleResourcePermission">
-		update
-		role_resource_permission
+		update role_resource_permission
 		set role_id = #{roleId,jdbcType=BIGINT},
 		resource_id = #{resourceId,jdbcType=BIGINT},
-		permission_ids =
-		#{permissionIds,jdbcType=VARCHAR}
+		permission_ids = #{permissionIds,jdbcType=VARCHAR}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
-
 	<select id="findResourcePermissionsByUserName" parameterType="string"
 		resultMap="BaseResultMap">
 		select rrp.* from role_resource_permission rrp,user
@@ -235,5 +225,4 @@
 		select r.* from resource r,role_resource_permission rrp
 		where rrp.role_id=#{roleId} and rrp.resource_id=r.id
 	</select>
-
 </mapper>

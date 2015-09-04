@@ -68,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, permission_value, description, created_date, available
+    id, `name`, permission_value, description, created_date, available
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.PermissionExample" >
     select
@@ -108,7 +108,7 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into permission (name, permission_value, description, 
+    insert into permission (`name`, permission_value, description, 
       created_date, available)
     values (#{name,jdbcType=VARCHAR}, #{permissionValue,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{createdDate,jdbcType=TIMESTAMP}, #{available,jdbcType=INTEGER})
@@ -120,7 +120,7 @@
     insert into permission
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="name != null" >
-        name,
+        `name`,
       </if>
       <if test="permissionValue != null" >
         permission_value,
@@ -166,7 +166,7 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.permissionValue != null" >
         permission_value = #{record.permissionValue,jdbcType=VARCHAR},
@@ -188,7 +188,7 @@
   <update id="updateByExample" parameterType="map" >
     update permission
     set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
       permission_value = #{record.permissionValue,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
@@ -201,7 +201,7 @@
     update permission
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="permissionValue != null" >
         permission_value = #{permissionValue,jdbcType=VARCHAR},
@@ -220,7 +220,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Permission" >
     update permission
-    set name = #{name,jdbcType=VARCHAR},
+    set `name` = #{name,jdbcType=VARCHAR},
       permission_value = #{permissionValue,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       created_date = #{createdDate,jdbcType=TIMESTAMP},
