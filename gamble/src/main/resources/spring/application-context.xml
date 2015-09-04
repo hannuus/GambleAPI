@@ -148,6 +148,7 @@
 				/api/test/login=anon
 				/api/auth/**=roles[admin]
 				/api/global/**=roles[admin]
+				/api/custom/**=roles[user]
 				/api/thirdparty/**=roles[admin]
 				/**=authc
 			</value>
