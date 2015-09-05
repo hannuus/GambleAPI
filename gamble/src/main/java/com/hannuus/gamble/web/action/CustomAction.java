@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.model.BlackList;
+import com.hannuus.gamble.model.GlobalParams;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.service.CustomService;
 
@@ -67,17 +68,40 @@ public class CustomAction extends BaseAction {
 		return json;
 	}
 
-	@RequestMapping("/black")
-	public String isBack() {
-		BlackList blackList = new BlackList();
-		blackList.setUserId(1L);
-		blackList.setBlackUserId(2L);
-		customService.isBack(blackList);
-		return null;
-	}
-
 	// 推送消息设置====================================================================
 
+	@RequestMapping("/enablePush.json")
+	public JsonVo<Integer> enablePush(String flag) {
+		JsonVo<Integer> json = new JsonVo<Integer>();
+		int count = customService.enablePush(flag);
+		if (count != 1) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
+		} else {
+			json.setStatus(JsonResultStatus.Success.getValue());
+		}
+		return json;
+	}
+
 	// 无图模式=======================================================================
+
+	@RequestMapping("/enableImage.json")
+	public JsonVo<Integer> enableImage(String flag) {
+		JsonVo<Integer> json = new JsonVo<Integer>();
+		int count = customService.enableImage(flag);
+		if (count != 1) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
+		} else {
+			json.setStatus(JsonResultStatus.Success.getValue());
+		}
+		return json;
+	}
+
+	// 客户端查询接口====================================================================
+
+	@RequestMapping("/queryCustom.json")
+	public JsonVo<List<GlobalParams>> queryCustomSettings() {
+		// TODO cuesky
+		return null;
+	}
 
 }

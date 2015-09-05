@@ -88,6 +88,12 @@ public final class R {
 	 */
 	public static final class global {
 
+		public static final String enable = "1";
+
+		public static final String disable = "0";
+
+		// 第三方API相关
+
 		public static final String third_party_api = "thirdPartyApi";
 
 		public static final String tencent_key = "tencent";
@@ -97,6 +103,14 @@ public final class R {
 		public static final String baidu_key = "baidu";
 
 		public static final String weibo_key = "weibo";
+
+		// 客户端设置相关
+
+		public static final String client_setting = "clientSetting";
+
+		public static final String push_key = "push";
+
+		public static final String image_key = "image";
 
 	}
 

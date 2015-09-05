@@ -51,6 +51,36 @@ public interface CustomService {
 
 	// 推送消息设置====================================================================
 
+	/**
+	 * client设置是否接受消息推送
+	 * 
+	 * @param flag
+	 * @return
+	 */
+	public int enablePush(String flag);
+
+	/**
+	 * client是否接受消息推送
+	 * 
+	 * @return
+	 */
+	public boolean isPushEnable();
+
 	// 无图模式=======================================================================
+
+	/**
+	 * client设置是否接受图片
+	 * 
+	 * @param flag
+	 * @return
+	 */
+	public int enableImage(String flag);
+
+	/**
+	 * client是否接受图片
+	 * 
+	 * @return
+	 */
+	public boolean isImageEnable();
 
 }
