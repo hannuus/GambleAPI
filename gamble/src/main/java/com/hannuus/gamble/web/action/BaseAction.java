@@ -43,6 +43,7 @@ public class BaseAction {
 
 	@Autowired
 	LoginService loginService;
+	
 	@Autowired
 	PageQueryTemplate pageQueryTemplate;
 
@@ -120,9 +121,9 @@ public class BaseAction {
 	 */
 	private boolean isAccessTokenValid(HttpServletRequest request) {
 		String token = getStringReqParam(R.request.access_token);
-		if (StringUtils.isEmpty(token)) {
-			return false;
-		}
+//		if (StringUtils.isEmpty(token)) {
+//			return false;
+//		}
 		String savedToken = getStringInSession(R.session.access_token, null);
 		if (StringUtils.isEmpty(savedToken)) {
 			return false;
@@ -167,7 +168,7 @@ public class BaseAction {
 		try {
 			return Long.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
 			return defaultValue;
 		}
 	}
@@ -185,7 +186,7 @@ public class BaseAction {
 		try {
 			return Integer.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
 			return defaultValue;
 		}
 	}
@@ -203,7 +204,7 @@ public class BaseAction {
 		try {
 			return Double.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
 			return defaultValue;
 		}
 	}
@@ -245,7 +246,7 @@ public class BaseAction {
 		try {
 			return (String) session.getAttribute(key);
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
 			return defaultValue;
 		}
 	}
