@@ -116,8 +116,7 @@ public class TopicAction extends BaseAction {
 			json.setTotal(total);
 			json.setResult(list);
 		}
-		throw new NullPointerException();
-//		return json;
+		return json;
 	}
 
 	/**
