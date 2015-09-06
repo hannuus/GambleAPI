@@ -1,6 +1,7 @@
 package com.hannuus.gamble.comm;
 
 import java.util.Map;
+
 import com.google.common.collect.Maps;
 
 public enum UserState {

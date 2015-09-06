@@ -1,13 +1,16 @@
 package com.hannuus.gamble.web.action;
 
 import org.apache.log4j.Logger;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.apache.shiro.authz.annotation.RequiresUser;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.hannuus.gamble.model.UserToken;
+import com.hannuus.gamble.web.service.CustomService;
 
 @Controller
 @RequestMapping("/test")
@@ -15,12 +18,19 @@ public class TestAction extends BaseAction {
 
 	private Logger logger = Logger.getLogger(getClass());
 
+	@Autowired
+	CustomService customService;
+
 	@RequestMapping("/login")
-	public String login(String userName, String password) {
+	public String login(UserToken userToken) {
 		logger.debug("login...");
-		UsernamePasswordToken token = new UsernamePasswordToken(userName,
-				password);
-		SecurityUtils.getSubject().login(token);
+		// UsernamePasswordToken token = new UsernamePasswordToken(userName,
+		// password);
+		// SecurityUtils.getSubject().login(token);
+		UserToken token = customService.checkLogin(userToken);
+		if (token == null) {
+			throw new AuthenticationException();
+		}
 		logger.debug("login done...");
 		return "/success";
 	}
@@ -28,7 +38,8 @@ public class TestAction extends BaseAction {
 	@RequestMapping("/logout")
 	public String logout(String userName, String password) {
 		logger.debug("logout in...");
-		SecurityUtils.getSubject().logout();
+		// SecurityUtils.getSubject().logout();
+		customService.logout();
 		logger.debug("logout done...");
 		return "/index";
 	}

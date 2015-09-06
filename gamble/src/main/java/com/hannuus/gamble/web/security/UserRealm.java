@@ -17,10 +17,9 @@ import org.apache.shiro.subject.PrincipalCollection;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.hannuus.gamble.domain.AccessToken;
+import com.hannuus.gamble.model.UserToken;
 import com.hannuus.gamble.web.service.AuthService;
-import com.hannuus.gamble.web.service.LoginService;
-import com.hannuus.gamble.web.service.UserService;
+import com.hannuus.gamble.web.service.CustomService;
 
 /**
  * @author cuesky
@@ -31,12 +30,15 @@ public class UserRealm extends AuthorizingRealm {
 
 	private Logger logger = Logger.getLogger(getClass());
 
-	@Autowired
-	UserService userService;
-	@Autowired
-	LoginService loginService;
+	// @Autowired
+	// UserService userService;
+	// @Autowired
+	// LoginService loginService;
+
 	@Autowired
 	AuthService authService;
+	@Autowired
+	CustomService customService;
 
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(
@@ -65,8 +67,9 @@ public class UserRealm extends AuthorizingRealm {
 		UsernamePasswordToken t = (UsernamePasswordToken) token;
 		String username = t.getUsername();
 		String password = new String(t.getPassword(), 0, t.getPassword().length);
-		AccessToken at = loginService.userLogin(username, password);
-		if (at == null) {
+		// AccessToken at = loginService.userLogin(username, password);
+		UserToken userToken = customService.loginByRealm(username, password);
+		if (userToken == null) {
 			throw new UnknownAccountException();
 		}
 		SimpleAuthenticationInfo info = new SimpleAuthenticationInfo(username,

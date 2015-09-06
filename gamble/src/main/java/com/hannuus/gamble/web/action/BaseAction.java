@@ -37,6 +37,7 @@ import com.hannuus.gamble.web.service.PermissionService;
  * @author cuesky
  * @date 2015年8月27日 下午8:56:45
  */
+@SuppressWarnings("deprecation")
 public class BaseAction {
 
 	private Logger logger = Logger.getLogger(getClass());
@@ -167,7 +168,9 @@ public class BaseAction {
 		try {
 			return Long.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", e));
+			logger.error(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: ",
+							e));
 			return defaultValue;
 		}
 	}
@@ -185,7 +188,9 @@ public class BaseAction {
 		try {
 			return Integer.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", e));
+			logger.error(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: ",
+							e));
 			return defaultValue;
 		}
 	}
@@ -203,7 +208,9 @@ public class BaseAction {
 		try {
 			return Double.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", e));
+			logger.error(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: ",
+							e));
 			return defaultValue;
 		}
 	}
@@ -245,7 +252,9 @@ public class BaseAction {
 		try {
 			return (String) session.getAttribute(key);
 		} catch (Exception e) {
-			logger.error(MessageFormat.format("get {0} error, use default value: {1}, exception details: ", key, defaultValue, e));
+			logger.error(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: ",
+							key, defaultValue, e));
 			return defaultValue;
 		}
 	}

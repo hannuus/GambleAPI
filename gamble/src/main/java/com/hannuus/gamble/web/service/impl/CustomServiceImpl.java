@@ -1,20 +1,29 @@
 package com.hannuus.gamble.web.service.impl;
 
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.collections.CollectionUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.log4j.Logger;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.UsernamePasswordToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.dao.BlackListMapper;
 import com.hannuus.gamble.dao.GlobalParamsMapper;
+import com.hannuus.gamble.dao.UserMapper;
+import com.hannuus.gamble.dao.UserTokenMapper;
 import com.hannuus.gamble.model.BlackList;
 import com.hannuus.gamble.model.BlackListExample;
 import com.hannuus.gamble.model.GlobalParams;
 import com.hannuus.gamble.model.GlobalParamsExample;
 import com.hannuus.gamble.model.User;
+import com.hannuus.gamble.model.UserToken;
+import com.hannuus.gamble.model.UserTokenExample;
 import com.hannuus.gamble.web.service.CustomService;
 
 /**
@@ -24,14 +33,172 @@ import com.hannuus.gamble.web.service.CustomService;
 @Service
 public class CustomServiceImpl implements CustomService {
 
-	// 帐号密码设置===================================================================
-
-	// 黑名单管理=====================================================================
+	private Logger logger = Logger.getLogger(getClass());
 
 	@Autowired
 	BlackListMapper blackListMapper;
 	@Autowired
 	GlobalParamsMapper globalParamsMapper;
+	@Autowired
+	UserTokenMapper userTokenMapper;
+	@Autowired
+	UserMapper userMapper;
+
+	// 登录、注册与注销================================================================
+
+	@Override
+	public UserToken findUserTokenByUserNameOrEmail(UserToken userToken) {
+		UserTokenExample example = new UserTokenExample();
+		example.or().andUserNameEqualTo(userToken.getUserName());
+		example.or().andEmailEqualTo(userToken.getEmail());
+		List<UserToken> list = userTokenMapper.selectByExample(example);
+		if (CollectionUtils.isEmpty(list)) {
+			return null;
+		}
+		return list.get(0);
+	}
+
+	@Override
+	public UserToken regist(UserToken userToken) {
+		generateToken(userToken);
+		userTokenMapper.insertSelective(userToken);
+		// 同时保存user
+		User user = new User();
+		user.setUserName(userToken.getUserName());
+		user.setEmail(userToken.getEmail());
+		user.setMobile(userToken.getMobile());
+		user.setState(1);// 默认可用
+		user.setFlag(1);// 默认正常用户
+		user.setCreatedDate(new Date());// 默认系统时间
+		userMapper.insertSelective(user);
+		return userToken;
+	}
+
+	/**
+	 * 创建token值
+	 * 
+	 * @param userToken
+	 * @return
+	 */
+	private void generateToken(UserToken userToken) {
+		logger.debug("generateToken...");
+		// TODO cuesky
+		// FIXME need argue with huangrong and aelns
+		// String token = null;
+		// userToken.setToken(token);
+		// AccessToken accessToken = new AccessToken();
+		// userToken.setAccessToken(accessToken);
+	}
+
+	@Override
+	public UserToken checkLogin(UserToken userToken) {
+		logger.debug("checkLogin in...");
+		// TODO 可完善为多种登录方式
+		// 在userRealm中完成登录
+		UsernamePasswordToken token = new UsernamePasswordToken(
+				userToken.getUserName(), userToken.getPassword());
+		UserToken ut = null;
+		try {
+			SecurityUtils.getSubject().login(token);
+			ut = findUserTokenByUserName(userToken);
+			generateToken(ut);
+		} catch (AuthenticationException e) {
+			// e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+		logger.debug("checkLogin out...");
+		return ut;
+	}
+
+	public UserToken loginByRealm(String userName, String password) {
+		logger.debug("loginByRealm in...");
+		UserToken userToken = null;
+		UserTokenExample example = new UserTokenExample();
+		example.createCriteria().andUserNameEqualTo(userName)
+				.andPasswordEqualTo(password);
+		List<UserToken> list = userTokenMapper.selectByExample(example);
+		if (CollectionUtils.isNotEmpty(list)) {
+			userToken = list.get(0);
+		}
+		logger.debug("loginByRealm out...");
+		return userToken;
+	}
+
+	@Override
+	public void logout() {
+		try {
+			SecurityUtils.getSubject().logout();
+		} catch (Exception e) {
+			// e.printStackTrace();
+			logger.error(e.getMessage());
+		}
+	}
+
+	// 帐号密码设置===================================================================
+
+	@Override
+	public UserToken findUserTokenByUserName(UserToken userToken) {
+		UserTokenExample example = new UserTokenExample();
+		example.createCriteria().andUserNameEqualTo(userToken.getUserName());
+		List<UserToken> list = userTokenMapper.selectByExample(example);
+		if (CollectionUtils.isEmpty(list)) {
+			return null;
+		}
+		return list.get(0);
+	}
+
+	@Override
+	public void sendReceipt(UserToken userToken) {
+		userToken = findUserTokenByUserName(userToken);
+		generateReceiptNum(userToken);
+		emailReceipt(userToken);
+	}
+
+	/**
+	 * Email回执号码
+	 * 
+	 * @param userToken
+	 */
+	private void emailReceipt(UserToken userToken) {
+		// TODO cuesky
+	}
+
+	/**
+	 * 生成回执号码设置给userToken
+	 * 
+	 * @param userToken
+	 */
+	private void generateReceiptNum(UserToken userToken) {
+		// TODO cuesky
+	}
+
+	@Override
+	public UserToken modifyUserToken(UserToken userToken) {
+		UserTokenExample example = new UserTokenExample();
+		example.createCriteria().andUserNameEqualTo(userToken.getUserName());
+		UserToken record = new UserToken();
+		record.setEmail(userToken.getEmail());
+		record.setMobile(userToken.getEmail());
+		record.setPassword(userToken.getPassword());
+		userTokenMapper.updateByExample(record, example);
+		userToken = findUserTokenByUserName(userToken);
+		return userToken;
+	}
+
+	@Override
+	public UserToken bandAccount(UserToken userToken) {
+		UserTokenExample example = new UserTokenExample();
+		example.createCriteria().andUserNameEqualTo(userToken.getUserName());
+		UserToken record = new UserToken();
+		record.setWebchat(userToken.getWebchat());
+		record.setQq(userToken.getQq());
+		record.setSina(userToken.getSina());
+		userTokenMapper.updateByExampleSelective(record, example);
+		userToken = findUserTokenByUserName(userToken);
+		return userToken;
+	}
+
+	// 黑名单管理=====================================================================
 
 	@Override
 	public List<User> findBlackList(Long userId) {

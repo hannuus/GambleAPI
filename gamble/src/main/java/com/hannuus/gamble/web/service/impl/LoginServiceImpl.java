@@ -13,7 +13,15 @@ import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.UserService;
 
+/**
+ * 测试完毕后再移植回来
+ * 
+ * @author aelns
+ * @date 2015年9月6日 下午2:34:12
+ * @see com.hannuus.gamble.web.service.impl.CustomServiceImpl
+ */
 @Service
+@Deprecated
 public class LoginServiceImpl implements LoginService {
 
 	@Autowired
