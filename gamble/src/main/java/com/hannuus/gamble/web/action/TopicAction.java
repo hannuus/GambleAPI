@@ -109,8 +109,7 @@ public class TopicAction extends BaseAction {
 		int pageSize = getIntegerReqParam("pageSize",
 				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = topicService.countTopicsByCategoryId(categoryId);
-		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId,
-				pageNumber, pageSize);
+		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId, pageNumber, pageSize);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		} else {
@@ -134,17 +133,17 @@ public class TopicAction extends BaseAction {
 	public JsonVo<List<Topic>> listBySpeciaId(HttpServletRequest request,
 			HttpServletResponse response) {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
-		Long speciaId = getLongReqParam("speciaId", 0L);
+		Long speciaId = getLongReqParam("id", 0L);
 		int pageNumber = getIntegerReqParam("pageNumber", 1);
-		int pageSize = getIntegerReqParam("pageSize",
-				SystemConstants.DEFAULT_PAGE_SIZE);
+		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = topicService.countTopicsBySpeciaId(speciaId);
-		json.setTotal(total);
-		List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId,
-				pageNumber, pageSize);
-		json.setResult(list);
-		if (CollectionUtils.isEmpty(list)) {
-			json.setStatus(JsonResultStatus.EmptyResult.getValue());
+		json.setStatus(JsonResultStatus.EmptyResult.getValue());
+		if (total > 0) {
+			List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId, pageNumber, pageSize);
+			if (CollectionUtils.isNotEmpty(list)) {
+				json.setResult(list);
+				json.setTotal(total);
+			}
 		}
 		return json;
 	}
@@ -267,7 +266,7 @@ public class TopicAction extends BaseAction {
 	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete.json", method = { RequestMethod.POST })
+	@RequestMapping(value = "/delete.json", method = { RequestMethod.POST, RequestMethod.GET })
 	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id,
 			HttpServletRequest request, HttpServletResponse response)
 			throws GambleException {
