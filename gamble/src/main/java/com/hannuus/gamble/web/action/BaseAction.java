@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.apache.shiro.authz.UnauthorizedException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -55,6 +56,9 @@ public class BaseAction {
 
 	@ExceptionHandler(Exception.class)
 	public ModelAndView handleAnyException(Exception ex) {
+		if (ex instanceof UnauthorizedException) {
+			return new ModelAndView("/unauthorized");
+		}
 		return new ModelAndView(jsonView, "error", new JsonVo<String>(ex));
 	}
 
