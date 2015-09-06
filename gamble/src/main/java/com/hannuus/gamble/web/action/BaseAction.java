@@ -37,6 +37,7 @@ import com.hannuus.gamble.web.service.PermissionService;
  * @author cuesky
  * @date 2015年8月27日 下午8:56:45
  */
+@SuppressWarnings("deprecation")
 public class BaseAction {
 
 	private Logger logger = Logger.getLogger(getClass());

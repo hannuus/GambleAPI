@@ -87,7 +87,7 @@
   </sql>
   <sql id="Base_Column_List" >
     id, category_id, special_id, title, user_id, enabled, hits, reply_count, modified_by, 
-    modified_date, replied_by, replied_date, icon_id, state, image_url, created_date, 
+    modified_date, replied_by, replied_date, icon_id, `state`, image_url, created_date, 
     follow_count, tag_id, up_count, down_count, collection_count
   </sql>
   <sql id="Blob_Column_List" >
@@ -154,7 +154,7 @@
       user_id, enabled, hits, 
       reply_count, modified_by, modified_date, 
       replied_by, replied_date, icon_id, 
-      state, image_url, created_date, 
+      `state`, image_url, created_date, 
       follow_count, tag_id, up_count, 
       down_count, collection_count, content
       )
@@ -210,7 +210,7 @@
         icon_id,
       </if>
       <if test="state != null" >
-        state,
+        `state`,
       </if>
       <if test="imageUrl != null" >
         image_url,
@@ -352,7 +352,7 @@
         icon_id = #{record.iconId,jdbcType=BIGINT},
       </if>
       <if test="record.state != null" >
-        state = #{record.state,jdbcType=INTEGER},
+        `state` = #{record.state,jdbcType=INTEGER},
       </if>
       <if test="record.imageUrl != null" >
         image_url = #{record.imageUrl,jdbcType=VARCHAR},
@@ -398,7 +398,7 @@
       replied_by = #{record.repliedBy,jdbcType=BIGINT},
       replied_date = #{record.repliedDate,jdbcType=TIMESTAMP},
       icon_id = #{record.iconId,jdbcType=BIGINT},
-      state = #{record.state,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=INTEGER},
       image_url = #{record.imageUrl,jdbcType=VARCHAR},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       follow_count = #{record.followCount,jdbcType=BIGINT},
@@ -426,7 +426,7 @@
       replied_by = #{record.repliedBy,jdbcType=BIGINT},
       replied_date = #{record.repliedDate,jdbcType=TIMESTAMP},
       icon_id = #{record.iconId,jdbcType=BIGINT},
-      state = #{record.state,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=INTEGER},
       image_url = #{record.imageUrl,jdbcType=VARCHAR},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP},
       follow_count = #{record.followCount,jdbcType=BIGINT},
@@ -478,7 +478,7 @@
         icon_id = #{iconId,jdbcType=BIGINT},
       </if>
       <if test="state != null" >
-        state = #{state,jdbcType=INTEGER},
+        `state` = #{state,jdbcType=INTEGER},
       </if>
       <if test="imageUrl != null" >
         image_url = #{imageUrl,jdbcType=VARCHAR},
@@ -521,7 +521,7 @@
       replied_by = #{repliedBy,jdbcType=BIGINT},
       replied_date = #{repliedDate,jdbcType=TIMESTAMP},
       icon_id = #{iconId,jdbcType=BIGINT},
-      state = #{state,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
       image_url = #{imageUrl,jdbcType=VARCHAR},
       created_date = #{createdDate,jdbcType=TIMESTAMP},
       follow_count = #{followCount,jdbcType=BIGINT},
@@ -546,7 +546,7 @@
       replied_by = #{repliedBy,jdbcType=BIGINT},
       replied_date = #{repliedDate,jdbcType=TIMESTAMP},
       icon_id = #{iconId,jdbcType=BIGINT},
-      state = #{state,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
       image_url = #{imageUrl,jdbcType=VARCHAR},
       created_date = #{createdDate,jdbcType=TIMESTAMP},
       follow_count = #{followCount,jdbcType=BIGINT},

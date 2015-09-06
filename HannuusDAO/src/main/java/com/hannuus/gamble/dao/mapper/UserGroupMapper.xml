@@ -67,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, name, group_value, description, created_date
+    id, `name`, group_value, description, created_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserGroupExample" >
     select
@@ -107,7 +107,7 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into user_group (name, group_value, description, 
+    insert into user_group (`name`, group_value, description, 
       created_date)
     values (#{name,jdbcType=VARCHAR}, #{groupValue,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{createdDate,jdbcType=TIMESTAMP})
@@ -119,7 +119,7 @@
     insert into user_group
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="name != null" >
-        name,
+        `name`,
       </if>
       <if test="groupValue != null" >
         group_value,
@@ -159,7 +159,7 @@
         id = #{record.id,jdbcType=BIGINT},
       </if>
       <if test="record.name != null" >
-        name = #{record.name,jdbcType=VARCHAR},
+        `name` = #{record.name,jdbcType=VARCHAR},
       </if>
       <if test="record.groupValue != null" >
         group_value = #{record.groupValue,jdbcType=VARCHAR},
@@ -178,7 +178,7 @@
   <update id="updateByExample" parameterType="map" >
     update user_group
     set id = #{record.id,jdbcType=BIGINT},
-      name = #{record.name,jdbcType=VARCHAR},
+      `name` = #{record.name,jdbcType=VARCHAR},
       group_value = #{record.groupValue,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP}
@@ -190,7 +190,7 @@
     update user_group
     <set >
       <if test="name != null" >
-        name = #{name,jdbcType=VARCHAR},
+        `name` = #{name,jdbcType=VARCHAR},
       </if>
       <if test="groupValue != null" >
         group_value = #{groupValue,jdbcType=VARCHAR},
@@ -206,7 +206,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserGroup" >
     update user_group
-    set name = #{name,jdbcType=VARCHAR},
+    set `name` = #{name,jdbcType=VARCHAR},
       group_value = #{groupValue,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       created_date = #{createdDate,jdbcType=TIMESTAMP}

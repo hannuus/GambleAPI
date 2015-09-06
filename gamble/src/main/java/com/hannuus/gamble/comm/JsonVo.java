@@ -1,6 +1,5 @@
 package com.hannuus.gamble.comm;
 
-
 import java.io.PrintWriter;
 import java.io.StringWriter;
 import java.io.Writer;

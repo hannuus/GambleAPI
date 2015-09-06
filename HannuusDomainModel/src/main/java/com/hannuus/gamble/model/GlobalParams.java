@@ -2,8 +2,10 @@ package com.hannuus.gamble.model;
 
 import java.util.Date;
 
-public class GlobalParams {
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.hannuus.core.json.DateSerializer;
 
+public class GlobalParams {
 	private Long id;
 
 	private String typeName;
@@ -16,6 +18,7 @@ public class GlobalParams {
 
 	private String description;
 
+	@JsonSerialize(using = DateSerializer.class)
 	private Date createdDate;
 
 	public Long getId() {
@@ -73,5 +76,4 @@ public class GlobalParams {
 	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
-
 }

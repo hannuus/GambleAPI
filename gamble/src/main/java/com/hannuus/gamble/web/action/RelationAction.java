@@ -7,20 +7,20 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.collections.CollectionUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
 
 import com.google.common.collect.Lists;
+import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.comm.SystemConstants;
 import com.hannuus.gamble.comm.UserRelationType;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.model.UserRelation;
-import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.gamble.web.exception.GambleException;
 import com.hannuus.gamble.web.exception.api.ArgumentsIncorrectException;
 import com.hannuus.gamble.web.service.UserRelationService;

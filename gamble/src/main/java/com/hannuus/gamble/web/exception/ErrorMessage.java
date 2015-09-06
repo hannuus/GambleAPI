@@ -5,8 +5,6 @@ import java.io.StringWriter;
 import java.io.Writer;
 
 //import org.codehaus.jackson.annotate.JsonProperty;
-
-
 import com.baidu.yun.push.exception.PushClientException;
 import com.baidu.yun.push.exception.PushServerException;
 import com.fasterxml.jackson.annotation.JsonProperty;

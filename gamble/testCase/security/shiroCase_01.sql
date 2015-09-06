@@ -2,6 +2,10 @@ insert into user(id,user_name,password) values(1,'aelns','admin');
 insert into user(id,user_name,password) values(2,'cuesky','admin');
 insert into user(id,user_name,password) values(3,'dude','admin');
 
+insert into user_token(id,user_id,user_name,password,email) values(1,1,'aelns','admin','x@qq.com');
+insert into user_token(id,user_id,user_name,password,email) values(2,2,'cuesky','admin','x@qq.com');
+insert into user_token(id,user_id,user_name,password,email) values(3,3,'dude','admin','x@qq.com');
+
 insert into role(id,name,role_value,available) values(1,'管理员','admin',1);
 insert into role(id,name,role_value,available) values(2,'运营人员','oper',1);
 insert into role(id,name,role_value,available) values(3,'正常用户','user_strong',1);

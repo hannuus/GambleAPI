@@ -69,7 +69,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List" >
-    id, type_name, type_value, key, value, description, created_date
+    id, type_name, type_value, `key`, `value`, description, created_date
   </sql>
   <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.GlobalParamsExample" >
     select
@@ -109,8 +109,8 @@
     <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
       SELECT LAST_INSERT_ID()
     </selectKey>
-    insert into global_params (type_name, type_value, key, 
-      value, description, created_date
+    insert into global_params (type_name, type_value, `key`, 
+      `value`, description, created_date
       )
     values (#{typeName,jdbcType=VARCHAR}, #{typeValue,jdbcType=VARCHAR}, #{key,jdbcType=VARCHAR}, 
       #{value,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}
@@ -129,10 +129,10 @@
         type_value,
       </if>
       <if test="key != null" >
-        key,
+        `key`,
       </if>
       <if test="value != null" >
-        value,
+        `value`,
       </if>
       <if test="description != null" >
         description,
@@ -181,10 +181,10 @@
         type_value = #{record.typeValue,jdbcType=VARCHAR},
       </if>
       <if test="record.key != null" >
-        key = #{record.key,jdbcType=VARCHAR},
+        `key` = #{record.key,jdbcType=VARCHAR},
       </if>
       <if test="record.value != null" >
-        value = #{record.value,jdbcType=VARCHAR},
+        `value` = #{record.value,jdbcType=VARCHAR},
       </if>
       <if test="record.description != null" >
         description = #{record.description,jdbcType=VARCHAR},
@@ -202,8 +202,8 @@
     set id = #{record.id,jdbcType=BIGINT},
       type_name = #{record.typeName,jdbcType=VARCHAR},
       type_value = #{record.typeValue,jdbcType=VARCHAR},
-      key = #{record.key,jdbcType=VARCHAR},
-      value = #{record.value,jdbcType=VARCHAR},
+      `key` = #{record.key,jdbcType=VARCHAR},
+      `value` = #{record.value,jdbcType=VARCHAR},
       description = #{record.description,jdbcType=VARCHAR},
       created_date = #{record.createdDate,jdbcType=TIMESTAMP}
     <if test="_parameter != null" >
@@ -220,10 +220,10 @@
         type_value = #{typeValue,jdbcType=VARCHAR},
       </if>
       <if test="key != null" >
-        key = #{key,jdbcType=VARCHAR},
+        `key` = #{key,jdbcType=VARCHAR},
       </if>
       <if test="value != null" >
-        value = #{value,jdbcType=VARCHAR},
+        `value` = #{value,jdbcType=VARCHAR},
       </if>
       <if test="description != null" >
         description = #{description,jdbcType=VARCHAR},
@@ -238,8 +238,8 @@
     update global_params
     set type_name = #{typeName,jdbcType=VARCHAR},
       type_value = #{typeValue,jdbcType=VARCHAR},
-      key = #{key,jdbcType=VARCHAR},
-      value = #{value,jdbcType=VARCHAR},
+      `key` = #{key,jdbcType=VARCHAR},
+      `value` = #{value,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       created_date = #{createdDate,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=BIGINT}

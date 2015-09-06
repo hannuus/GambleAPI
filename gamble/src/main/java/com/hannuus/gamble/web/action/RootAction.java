@@ -15,6 +15,7 @@ import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.domain.AccessToken;
 import com.hannuus.gamble.web.service.LoginService;
 
+@SuppressWarnings("deprecation")
 @Controller
 @RequestMapping("/")
 public class RootAction extends BaseAction {

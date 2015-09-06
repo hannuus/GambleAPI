@@ -1,0 +1,325 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hannuus.gamble.dao.UserTokenMapper" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.UserToken" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="user_id" property="userId" jdbcType="BIGINT" />
+    <result column="user_name" property="userName" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="salt" property="salt" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="sina" property="sina" jdbcType="VARCHAR" />
+    <result column="webchat" property="webchat" jdbcType="VARCHAR" />
+    <result column="token" property="token" jdbcType="VARCHAR" />
+    <result column="receipt_num" property="receiptNum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, user_id, user_name, `password`, salt, email, mobile, qq, sina, webchat, token, 
+    receipt_num
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.UserTokenExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from user_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_token
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from user_token
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.UserTokenExample" >
+    delete from user_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hannuus.gamble.model.UserToken" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_token (user_id, user_name, `password`, 
+      salt, email, mobile, 
+      qq, sina, webchat, 
+      token, receipt_num)
+    values (#{userId,jdbcType=BIGINT}, #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, 
+      #{qq,jdbcType=VARCHAR}, #{sina,jdbcType=VARCHAR}, #{webchat,jdbcType=VARCHAR}, 
+      #{token,jdbcType=VARCHAR}, #{receiptNum,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.UserToken" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into user_token
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="userName != null" >
+        user_name,
+      </if>
+      <if test="password != null" >
+        `password`,
+      </if>
+      <if test="salt != null" >
+        salt,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="sina != null" >
+        sina,
+      </if>
+      <if test="webchat != null" >
+        webchat,
+      </if>
+      <if test="token != null" >
+        token,
+      </if>
+      <if test="receiptNum != null" >
+        receipt_num,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userId != null" >
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="sina != null" >
+        #{sina,jdbcType=VARCHAR},
+      </if>
+      <if test="webchat != null" >
+        #{webchat,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptNum != null" >
+        #{receiptNum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.UserTokenExample" resultType="java.lang.Integer" >
+    select count(*) from user_token
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update user_token
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.userId != null" >
+        user_id = #{record.userId,jdbcType=BIGINT},
+      </if>
+      <if test="record.userName != null" >
+        user_name = #{record.userName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.password != null" >
+        `password` = #{record.password,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null" >
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null" >
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mobile != null" >
+        mobile = #{record.mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="record.qq != null" >
+        qq = #{record.qq,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sina != null" >
+        sina = #{record.sina,jdbcType=VARCHAR},
+      </if>
+      <if test="record.webchat != null" >
+        webchat = #{record.webchat,jdbcType=VARCHAR},
+      </if>
+      <if test="record.token != null" >
+        token = #{record.token,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiptNum != null" >
+        receipt_num = #{record.receiptNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update user_token
+    set id = #{record.id,jdbcType=BIGINT},
+      user_id = #{record.userId,jdbcType=BIGINT},
+      user_name = #{record.userName,jdbcType=VARCHAR},
+      `password` = #{record.password,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      mobile = #{record.mobile,jdbcType=VARCHAR},
+      qq = #{record.qq,jdbcType=VARCHAR},
+      sina = #{record.sina,jdbcType=VARCHAR},
+      webchat = #{record.webchat,jdbcType=VARCHAR},
+      token = #{record.token,jdbcType=VARCHAR},
+      receipt_num = #{record.receiptNum,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.UserToken" >
+    update user_token
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="userName != null" >
+        user_name = #{userName,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        `password` = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null" >
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="sina != null" >
+        sina = #{sina,jdbcType=VARCHAR},
+      </if>
+      <if test="webchat != null" >
+        webchat = #{webchat,jdbcType=VARCHAR},
+      </if>
+      <if test="token != null" >
+        token = #{token,jdbcType=VARCHAR},
+      </if>
+      <if test="receiptNum != null" >
+        receipt_num = #{receiptNum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.UserToken" >
+    update user_token
+    set user_id = #{userId,jdbcType=BIGINT},
+      user_name = #{userName,jdbcType=VARCHAR},
+      `password` = #{password,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      sina = #{sina,jdbcType=VARCHAR},
+      webchat = #{webchat,jdbcType=VARCHAR},
+      token = #{token,jdbcType=VARCHAR},
+      receipt_num = #{receiptNum,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
