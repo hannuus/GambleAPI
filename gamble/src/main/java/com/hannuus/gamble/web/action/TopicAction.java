@@ -62,7 +62,7 @@ public class TopicAction extends BaseAction {
 		}
 		return json;
 	}
-	
+
 	/**
 	 * 获取主题详情
 	 * 
@@ -78,10 +78,12 @@ public class TopicAction extends BaseAction {
 			HttpServletResponse response) throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		int pageNumber = getIntegerReqParam("pageNumber", 1);
-		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int pageSize = getIntegerReqParam("pageSize",
+				SystemConstants.DEFAULT_PAGE_SIZE);
 		int days = getIntegerReqParam("days", 7);
 		int total = topicService.countPopular(days);
-		List<Topic> list = topicService.findPopularTopicsByPage(pageNumber, pageSize, days);
+		List<Topic> list = topicService.findPopularTopicsByPage(pageNumber,
+				pageSize, days);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		} else {
@@ -109,7 +111,8 @@ public class TopicAction extends BaseAction {
 		int pageSize = getIntegerReqParam("pageSize",
 				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = topicService.countTopicsByCategoryId(categoryId);
-		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId, pageNumber, pageSize);
+		List<Topic> list = topicService.findCategoryTopicsByPage(categoryId,
+				pageNumber, pageSize);
 		if (CollectionUtils.isEmpty(list)) {
 			json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		} else {
@@ -134,11 +137,13 @@ public class TopicAction extends BaseAction {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		Long speciaId = getLongReqParam("id", 0L);
 		int pageNumber = getIntegerReqParam("pageNumber", 1);
-		int pageSize = getIntegerReqParam("pageSize", SystemConstants.DEFAULT_PAGE_SIZE);
+		int pageSize = getIntegerReqParam("pageSize",
+				SystemConstants.DEFAULT_PAGE_SIZE);
 		int total = topicService.countTopicsBySpeciaId(speciaId);
 		json.setStatus(JsonResultStatus.EmptyResult.getValue());
 		if (total > 0) {
-			List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId, pageNumber, pageSize);
+			List<Topic> list = topicService.findSpeciaTopicsByPage(speciaId,
+					pageNumber, pageSize);
 			if (CollectionUtils.isNotEmpty(list)) {
 				json.setResult(list);
 				json.setTotal(total);
@@ -161,7 +166,7 @@ public class TopicAction extends BaseAction {
 			throws GambleException {
 		JsonVo<List<Topic>> json = new JsonVo<List<Topic>>();
 		// TODO
-//		validateRequest(request);
+		// validateRequest(request);
 		initTopic(topic);
 		validateAddTopicArguments(topic);
 		if (!topicService.addTopic(topic)) {
@@ -245,7 +250,7 @@ public class TopicAction extends BaseAction {
 
 	private void initTopic(Topic topic) throws GambleException {
 		topic.setCreatedDate(new Date());
-		
+
 		// TODO aelns 弄个枚举啥的
 		topic.setEnabled(1);// 默认启用
 		topic.setUpCount(0l);
@@ -265,7 +270,8 @@ public class TopicAction extends BaseAction {
 	 * @throws GambleException
 	 */
 	@ResponseBody
-	@RequestMapping(value = "/delete.json", method = { RequestMethod.POST, RequestMethod.GET })
+	@RequestMapping(value = "/delete.json", method = { RequestMethod.POST,
+			RequestMethod.GET })
 	public JsonVo<List<Topic>> delete(ModelMap modelMap, Long id,
 			HttpServletRequest request, HttpServletResponse response)
 			throws GambleException {
@@ -290,4 +296,7 @@ public class TopicAction extends BaseAction {
 			throw new InvalidOpenTypeException();
 		}
 	}
+
+	// TODO aelns Vote CRUD
+
 }

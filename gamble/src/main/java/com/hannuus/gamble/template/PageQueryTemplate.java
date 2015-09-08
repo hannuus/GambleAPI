@@ -33,11 +33,12 @@ public class PageQueryTemplate {
 	 * @param callback
 	 *            查询回调
 	 */
-	public <T> void execute(int pageNum, int pageSize, Object model,
+	public <T> PageDTO<T> execute(int pageNum, int pageSize, Object model,
 			PageQueryCallback<T> callback) {
 		PageParams params = preHandle(pageNum, pageSize);
 		PageDTO<T> page = callback.query(params);
 		postHandle(model, page);
+		return page;
 	}
 
 	/**
@@ -97,9 +98,11 @@ public class PageQueryTemplate {
 		}
 
 		public <T> void wrapPageDTO(Object model, PageDTO<T> page) {
-			ModelMap map = (ModelMap) model;
-			map.put(R.page.attr_key, page);
-			logger.debug(page);
+			if (model != null) {
+				ModelMap map = (ModelMap) model;
+				map.put(R.page.attr_key, page);
+				logger.debug(page);
+			}
 		}
 
 	};

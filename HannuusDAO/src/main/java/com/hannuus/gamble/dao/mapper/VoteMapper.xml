@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hannuus.gamble.dao.VoteMapper" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.Vote" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="topic_id" property="topicId" jdbcType="BIGINT" />
+    <result column="vote_type" property="voteType" jdbcType="INTEGER" />
+    <result column="total" property="total" jdbcType="BIGINT" />
+    <result column="limit_level" property="limitLevel" jdbcType="INTEGER" />
+    <result column="available_day" property="availableDay" jdbcType="INTEGER" />
+    <result column="lock_mode" property="lockMode" jdbcType="INTEGER" />
+    <result column="state" property="state" jdbcType="INTEGER" />
+    <result column="result" property="result" jdbcType="VARCHAR" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, topic_id, vote_type, total, limit_level, available_day, lock_mode, `state`, `result`, 
+    created_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.VoteExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from vote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from vote
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from vote
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.VoteExample" >
+    delete from vote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hannuus.gamble.model.Vote" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into vote (topic_id, vote_type, total, 
+      limit_level, available_day, lock_mode, 
+      `state`, `result`, created_date
+      )
+    values (#{topicId,jdbcType=BIGINT}, #{voteType,jdbcType=INTEGER}, #{total,jdbcType=BIGINT}, 
+      #{limitLevel,jdbcType=INTEGER}, #{availableDay,jdbcType=INTEGER}, #{lockMode,jdbcType=INTEGER}, 
+      #{state,jdbcType=INTEGER}, #{result,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.Vote" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into vote
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="topicId != null" >
+        topic_id,
+      </if>
+      <if test="voteType != null" >
+        vote_type,
+      </if>
+      <if test="total != null" >
+        total,
+      </if>
+      <if test="limitLevel != null" >
+        limit_level,
+      </if>
+      <if test="availableDay != null" >
+        available_day,
+      </if>
+      <if test="lockMode != null" >
+        lock_mode,
+      </if>
+      <if test="state != null" >
+        `state`,
+      </if>
+      <if test="result != null" >
+        `result`,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="topicId != null" >
+        #{topicId,jdbcType=BIGINT},
+      </if>
+      <if test="voteType != null" >
+        #{voteType,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        #{total,jdbcType=BIGINT},
+      </if>
+      <if test="limitLevel != null" >
+        #{limitLevel,jdbcType=INTEGER},
+      </if>
+      <if test="availableDay != null" >
+        #{availableDay,jdbcType=INTEGER},
+      </if>
+      <if test="lockMode != null" >
+        #{lockMode,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        #{state,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.VoteExample" resultType="java.lang.Integer" >
+    select count(*) from vote
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update vote
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.topicId != null" >
+        topic_id = #{record.topicId,jdbcType=BIGINT},
+      </if>
+      <if test="record.voteType != null" >
+        vote_type = #{record.voteType,jdbcType=INTEGER},
+      </if>
+      <if test="record.total != null" >
+        total = #{record.total,jdbcType=BIGINT},
+      </if>
+      <if test="record.limitLevel != null" >
+        limit_level = #{record.limitLevel,jdbcType=INTEGER},
+      </if>
+      <if test="record.availableDay != null" >
+        available_day = #{record.availableDay,jdbcType=INTEGER},
+      </if>
+      <if test="record.lockMode != null" >
+        lock_mode = #{record.lockMode,jdbcType=INTEGER},
+      </if>
+      <if test="record.state != null" >
+        `state` = #{record.state,jdbcType=INTEGER},
+      </if>
+      <if test="record.result != null" >
+        `result` = #{record.result,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update vote
+    set id = #{record.id,jdbcType=BIGINT},
+      topic_id = #{record.topicId,jdbcType=BIGINT},
+      vote_type = #{record.voteType,jdbcType=INTEGER},
+      total = #{record.total,jdbcType=BIGINT},
+      limit_level = #{record.limitLevel,jdbcType=INTEGER},
+      available_day = #{record.availableDay,jdbcType=INTEGER},
+      lock_mode = #{record.lockMode,jdbcType=INTEGER},
+      `state` = #{record.state,jdbcType=INTEGER},
+      `result` = #{record.result,jdbcType=VARCHAR},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.Vote" >
+    update vote
+    <set >
+      <if test="topicId != null" >
+        topic_id = #{topicId,jdbcType=BIGINT},
+      </if>
+      <if test="voteType != null" >
+        vote_type = #{voteType,jdbcType=INTEGER},
+      </if>
+      <if test="total != null" >
+        total = #{total,jdbcType=BIGINT},
+      </if>
+      <if test="limitLevel != null" >
+        limit_level = #{limitLevel,jdbcType=INTEGER},
+      </if>
+      <if test="availableDay != null" >
+        available_day = #{availableDay,jdbcType=INTEGER},
+      </if>
+      <if test="lockMode != null" >
+        lock_mode = #{lockMode,jdbcType=INTEGER},
+      </if>
+      <if test="state != null" >
+        `state` = #{state,jdbcType=INTEGER},
+      </if>
+      <if test="result != null" >
+        `result` = #{result,jdbcType=VARCHAR},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Vote" >
+    update vote
+    set topic_id = #{topicId,jdbcType=BIGINT},
+      vote_type = #{voteType,jdbcType=INTEGER},
+      total = #{total,jdbcType=BIGINT},
+      limit_level = #{limitLevel,jdbcType=INTEGER},
+      available_day = #{availableDay,jdbcType=INTEGER},
+      lock_mode = #{lockMode,jdbcType=INTEGER},
+      `state` = #{state,jdbcType=INTEGER},
+      `result` = #{result,jdbcType=VARCHAR},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

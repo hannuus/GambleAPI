@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hannuus.gamble.dao.TopicImageMapper" >
+  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.TopicImage" >
+    <id column="id" property="id" jdbcType="BIGINT" />
+    <result column="topic_id" property="topicId" jdbcType="BIGINT" />
+    <result column="description" property="description" jdbcType="VARCHAR" />
+    <result column="path" property="path" jdbcType="VARCHAR" />
+    <result column="map_flag" property="mapFlag" jdbcType="VARCHAR" />
+    <result column="priority" property="priority" jdbcType="INTEGER" />
+    <result column="enabled" property="enabled" jdbcType="INTEGER" />
+    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, topic_id, description, `path`, map_flag, priority, enabled, created_date
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.TopicImageExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from topic_image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+    <if test="limitStart != null and limitStart>=0" >
+      limit #{limitStart} , #{limitEnd}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from topic_image
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from topic_image
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.TopicImageExample" >
+    delete from topic_image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.hannuus.gamble.model.TopicImage" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into topic_image (topic_id, description, `path`, 
+      map_flag, priority, enabled, 
+      created_date)
+    values (#{topicId,jdbcType=BIGINT}, #{description,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}, 
+      #{mapFlag,jdbcType=VARCHAR}, #{priority,jdbcType=INTEGER}, #{enabled,jdbcType=INTEGER}, 
+      #{createdDate,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.TopicImage" >
+    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into topic_image
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="topicId != null" >
+        topic_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="path != null" >
+        `path`,
+      </if>
+      <if test="mapFlag != null" >
+        map_flag,
+      </if>
+      <if test="priority != null" >
+        priority,
+      </if>
+      <if test="enabled != null" >
+        enabled,
+      </if>
+      <if test="createdDate != null" >
+        created_date,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="topicId != null" >
+        #{topicId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="mapFlag != null" >
+        #{mapFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.hannuus.gamble.model.TopicImageExample" resultType="java.lang.Integer" >
+    select count(*) from topic_image
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update topic_image
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.topicId != null" >
+        topic_id = #{record.topicId,jdbcType=BIGINT},
+      </if>
+      <if test="record.description != null" >
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.path != null" >
+        `path` = #{record.path,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mapFlag != null" >
+        map_flag = #{record.mapFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="record.priority != null" >
+        priority = #{record.priority,jdbcType=INTEGER},
+      </if>
+      <if test="record.enabled != null" >
+        enabled = #{record.enabled,jdbcType=INTEGER},
+      </if>
+      <if test="record.createdDate != null" >
+        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update topic_image
+    set id = #{record.id,jdbcType=BIGINT},
+      topic_id = #{record.topicId,jdbcType=BIGINT},
+      description = #{record.description,jdbcType=VARCHAR},
+      `path` = #{record.path,jdbcType=VARCHAR},
+      map_flag = #{record.mapFlag,jdbcType=VARCHAR},
+      priority = #{record.priority,jdbcType=INTEGER},
+      enabled = #{record.enabled,jdbcType=INTEGER},
+      created_date = #{record.createdDate,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.TopicImage" >
+    update topic_image
+    <set >
+      <if test="topicId != null" >
+        topic_id = #{topicId,jdbcType=BIGINT},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null" >
+        `path` = #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="mapFlag != null" >
+        map_flag = #{mapFlag,jdbcType=VARCHAR},
+      </if>
+      <if test="priority != null" >
+        priority = #{priority,jdbcType=INTEGER},
+      </if>
+      <if test="enabled != null" >
+        enabled = #{enabled,jdbcType=INTEGER},
+      </if>
+      <if test="createdDate != null" >
+        created_date = #{createdDate,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.TopicImage" >
+    update topic_image
+    set topic_id = #{topicId,jdbcType=BIGINT},
+      description = #{description,jdbcType=VARCHAR},
+      `path` = #{path,jdbcType=VARCHAR},
+      map_flag = #{mapFlag,jdbcType=VARCHAR},
+      priority = #{priority,jdbcType=INTEGER},
+      enabled = #{enabled,jdbcType=INTEGER},
+      created_date = #{createdDate,jdbcType=TIMESTAMP}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>

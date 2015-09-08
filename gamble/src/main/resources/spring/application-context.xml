@@ -147,10 +147,11 @@
 				/api/login.json*=anon
 				/api/test/login=anon
 				/api/custom/login.json=anon
+				/api/custom/**=roles[user]
+				/api/interactive/**=roles[user]
+				/api/thirdparty/**=roles[admin]
 				/api/auth/**=roles[admin]
 				/api/global/**=roles[admin]
-				/api/custom/**=roles[user]
-				/api/thirdparty/**=roles[admin]
 				/**=authc
 			</value>
 		</property>

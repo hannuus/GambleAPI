@@ -19,9 +19,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.comm.R;
+import com.hannuus.gamble.domain.page.PageDTO;
 import com.hannuus.gamble.domain.page.PageQueryCallback;
 import com.hannuus.gamble.domain.page.PageWrapper;
 import com.hannuus.gamble.model.User;
+import com.hannuus.gamble.model.UserToken;
 import com.hannuus.gamble.template.PageQueryTemplate;
 import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.exception.GambleException;
@@ -45,7 +47,7 @@ public class BaseAction {
 
 	@Autowired
 	LoginService loginService;
-	
+
 	@Autowired
 	PageQueryTemplate pageQueryTemplate;
 
@@ -126,9 +128,9 @@ public class BaseAction {
 	 */
 	private boolean isAccessTokenValid(HttpServletRequest request) {
 		String token = getStringReqParam(R.request.access_token);
-//		if (StringUtils.isEmpty(token)) {
-//			return false;
-//		}
+		// if (StringUtils.isEmpty(token)) {
+		// return false;
+		// }
 		String savedToken = getStringInSession(R.session.access_token, null);
 		if (StringUtils.isEmpty(savedToken)) {
 			return false;
@@ -173,7 +175,9 @@ public class BaseAction {
 		try {
 			return Long.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: {2}",
+							key, defaultValue, e));
 			return defaultValue;
 		}
 	}
@@ -191,7 +195,9 @@ public class BaseAction {
 		try {
 			return Integer.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: {2}",
+							key, defaultValue, e));
 			return defaultValue;
 		}
 	}
@@ -209,7 +215,9 @@ public class BaseAction {
 		try {
 			return Double.valueOf(request.getParameter(key));
 		} catch (Exception e) {
-			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: {2}",
+							key, defaultValue, e));
 			return defaultValue;
 		}
 	}
@@ -220,7 +228,7 @@ public class BaseAction {
 	 * @param key
 	 * @param value
 	 */
-	protected void setSession(String key, Object value) {
+	protected void setSessionAttribute(String key, Object value) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
 		request.getSession().setAttribute(key, value);
@@ -232,10 +240,21 @@ public class BaseAction {
 	 * @param key
 	 * @return
 	 */
-	protected Object getSession(String key) {
+	@SuppressWarnings("unchecked")
+	protected <T> T getSessionAttribute(String key) {
 		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
 				.getRequestAttributes()).getRequest();
-		return request.getSession().getAttribute(key);
+		return (T) request.getSession().getAttribute(key);
+	}
+
+	/**
+	 * 获取当前用户ID
+	 * 
+	 * @return
+	 */
+	protected Long getCurrentUserId() {
+		UserToken userToken = getSessionAttribute(R.session.user);
+		return userToken.getId();
 	}
 
 	/**
@@ -251,7 +270,9 @@ public class BaseAction {
 		try {
 			return (String) session.getAttribute(key);
 		} catch (Exception e) {
-			logger.warn(MessageFormat.format("get {0} error, use default value: {1}, exception details: {2}", key, defaultValue, e));
+			logger.warn(MessageFormat
+					.format("get {0} error, use default value: {1}, exception details: {2}",
+							key, defaultValue, e));
 			return defaultValue;
 		}
 	}
@@ -310,10 +331,13 @@ public class BaseAction {
 	 *            域模型
 	 * @param callback
 	 *            分页回调
+	 * @return
 	 */
-	protected <T> void pageQuery(int pageNum, int pageSize, ModelMap map,
+	protected <T> PageDTO<T> pageQuery(int pageNum, int pageSize, ModelMap map,
 			PageQueryCallback<T> callback) {
-		pageQueryTemplate.execute(pageNum, pageSize, map, callback);
+		PageDTO<T> page = pageQueryTemplate.execute(pageNum, pageSize, map,
+				callback);
+		return page;
 	}
 
 	/**

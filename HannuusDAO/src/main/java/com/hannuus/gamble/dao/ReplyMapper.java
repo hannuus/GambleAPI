@@ -2,35 +2,46 @@ package com.hannuus.gamble.dao;
 
 import com.hannuus.gamble.model.Reply;
 import com.hannuus.gamble.model.ReplyExample;
+
 import java.util.List;
+
 import org.apache.ibatis.annotations.Param;
 
 public interface ReplyMapper {
-    int countByExample(ReplyExample example);
 
-    int deleteByExample(ReplyExample example);
+	int countByExample(ReplyExample example);
 
-    int deleteByPrimaryKey(Long id);
+	int deleteByExample(ReplyExample example);
 
-    int insert(Reply record);
+	int deleteByPrimaryKey(Long id);
 
-    int insertSelective(Reply record);
+	int insert(Reply record);
 
-    List<Reply> selectByExampleWithBLOBs(ReplyExample example);
+	int insertSelective(Reply record);
 
-    List<Reply> selectByExample(ReplyExample example);
+	List<Reply> selectByExampleWithBLOBs(ReplyExample example);
 
-    Reply selectByPrimaryKey(Long id);
+	List<Reply> selectByExample(ReplyExample example);
 
-    int updateByExampleSelective(@Param("record") Reply record, @Param("example") ReplyExample example);
+	Reply selectByPrimaryKey(Long id);
 
-    int updateByExampleWithBLOBs(@Param("record") Reply record, @Param("example") ReplyExample example);
+	int updateByExampleSelective(@Param("record") Reply record,
+			@Param("example") ReplyExample example);
 
-    int updateByExample(@Param("record") Reply record, @Param("example") ReplyExample example);
+	int updateByExampleWithBLOBs(@Param("record") Reply record,
+			@Param("example") ReplyExample example);
 
-    int updateByPrimaryKeySelective(Reply record);
+	int updateByExample(@Param("record") Reply record,
+			@Param("example") ReplyExample example);
 
-    int updateByPrimaryKeyWithBLOBs(Reply record);
+	int updateByPrimaryKeySelective(Reply record);
 
-    int updateByPrimaryKey(Reply record);
+	int updateByPrimaryKeyWithBLOBs(Reply record);
+
+	int updateByPrimaryKey(Reply record);
+
+	int increaseUpCountByPrimaryKey(Long id);
+
+	int increaseDownCountByPrimaryKey(Long id);
+
 }

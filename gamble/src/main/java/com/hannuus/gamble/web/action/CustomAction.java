@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.gamble.comm.JsonVo;
+import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.model.BlackList;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.model.UserToken;
@@ -78,6 +79,8 @@ public class CustomAction extends BaseAction {
 		if (userToken == null) {
 			json.setStatus(JsonResultStatus.Failed.getValue());
 		} else {
+			// 将userToken存入session
+			setSessionAttribute(R.session.user, userToken);
 			json.setStatus(JsonResultStatus.Success.getValue());
 			json.setResult(userToken);
 		}

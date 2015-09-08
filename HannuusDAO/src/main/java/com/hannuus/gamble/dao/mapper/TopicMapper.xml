@@ -1,559 +1,713 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hannuus.gamble.dao.TopicMapper" >
-  <resultMap id="BaseResultMap" type="com.hannuus.gamble.model.Topic" >
-    <id column="id" property="id" jdbcType="BIGINT" />
-    <result column="category_id" property="categoryId" jdbcType="BIGINT" />
-    <result column="special_id" property="specialId" jdbcType="BIGINT" />
-    <result column="title" property="title" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="BIGINT" />
-    <result column="enabled" property="enabled" jdbcType="INTEGER" />
-    <result column="hits" property="hits" jdbcType="BIGINT" />
-    <result column="reply_count" property="replyCount" jdbcType="BIGINT" />
-    <result column="modified_by" property="modifiedBy" jdbcType="BIGINT" />
-    <result column="modified_date" property="modifiedDate" jdbcType="TIMESTAMP" />
-    <result column="replied_by" property="repliedBy" jdbcType="BIGINT" />
-    <result column="replied_date" property="repliedDate" jdbcType="TIMESTAMP" />
-    <result column="icon_id" property="iconId" jdbcType="BIGINT" />
-    <result column="state" property="state" jdbcType="INTEGER" />
-    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
-    <result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
-    <result column="follow_count" property="followCount" jdbcType="BIGINT" />
-    <result column="tag_id" property="tagId" jdbcType="BIGINT" />
-    <result column="up_count" property="upCount" jdbcType="BIGINT" />
-    <result column="down_count" property="downCount" jdbcType="BIGINT" />
-    <result column="collection_count" property="collectionCount" jdbcType="BIGINT" />
-  </resultMap>
-  <resultMap id="ResultMapWithBLOBs" type="com.hannuus.gamble.model.Topic" extends="BaseResultMap" >
-    <result column="content" property="content" jdbcType="LONGVARCHAR" />
-  </resultMap>
-  <sql id="Example_Where_Clause" >
-    <where >
-      <foreach collection="oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause" >
-    <where >
-      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
-        <if test="criteria.valid" >
-          <trim prefix="(" suffix=")" prefixOverrides="and" >
-            <foreach collection="criteria.criteria" item="criterion" >
-              <choose >
-                <when test="criterion.noValue" >
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue" >
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue" >
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue" >
-                  and ${criterion.condition}
-                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List" >
-    id, category_id, special_id, title, user_id, enabled, hits, reply_count, modified_by, 
-    modified_date, replied_by, replied_date, icon_id, `state`, image_url, created_date, 
-    follow_count, tag_id, up_count, down_count, collection_count
-  </sql>
-  <sql id="Blob_Column_List" >
-    content
-  </sql>
-  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.hannuus.gamble.model.TopicExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from topic
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-  </select>
-  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.hannuus.gamble.model.TopicExample" >
-    select
-    <if test="distinct" >
-      distinct
-    </if>
-    'true' as QUERYID,
-    <include refid="Base_Column_List" />
-    from topic
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null" >
-      order by ${orderByClause}
-    </if>
-    <if test="limitStart != null and limitStart>=0" >
-      limit #{limitStart} , #{limitEnd}
-    </if>
-  </select>
-  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
-    select 
-    <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
-    from topic
-    where id = #{id,jdbcType=BIGINT}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
-    delete from topic
-    where id = #{id,jdbcType=BIGINT}
-  </delete>
-  <delete id="deleteByExample" parameterType="com.hannuus.gamble.model.TopicExample" >
-    delete from topic
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
-  <insert id="insert" parameterType="com.hannuus.gamble.model.Topic" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into topic (category_id, special_id, title, 
-      user_id, enabled, hits, 
-      reply_count, modified_by, modified_date, 
-      replied_by, replied_date, icon_id, 
-      `state`, image_url, created_date, 
-      follow_count, tag_id, up_count, 
-      down_count, collection_count, content
-      )
-    values (#{categoryId,jdbcType=BIGINT}, #{specialId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR}, 
-      #{userId,jdbcType=BIGINT}, #{enabled,jdbcType=INTEGER}, #{hits,jdbcType=BIGINT}, 
-      #{replyCount,jdbcType=BIGINT}, #{modifiedBy,jdbcType=BIGINT}, #{modifiedDate,jdbcType=TIMESTAMP}, 
-      #{repliedBy,jdbcType=BIGINT}, #{repliedDate,jdbcType=TIMESTAMP}, #{iconId,jdbcType=BIGINT}, 
-      #{state,jdbcType=INTEGER}, #{imageUrl,jdbcType=VARCHAR}, #{createdDate,jdbcType=TIMESTAMP}, 
-      #{followCount,jdbcType=BIGINT}, #{tagId,jdbcType=BIGINT}, #{upCount,jdbcType=BIGINT}, 
-      #{downCount,jdbcType=BIGINT}, #{collectionCount,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}
-      )
-  </insert>
-  <insert id="insertSelective" parameterType="com.hannuus.gamble.model.Topic" >
-    <selectKey resultType="java.lang.Long" keyProperty="id" order="AFTER" >
-      SELECT LAST_INSERT_ID()
-    </selectKey>
-    insert into topic
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="categoryId != null" >
-        category_id,
-      </if>
-      <if test="specialId != null" >
-        special_id,
-      </if>
-      <if test="title != null" >
-        title,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="enabled != null" >
-        enabled,
-      </if>
-      <if test="hits != null" >
-        hits,
-      </if>
-      <if test="replyCount != null" >
-        reply_count,
-      </if>
-      <if test="modifiedBy != null" >
-        modified_by,
-      </if>
-      <if test="modifiedDate != null" >
-        modified_date,
-      </if>
-      <if test="repliedBy != null" >
-        replied_by,
-      </if>
-      <if test="repliedDate != null" >
-        replied_date,
-      </if>
-      <if test="iconId != null" >
-        icon_id,
-      </if>
-      <if test="state != null" >
-        `state`,
-      </if>
-      <if test="imageUrl != null" >
-        image_url,
-      </if>
-      <if test="createdDate != null" >
-        created_date,
-      </if>
-      <if test="followCount != null" >
-        follow_count,
-      </if>
-      <if test="tagId != null" >
-        tag_id,
-      </if>
-      <if test="upCount != null" >
-        up_count,
-      </if>
-      <if test="downCount != null" >
-        down_count,
-      </if>
-      <if test="collectionCount != null" >
-        collection_count,
-      </if>
-      <if test="content != null" >
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="categoryId != null" >
-        #{categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="specialId != null" >
-        #{specialId,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="enabled != null" >
-        #{enabled,jdbcType=INTEGER},
-      </if>
-      <if test="hits != null" >
-        #{hits,jdbcType=BIGINT},
-      </if>
-      <if test="replyCount != null" >
-        #{replyCount,jdbcType=BIGINT},
-      </if>
-      <if test="modifiedBy != null" >
-        #{modifiedBy,jdbcType=BIGINT},
-      </if>
-      <if test="modifiedDate != null" >
-        #{modifiedDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="repliedBy != null" >
-        #{repliedBy,jdbcType=BIGINT},
-      </if>
-      <if test="repliedDate != null" >
-        #{repliedDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="iconId != null" >
-        #{iconId,jdbcType=BIGINT},
-      </if>
-      <if test="state != null" >
-        #{state,jdbcType=INTEGER},
-      </if>
-      <if test="imageUrl != null" >
-        #{imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="createdDate != null" >
-        #{createdDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="followCount != null" >
-        #{followCount,jdbcType=BIGINT},
-      </if>
-      <if test="tagId != null" >
-        #{tagId,jdbcType=BIGINT},
-      </if>
-      <if test="upCount != null" >
-        #{upCount,jdbcType=BIGINT},
-      </if>
-      <if test="downCount != null" >
-        #{downCount,jdbcType=BIGINT},
-      </if>
-      <if test="collectionCount != null" >
-        #{collectionCount,jdbcType=BIGINT},
-      </if>
-      <if test="content != null" >
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <select id="countByExample" parameterType="com.hannuus.gamble.model.TopicExample" resultType="java.lang.Integer" >
-    select count(*) from topic
-    <if test="_parameter != null" >
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map" >
-    update topic
-    <set >
-      <if test="record.id != null" >
-        id = #{record.id,jdbcType=BIGINT},
-      </if>
-      <if test="record.categoryId != null" >
-        category_id = #{record.categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="record.specialId != null" >
-        special_id = #{record.specialId,jdbcType=BIGINT},
-      </if>
-      <if test="record.title != null" >
-        title = #{record.title,jdbcType=VARCHAR},
-      </if>
-      <if test="record.userId != null" >
-        user_id = #{record.userId,jdbcType=BIGINT},
-      </if>
-      <if test="record.enabled != null" >
-        enabled = #{record.enabled,jdbcType=INTEGER},
-      </if>
-      <if test="record.hits != null" >
-        hits = #{record.hits,jdbcType=BIGINT},
-      </if>
-      <if test="record.replyCount != null" >
-        reply_count = #{record.replyCount,jdbcType=BIGINT},
-      </if>
-      <if test="record.modifiedBy != null" >
-        modified_by = #{record.modifiedBy,jdbcType=BIGINT},
-      </if>
-      <if test="record.modifiedDate != null" >
-        modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.repliedBy != null" >
-        replied_by = #{record.repliedBy,jdbcType=BIGINT},
-      </if>
-      <if test="record.repliedDate != null" >
-        replied_date = #{record.repliedDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.iconId != null" >
-        icon_id = #{record.iconId,jdbcType=BIGINT},
-      </if>
-      <if test="record.state != null" >
-        `state` = #{record.state,jdbcType=INTEGER},
-      </if>
-      <if test="record.imageUrl != null" >
-        image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="record.createdDate != null" >
-        created_date = #{record.createdDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.followCount != null" >
-        follow_count = #{record.followCount,jdbcType=BIGINT},
-      </if>
-      <if test="record.tagId != null" >
-        tag_id = #{record.tagId,jdbcType=BIGINT},
-      </if>
-      <if test="record.upCount != null" >
-        up_count = #{record.upCount,jdbcType=BIGINT},
-      </if>
-      <if test="record.downCount != null" >
-        down_count = #{record.downCount,jdbcType=BIGINT},
-      </if>
-      <if test="record.collectionCount != null" >
-        collection_count = #{record.collectionCount,jdbcType=BIGINT},
-      </if>
-      <if test="record.content != null" >
-        content = #{record.content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExampleWithBLOBs" parameterType="map" >
-    update topic
-    set id = #{record.id,jdbcType=BIGINT},
-      category_id = #{record.categoryId,jdbcType=BIGINT},
-      special_id = #{record.specialId,jdbcType=BIGINT},
-      title = #{record.title,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=BIGINT},
-      enabled = #{record.enabled,jdbcType=INTEGER},
-      hits = #{record.hits,jdbcType=BIGINT},
-      reply_count = #{record.replyCount,jdbcType=BIGINT},
-      modified_by = #{record.modifiedBy,jdbcType=BIGINT},
-      modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
-      replied_by = #{record.repliedBy,jdbcType=BIGINT},
-      replied_date = #{record.repliedDate,jdbcType=TIMESTAMP},
-      icon_id = #{record.iconId,jdbcType=BIGINT},
-      `state` = #{record.state,jdbcType=INTEGER},
-      image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
-      follow_count = #{record.followCount,jdbcType=BIGINT},
-      tag_id = #{record.tagId,jdbcType=BIGINT},
-      up_count = #{record.upCount,jdbcType=BIGINT},
-      down_count = #{record.downCount,jdbcType=BIGINT},
-      collection_count = #{record.collectionCount,jdbcType=BIGINT},
-      content = #{record.content,jdbcType=LONGVARCHAR}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map" >
-    update topic
-    set id = #{record.id,jdbcType=BIGINT},
-      category_id = #{record.categoryId,jdbcType=BIGINT},
-      special_id = #{record.specialId,jdbcType=BIGINT},
-      title = #{record.title,jdbcType=VARCHAR},
-      user_id = #{record.userId,jdbcType=BIGINT},
-      enabled = #{record.enabled,jdbcType=INTEGER},
-      hits = #{record.hits,jdbcType=BIGINT},
-      reply_count = #{record.replyCount,jdbcType=BIGINT},
-      modified_by = #{record.modifiedBy,jdbcType=BIGINT},
-      modified_date = #{record.modifiedDate,jdbcType=TIMESTAMP},
-      replied_by = #{record.repliedBy,jdbcType=BIGINT},
-      replied_date = #{record.repliedDate,jdbcType=TIMESTAMP},
-      icon_id = #{record.iconId,jdbcType=BIGINT},
-      `state` = #{record.state,jdbcType=INTEGER},
-      image_url = #{record.imageUrl,jdbcType=VARCHAR},
-      created_date = #{record.createdDate,jdbcType=TIMESTAMP},
-      follow_count = #{record.followCount,jdbcType=BIGINT},
-      tag_id = #{record.tagId,jdbcType=BIGINT},
-      up_count = #{record.upCount,jdbcType=BIGINT},
-      down_count = #{record.downCount,jdbcType=BIGINT},
-      collection_count = #{record.collectionCount,jdbcType=BIGINT}
-    <if test="_parameter != null" >
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.Topic" >
-    update topic
-    <set >
-      <if test="categoryId != null" >
-        category_id = #{categoryId,jdbcType=BIGINT},
-      </if>
-      <if test="specialId != null" >
-        special_id = #{specialId,jdbcType=BIGINT},
-      </if>
-      <if test="title != null" >
-        title = #{title,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=BIGINT},
-      </if>
-      <if test="enabled != null" >
-        enabled = #{enabled,jdbcType=INTEGER},
-      </if>
-      <if test="hits != null" >
-        hits = #{hits,jdbcType=BIGINT},
-      </if>
-      <if test="replyCount != null" >
-        reply_count = #{replyCount,jdbcType=BIGINT},
-      </if>
-      <if test="modifiedBy != null" >
-        modified_by = #{modifiedBy,jdbcType=BIGINT},
-      </if>
-      <if test="modifiedDate != null" >
-        modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="repliedBy != null" >
-        replied_by = #{repliedBy,jdbcType=BIGINT},
-      </if>
-      <if test="repliedDate != null" >
-        replied_date = #{repliedDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="iconId != null" >
-        icon_id = #{iconId,jdbcType=BIGINT},
-      </if>
-      <if test="state != null" >
-        `state` = #{state,jdbcType=INTEGER},
-      </if>
-      <if test="imageUrl != null" >
-        image_url = #{imageUrl,jdbcType=VARCHAR},
-      </if>
-      <if test="createdDate != null" >
-        created_date = #{createdDate,jdbcType=TIMESTAMP},
-      </if>
-      <if test="followCount != null" >
-        follow_count = #{followCount,jdbcType=BIGINT},
-      </if>
-      <if test="tagId != null" >
-        tag_id = #{tagId,jdbcType=BIGINT},
-      </if>
-      <if test="upCount != null" >
-        up_count = #{upCount,jdbcType=BIGINT},
-      </if>
-      <if test="downCount != null" >
-        down_count = #{downCount,jdbcType=BIGINT},
-      </if>
-      <if test="collectionCount != null" >
-        collection_count = #{collectionCount,jdbcType=BIGINT},
-      </if>
-      <if test="content != null" >
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </set>
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.model.Topic" >
-    update topic
-    set category_id = #{categoryId,jdbcType=BIGINT},
-      special_id = #{specialId,jdbcType=BIGINT},
-      title = #{title,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=BIGINT},
-      enabled = #{enabled,jdbcType=INTEGER},
-      hits = #{hits,jdbcType=BIGINT},
-      reply_count = #{replyCount,jdbcType=BIGINT},
-      modified_by = #{modifiedBy,jdbcType=BIGINT},
-      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
-      replied_by = #{repliedBy,jdbcType=BIGINT},
-      replied_date = #{repliedDate,jdbcType=TIMESTAMP},
-      icon_id = #{iconId,jdbcType=BIGINT},
-      `state` = #{state,jdbcType=INTEGER},
-      image_url = #{imageUrl,jdbcType=VARCHAR},
-      created_date = #{createdDate,jdbcType=TIMESTAMP},
-      follow_count = #{followCount,jdbcType=BIGINT},
-      tag_id = #{tagId,jdbcType=BIGINT},
-      up_count = #{upCount,jdbcType=BIGINT},
-      down_count = #{downCount,jdbcType=BIGINT},
-      collection_count = #{collectionCount,jdbcType=BIGINT},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Topic" >
-    update topic
-    set category_id = #{categoryId,jdbcType=BIGINT},
-      special_id = #{specialId,jdbcType=BIGINT},
-      title = #{title,jdbcType=VARCHAR},
-      user_id = #{userId,jdbcType=BIGINT},
-      enabled = #{enabled,jdbcType=INTEGER},
-      hits = #{hits,jdbcType=BIGINT},
-      reply_count = #{replyCount,jdbcType=BIGINT},
-      modified_by = #{modifiedBy,jdbcType=BIGINT},
-      modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
-      replied_by = #{repliedBy,jdbcType=BIGINT},
-      replied_date = #{repliedDate,jdbcType=TIMESTAMP},
-      icon_id = #{iconId,jdbcType=BIGINT},
-      `state` = #{state,jdbcType=INTEGER},
-      image_url = #{imageUrl,jdbcType=VARCHAR},
-      created_date = #{createdDate,jdbcType=TIMESTAMP},
-      follow_count = #{followCount,jdbcType=BIGINT},
-      tag_id = #{tagId,jdbcType=BIGINT},
-      up_count = #{upCount,jdbcType=BIGINT},
-      down_count = #{downCount,jdbcType=BIGINT},
-      collection_count = #{collectionCount,jdbcType=BIGINT}
-    where id = #{id,jdbcType=BIGINT}
-  </update>
+<mapper namespace="com.hannuus.gamble.dao.TopicMapper">
+	<resultMap id="BaseResultMap" type="com.hannuus.gamble.model.Topic">
+		<id column="id" property="id" jdbcType="BIGINT" />
+		<result column="category_id" property="categoryId" jdbcType="BIGINT" />
+		<result column="special_id" property="specialId" jdbcType="BIGINT" />
+		<result column="tag_id" property="tagId" jdbcType="BIGINT" />
+		<result column="topic_type" property="topicType" jdbcType="INTEGER" />
+		<result column="user_id" property="userId" jdbcType="BIGINT" />
+		<result column="title" property="title" jdbcType="VARCHAR" />
+		<result column="img_flag" property="imgFlag" jdbcType="INTEGER" />
+		<result column="modified_by" property="modifiedBy" jdbcType="BIGINT" />
+		<result column="modified_date" property="modifiedDate"
+			jdbcType="TIMESTAMP" />
+		<result column="replied_by" property="repliedBy" jdbcType="BIGINT" />
+		<result column="replied_date" property="repliedDate" jdbcType="TIMESTAMP" />
+		<result column="hits" property="hits" jdbcType="BIGINT" />
+		<result column="reply_count" property="replyCount" jdbcType="BIGINT" />
+		<result column="follow_count" property="followCount" jdbcType="BIGINT" />
+		<result column="collection_count" property="collectionCount"
+			jdbcType="BIGINT" />
+		<result column="up_count" property="upCount" jdbcType="BIGINT" />
+		<result column="down_count" property="downCount" jdbcType="BIGINT" />
+		<result column="essence" property="essence" jdbcType="INTEGER" />
+		<result column="stickie" property="stickie" jdbcType="INTEGER" />
+		<result column="enabled" property="enabled" jdbcType="INTEGER" />
+		<result column="state" property="state" jdbcType="INTEGER" />
+		<result column="created_date" property="createdDate" jdbcType="TIMESTAMP" />
+	</resultMap>
+	<resultMap id="ResultMapWithBLOBs" type="com.hannuus.gamble.model.Topic"
+		extends="BaseResultMap">
+		<result column="content" property="content" jdbcType="LONGVARCHAR" />
+	</resultMap>
+	<sql id="Example_Where_Clause">
+		<where>
+			<foreach collection="oredCriteria" item="criteria" separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Update_By_Example_Where_Clause">
+		<where>
+			<foreach collection="example.oredCriteria" item="criteria"
+				separator="or">
+				<if test="criteria.valid">
+					<trim prefix="(" suffix=")" prefixOverrides="and">
+						<foreach collection="criteria.criteria" item="criterion">
+							<choose>
+								<when test="criterion.noValue">
+									and ${criterion.condition}
+								</when>
+								<when test="criterion.singleValue">
+									and ${criterion.condition} #{criterion.value}
+								</when>
+								<when test="criterion.betweenValue">
+									and ${criterion.condition} #{criterion.value}
+									and
+									#{criterion.secondValue}
+								</when>
+								<when test="criterion.listValue">
+									and ${criterion.condition}
+									<foreach collection="criterion.value" item="listItem"
+										open="(" close=")" separator=",">
+										#{listItem}
+									</foreach>
+								</when>
+							</choose>
+						</foreach>
+					</trim>
+				</if>
+			</foreach>
+		</where>
+	</sql>
+	<sql id="Base_Column_List">
+		id, category_id, special_id, tag_id, topic_type, user_id,
+		title,
+		img_flag, modified_by,
+		modified_date, replied_by, replied_date,
+		hits, reply_count, follow_count,
+		collection_count,
+		up_count, down_count,
+		essence, stickie, enabled, `state`, created_date
+	</sql>
+	<sql id="Blob_Column_List">
+		content
+	</sql>
+	<select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs"
+		parameterType="com.hannuus.gamble.model.TopicExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from topic
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+	</select>
+	<select id="selectByExample" resultMap="BaseResultMap"
+		parameterType="com.hannuus.gamble.model.TopicExample">
+		select
+		<if test="distinct">
+			distinct
+		</if>
+		'true' as QUERYID,
+		<include refid="Base_Column_List" />
+		from topic
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+		<if test="orderByClause != null">
+			order by ${orderByClause}
+		</if>
+		<if test="limitStart != null and limitStart>=0">
+			limit #{limitStart} , #{limitEnd}
+		</if>
+	</select>
+	<select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs"
+		parameterType="java.lang.Long">
+		select
+		<include refid="Base_Column_List" />
+		,
+		<include refid="Blob_Column_List" />
+		from topic
+		where id = #{id,jdbcType=BIGINT}
+	</select>
+	<delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+		delete from topic
+		where id = #{id,jdbcType=BIGINT}
+	</delete>
+	<delete id="deleteByExample" parameterType="com.hannuus.gamble.model.TopicExample">
+		delete from topic
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</delete>
+	<insert id="insert" parameterType="com.hannuus.gamble.model.Topic">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into topic (category_id, special_id, tag_id,
+		topic_type,
+		user_id, title,
+		img_flag, modified_by, modified_date,
+		replied_by,
+		replied_date, hits,
+		reply_count, follow_count, collection_count,
+		up_count, down_count, essence,
+		stickie, enabled, `state`,
+		created_date,
+		content)
+		values (#{categoryId,jdbcType=BIGINT},
+		#{specialId,jdbcType=BIGINT},
+		#{tagId,jdbcType=BIGINT},
+		#{topicType,jdbcType=INTEGER}, #{userId,jdbcType=BIGINT},
+		#{title,jdbcType=VARCHAR},
+		#{imgFlag,jdbcType=INTEGER},
+		#{modifiedBy,jdbcType=BIGINT},
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		#{repliedBy,jdbcType=BIGINT}, #{repliedDate,jdbcType=TIMESTAMP},
+		#{hits,jdbcType=BIGINT},
+		#{replyCount,jdbcType=BIGINT},
+		#{followCount,jdbcType=BIGINT},
+		#{collectionCount,jdbcType=BIGINT},
+		#{upCount,jdbcType=BIGINT}, #{downCount,jdbcType=BIGINT},
+		#{essence,jdbcType=INTEGER},
+		#{stickie,jdbcType=INTEGER},
+		#{enabled,jdbcType=INTEGER},
+		#{state,jdbcType=INTEGER},
+		#{createdDate,jdbcType=TIMESTAMP}, #{content,jdbcType=LONGVARCHAR})
+	</insert>
+	<insert id="insertSelective" parameterType="com.hannuus.gamble.model.Topic">
+		<selectKey resultType="java.lang.Long" keyProperty="id"
+			order="AFTER">
+			SELECT LAST_INSERT_ID()
+		</selectKey>
+		insert into topic
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="categoryId != null">
+				category_id,
+			</if>
+			<if test="specialId != null">
+				special_id,
+			</if>
+			<if test="tagId != null">
+				tag_id,
+			</if>
+			<if test="topicType != null">
+				topic_type,
+			</if>
+			<if test="userId != null">
+				user_id,
+			</if>
+			<if test="title != null">
+				title,
+			</if>
+			<if test="imgFlag != null">
+				img_flag,
+			</if>
+			<if test="modifiedBy != null">
+				modified_by,
+			</if>
+			<if test="modifiedDate != null">
+				modified_date,
+			</if>
+			<if test="repliedBy != null">
+				replied_by,
+			</if>
+			<if test="repliedDate != null">
+				replied_date,
+			</if>
+			<if test="hits != null">
+				hits,
+			</if>
+			<if test="replyCount != null">
+				reply_count,
+			</if>
+			<if test="followCount != null">
+				follow_count,
+			</if>
+			<if test="collectionCount != null">
+				collection_count,
+			</if>
+			<if test="upCount != null">
+				up_count,
+			</if>
+			<if test="downCount != null">
+				down_count,
+			</if>
+			<if test="essence != null">
+				essence,
+			</if>
+			<if test="stickie != null">
+				stickie,
+			</if>
+			<if test="enabled != null">
+				enabled,
+			</if>
+			<if test="state != null">
+				`state`,
+			</if>
+			<if test="createdDate != null">
+				created_date,
+			</if>
+			<if test="content != null">
+				content,
+			</if>
+		</trim>
+		<trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="categoryId != null">
+				#{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="specialId != null">
+				#{specialId,jdbcType=BIGINT},
+			</if>
+			<if test="tagId != null">
+				#{tagId,jdbcType=BIGINT},
+			</if>
+			<if test="topicType != null">
+				#{topicType,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				#{userId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				#{title,jdbcType=VARCHAR},
+			</if>
+			<if test="imgFlag != null">
+				#{imgFlag,jdbcType=INTEGER},
+			</if>
+			<if test="modifiedBy != null">
+				#{modifiedBy,jdbcType=BIGINT},
+			</if>
+			<if test="modifiedDate != null">
+				#{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="repliedBy != null">
+				#{repliedBy,jdbcType=BIGINT},
+			</if>
+			<if test="repliedDate != null">
+				#{repliedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="hits != null">
+				#{hits,jdbcType=BIGINT},
+			</if>
+			<if test="replyCount != null">
+				#{replyCount,jdbcType=BIGINT},
+			</if>
+			<if test="followCount != null">
+				#{followCount,jdbcType=BIGINT},
+			</if>
+			<if test="collectionCount != null">
+				#{collectionCount,jdbcType=BIGINT},
+			</if>
+			<if test="upCount != null">
+				#{upCount,jdbcType=BIGINT},
+			</if>
+			<if test="downCount != null">
+				#{downCount,jdbcType=BIGINT},
+			</if>
+			<if test="essence != null">
+				#{essence,jdbcType=INTEGER},
+			</if>
+			<if test="stickie != null">
+				#{stickie,jdbcType=INTEGER},
+			</if>
+			<if test="enabled != null">
+				#{enabled,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				#{state,jdbcType=INTEGER},
+			</if>
+			<if test="createdDate != null">
+				#{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				#{content,jdbcType=LONGVARCHAR},
+			</if>
+		</trim>
+	</insert>
+	<select id="countByExample" parameterType="com.hannuus.gamble.model.TopicExample"
+		resultType="java.lang.Integer">
+		select count(*) from topic
+		<if test="_parameter != null">
+			<include refid="Example_Where_Clause" />
+		</if>
+	</select>
+	<update id="updateByExampleSelective" parameterType="map">
+		update topic
+		<set>
+			<if test="record.id != null">
+				id = #{record.id,jdbcType=BIGINT},
+			</if>
+			<if test="record.categoryId != null">
+				category_id = #{record.categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="record.specialId != null">
+				special_id = #{record.specialId,jdbcType=BIGINT},
+			</if>
+			<if test="record.tagId != null">
+				tag_id = #{record.tagId,jdbcType=BIGINT},
+			</if>
+			<if test="record.topicType != null">
+				topic_type = #{record.topicType,jdbcType=INTEGER},
+			</if>
+			<if test="record.userId != null">
+				user_id = #{record.userId,jdbcType=BIGINT},
+			</if>
+			<if test="record.title != null">
+				title = #{record.title,jdbcType=VARCHAR},
+			</if>
+			<if test="record.imgFlag != null">
+				img_flag = #{record.imgFlag,jdbcType=INTEGER},
+			</if>
+			<if test="record.modifiedBy != null">
+				modified_by = #{record.modifiedBy,jdbcType=BIGINT},
+			</if>
+			<if test="record.modifiedDate != null">
+				modified_date =
+				#{record.modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.repliedBy != null">
+				replied_by = #{record.repliedBy,jdbcType=BIGINT},
+			</if>
+			<if test="record.repliedDate != null">
+				replied_date = #{record.repliedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.hits != null">
+				hits = #{record.hits,jdbcType=BIGINT},
+			</if>
+			<if test="record.replyCount != null">
+				reply_count = #{record.replyCount,jdbcType=BIGINT},
+			</if>
+			<if test="record.followCount != null">
+				follow_count = #{record.followCount,jdbcType=BIGINT},
+			</if>
+			<if test="record.collectionCount != null">
+				collection_count =
+				#{record.collectionCount,jdbcType=BIGINT},
+			</if>
+			<if test="record.upCount != null">
+				up_count = #{record.upCount,jdbcType=BIGINT},
+			</if>
+			<if test="record.downCount != null">
+				down_count = #{record.downCount,jdbcType=BIGINT},
+			</if>
+			<if test="record.essence != null">
+				essence = #{record.essence,jdbcType=INTEGER},
+			</if>
+			<if test="record.stickie != null">
+				stickie = #{record.stickie,jdbcType=INTEGER},
+			</if>
+			<if test="record.enabled != null">
+				enabled = #{record.enabled,jdbcType=INTEGER},
+			</if>
+			<if test="record.state != null">
+				`state` = #{record.state,jdbcType=INTEGER},
+			</if>
+			<if test="record.createdDate != null">
+				created_date = #{record.createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="record.content != null">
+				content = #{record.content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExampleWithBLOBs" parameterType="map">
+		update topic
+		set id = #{record.id,jdbcType=BIGINT},
+		category_id =
+		#{record.categoryId,jdbcType=BIGINT},
+		special_id =
+		#{record.specialId,jdbcType=BIGINT},
+		tag_id =
+		#{record.tagId,jdbcType=BIGINT},
+		topic_type =
+		#{record.topicType,jdbcType=INTEGER},
+		user_id =
+		#{record.userId,jdbcType=BIGINT},
+		title =
+		#{record.title,jdbcType=VARCHAR},
+		img_flag =
+		#{record.imgFlag,jdbcType=INTEGER},
+		modified_by =
+		#{record.modifiedBy,jdbcType=BIGINT},
+		modified_date =
+		#{record.modifiedDate,jdbcType=TIMESTAMP},
+		replied_by =
+		#{record.repliedBy,jdbcType=BIGINT},
+		replied_date =
+		#{record.repliedDate,jdbcType=TIMESTAMP},
+		hits =
+		#{record.hits,jdbcType=BIGINT},
+		reply_count =
+		#{record.replyCount,jdbcType=BIGINT},
+		follow_count =
+		#{record.followCount,jdbcType=BIGINT},
+		collection_count =
+		#{record.collectionCount,jdbcType=BIGINT},
+		up_count =
+		#{record.upCount,jdbcType=BIGINT},
+		down_count =
+		#{record.downCount,jdbcType=BIGINT},
+		essence =
+		#{record.essence,jdbcType=INTEGER},
+		stickie =
+		#{record.stickie,jdbcType=INTEGER},
+		enabled =
+		#{record.enabled,jdbcType=INTEGER},
+		`state` =
+		#{record.state,jdbcType=INTEGER},
+		created_date =
+		#{record.createdDate,jdbcType=TIMESTAMP},
+		content =
+		#{record.content,jdbcType=LONGVARCHAR}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByExample" parameterType="map">
+		update topic
+		set id = #{record.id,jdbcType=BIGINT},
+		category_id =
+		#{record.categoryId,jdbcType=BIGINT},
+		special_id =
+		#{record.specialId,jdbcType=BIGINT},
+		tag_id =
+		#{record.tagId,jdbcType=BIGINT},
+		topic_type =
+		#{record.topicType,jdbcType=INTEGER},
+		user_id =
+		#{record.userId,jdbcType=BIGINT},
+		title =
+		#{record.title,jdbcType=VARCHAR},
+		img_flag =
+		#{record.imgFlag,jdbcType=INTEGER},
+		modified_by =
+		#{record.modifiedBy,jdbcType=BIGINT},
+		modified_date =
+		#{record.modifiedDate,jdbcType=TIMESTAMP},
+		replied_by =
+		#{record.repliedBy,jdbcType=BIGINT},
+		replied_date =
+		#{record.repliedDate,jdbcType=TIMESTAMP},
+		hits =
+		#{record.hits,jdbcType=BIGINT},
+		reply_count =
+		#{record.replyCount,jdbcType=BIGINT},
+		follow_count =
+		#{record.followCount,jdbcType=BIGINT},
+		collection_count =
+		#{record.collectionCount,jdbcType=BIGINT},
+		up_count =
+		#{record.upCount,jdbcType=BIGINT},
+		down_count =
+		#{record.downCount,jdbcType=BIGINT},
+		essence =
+		#{record.essence,jdbcType=INTEGER},
+		stickie =
+		#{record.stickie,jdbcType=INTEGER},
+		enabled =
+		#{record.enabled,jdbcType=INTEGER},
+		`state` =
+		#{record.state,jdbcType=INTEGER},
+		created_date =
+		#{record.createdDate,jdbcType=TIMESTAMP}
+		<if test="_parameter != null">
+			<include refid="Update_By_Example_Where_Clause" />
+		</if>
+	</update>
+	<update id="updateByPrimaryKeySelective" parameterType="com.hannuus.gamble.model.Topic">
+		update topic
+		<set>
+			<if test="categoryId != null">
+				category_id = #{categoryId,jdbcType=BIGINT},
+			</if>
+			<if test="specialId != null">
+				special_id = #{specialId,jdbcType=BIGINT},
+			</if>
+			<if test="tagId != null">
+				tag_id = #{tagId,jdbcType=BIGINT},
+			</if>
+			<if test="topicType != null">
+				topic_type = #{topicType,jdbcType=INTEGER},
+			</if>
+			<if test="userId != null">
+				user_id = #{userId,jdbcType=BIGINT},
+			</if>
+			<if test="title != null">
+				title = #{title,jdbcType=VARCHAR},
+			</if>
+			<if test="imgFlag != null">
+				img_flag = #{imgFlag,jdbcType=INTEGER},
+			</if>
+			<if test="modifiedBy != null">
+				modified_by = #{modifiedBy,jdbcType=BIGINT},
+			</if>
+			<if test="modifiedDate != null">
+				modified_date = #{modifiedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="repliedBy != null">
+				replied_by = #{repliedBy,jdbcType=BIGINT},
+			</if>
+			<if test="repliedDate != null">
+				replied_date = #{repliedDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="hits != null">
+				hits = #{hits,jdbcType=BIGINT},
+			</if>
+			<if test="replyCount != null">
+				reply_count = #{replyCount,jdbcType=BIGINT},
+			</if>
+			<if test="followCount != null">
+				follow_count = #{followCount,jdbcType=BIGINT},
+			</if>
+			<if test="collectionCount != null">
+				collection_count = #{collectionCount,jdbcType=BIGINT},
+			</if>
+			<if test="upCount != null">
+				up_count = #{upCount,jdbcType=BIGINT},
+			</if>
+			<if test="downCount != null">
+				down_count = #{downCount,jdbcType=BIGINT},
+			</if>
+			<if test="essence != null">
+				essence = #{essence,jdbcType=INTEGER},
+			</if>
+			<if test="stickie != null">
+				stickie = #{stickie,jdbcType=INTEGER},
+			</if>
+			<if test="enabled != null">
+				enabled = #{enabled,jdbcType=INTEGER},
+			</if>
+			<if test="state != null">
+				`state` = #{state,jdbcType=INTEGER},
+			</if>
+			<if test="createdDate != null">
+				created_date = #{createdDate,jdbcType=TIMESTAMP},
+			</if>
+			<if test="content != null">
+				content = #{content,jdbcType=LONGVARCHAR},
+			</if>
+		</set>
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKeyWithBLOBs" parameterType="com.hannuus.gamble.model.Topic">
+		update
+		topic
+		set category_id = #{categoryId,jdbcType=BIGINT},
+		special_id =
+		#{specialId,jdbcType=BIGINT},
+		tag_id = #{tagId,jdbcType=BIGINT},
+		topic_type = #{topicType,jdbcType=INTEGER},
+		user_id =
+		#{userId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		img_flag =
+		#{imgFlag,jdbcType=INTEGER},
+		modified_by =
+		#{modifiedBy,jdbcType=BIGINT},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		replied_by =
+		#{repliedBy,jdbcType=BIGINT},
+		replied_date =
+		#{repliedDate,jdbcType=TIMESTAMP},
+		hits = #{hits,jdbcType=BIGINT},
+		reply_count = #{replyCount,jdbcType=BIGINT},
+		follow_count =
+		#{followCount,jdbcType=BIGINT},
+		collection_count =
+		#{collectionCount,jdbcType=BIGINT},
+		up_count =
+		#{upCount,jdbcType=BIGINT},
+		down_count = #{downCount,jdbcType=BIGINT},
+		essence = #{essence,jdbcType=INTEGER},
+		stickie =
+		#{stickie,jdbcType=INTEGER},
+		enabled = #{enabled,jdbcType=INTEGER},
+		`state` = #{state,jdbcType=INTEGER},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		content =
+		#{content,jdbcType=LONGVARCHAR}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+	<update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.Topic">
+		update topic
+		set
+		category_id = #{categoryId,jdbcType=BIGINT},
+		special_id =
+		#{specialId,jdbcType=BIGINT},
+		tag_id = #{tagId,jdbcType=BIGINT},
+		topic_type = #{topicType,jdbcType=INTEGER},
+		user_id =
+		#{userId,jdbcType=BIGINT},
+		title = #{title,jdbcType=VARCHAR},
+		img_flag =
+		#{imgFlag,jdbcType=INTEGER},
+		modified_by =
+		#{modifiedBy,jdbcType=BIGINT},
+		modified_date =
+		#{modifiedDate,jdbcType=TIMESTAMP},
+		replied_by =
+		#{repliedBy,jdbcType=BIGINT},
+		replied_date =
+		#{repliedDate,jdbcType=TIMESTAMP},
+		hits = #{hits,jdbcType=BIGINT},
+		reply_count = #{replyCount,jdbcType=BIGINT},
+		follow_count =
+		#{followCount,jdbcType=BIGINT},
+		collection_count =
+		#{collectionCount,jdbcType=BIGINT},
+		up_count =
+		#{upCount,jdbcType=BIGINT},
+		down_count = #{downCount,jdbcType=BIGINT},
+		essence = #{essence,jdbcType=INTEGER},
+		stickie =
+		#{stickie,jdbcType=INTEGER},
+		enabled = #{enabled,jdbcType=INTEGER},
+		`state` = #{state,jdbcType=INTEGER},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP}
+		where id = #{id,jdbcType=BIGINT}
+	</update>
+
+	<update id="increaseUpCountByPrimaryKey" parameterType="java.lang.Long">
+		update
+		topic set
+		up_count=up_count+1 where id=#{id}
+	</update>
+	<update id="increaseDownCountByPrimaryKey" parameterType="java.lang.Long">
+		update
+		topic set
+		down_count=down_count+1 where id=#{id}
+	</update>
 </mapper>

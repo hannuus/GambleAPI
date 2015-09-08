@@ -12,15 +12,15 @@ public class Topic {
 
 	private Long specialId;
 
-	private String title;
+	private Long tagId;
+
+	private Integer topicType;
 
 	private Long userId;
 
-	private Integer enabled;
+	private String title;
 
-	private Long hits;
-
-	private Long replyCount;
+	private Integer imgFlag;
 
 	private Long modifiedBy;
 
@@ -32,24 +32,28 @@ public class Topic {
 	@JsonSerialize(using = DateSerializer.class)
 	private Date repliedDate;
 
-	private Long iconId;
+	private Long hits;
 
-	private Integer state;
-
-	private String imageUrl;
-
-	@JsonSerialize(using = DateSerializer.class)
-	private Date createdDate;
+	private Long replyCount;
 
 	private Long followCount;
 
-	private Long tagId;
+	private Long collectionCount;
 
 	private Long upCount;
 
 	private Long downCount;
 
-	private Long collectionCount;
+	private Integer essence;
+
+	private Integer stickie;
+
+	private Integer enabled;
+
+	private Integer state;
+
+	@JsonSerialize(using = DateSerializer.class)
+	private Date createdDate;
 
 	private String content;
 
@@ -77,12 +81,20 @@ public class Topic {
 		this.specialId = specialId;
 	}
 
-	public String getTitle() {
-		return title;
+	public Long getTagId() {
+		return tagId;
 	}
 
-	public void setTitle(String title) {
-		this.title = title == null ? null : title.trim();
+	public void setTagId(Long tagId) {
+		this.tagId = tagId;
+	}
+
+	public Integer getTopicType() {
+		return topicType;
+	}
+
+	public void setTopicType(Integer topicType) {
+		this.topicType = topicType;
 	}
 
 	public Long getUserId() {
@@ -93,28 +105,20 @@ public class Topic {
 		this.userId = userId;
 	}
 
-	public Integer getEnabled() {
-		return enabled;
+	public String getTitle() {
+		return title;
 	}
 
-	public void setEnabled(Integer enabled) {
-		this.enabled = enabled;
+	public void setTitle(String title) {
+		this.title = title == null ? null : title.trim();
 	}
 
-	public Long getHits() {
-		return hits;
+	public Integer getImgFlag() {
+		return imgFlag;
 	}
 
-	public void setHits(Long hits) {
-		this.hits = hits;
-	}
-
-	public Long getReplyCount() {
-		return replyCount;
-	}
-
-	public void setReplyCount(Long replyCount) {
-		this.replyCount = replyCount;
+	public void setImgFlag(Integer imgFlag) {
+		this.imgFlag = imgFlag;
 	}
 
 	public Long getModifiedBy() {
@@ -149,36 +153,20 @@ public class Topic {
 		this.repliedDate = repliedDate;
 	}
 
-	public Long getIconId() {
-		return iconId;
+	public Long getHits() {
+		return hits;
 	}
 
-	public void setIconId(Long iconId) {
-		this.iconId = iconId;
+	public void setHits(Long hits) {
+		this.hits = hits;
 	}
 
-	public Integer getState() {
-		return state;
+	public Long getReplyCount() {
+		return replyCount;
 	}
 
-	public void setState(Integer state) {
-		this.state = state;
-	}
-
-	public String getImageUrl() {
-		return imageUrl;
-	}
-
-	public void setImageUrl(String imageUrl) {
-		this.imageUrl = imageUrl == null ? null : imageUrl.trim();
-	}
-
-	public Date getCreatedDate() {
-		return createdDate;
-	}
-
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
+	public void setReplyCount(Long replyCount) {
+		this.replyCount = replyCount;
 	}
 
 	public Long getFollowCount() {
@@ -189,12 +177,12 @@ public class Topic {
 		this.followCount = followCount;
 	}
 
-	public Long getTagId() {
-		return tagId;
+	public Long getCollectionCount() {
+		return collectionCount;
 	}
 
-	public void setTagId(Long tagId) {
-		this.tagId = tagId;
+	public void setCollectionCount(Long collectionCount) {
+		this.collectionCount = collectionCount;
 	}
 
 	public Long getUpCount() {
@@ -213,12 +201,44 @@ public class Topic {
 		this.downCount = downCount;
 	}
 
-	public Long getCollectionCount() {
-		return collectionCount;
+	public Integer getEssence() {
+		return essence;
 	}
 
-	public void setCollectionCount(Long collectionCount) {
-		this.collectionCount = collectionCount;
+	public void setEssence(Integer essence) {
+		this.essence = essence;
+	}
+
+	public Integer getStickie() {
+		return stickie;
+	}
+
+	public void setStickie(Integer stickie) {
+		this.stickie = stickie;
+	}
+
+	public Integer getEnabled() {
+		return enabled;
+	}
+
+	public void setEnabled(Integer enabled) {
+		this.enabled = enabled;
+	}
+
+	public Integer getState() {
+		return state;
+	}
+
+	public void setState(Integer state) {
+		this.state = state;
+	}
+
+	public Date getCreatedDate() {
+		return createdDate;
+	}
+
+	public void setCreatedDate(Date createdDate) {
+		this.createdDate = createdDate;
 	}
 
 	public String getContent() {
