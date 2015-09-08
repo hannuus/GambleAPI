@@ -34,7 +34,7 @@ Carson: </br>
 
 Jarasy:</br>
  【1.2】用户设置(完成)</br>
- 【2.2】论坛交互APIs</br>
+ 【2.2】论坛交互APIs(完成)</br>
  【5.2】运营操作系统</br>
  
 Aelns:</br>
