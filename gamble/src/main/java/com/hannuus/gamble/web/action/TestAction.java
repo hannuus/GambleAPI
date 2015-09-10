@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hannuus.gamble.model.UserToken;
 import com.hannuus.gamble.web.service.CustomService;
+import com.hannuus.gamble.web.validate.ValidateParams;
+import com.hannuus.gamble.web.validate.ValidateResult;
 
 @Controller
 @RequestMapping("/test")
@@ -63,6 +65,21 @@ public class TestAction extends BaseAction {
 	@RequestMapping("/operTopic")
 	public String operTopic() {
 		logger.debug("operTopic...");
+		return "/success";
+	}
+
+	@RequiresUser
+	@RequestMapping("/validate")
+	public String testValidate() {
+		logger.debug("testValidate in...");
+		ValidateParams params = new ValidateParams();
+		params.setRuleId("login");
+		ValidateResult result = validate(params);
+		if (result.getCode() == ValidateResult.FAILURE) {
+			// handle the result
+			return "/index";
+		}
+		logger.debug("testValidate out...");
 		return "/success";
 	}
 

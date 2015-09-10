@@ -32,6 +32,9 @@ import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.PermissionService;
+import com.hannuus.gamble.web.validate.ValidateEngine;
+import com.hannuus.gamble.web.validate.ValidateParams;
+import com.hannuus.gamble.web.validate.ValidateResult;
 
 /**
  * Action基类
@@ -53,6 +56,9 @@ public class BaseAction {
 
 	@Autowired
 	PermissionService permissionService;
+
+	@Autowired
+	ValidateEngine validateEngine;
 
 	private MappingJacksonJsonViewExd jsonView = new MappingJacksonJsonViewExd();
 
@@ -358,6 +364,17 @@ public class BaseAction {
 			PageQueryCallback<T> callback, PageWrapper pageWrapper) {
 		pageQueryTemplate
 				.execute(pageNum, pageSize, map, callback, pageWrapper);
+	}
+
+	/**
+	 * 进行业务规则校验
+	 * 
+	 * @param params
+	 *            校验参数
+	 * @return
+	 */
+	public ValidateResult validate(ValidateParams params) {
+		return validateEngine.executeValidate(params);
 	}
 
 }

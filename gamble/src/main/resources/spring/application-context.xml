@@ -28,6 +28,7 @@
 	<context:component-scan base-package="com.hannuus.gamble.web.service"></context:component-scan>
 	<context:component-scan base-package="com.hannuus.gamble.web.security"></context:component-scan>
 	<context:component-scan base-package="com.hannuus.gamble.web.task"></context:component-scan>
+	<context:component-scan base-package="com.hannuus.gamble.web.validate"></context:component-scan>
 
 	<task:annotation-driven />
 
