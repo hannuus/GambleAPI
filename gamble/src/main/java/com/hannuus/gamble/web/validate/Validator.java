@@ -3,7 +3,9 @@ package com.hannuus.gamble.web.validate;
 import org.apache.log4j.Logger;
 
 /**
- * 校验规则基类
+ * 校验规则基类<br>
+ * 该类通过getOrder()来维持多个校验规则之间的执行顺序(按照从小到大的顺序执行每条校验规则)<br>
+ * order无须从0开始，也无须保持连续，但是多个规则之间的order不可重复，并且负数将被忽略
  * 
  * @author cuesky
  * @date 2015年9月10日 下午9:50:44

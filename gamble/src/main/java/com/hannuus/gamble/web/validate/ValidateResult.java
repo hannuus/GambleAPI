@@ -11,7 +11,9 @@ public class ValidateResult {
 	public final static int FAILURE = 0;
 	public final static int SUCCESS = 1;
 
+	/** 状态码 */
 	private int code;
+	/** 返回的校验结果消息 */
 	private String message;
 
 	public ValidateResult() {
