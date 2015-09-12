@@ -28,7 +28,7 @@ mvn install:install-file -DgroupId=baidu -DartifactId=bacc-api-lib -Dversion=3.0
 </br>
 API开发分配计划:</br>
 Carson: </br>
-【1.3】会员动态统计</br>
+【1.3】会员动态统计(完成)</br>
 【3.1】基本用户信息推送(基本完成)</br>
 【3.2】系统推送(基本完成)</br>
 
