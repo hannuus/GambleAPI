@@ -114,4 +114,39 @@ public final class R {
 
 	}
 
+	/**
+	 * 活动相关
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月11日 下午11:21:24
+	 */
+	public static final class activity {
+
+		// TODO cuesky
+		public static final String login_uri = "/gamble/api/custom/login.json";
+		public static final Integer login_type = 1;
+
+		public static final String logout_uri = "/gamble/api/custom/logout.json";
+		public static final Integer logout_type = 2;
+
+		public static final String post_uri = "post";
+		public static final Integer post_type = 3;
+
+		public static final String reply_uri = "reply";
+		public static final Integer reply_type = 4;
+
+		public static final String mark_uri = "mark";
+		public static final Integer mark_type = 5;
+
+		public static final String collect_uri = "collect";
+		public static final Integer collect_type = 6;
+
+		public static final String email_uri = "email";
+		public static final Integer email_type = 7;
+
+		public static final String search_uri = "search";
+		public static final Integer search_type = 8;
+
+	}
+
 }

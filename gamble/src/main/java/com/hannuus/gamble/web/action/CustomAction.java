@@ -2,11 +2,15 @@ package com.hannuus.gamble.web.action;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.collections.CollectionUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.gamble.comm.JsonVo;
@@ -97,6 +101,10 @@ public class CustomAction extends BaseAction {
 	public JsonVo<Integer> logout() {
 		JsonVo<Integer> json = new JsonVo<Integer>();
 		customService.logout();
+		// TODO cuesky 移除session
+		HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder
+				.getRequestAttributes()).getRequest();
+		request.getSession().invalidate();
 		json.setStatus(JsonResultStatus.Success.getValue());
 		return json;
 	}

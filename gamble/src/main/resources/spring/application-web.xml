@@ -57,6 +57,10 @@
 			<mvc:mapping path="/**" />
 			<bean class="com.hannuus.gamble.web.filter.GlobalInterceptor"></bean>
 		</mvc:interceptor>
+		<mvc:interceptor>
+			<mvc:mapping path="/**" />
+			<bean class="com.hannuus.gamble.web.filter.ActivityInterceptor"></bean>
+		</mvc:interceptor>
 	</mvc:interceptors>
 
 	<!-- FreeMarker的配置 -->
