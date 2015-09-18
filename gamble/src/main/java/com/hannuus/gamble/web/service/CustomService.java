@@ -42,6 +42,22 @@ public interface CustomService {
 	public UserToken checkLogin(UserToken userToken);
 
 	/**
+	 * 使用QQ直接登陆
+	 * 
+	 * @param userToken
+	 * @return
+	 */
+	public UserToken qqLogin(UserToken userToken);
+
+	/**
+	 * 使用Sina微博号直接登录
+	 * 
+	 * @param userToken
+	 * @return
+	 */
+	public UserToken sinaLogin(UserToken userToken);
+
+	/**
 	 * 使用realm登录
 	 * 
 	 * @param userName

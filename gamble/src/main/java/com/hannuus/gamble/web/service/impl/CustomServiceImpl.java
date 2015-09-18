@@ -61,7 +61,6 @@ public class CustomServiceImpl implements CustomService {
 	@Override
 	public UserToken regist(UserToken userToken) {
 		generateToken(userToken);
-		userTokenMapper.insertSelective(userToken);
 		// 同时保存user
 		User user = new User();
 		user.setUserName(userToken.getUserName());
@@ -71,6 +70,9 @@ public class CustomServiceImpl implements CustomService {
 		user.setFlag(1);// 默认正常用户
 		user.setCreatedDate(new Date());// 默认系统时间
 		userMapper.insertSelective(user);
+		// 新增token
+		userToken.setUserId(user.getId());
+		userTokenMapper.insertSelective(userToken);
 		return userToken;
 	}
 
@@ -108,6 +110,34 @@ public class CustomServiceImpl implements CustomService {
 		}
 		logger.debug("checkLogin out...");
 		return ut;
+	}
+
+	@Override
+	public UserToken qqLogin(UserToken userToken) {
+		UserTokenExample example = new UserTokenExample();
+		example.createCriteria().andQqEqualTo(userToken.getQq());
+		List<UserToken> list = userTokenMapper.selectByExample(example);
+		if (CollectionUtils.isNotEmpty(list)) {// 第2+次登录
+			userToken = list.get(0);
+		} else {// 第1次使用QQ进行登录，同时进行注册
+			userToken.setUserName(userToken.getQq() + "@qq.com");
+			userToken = regist(userToken);
+		}
+		return userToken;
+	}
+
+	@Override
+	public UserToken sinaLogin(UserToken userToken) {
+		UserTokenExample example = new UserTokenExample();
+		example.createCriteria().andSinaEqualTo(userToken.getSina());
+		List<UserToken> list = userTokenMapper.selectByExample(example);
+		if (CollectionUtils.isNotEmpty(list)) {// 第2+次登录
+			userToken = list.get(0);
+		} else {// 第1次使用Sina进行登录，同时进行注册
+			userToken.setUserName(userToken.getSina() + "@sina.com");
+			userToken = regist(userToken);
+		}
+		return userToken;
 	}
 
 	public UserToken loginByRealm(String userName, String password) {

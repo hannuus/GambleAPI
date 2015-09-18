@@ -92,6 +92,51 @@ public class CustomAction extends BaseAction {
 	}
 
 	/**
+	 * 使用QQ账号信息直接登录
+	 * 
+	 * @param userToken
+	 *            应该在qq字段中包含能唯一标识用户的openId
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/loginByQq.json")
+	public JsonVo<UserToken> loginByQq(UserToken userToken) {
+		JsonVo<UserToken> json = new JsonVo<UserToken>();
+		userToken = customService.qqLogin(userToken);
+		if (userToken == null) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
+		} else {
+			// 将userToken存入session
+			setSessionAttribute(R.session.user, userToken);
+			json.setStatus(JsonResultStatus.Success.getValue());
+			json.setResult(userToken);
+		}
+		return json;
+	}
+
+	/**
+	 * 使用Sina微博账号登录，原理同QQ
+	 * 
+	 * @param userToken
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping("/loginBySina.json")
+	public JsonVo<UserToken> loginBySina(UserToken userToken) {
+		JsonVo<UserToken> json = new JsonVo<UserToken>();
+		userToken = customService.sinaLogin(userToken);
+		if (userToken == null) {
+			json.setStatus(JsonResultStatus.Failed.getValue());
+		} else {
+			// 将userToken存入session
+			setSessionAttribute(R.session.user, userToken);
+			json.setStatus(JsonResultStatus.Success.getValue());
+			json.setResult(userToken);
+		}
+		return json;
+	}
+
+	/**
 	 * 用户注销
 	 * 
 	 * @return
