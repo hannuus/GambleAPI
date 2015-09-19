@@ -149,4 +149,22 @@ public final class R {
 
 	}
 
+	/**
+	 * 用户相关
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月18日下午5:38:56
+	 */
+	public static final class user {
+
+		/** 用户名最大长度 */
+		public static final Integer username_limit = 12;
+
+		/** 真实用户 */
+		public static final Integer reality_type = 1;
+		/** 虚拟用户 */
+		public static final Integer virtual_type = 2;
+
+	}
+
 }
