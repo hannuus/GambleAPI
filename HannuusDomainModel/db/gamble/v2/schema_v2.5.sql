@@ -1,3 +1,5 @@
+CREATE DATABASE  IF NOT EXISTS `gamble_bbs` /*!40100 DEFAULT CHARACTER SET utf8 */;
+USE `gamble_bbs`;
 -- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
 --
 -- Host: localhost    Database: gamble_bbs

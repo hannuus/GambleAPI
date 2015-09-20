@@ -16,6 +16,7 @@
 		<result column="collection_count" property="collectionCount"
 			jdbcType="BIGINT" />
 		<result column="reply_count" property="replyCount" jdbcType="BIGINT" />
+		<result column="reply_type" property="replyType" jdbcType="INTEGER" />
 	</resultMap>
 	<resultMap id="ResultMapWithBLOBs" type="com.hannuus.gamble.model.Reply"
 		extends="BaseResultMap">
@@ -90,7 +91,8 @@
 		id, topic_id, title, user_id, modified_date, created_date,
 		parent_id,
 		`state`, up_count,
-		down_count, collection_count, reply_count
+		down_count, collection_count, reply_count,
+		reply_type
 	</sql>
 	<sql id="Blob_Column_List">
 		content
@@ -160,8 +162,8 @@
 		modified_date,
 		created_date, parent_id,
 		`state`, up_count, down_count,
-		collection_count, reply_count, content
-		)
+		collection_count, reply_count, reply_type,
+		content)
 		values
 		(#{topicId,jdbcType=BIGINT}, #{title,jdbcType=VARCHAR},
 		#{userId,jdbcType=BIGINT},
@@ -170,8 +172,8 @@
 		#{state,jdbcType=INTEGER}, #{upCount,jdbcType=BIGINT},
 		#{downCount,jdbcType=BIGINT},
 		#{collectionCount,jdbcType=BIGINT},
-		#{replyCount,jdbcType=BIGINT}, #{content,jdbcType=LONGVARCHAR}
-		)
+		#{replyCount,jdbcType=BIGINT}, #{replyType,jdbcType=INTEGER},
+		#{content,jdbcType=LONGVARCHAR})
 	</insert>
 	<insert id="insertSelective" parameterType="com.hannuus.gamble.model.Reply">
 		<selectKey resultType="java.lang.Long" keyProperty="id"
@@ -213,6 +215,9 @@
 			<if test="replyCount != null">
 				reply_count,
 			</if>
+			<if test="replyType != null">
+				reply_type,
+			</if>
 			<if test="content != null">
 				content,
 			</if>
@@ -250,6 +255,9 @@
 			</if>
 			<if test="replyCount != null">
 				#{replyCount,jdbcType=BIGINT},
+			</if>
+			<if test="replyType != null">
+				#{replyType,jdbcType=INTEGER},
 			</if>
 			<if test="content != null">
 				#{content,jdbcType=LONGVARCHAR},
@@ -304,6 +312,9 @@
 			<if test="record.replyCount != null">
 				reply_count = #{record.replyCount,jdbcType=BIGINT},
 			</if>
+			<if test="record.replyType != null">
+				reply_type = #{record.replyType,jdbcType=INTEGER},
+			</if>
 			<if test="record.content != null">
 				content = #{record.content,jdbcType=LONGVARCHAR},
 			</if>
@@ -337,6 +348,8 @@
 		#{record.collectionCount,jdbcType=BIGINT},
 		reply_count =
 		#{record.replyCount,jdbcType=BIGINT},
+		reply_type =
+		#{record.replyType,jdbcType=INTEGER},
 		content =
 		#{record.content,jdbcType=LONGVARCHAR}
 		<if test="_parameter != null">
@@ -367,7 +380,9 @@
 		collection_count =
 		#{record.collectionCount,jdbcType=BIGINT},
 		reply_count =
-		#{record.replyCount,jdbcType=BIGINT}
+		#{record.replyCount,jdbcType=BIGINT},
+		reply_type =
+		#{record.replyType,jdbcType=INTEGER}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -408,6 +423,9 @@
 			<if test="replyCount != null">
 				reply_count = #{replyCount,jdbcType=BIGINT},
 			</if>
+			<if test="replyType != null">
+				reply_type = #{replyType,jdbcType=INTEGER},
+			</if>
 			<if test="content != null">
 				content = #{content,jdbcType=LONGVARCHAR},
 			</if>
@@ -434,6 +452,8 @@
 		#{collectionCount,jdbcType=BIGINT},
 		reply_count =
 		#{replyCount,jdbcType=BIGINT},
+		reply_type =
+		#{replyType,jdbcType=INTEGER},
 		content =
 		#{content,jdbcType=LONGVARCHAR}
 		where id = #{id,jdbcType=BIGINT}
@@ -457,7 +477,9 @@
 		collection_count =
 		#{collectionCount,jdbcType=BIGINT},
 		reply_count =
-		#{replyCount,jdbcType=BIGINT}
+		#{replyCount,jdbcType=BIGINT},
+		reply_type =
+		#{replyType,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="increaseUpCountByPrimaryKey" parameterType="java.lang.Long">

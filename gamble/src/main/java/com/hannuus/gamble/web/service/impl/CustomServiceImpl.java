@@ -67,7 +67,7 @@ public class CustomServiceImpl implements CustomService {
 		user.setEmail(userToken.getEmail());
 		user.setMobile(userToken.getMobile());
 		user.setState(1);// 默认可用
-		user.setFlag(1);// 默认正常用户
+		user.setUserType(R.user.reality_type);// 默认正常用户
 		user.setCreatedDate(new Date());// 默认系统时间
 		userMapper.insertSelective(user);
 		// 新增token

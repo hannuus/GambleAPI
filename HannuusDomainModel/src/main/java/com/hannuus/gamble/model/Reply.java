@@ -6,135 +6,145 @@ import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.hannuus.core.json.DateSerializer;
 
 public class Reply {
-	private Long id;
+    private Long id;
 
-	private Long topicId;
+    private Long topicId;
 
-	private String title;
+    private String title;
 
-	private Long userId;
-
-	@JsonSerialize(using = DateSerializer.class)
-	private Date modifiedDate;
+    private Long userId;
 
 	@JsonSerialize(using = DateSerializer.class)
-	private Date createdDate;
+    private Date modifiedDate;
 
-	private Long parentId;
+	@JsonSerialize(using = DateSerializer.class)
+    private Date createdDate;
 
-	private Integer state;
+    private Long parentId;
 
-	private Long upCount;
+    private Integer state;
 
-	private Long downCount;
+    private Long upCount;
 
-	private Long collectionCount;
+    private Long downCount;
 
-	private Long replyCount;
+    private Long collectionCount;
 
-	private String content;
+    private Long replyCount;
 
-	public Long getId() {
-		return id;
-	}
+    private Integer replyType;
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String content;
 
-	public Long getTopicId() {
-		return topicId;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public void setTopicId(Long topicId) {
-		this.topicId = topicId;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public String getTitle() {
-		return title;
-	}
+    public Long getTopicId() {
+        return topicId;
+    }
 
-	public void setTitle(String title) {
-		this.title = title == null ? null : title.trim();
-	}
+    public void setTopicId(Long topicId) {
+        this.topicId = topicId;
+    }
 
-	public Long getUserId() {
-		return userId;
-	}
+    public String getTitle() {
+        return title;
+    }
 
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
+    public void setTitle(String title) {
+        this.title = title == null ? null : title.trim();
+    }
 
-	public Date getModifiedDate() {
-		return modifiedDate;
-	}
+    public Long getUserId() {
+        return userId;
+    }
 
-	public void setModifiedDate(Date modifiedDate) {
-		this.modifiedDate = modifiedDate;
-	}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-	public Date getCreatedDate() {
-		return createdDate;
-	}
+    public Date getModifiedDate() {
+        return modifiedDate;
+    }
 
-	public void setCreatedDate(Date createdDate) {
-		this.createdDate = createdDate;
-	}
+    public void setModifiedDate(Date modifiedDate) {
+        this.modifiedDate = modifiedDate;
+    }
 
-	public Long getParentId() {
-		return parentId;
-	}
+    public Date getCreatedDate() {
+        return createdDate;
+    }
 
-	public void setParentId(Long parentId) {
-		this.parentId = parentId;
-	}
+    public void setCreatedDate(Date createdDate) {
+        this.createdDate = createdDate;
+    }
 
-	public Integer getState() {
-		return state;
-	}
+    public Long getParentId() {
+        return parentId;
+    }
 
-	public void setState(Integer state) {
-		this.state = state;
-	}
+    public void setParentId(Long parentId) {
+        this.parentId = parentId;
+    }
 
-	public Long getUpCount() {
-		return upCount;
-	}
+    public Integer getState() {
+        return state;
+    }
 
-	public void setUpCount(Long upCount) {
-		this.upCount = upCount;
-	}
+    public void setState(Integer state) {
+        this.state = state;
+    }
 
-	public Long getDownCount() {
-		return downCount;
-	}
+    public Long getUpCount() {
+        return upCount;
+    }
 
-	public void setDownCount(Long downCount) {
-		this.downCount = downCount;
-	}
+    public void setUpCount(Long upCount) {
+        this.upCount = upCount;
+    }
 
-	public Long getCollectionCount() {
-		return collectionCount;
-	}
+    public Long getDownCount() {
+        return downCount;
+    }
 
-	public void setCollectionCount(Long collectionCount) {
-		this.collectionCount = collectionCount;
-	}
+    public void setDownCount(Long downCount) {
+        this.downCount = downCount;
+    }
 
-	public Long getReplyCount() {
-		return replyCount;
-	}
+    public Long getCollectionCount() {
+        return collectionCount;
+    }
 
-	public void setReplyCount(Long replyCount) {
-		this.replyCount = replyCount;
-	}
+    public void setCollectionCount(Long collectionCount) {
+        this.collectionCount = collectionCount;
+    }
 
-	public String getContent() {
-		return content;
-	}
+    public Long getReplyCount() {
+        return replyCount;
+    }
 
-	public void setContent(String content) {
-		this.content = content == null ? null : content.trim();
-	}
+    public void setReplyCount(Long replyCount) {
+        this.replyCount = replyCount;
+    }
+
+    public Integer getReplyType() {
+        return replyType;
+    }
+
+    public void setReplyType(Integer replyType) {
+        this.replyType = replyType;
+    }
+
+    public String getContent() {
+        return content;
+    }
+
+    public void setContent(String content) {
+        this.content = content == null ? null : content.trim();
+    }
 }

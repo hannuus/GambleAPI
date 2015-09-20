@@ -11,14 +11,14 @@ import com.hannuus.gamble.comm.JsonVo;
 import com.hannuus.gamble.domain.page.PageDTO;
 import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.domain.page.PageQueryCallback;
+import com.hannuus.gamble.model.Reply;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.service.VirtualService;
 
 /**
  * 该类用来行使如下操作：<br>
  * 1、虚拟用户CRUD<br>
- * 2、虚拟内容CRUD<br>
- * 3、虚拟回复CRUD<br>
+ * 2、虚拟回复CRUD<br>
  * 
  * @author cuesky
  * @date 2015年9月18日下午4:39:14
@@ -96,6 +96,41 @@ public class VirtualAction extends BaseAction {
 	public ModelAndView doBatchAddUsers(ModelMap map, String seed, int num) {
 		virtualService.batchAddeUsers(seed, num);
 		return listUsers(map, 1, 0);
+	}
+
+	/**
+	 * 分页查询所有虚拟回复
+	 * 
+	 * @param map
+	 *            域模型
+	 * @param pageNum
+	 *            页码
+	 * @param pageSize
+	 *            页面大小
+	 * @return
+	 */
+	@RequestMapping("/listReplys")
+	public ModelAndView listReplys(ModelMap map, int pageNum, int pageSize) {
+		pageQuery(pageNum, pageSize, map, new PageQueryCallback<Reply>() {
+			@Override
+			public PageDTO<Reply> query(PageParams params) {
+				return virtualService.findReplyPage(params);
+			}
+		});
+		return new ModelAndView("/virtual/reply_list");
+	}
+
+	/**
+	 * 批量生成虚拟回复记录
+	 * 
+	 * @param map
+	 *            域模型
+	 * @return
+	 */
+	@RequestMapping("/generateVirtualReplys")
+	public ModelAndView generateVirtualReplys(ModelMap map) {
+		virtualService.batchAddReplys();
+		return listReplys(map, 1, 0);
 	}
 
 }

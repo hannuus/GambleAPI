@@ -2,9 +2,7 @@ package com.hannuus.gamble.dao;
 
 import com.hannuus.gamble.model.Reply;
 import com.hannuus.gamble.model.ReplyExample;
-
 import java.util.List;
-
 import org.apache.ibatis.annotations.Param;
 
 public interface ReplyMapper {

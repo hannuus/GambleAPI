@@ -47,7 +47,7 @@ public class User {
 
 	private String mobile;
 
-	private Integer flag;
+	private Integer userType;
 
 	private Integer acceptImage;
 
@@ -215,12 +215,12 @@ public class User {
 		this.mobile = mobile == null ? null : mobile.trim();
 	}
 
-	public Integer getFlag() {
-		return flag;
+	public Integer getUserType() {
+		return userType;
 	}
 
-	public void setFlag(Integer flag) {
-		this.flag = flag;
+	public void setUserType(Integer userType) {
+		this.userType = userType;
 	}
 
 	public Integer getAcceptImage() {

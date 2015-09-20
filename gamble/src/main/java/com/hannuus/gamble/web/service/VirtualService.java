@@ -2,6 +2,7 @@ package com.hannuus.gamble.web.service;
 
 import com.hannuus.gamble.domain.page.PageDTO;
 import com.hannuus.gamble.domain.page.PageParams;
+import com.hannuus.gamble.model.Reply;
 import com.hannuus.gamble.model.User;
 
 /**
@@ -38,5 +39,19 @@ public interface VirtualService {
 	 *            新增数量
 	 */
 	void batchAddeUsers(String seed, int num);
+
+	/**
+	 * 分页查询所有虚拟回复
+	 * 
+	 * @param params
+	 *            分页参数
+	 * @return
+	 */
+	PageDTO<Reply> findReplyPage(PageParams params);
+
+	/**
+	 * 批量生成虚拟回复
+	 */
+	void batchAddReplys();
 
 }

@@ -710,4 +710,9 @@
 		topic set
 		down_count=down_count+1 where id=#{id}
 	</update>
+
+	<select id="findSampleTopics" parameterType="java.lang.Integer"
+		resultMap="BaseResultMap">
+	    <![CDATA[select * from topic where datediff(now(),created_date)<=#{sampleDay}]]>
+	</select>
 </mapper>

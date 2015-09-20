@@ -1,6 +1,8 @@
 package com.hannuus.gamble.utils;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import com.hannuus.gamble.comm.R;
@@ -47,6 +49,30 @@ public class VirtualUtils {
 			userNames[i] = buff.toString();
 		}
 		return userNames;
+	}
+
+	/**
+	 * 从samples中随机抽取num个样本<br>
+	 * 注：samples的size必须大于num
+	 * 
+	 * @param sampls
+	 *            原始样本
+	 * @param num
+	 *            样本数
+	 * @return
+	 */
+	public static <T> List<T> generateRandomSamples(List<T> sampls, int num) {
+		Random ran = new Random();
+		List<T> randoms = new ArrayList<T>();
+		for (int i = 0; i < num; i++) {
+			int n = ran.nextInt(sampls.size());
+			if (randoms.contains(sampls.get(n))) {
+				i--;
+			} else {
+				randoms.add(sampls.get(n));
+			}
+		}
+		return randoms;
 	}
 
 }

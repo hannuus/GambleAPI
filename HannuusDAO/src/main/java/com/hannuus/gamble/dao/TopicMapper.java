@@ -42,4 +42,6 @@ public interface TopicMapper {
 
 	int increaseDownCountByPrimaryKey(Long id);
 
+	List<Topic> findSampleTopics(Integer sampleDay);
+
 }

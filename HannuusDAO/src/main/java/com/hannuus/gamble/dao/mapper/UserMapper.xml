@@ -23,7 +23,7 @@
 		<result column="fans_count" property="fansCount" jdbcType="INTEGER" />
 		<result column="follow_count" property="followCount" jdbcType="INTEGER" />
 		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
-		<result column="flag" property="flag" jdbcType="INTEGER" />
+		<result column="user_type" property="userType" jdbcType="INTEGER" />
 		<result column="accept_image" property="acceptImage" jdbcType="INTEGER" />
 		<result column="accept_push_message" property="acceptPushMessage"
 			jdbcType="INTEGER" />
@@ -95,8 +95,9 @@
 		id, user_name, nick_name, `password`, salt, email, head_url,
 		introduction, signature,
 		topic_count, reply_count, best_topic_count, last_topic_id, last_reply_id, amount,
-		`state`, created_date, fans_count, follow_count, mobile, flag,
-		accept_image, accept_push_message
+		`state`, created_date, fans_count, follow_count, mobile, user_type,
+		accept_image,
+		accept_push_message
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.hannuus.gamble.model.UserExample">
@@ -145,7 +146,7 @@
 		reply_count, best_topic_count, last_topic_id,
 		last_reply_id, amount, `state`,
 		created_date, fans_count, follow_count,
-		mobile, flag, accept_image,
+		mobile, user_type, accept_image,
 		accept_push_message)
 		values (#{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
@@ -156,7 +157,7 @@
 		#{lastReplyId,jdbcType=BIGINT}, #{amount,jdbcType=INTEGER},
 		#{state,jdbcType=INTEGER},
 		#{createdDate,jdbcType=TIMESTAMP}, #{fansCount,jdbcType=INTEGER}, #{followCount,jdbcType=INTEGER},
-		#{mobile,jdbcType=VARCHAR}, #{flag,jdbcType=INTEGER},
+		#{mobile,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER},
 		#{acceptImage,jdbcType=INTEGER},
 		#{acceptPushMessage,jdbcType=INTEGER})
 	</insert>
@@ -224,8 +225,8 @@
 			<if test="mobile != null">
 				mobile,
 			</if>
-			<if test="flag != null">
-				flag,
+			<if test="userType != null">
+				user_type,
 			</if>
 			<if test="acceptImage != null">
 				accept_image,
@@ -292,8 +293,8 @@
 			<if test="mobile != null">
 				#{mobile,jdbcType=VARCHAR},
 			</if>
-			<if test="flag != null">
-				#{flag,jdbcType=INTEGER},
+			<if test="userType != null">
+				#{userType,jdbcType=INTEGER},
 			</if>
 			<if test="acceptImage != null">
 				#{acceptImage,jdbcType=INTEGER},
@@ -373,8 +374,8 @@
 			<if test="record.mobile != null">
 				mobile = #{record.mobile,jdbcType=VARCHAR},
 			</if>
-			<if test="record.flag != null">
-				flag = #{record.flag,jdbcType=INTEGER},
+			<if test="record.userType != null">
+				user_type = #{record.userType,jdbcType=INTEGER},
 			</if>
 			<if test="record.acceptImage != null">
 				accept_image = #{record.acceptImage,jdbcType=INTEGER},
@@ -409,7 +410,7 @@
 		fans_count = #{record.fansCount,jdbcType=INTEGER},
 		follow_count = #{record.followCount,jdbcType=INTEGER},
 		mobile = #{record.mobile,jdbcType=VARCHAR},
-		flag = #{record.flag,jdbcType=INTEGER},
+		user_type = #{record.userType,jdbcType=INTEGER},
 		accept_image = #{record.acceptImage,jdbcType=INTEGER},
 		accept_push_message = #{record.acceptPushMessage,jdbcType=INTEGER}
 		<if test="_parameter != null">
@@ -476,8 +477,8 @@
 			<if test="mobile != null">
 				mobile = #{mobile,jdbcType=VARCHAR},
 			</if>
-			<if test="flag != null">
-				flag = #{flag,jdbcType=INTEGER},
+			<if test="userType != null">
+				user_type = #{userType,jdbcType=INTEGER},
 			</if>
 			<if test="acceptImage != null">
 				accept_image = #{acceptImage,jdbcType=INTEGER},
@@ -509,7 +510,7 @@
 		fans_count = #{fansCount,jdbcType=INTEGER},
 		follow_count = #{followCount,jdbcType=INTEGER},
 		mobile = #{mobile,jdbcType=VARCHAR},
-		flag = #{flag,jdbcType=INTEGER},
+		user_type = #{userType,jdbcType=INTEGER},
 		accept_image = #{acceptImage,jdbcType=INTEGER},
 		accept_push_message = #{acceptPushMessage,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}

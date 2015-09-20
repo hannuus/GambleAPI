@@ -556,62 +556,62 @@ public class ReplyExample {
         }
 
         public Criteria andStateIsNull() {
-            addCriterion("\"state\" is null");
+            addCriterion("`state` is null");
             return (Criteria) this;
         }
 
         public Criteria andStateIsNotNull() {
-            addCriterion("\"state\" is not null");
+            addCriterion("`state` is not null");
             return (Criteria) this;
         }
 
         public Criteria andStateEqualTo(Integer value) {
-            addCriterion("\"state\" =", value, "state");
+            addCriterion("`state` =", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateNotEqualTo(Integer value) {
-            addCriterion("\"state\" <>", value, "state");
+            addCriterion("`state` <>", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateGreaterThan(Integer value) {
-            addCriterion("\"state\" >", value, "state");
+            addCriterion("`state` >", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateGreaterThanOrEqualTo(Integer value) {
-            addCriterion("\"state\" >=", value, "state");
+            addCriterion("`state` >=", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateLessThan(Integer value) {
-            addCriterion("\"state\" <", value, "state");
+            addCriterion("`state` <", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateLessThanOrEqualTo(Integer value) {
-            addCriterion("\"state\" <=", value, "state");
+            addCriterion("`state` <=", value, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateIn(List<Integer> values) {
-            addCriterion("\"state\" in", values, "state");
+            addCriterion("`state` in", values, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateNotIn(List<Integer> values) {
-            addCriterion("\"state\" not in", values, "state");
+            addCriterion("`state` not in", values, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateBetween(Integer value1, Integer value2) {
-            addCriterion("\"state\" between", value1, value2, "state");
+            addCriterion("`state` between", value1, value2, "state");
             return (Criteria) this;
         }
 
         public Criteria andStateNotBetween(Integer value1, Integer value2) {
-            addCriterion("\"state\" not between", value1, value2, "state");
+            addCriterion("`state` not between", value1, value2, "state");
             return (Criteria) this;
         }
 
@@ -852,6 +852,66 @@ public class ReplyExample {
 
         public Criteria andReplyCountNotBetween(Long value1, Long value2) {
             addCriterion("reply_count not between", value1, value2, "replyCount");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeIsNull() {
+            addCriterion("reply_type is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeIsNotNull() {
+            addCriterion("reply_type is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeEqualTo(Integer value) {
+            addCriterion("reply_type =", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeNotEqualTo(Integer value) {
+            addCriterion("reply_type <>", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeGreaterThan(Integer value) {
+            addCriterion("reply_type >", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeGreaterThanOrEqualTo(Integer value) {
+            addCriterion("reply_type >=", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeLessThan(Integer value) {
+            addCriterion("reply_type <", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeLessThanOrEqualTo(Integer value) {
+            addCriterion("reply_type <=", value, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeIn(List<Integer> values) {
+            addCriterion("reply_type in", values, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeNotIn(List<Integer> values) {
+            addCriterion("reply_type not in", values, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeBetween(Integer value1, Integer value2) {
+            addCriterion("reply_type between", value1, value2, "replyType");
+            return (Criteria) this;
+        }
+
+        public Criteria andReplyTypeNotBetween(Integer value1, Integer value2) {
+            addCriterion("reply_type not between", value1, value2, "replyType");
             return (Criteria) this;
         }
     }

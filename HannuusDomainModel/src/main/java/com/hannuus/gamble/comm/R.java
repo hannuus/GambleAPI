@@ -112,6 +112,21 @@ public final class R {
 
 		public static final String image_key = "image";
 
+		// 虚拟内容相关
+
+		public static final String virtual = "virtual";
+
+		public static final String virtual_subject_key = "virtualSubject";
+
+		public static final String virtual_verb_key = "virtualVerb";
+
+		public static final String virtual_content_key = "virtualContent";
+
+		/** 采样天数(距离今天最近N天) */
+		public static final String virtual_sample_day_key = "virtualSampleDay";// int
+
+		/** 虚拟回复因子：虚拟回复数=采样数/因子(整数) */
+		public static final String virtual_reply_factor_key = "virtualReplyFactor";// int
 	}
 
 	/**
@@ -163,6 +178,15 @@ public final class R {
 		/** 真实用户 */
 		public static final Integer reality_type = 1;
 		/** 虚拟用户 */
+		public static final Integer virtual_type = 2;
+
+	}
+
+	public static final class reply {
+
+		/** 真实回复 */
+		public static final Integer reality_type = 1;
+		/** 虚拟虚拟回复 */
 		public static final Integer virtual_type = 2;
 
 	}

@@ -18,6 +18,39 @@ USE `gamble_bbs`;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `activity`
+--
+
+DROP TABLE IF EXISTS `activity`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `activity` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `user_id` bigint(20) NOT NULL COMMENT 'FK 用户ID',
+  `type_id` int(11) DEFAULT NULL COMMENT 'FK 活动类型ID',
+  `target_id` bigint(20) DEFAULT NULL COMMENT 'FK 活动涉及到的目标ID',
+  `activity_value` varchar(100) DEFAULT NULL COMMENT '活动附加信息',
+  `created_date` datetime DEFAULT NULL COMMENT '活动时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='用户活动表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `activity_type`
+--
+
+DROP TABLE IF EXISTS `activity_type`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `activity_type` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `type_name` varchar(100) DEFAULT NULL COMMENT '类型文本值',
+  `type_value` varchar(100) DEFAULT NULL COMMENT '类型逻辑值',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='活动类型表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
 -- Table structure for table `black_list`
 --
 
@@ -49,6 +82,24 @@ CREATE TABLE `global_params` (
   `created_date` datetime NOT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `honor`
+--
+
+DROP TABLE IF EXISTS `honor`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `honor` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `user_id` bigint(20) DEFAULT NULL COMMENT 'FK 用户ID',
+  `topic_id` bigint(20) DEFAULT NULL COMMENT 'FK 帖子ID',
+  `reply_id` bigint(20) DEFAULT NULL COMMENT 'FK 回复ID',
+  `honor_value` int(11) DEFAULT NULL COMMENT '0-踩 1-赞',
+  `created_date` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='赞誉统计表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,6 +141,7 @@ CREATE TABLE `reply` (
   `down_count` bigint(20) DEFAULT NULL COMMENT '被踩总计',
   `collection_count` bigint(20) DEFAULT NULL COMMENT '被收藏总计',
   `reply_count` bigint(20) DEFAULT NULL COMMENT '被评论总计',
+  `reply_type` int(11) DEFAULT NULL COMMENT '1-正常回复 2-虚拟回复',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛帖子回复表';
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -163,27 +215,49 @@ CREATE TABLE `topic` (
   `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
   `category_id` bigint(20) DEFAULT NULL COMMENT 'FK 版块分类ID',
   `special_id` bigint(20) DEFAULT NULL COMMENT 'FK 主题所属专题ID',
+  `tag_id` bigint(20) DEFAULT NULL COMMENT 'FK 标签ID',
+  `topic_type` int(11) NOT NULL COMMENT '0-normal 1-vote',
+  `user_id` bigint(20) DEFAULT NULL COMMENT 'FK 用户ID',
   `title` varchar(300) NOT NULL COMMENT '标题',
   `content` text COMMENT '内容',
-  `user_id` bigint(20) DEFAULT NULL COMMENT 'FK 用户ID',
-  `enabled` int(11) DEFAULT NULL COMMENT '是否启用 0-不启用 1-启用',
-  `hits` bigint(20) DEFAULT NULL COMMENT '访问总量',
-  `reply_count` bigint(20) DEFAULT NULL COMMENT '回复总计',
+  `img_flag` int(11) DEFAULT NULL COMMENT '0-无图 1-有图',
   `modified_by` bigint(20) DEFAULT NULL COMMENT 'FK 最后编辑用户ID',
   `modified_date` datetime DEFAULT NULL COMMENT '最后编辑时间',
   `replied_by` bigint(20) DEFAULT NULL COMMENT 'FK 最后回复用户ID',
   `replied_date` datetime DEFAULT NULL COMMENT '最后回复时间',
-  `icon_id` bigint(20) DEFAULT NULL COMMENT 'FK 主题图标ID',
-  `state` int(11) DEFAULT NULL COMMENT '状态 -1-关闭贴',
-  `image_url` varchar(400) DEFAULT NULL COMMENT '帖子展示图片',
-  `created_date` datetime DEFAULT NULL COMMENT '创建时间',
+  `hits` bigint(20) DEFAULT NULL COMMENT '访问总量',
+  `reply_count` bigint(20) DEFAULT NULL COMMENT '回复总计',
   `follow_count` bigint(20) DEFAULT NULL COMMENT '关注总计',
-  `tag_id` bigint(20) DEFAULT NULL COMMENT 'FK 标签ID',
+  `collection_count` bigint(20) DEFAULT NULL COMMENT '被收藏总计',
   `up_count` bigint(20) DEFAULT NULL COMMENT '获赞总计',
   `down_count` bigint(20) DEFAULT NULL COMMENT '被踩总计',
-  `collection_count` bigint(20) DEFAULT NULL COMMENT '被收藏总计',
+  `essence` int(11) DEFAULT NULL COMMENT '0-非精华 1-精华',
+  `stickie` int(11) DEFAULT NULL COMMENT '0-非置顶 1-置顶',
+  `enabled` int(11) DEFAULT NULL COMMENT '0-不启用 1-启用',
+  `state` int(11) DEFAULT NULL COMMENT '0-关闭贴 1-非关闭贴',
+  `created_date` datetime DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛帖子表';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `topic_image`
+--
+
+DROP TABLE IF EXISTS `topic_image`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `topic_image` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `topic_id` bigint(20) DEFAULT NULL COMMENT 'FK 帖子ID',
+  `description` varchar(100) DEFAULT NULL COMMENT '描述',
+  `path` varchar(500) DEFAULT NULL COMMENT '图标路径',
+  `map_flag` varchar(100) DEFAULT NULL COMMENT '图片占位标记',
+  `priority` int(11) DEFAULT NULL COMMENT '顺序',
+  `enabled` int(11) DEFAULT NULL COMMENT '0-不启用 1-启用',
+  `created_date` datetime DEFAULT NULL COMMENT '创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛帖子配图表';
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -214,7 +288,7 @@ CREATE TABLE `user` (
   `fans_count` int(11) DEFAULT NULL COMMENT '粉丝数量',
   `follow_count` int(11) DEFAULT NULL COMMENT '关注对象数量',
   `mobile` varchar(100) DEFAULT NULL COMMENT '手机号码',
-  `flag` int(11) DEFAULT NULL COMMENT '用户标记 1-正常用户  2-虚拟用户',
+  `user_type` int(11) DEFAULT NULL COMMENT '用户标记 1-正常用户  2-虚拟用户',
   `accept_image` int(11) DEFAULT NULL COMMENT 'client接收图片 0-关闭 1-开启 ',
   `accept_push_message` int(11) DEFAULT NULL COMMENT 'client接收推送消息 0-不接收 1-接收',
   PRIMARY KEY (`id`)
@@ -324,6 +398,61 @@ CREATE TABLE `user_token` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='用户令牌表';
 /*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vote`
+--
+
+DROP TABLE IF EXISTS `vote`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `topic_id` bigint(20) DEFAULT NULL COMMENT 'FK 帖子ID',
+  `vote_type` int(11) DEFAULT NULL COMMENT '0-single 1-multiple',
+  `total` bigint(20) DEFAULT NULL COMMENT '投票总数',
+  `limit_level` int(11) DEFAULT NULL COMMENT '投票用户权值限制',
+  `available_day` int(11) DEFAULT NULL COMMENT '投票剩余天数',
+  `lock_mode` int(11) DEFAULT NULL COMMENT '0-直接查看 1-投票后查看',
+  `state` int(11) DEFAULT NULL COMMENT '0-关闭 1-开启',
+  `result` varchar(100) DEFAULT NULL,
+  `created_date` datetime DEFAULT NULL COMMENT '投票创建时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛投票帖子';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vote_item`
+--
+
+DROP TABLE IF EXISTS `vote_item`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote_item` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `vote_id` bigint(20) NOT NULL COMMENT 'FK 投票ID',
+  `item_value` varchar(100) DEFAULT NULL COMMENT '投票项目名称',
+  `total` bigint(20) DEFAULT NULL COMMENT '投票数',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛投票帖的投票项';
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Table structure for table `vote_user`
+--
+
+DROP TABLE IF EXISTS `vote_user`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `vote_user` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT 'PK',
+  `user_id` bigint(20) DEFAULT NULL COMMENT 'FK 用户ID',
+  `vote_id` bigint(20) DEFAULT NULL COMMENT 'FK 投票ID',
+  `vote_item_ids` varchar(100) DEFAULT NULL COMMENT 'split by ","',
+  `created_date` datetime DEFAULT NULL COMMENT '投票时间',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='论坛投票帖的投票用户';
+/*!40101 SET character_set_client = @saved_cs_client */;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -334,4 +463,4 @@ CREATE TABLE `user_token` (
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2015-09-06 15:10:36
+-- Dump completed on 2015-09-20  8:24:20
