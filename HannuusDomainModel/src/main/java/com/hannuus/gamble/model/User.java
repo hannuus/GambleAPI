@@ -16,6 +16,12 @@ public class User {
 
 	private String salt;
 
+	private String certificateNum;
+
+	private Long certificateTypeId;
+
+	private Integer gender;
+
 	private String email;
 
 	private String headUrl;
@@ -93,6 +99,31 @@ public class User {
 
 	public void setSalt(String salt) {
 		this.salt = salt == null ? null : salt.trim();
+	}
+
+	public String getCertificateNum() {
+		return certificateNum;
+	}
+
+	public void setCertificateNum(String certificateNum) {
+		this.certificateNum = certificateNum == null ? null : certificateNum
+				.trim();
+	}
+
+	public Long getCertificateTypeId() {
+		return certificateTypeId;
+	}
+
+	public void setCertificateTypeId(Long certificateTypeId) {
+		this.certificateTypeId = certificateTypeId;
+	}
+
+	public Integer getGender() {
+		return gender;
+	}
+
+	public void setGender(Integer gender) {
+		this.gender = gender;
 	}
 
 	public String getEmail() {

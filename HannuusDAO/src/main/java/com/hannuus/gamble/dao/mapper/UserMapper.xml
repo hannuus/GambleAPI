@@ -7,6 +7,11 @@
 		<result column="nick_name" property="nickName" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="salt" property="salt" jdbcType="VARCHAR" />
+		<result column="certificate_num" property="certificateNum"
+			jdbcType="VARCHAR" />
+		<result column="certificate_type_id" property="certificateTypeId"
+			jdbcType="BIGINT" />
+		<result column="gender" property="gender" jdbcType="INTEGER" />
 		<result column="email" property="email" jdbcType="VARCHAR" />
 		<result column="head_url" property="headUrl" jdbcType="VARCHAR" />
 		<result column="introduction" property="introduction" jdbcType="VARCHAR" />
@@ -92,12 +97,13 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		id, user_name, nick_name, `password`, salt, email, head_url,
-		introduction, signature,
-		topic_count, reply_count, best_topic_count, last_topic_id, last_reply_id, amount,
-		`state`, created_date, fans_count, follow_count, mobile, user_type,
-		accept_image,
-		accept_push_message
+		id, user_name, nick_name, `password`, salt, certificate_num,
+		certificate_type_id,
+		gender, email, head_url, introduction, signature, topic_count, reply_count,
+		best_topic_count,
+		last_topic_id, last_reply_id, amount, `state`, created_date, fans_count,
+		follow_count,
+		mobile, user_type, accept_image, accept_push_message
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.hannuus.gamble.model.UserExample">
@@ -141,7 +147,8 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into user (user_name, nick_name, `password`,
-		salt, email, head_url,
+		salt, certificate_num, certificate_type_id,
+		gender, email, head_url,
 		introduction, signature, topic_count,
 		reply_count, best_topic_count, last_topic_id,
 		last_reply_id, amount, `state`,
@@ -150,7 +157,9 @@
 		accept_push_message)
 		values (#{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
-		#{salt,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR},
+		#{salt,jdbcType=VARCHAR}, #{certificateNum,jdbcType=VARCHAR},
+		#{certificateTypeId,jdbcType=BIGINT},
+		#{gender,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR},
 		#{introduction,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR},
 		#{topicCount,jdbcType=INTEGER},
 		#{replyCount,jdbcType=INTEGER}, #{bestTopicCount,jdbcType=INTEGER}, #{lastTopicId,jdbcType=BIGINT},
@@ -179,6 +188,15 @@
 			</if>
 			<if test="salt != null">
 				salt,
+			</if>
+			<if test="certificateNum != null">
+				certificate_num,
+			</if>
+			<if test="certificateTypeId != null">
+				certificate_type_id,
+			</if>
+			<if test="gender != null">
+				gender,
 			</if>
 			<if test="email != null">
 				email,
@@ -247,6 +265,15 @@
 			</if>
 			<if test="salt != null">
 				#{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="certificateNum != null">
+				#{certificateNum,jdbcType=VARCHAR},
+			</if>
+			<if test="certificateTypeId != null">
+				#{certificateTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="gender != null">
+				#{gender,jdbcType=INTEGER},
 			</if>
 			<if test="email != null">
 				#{email,jdbcType=VARCHAR},
@@ -329,6 +356,15 @@
 			<if test="record.salt != null">
 				salt = #{record.salt,jdbcType=VARCHAR},
 			</if>
+			<if test="record.certificateNum != null">
+				certificate_num = #{record.certificateNum,jdbcType=VARCHAR},
+			</if>
+			<if test="record.certificateTypeId != null">
+				certificate_type_id = #{record.certificateTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="record.gender != null">
+				gender = #{record.gender,jdbcType=INTEGER},
+			</if>
 			<if test="record.email != null">
 				email = #{record.email,jdbcType=VARCHAR},
 			</if>
@@ -395,6 +431,9 @@
 		nick_name = #{record.nickName,jdbcType=VARCHAR},
 		`password` = #{record.password,jdbcType=VARCHAR},
 		salt = #{record.salt,jdbcType=VARCHAR},
+		certificate_num = #{record.certificateNum,jdbcType=VARCHAR},
+		certificate_type_id = #{record.certificateTypeId,jdbcType=BIGINT},
+		gender = #{record.gender,jdbcType=INTEGER},
 		email = #{record.email,jdbcType=VARCHAR},
 		head_url = #{record.headUrl,jdbcType=VARCHAR},
 		introduction = #{record.introduction,jdbcType=VARCHAR},
@@ -431,6 +470,15 @@
 			</if>
 			<if test="salt != null">
 				salt = #{salt,jdbcType=VARCHAR},
+			</if>
+			<if test="certificateNum != null">
+				certificate_num = #{certificateNum,jdbcType=VARCHAR},
+			</if>
+			<if test="certificateTypeId != null">
+				certificate_type_id = #{certificateTypeId,jdbcType=BIGINT},
+			</if>
+			<if test="gender != null">
+				gender = #{gender,jdbcType=INTEGER},
 			</if>
 			<if test="email != null">
 				email = #{email,jdbcType=VARCHAR},
@@ -495,6 +543,9 @@
 		nick_name = #{nickName,jdbcType=VARCHAR},
 		`password` = #{password,jdbcType=VARCHAR},
 		salt = #{salt,jdbcType=VARCHAR},
+		certificate_num = #{certificateNum,jdbcType=VARCHAR},
+		certificate_type_id = #{certificateTypeId,jdbcType=BIGINT},
+		gender = #{gender,jdbcType=INTEGER},
 		email = #{email,jdbcType=VARCHAR},
 		head_url = #{headUrl,jdbcType=VARCHAR},
 		introduction = #{introduction,jdbcType=VARCHAR},
@@ -515,8 +566,10 @@
 		accept_push_message = #{acceptPushMessage,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
+
 	<select id="checkLogin" parameterType="map" resultMap="BaseResultMap">
 		select *
 		from user where user_name=#{userName} and password=#{password}
 	</select>
+
 </mapper>

@@ -465,6 +465,196 @@ public class UserExample {
             return (Criteria) this;
         }
 
+        public Criteria andCertificateNumIsNull() {
+            addCriterion("certificate_num is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumIsNotNull() {
+            addCriterion("certificate_num is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumEqualTo(String value) {
+            addCriterion("certificate_num =", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumNotEqualTo(String value) {
+            addCriterion("certificate_num <>", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumGreaterThan(String value) {
+            addCriterion("certificate_num >", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumGreaterThanOrEqualTo(String value) {
+            addCriterion("certificate_num >=", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumLessThan(String value) {
+            addCriterion("certificate_num <", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumLessThanOrEqualTo(String value) {
+            addCriterion("certificate_num <=", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumLike(String value) {
+            addCriterion("certificate_num like", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumNotLike(String value) {
+            addCriterion("certificate_num not like", value, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumIn(List<String> values) {
+            addCriterion("certificate_num in", values, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumNotIn(List<String> values) {
+            addCriterion("certificate_num not in", values, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumBetween(String value1, String value2) {
+            addCriterion("certificate_num between", value1, value2, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateNumNotBetween(String value1, String value2) {
+            addCriterion("certificate_num not between", value1, value2, "certificateNum");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdIsNull() {
+            addCriterion("certificate_type_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdIsNotNull() {
+            addCriterion("certificate_type_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdEqualTo(Long value) {
+            addCriterion("certificate_type_id =", value, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdNotEqualTo(Long value) {
+            addCriterion("certificate_type_id <>", value, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdGreaterThan(Long value) {
+            addCriterion("certificate_type_id >", value, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdGreaterThanOrEqualTo(Long value) {
+            addCriterion("certificate_type_id >=", value, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdLessThan(Long value) {
+            addCriterion("certificate_type_id <", value, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdLessThanOrEqualTo(Long value) {
+            addCriterion("certificate_type_id <=", value, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdIn(List<Long> values) {
+            addCriterion("certificate_type_id in", values, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdNotIn(List<Long> values) {
+            addCriterion("certificate_type_id not in", values, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdBetween(Long value1, Long value2) {
+            addCriterion("certificate_type_id between", value1, value2, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCertificateTypeIdNotBetween(Long value1, Long value2) {
+            addCriterion("certificate_type_id not between", value1, value2, "certificateTypeId");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderIsNull() {
+            addCriterion("gender is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderIsNotNull() {
+            addCriterion("gender is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderEqualTo(Integer value) {
+            addCriterion("gender =", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderNotEqualTo(Integer value) {
+            addCriterion("gender <>", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderGreaterThan(Integer value) {
+            addCriterion("gender >", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderGreaterThanOrEqualTo(Integer value) {
+            addCriterion("gender >=", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderLessThan(Integer value) {
+            addCriterion("gender <", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderLessThanOrEqualTo(Integer value) {
+            addCriterion("gender <=", value, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderIn(List<Integer> values) {
+            addCriterion("gender in", values, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderNotIn(List<Integer> values) {
+            addCriterion("gender not in", values, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderBetween(Integer value1, Integer value2) {
+            addCriterion("gender between", value1, value2, "gender");
+            return (Criteria) this;
+        }
+
+        public Criteria andGenderNotBetween(Integer value1, Integer value2) {
+            addCriterion("gender not between", value1, value2, "gender");
+            return (Criteria) this;
+        }
+
         public Criteria andEmailIsNull() {
             addCriterion("email is null");
             return (Criteria) this;
