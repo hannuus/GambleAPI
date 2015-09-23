@@ -47,7 +47,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -79,7 +80,8 @@
 									and ${criterion.condition} #{criterion.value}
 								</when>
 								<when test="criterion.betweenValue">
-									and ${criterion.condition} #{criterion.value} and
+									and ${criterion.condition} #{criterion.value}
+									and
 									#{criterion.secondValue}
 								</when>
 								<when test="criterion.listValue">
@@ -97,13 +99,17 @@
 		</where>
 	</sql>
 	<sql id="Base_Column_List">
-		id, user_name, nick_name, `password`, salt, certificate_num,
+		id, user_name, nick_name, `password`, salt,
+		certificate_num,
 		certificate_type_id,
-		gender, email, head_url, introduction, signature, topic_count, reply_count,
+		gender, email, head_url,
+		introduction, signature, topic_count, reply_count,
 		best_topic_count,
-		last_topic_id, last_reply_id, amount, `state`, created_date, fans_count,
+		last_topic_id, last_reply_id, amount, `state`, created_date,
+		fans_count,
 		follow_count,
-		mobile, user_type, accept_image, accept_push_message
+		mobile, user_type, accept_image,
+		accept_push_message
 	</sql>
 	<select id="selectByExample" resultMap="BaseResultMap"
 		parameterType="com.hannuus.gamble.model.UserExample">
@@ -147,25 +153,32 @@
 			SELECT LAST_INSERT_ID()
 		</selectKey>
 		insert into user (user_name, nick_name, `password`,
-		salt, certificate_num, certificate_type_id,
+		salt,
+		certificate_num, certificate_type_id,
 		gender, email, head_url,
 		introduction, signature, topic_count,
-		reply_count, best_topic_count, last_topic_id,
+		reply_count, best_topic_count,
+		last_topic_id,
 		last_reply_id, amount, `state`,
-		created_date, fans_count, follow_count,
+		created_date, fans_count,
+		follow_count,
 		mobile, user_type, accept_image,
 		accept_push_message)
 		values (#{userName,jdbcType=VARCHAR}, #{nickName,jdbcType=VARCHAR},
 		#{password,jdbcType=VARCHAR},
-		#{salt,jdbcType=VARCHAR}, #{certificateNum,jdbcType=VARCHAR},
+		#{salt,jdbcType=VARCHAR},
+		#{certificateNum,jdbcType=VARCHAR},
 		#{certificateTypeId,jdbcType=BIGINT},
-		#{gender,jdbcType=INTEGER}, #{email,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR},
+		#{gender,jdbcType=INTEGER},
+		#{email,jdbcType=VARCHAR}, #{headUrl,jdbcType=VARCHAR},
 		#{introduction,jdbcType=VARCHAR}, #{signature,jdbcType=VARCHAR},
 		#{topicCount,jdbcType=INTEGER},
-		#{replyCount,jdbcType=INTEGER}, #{bestTopicCount,jdbcType=INTEGER}, #{lastTopicId,jdbcType=BIGINT},
+		#{replyCount,jdbcType=INTEGER},
+		#{bestTopicCount,jdbcType=INTEGER}, #{lastTopicId,jdbcType=BIGINT},
 		#{lastReplyId,jdbcType=BIGINT}, #{amount,jdbcType=INTEGER},
 		#{state,jdbcType=INTEGER},
-		#{createdDate,jdbcType=TIMESTAMP}, #{fansCount,jdbcType=INTEGER}, #{followCount,jdbcType=INTEGER},
+		#{createdDate,jdbcType=TIMESTAMP},
+		#{fansCount,jdbcType=INTEGER}, #{followCount,jdbcType=INTEGER},
 		#{mobile,jdbcType=VARCHAR}, #{userType,jdbcType=INTEGER},
 		#{acceptImage,jdbcType=INTEGER},
 		#{acceptPushMessage,jdbcType=INTEGER})
@@ -357,10 +370,12 @@
 				salt = #{record.salt,jdbcType=VARCHAR},
 			</if>
 			<if test="record.certificateNum != null">
-				certificate_num = #{record.certificateNum,jdbcType=VARCHAR},
+				certificate_num =
+				#{record.certificateNum,jdbcType=VARCHAR},
 			</if>
 			<if test="record.certificateTypeId != null">
-				certificate_type_id = #{record.certificateTypeId,jdbcType=BIGINT},
+				certificate_type_id =
+				#{record.certificateTypeId,jdbcType=BIGINT},
 			</if>
 			<if test="record.gender != null">
 				gender = #{record.gender,jdbcType=INTEGER},
@@ -384,7 +399,8 @@
 				reply_count = #{record.replyCount,jdbcType=INTEGER},
 			</if>
 			<if test="record.bestTopicCount != null">
-				best_topic_count = #{record.bestTopicCount,jdbcType=INTEGER},
+				best_topic_count =
+				#{record.bestTopicCount,jdbcType=INTEGER},
 			</if>
 			<if test="record.lastTopicId != null">
 				last_topic_id = #{record.lastTopicId,jdbcType=BIGINT},
@@ -417,7 +433,8 @@
 				accept_image = #{record.acceptImage,jdbcType=INTEGER},
 			</if>
 			<if test="record.acceptPushMessage != null">
-				accept_push_message = #{record.acceptPushMessage,jdbcType=INTEGER},
+				accept_push_message =
+				#{record.acceptPushMessage,jdbcType=INTEGER},
 			</if>
 		</set>
 		<if test="_parameter != null">
@@ -427,31 +444,56 @@
 	<update id="updateByExample" parameterType="map">
 		update user
 		set id = #{record.id,jdbcType=BIGINT},
-		user_name = #{record.userName,jdbcType=VARCHAR},
-		nick_name = #{record.nickName,jdbcType=VARCHAR},
-		`password` = #{record.password,jdbcType=VARCHAR},
-		salt = #{record.salt,jdbcType=VARCHAR},
-		certificate_num = #{record.certificateNum,jdbcType=VARCHAR},
-		certificate_type_id = #{record.certificateTypeId,jdbcType=BIGINT},
-		gender = #{record.gender,jdbcType=INTEGER},
-		email = #{record.email,jdbcType=VARCHAR},
-		head_url = #{record.headUrl,jdbcType=VARCHAR},
-		introduction = #{record.introduction,jdbcType=VARCHAR},
-		signature = #{record.signature,jdbcType=VARCHAR},
-		topic_count = #{record.topicCount,jdbcType=INTEGER},
-		reply_count = #{record.replyCount,jdbcType=INTEGER},
-		best_topic_count = #{record.bestTopicCount,jdbcType=INTEGER},
-		last_topic_id = #{record.lastTopicId,jdbcType=BIGINT},
-		last_reply_id = #{record.lastReplyId,jdbcType=BIGINT},
-		amount = #{record.amount,jdbcType=INTEGER},
-		`state` = #{record.state,jdbcType=INTEGER},
-		created_date = #{record.createdDate,jdbcType=TIMESTAMP},
-		fans_count = #{record.fansCount,jdbcType=INTEGER},
-		follow_count = #{record.followCount,jdbcType=INTEGER},
-		mobile = #{record.mobile,jdbcType=VARCHAR},
-		user_type = #{record.userType,jdbcType=INTEGER},
-		accept_image = #{record.acceptImage,jdbcType=INTEGER},
-		accept_push_message = #{record.acceptPushMessage,jdbcType=INTEGER}
+		user_name =
+		#{record.userName,jdbcType=VARCHAR},
+		nick_name =
+		#{record.nickName,jdbcType=VARCHAR},
+		`password` =
+		#{record.password,jdbcType=VARCHAR},
+		salt =
+		#{record.salt,jdbcType=VARCHAR},
+		certificate_num =
+		#{record.certificateNum,jdbcType=VARCHAR},
+		certificate_type_id =
+		#{record.certificateTypeId,jdbcType=BIGINT},
+		gender =
+		#{record.gender,jdbcType=INTEGER},
+		email =
+		#{record.email,jdbcType=VARCHAR},
+		head_url =
+		#{record.headUrl,jdbcType=VARCHAR},
+		introduction =
+		#{record.introduction,jdbcType=VARCHAR},
+		signature =
+		#{record.signature,jdbcType=VARCHAR},
+		topic_count =
+		#{record.topicCount,jdbcType=INTEGER},
+		reply_count =
+		#{record.replyCount,jdbcType=INTEGER},
+		best_topic_count =
+		#{record.bestTopicCount,jdbcType=INTEGER},
+		last_topic_id =
+		#{record.lastTopicId,jdbcType=BIGINT},
+		last_reply_id =
+		#{record.lastReplyId,jdbcType=BIGINT},
+		amount =
+		#{record.amount,jdbcType=INTEGER},
+		`state` =
+		#{record.state,jdbcType=INTEGER},
+		created_date =
+		#{record.createdDate,jdbcType=TIMESTAMP},
+		fans_count =
+		#{record.fansCount,jdbcType=INTEGER},
+		follow_count =
+		#{record.followCount,jdbcType=INTEGER},
+		mobile =
+		#{record.mobile,jdbcType=VARCHAR},
+		user_type =
+		#{record.userType,jdbcType=INTEGER},
+		accept_image =
+		#{record.acceptImage,jdbcType=INTEGER},
+		accept_push_message =
+		#{record.acceptPushMessage,jdbcType=INTEGER}
 		<if test="_parameter != null">
 			<include refid="Update_By_Example_Where_Clause" />
 		</if>
@@ -475,7 +517,8 @@
 				certificate_num = #{certificateNum,jdbcType=VARCHAR},
 			</if>
 			<if test="certificateTypeId != null">
-				certificate_type_id = #{certificateTypeId,jdbcType=BIGINT},
+				certificate_type_id =
+				#{certificateTypeId,jdbcType=BIGINT},
 			</if>
 			<if test="gender != null">
 				gender = #{gender,jdbcType=INTEGER},
@@ -532,38 +575,56 @@
 				accept_image = #{acceptImage,jdbcType=INTEGER},
 			</if>
 			<if test="acceptPushMessage != null">
-				accept_push_message = #{acceptPushMessage,jdbcType=INTEGER},
+				accept_push_message =
+				#{acceptPushMessage,jdbcType=INTEGER},
 			</if>
 		</set>
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 	<update id="updateByPrimaryKey" parameterType="com.hannuus.gamble.model.User">
 		update user
-		set user_name = #{userName,jdbcType=VARCHAR},
-		nick_name = #{nickName,jdbcType=VARCHAR},
-		`password` = #{password,jdbcType=VARCHAR},
+		set
+		user_name = #{userName,jdbcType=VARCHAR},
+		nick_name =
+		#{nickName,jdbcType=VARCHAR},
+		`password` =
+		#{password,jdbcType=VARCHAR},
 		salt = #{salt,jdbcType=VARCHAR},
 		certificate_num = #{certificateNum,jdbcType=VARCHAR},
 		certificate_type_id = #{certificateTypeId,jdbcType=BIGINT},
-		gender = #{gender,jdbcType=INTEGER},
+		gender =
+		#{gender,jdbcType=INTEGER},
 		email = #{email,jdbcType=VARCHAR},
-		head_url = #{headUrl,jdbcType=VARCHAR},
-		introduction = #{introduction,jdbcType=VARCHAR},
-		signature = #{signature,jdbcType=VARCHAR},
-		topic_count = #{topicCount,jdbcType=INTEGER},
-		reply_count = #{replyCount,jdbcType=INTEGER},
-		best_topic_count = #{bestTopicCount,jdbcType=INTEGER},
-		last_topic_id = #{lastTopicId,jdbcType=BIGINT},
-		last_reply_id = #{lastReplyId,jdbcType=BIGINT},
+		head_url
+		= #{headUrl,jdbcType=VARCHAR},
+		introduction =
+		#{introduction,jdbcType=VARCHAR},
+		signature =
+		#{signature,jdbcType=VARCHAR},
+		topic_count =
+		#{topicCount,jdbcType=INTEGER},
+		reply_count =
+		#{replyCount,jdbcType=INTEGER},
+		best_topic_count =
+		#{bestTopicCount,jdbcType=INTEGER},
+		last_topic_id =
+		#{lastTopicId,jdbcType=BIGINT},
+		last_reply_id =
+		#{lastReplyId,jdbcType=BIGINT},
 		amount = #{amount,jdbcType=INTEGER},
 		`state` = #{state,jdbcType=INTEGER},
-		created_date = #{createdDate,jdbcType=TIMESTAMP},
-		fans_count = #{fansCount,jdbcType=INTEGER},
-		follow_count = #{followCount,jdbcType=INTEGER},
+		created_date =
+		#{createdDate,jdbcType=TIMESTAMP},
+		fans_count =
+		#{fansCount,jdbcType=INTEGER},
+		follow_count =
+		#{followCount,jdbcType=INTEGER},
 		mobile = #{mobile,jdbcType=VARCHAR},
 		user_type = #{userType,jdbcType=INTEGER},
-		accept_image = #{acceptImage,jdbcType=INTEGER},
-		accept_push_message = #{acceptPushMessage,jdbcType=INTEGER}
+		accept_image =
+		#{acceptImage,jdbcType=INTEGER},
+		accept_push_message =
+		#{acceptPushMessage,jdbcType=INTEGER}
 		where id = #{id,jdbcType=BIGINT}
 	</update>
 
@@ -571,5 +632,24 @@
 		select *
 		from user where user_name=#{userName} and password=#{password}
 	</select>
+
+	<select id="countByRole" parameterType="java.lang.String"
+		resultType="java.lang.Integer">
+		select count(*) from user u,role r, user_role ur where
+		u.id=ur.user_id and
+		ur.role_id=r.id and r.role_value=#{roleValue}
+	</select>
+
+	<select id="selectByRole" parameterType="map" resultMap="BaseResultMap">
+		select
+		u.* from user u,role r, user_role ur where
+		u.id=ur.user_id and
+		ur.role_id=r.id and r.role_value=#{roleValue} order by created_date
+		limit #{start},#{pageSize}
+	</select>
+	
+	<insert id="insertUserRole" parameterType="map">
+	    insert into user_role(user_id,role_id) values(#{userId},(select id from role where role_value=#{roleValue}))
+	</insert>
 
 </mapper>

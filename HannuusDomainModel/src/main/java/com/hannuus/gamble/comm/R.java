@@ -182,6 +182,18 @@ public final class R {
 
 	}
 
+	/**
+	 * 角色相关
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月23日上午10:52:43
+	 */
+	public static final class role {
+
+		public static final String oper = "oper";
+
+	}
+
 	public static final class reply {
 
 		/** 真实回复 */
