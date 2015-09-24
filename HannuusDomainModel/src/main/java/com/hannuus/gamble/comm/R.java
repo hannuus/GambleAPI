@@ -92,6 +92,8 @@ public final class R {
 
 		public static final String disable = "0";
 
+		public static final String upload_path = "upload";
+
 		// 第三方API相关
 
 		public static final String third_party_api = "thirdPartyApi";
@@ -194,12 +196,47 @@ public final class R {
 
 	}
 
+	/**
+	 * 主题相关
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月23日下午5:09:42
+	 */
+	public static final class topic {
+
+		public static final Integer normal = 0;
+
+		public static final Integer vote = 1;
+
+		public static final Integer virtual = 2;
+
+	}
+
+	/**
+	 * 回复相关
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月23日下午5:08:41
+	 */
 	public static final class reply {
 
 		/** 真实回复 */
 		public static final Integer reality_type = 1;
 		/** 虚拟虚拟回复 */
 		public static final Integer virtual_type = 2;
+
+	}
+
+	/**
+	 * 运营相关
+	 * 
+	 * @author cuesky
+	 * @date 2015年9月23日下午5:33:36
+	 */
+	public static final class oper {
+
+		/** 文件上传逻辑名 */
+		public static final String upload_file_name = "topicFile";
 
 	}
 

@@ -43,4 +43,6 @@ public interface UserMapper {
 	int insertUserRole(@Param("userId") Long userId,
 			@Param("roleValue") String roleValue);
 
+	List<Long> selectIdsByRole(Integer virtualType);
+
 }

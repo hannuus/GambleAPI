@@ -1,7 +1,10 @@
 package com.hannuus.gamble.web.service;
 
+import java.io.InputStream;
+
 import com.hannuus.gamble.domain.page.PageDTO;
 import com.hannuus.gamble.domain.page.PageParams;
+import com.hannuus.gamble.model.Topic;
 import com.hannuus.gamble.model.User;
 
 /**
@@ -42,5 +45,21 @@ public interface OperateService {
 	 * @param id
 	 */
 	void deleteOper(Long id);
+
+	/**
+	 * 分页查询虚拟帖子
+	 * 
+	 * @param params
+	 * @return
+	 */
+	PageDTO<Topic> findTopicPage(PageParams params);
+
+	/**
+	 * 批量新增主题
+	 * 
+	 * @param in
+	 * @return
+	 */
+	void batchAddTopics(InputStream in) throws Exception;
 
 }

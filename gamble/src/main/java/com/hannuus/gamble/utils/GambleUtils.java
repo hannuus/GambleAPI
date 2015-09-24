@@ -3,6 +3,7 @@ package com.hannuus.gamble.utils;
 import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.List;
@@ -352,6 +353,20 @@ public final class GambleUtils {
 			return b.toString();
 		}
 
+	}
+
+	public static final class File {
+
+		public static String appendTimestamp(String fileName) {
+			Calendar cal = Calendar.getInstance();
+			int year = cal.get(Calendar.YEAR);
+			int month = cal.get(Calendar.MONTH) + 1;
+			int date = cal.get(Calendar.DATE);
+			int hour = cal.get(Calendar.HOUR_OF_DAY);
+			int minute = cal.get(Calendar.MINUTE);
+			int second = cal.get(Calendar.SECOND);
+			return fileName + year + month + date + hour + minute + second;
+		}
 	}
 
 }

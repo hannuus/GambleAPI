@@ -1,17 +1,27 @@
 package com.hannuus.gamble.web.action;
 
+import java.io.File;
+import java.io.IOException;
+
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.domain.page.PageDTO;
 import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.domain.page.PageQueryCallback;
+import com.hannuus.gamble.model.Topic;
 import com.hannuus.gamble.model.User;
+import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.service.OperateService;
 
 /**
@@ -27,6 +37,17 @@ public class OperateAction extends BaseAction {
 	@Autowired
 	OperateService operateService;
 
+	/**
+	 * 分页查询运营人员
+	 * 
+	 * @param map
+	 *            域模型
+	 * @param pageNum
+	 *            页码
+	 * @param pageSize
+	 *            页面大小
+	 * @return
+	 */
 	@RequestMapping("/listOpers")
 	public ModelAndView listOpers(ModelMap map, int pageNum, int pageSize) {
 		pageQuery(pageNum, pageSize, map, new PageQueryCallback<User>() {
@@ -80,21 +101,101 @@ public class OperateAction extends BaseAction {
 	 *            运营人员ID
 	 * @return
 	 */
+	@RequestMapping("/doDeleteOper")
 	public ModelAndView doDeleteOper(ModelMap map, Long id) {
 		operateService.deleteOper(id);
 		return listOpers(map, 1, 0);
 	}
 
-	public ModelAndView listTopics() {
-		return null;
+	/**
+	 * 分页查询虚拟主题
+	 * 
+	 * @param map
+	 *            域模型
+	 * @param pageNum
+	 *            页码
+	 * @param pageSize
+	 *            页面大小
+	 * @return
+	 */
+	@RequestMapping("/listTopics")
+	public ModelAndView listTopics(ModelMap map, int pageNum, int pageSize) {
+		pageQuery(pageNum, pageSize, map, new PageQueryCallback<Topic>() {
+			@Override
+			public PageDTO<Topic> query(PageParams params) {
+				return operateService.findTopicPage(params);
+			}
+		});
+		return new ModelAndView("/oper/topic_list");
 	}
 
+	/**
+	 * 至上传主题页面
+	 * 
+	 * @return
+	 */
+	@RequestMapping("/toBatchAddTopics")
 	public ModelAndView toBatchAddTopics() {
-		return null;
+		return new ModelAndView("/oper/topic_upload");
 	}
 
-	public ModelAndView doBatchAddTopics(HttpServletRequest request) {
-		return null;
+	// public JsonVo<Integer> validateUserIds(HttpServletRequest request) {
+	// JsonVo<Integer> json = new JsonVo<Integer>();
+	// ServletContext servletContext = request.getSession()
+	// .getServletContext();
+	// MultipartFile file = getUploadFile(request, servletContext);
+	// return json;
+	// }
+
+	/**
+	 * 批量新增主题
+	 * 
+	 * @param map
+	 *            域模型
+	 * @param request
+	 *            复合请求
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/doBatchAddTopics")
+	public ModelAndView doBatchAddTopics(ModelMap map,
+			HttpServletRequest request) throws Exception {
+		ServletContext servletContext = request.getSession()
+				.getServletContext();
+		String uploadPath = servletContext.getRealPath("/")
+				+ R.global.upload_path;
+		MultipartFile file = getUploadFile(request, servletContext);
+		// 保存至本地
+		saveFile(uploadPath, file);
+		// 批量新增
+		operateService.batchAddTopics(file.getInputStream());
+		return listTopics(map, 1, 0);
 	}
 
+	private MultipartFile getUploadFile(HttpServletRequest request,
+			ServletContext servletContext) {
+		MultipartFile file = null;
+		CommonsMultipartResolver resolver = new CommonsMultipartResolver(
+				servletContext);
+		if (resolver.isMultipart(request)) {
+			MultipartHttpServletRequest req = (MultipartHttpServletRequest) request;
+			file = req.getFile(R.oper.upload_file_name);
+		}
+		return file;
+	}
+
+	/**
+	 * @param uploadPath
+	 *            文件上传路径
+	 * @param file
+	 *            上传的文件对象
+	 * @throws IOException
+	 */
+	private void saveFile(String uploadPath, MultipartFile file)
+			throws IOException {
+		String fileName = file.getOriginalFilename();
+		fileName = GambleUtils.File.appendTimestamp(fileName);
+		String path = uploadPath + "/" + fileName;
+		file.transferTo(new File(path));
+	}
 }

@@ -647,9 +647,17 @@
 		ur.role_id=r.id and r.role_value=#{roleValue} order by created_date
 		limit #{start},#{pageSize}
 	</select>
-	
+
 	<insert id="insertUserRole" parameterType="map">
-	    insert into user_role(user_id,role_id) values(#{userId},(select id from role where role_value=#{roleValue}))
+		insert into user_role(user_id,role_id) values(#{userId},(select id from role
+		where role_value=#{roleValue}))
 	</insert>
+
+	<select id="selectIdsByRole" parameterType="java.lang.Integer"
+		resultType="java.lang.Long">
+		select u.id from user u,role r, user_role ur where
+		u.id=ur.user_id and
+		ur.role_id=r.id and r.role_value=#{roleValue}
+	</select>
 
 </mapper>
