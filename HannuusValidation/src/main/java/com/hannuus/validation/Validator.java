@@ -1,4 +1,4 @@
-package com.hannuus.gamble.web.validate;
+package com.hannuus.validation;
 
 import org.apache.log4j.Logger;
 
@@ -15,7 +15,7 @@ public abstract class Validator implements Comparable<Validator> {
 	protected Logger logger = Logger.getLogger(getClass());
 
 	/** 规则所处命名空间 */
-	public final static String NS = "com.hannuus.gamble.web.validate.validator";
+	public final static String NS = "com.hannuus.validation.validator";
 
 	/**
 	 * 校验入口方法

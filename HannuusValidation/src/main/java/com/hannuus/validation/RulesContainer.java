@@ -1,4 +1,4 @@
-package com.hannuus.gamble.web.validate;
+package com.hannuus.validation;
 
 import java.util.ArrayList;
 import java.util.Collection;

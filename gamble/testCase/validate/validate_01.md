@@ -8,7 +8,7 @@
 所以单独封装此简易版
 
 #组件介绍
-所有类库都位于com.hannuus.gamble.web.validate下
+所有类库都位于com.hannuus.validation下
 
 - ValidateEngine 验证入口类  
 	所有需要使用业务规则进行校验的Controller都可以注入该类实例  
@@ -21,11 +21,11 @@
 	该类通过getOrder()来维持多个校验规则之间的执行顺序(按照从小到大的顺序执行每条校验规则)  
 	order无须从0开始，也无须保持连续，但是多个规则之间的order不可重复，并且负数将被忽略  
 	该类的扩展类可以实现所有静态校验，也可以注入Mapper进行基于DB查询的动态校验  
-	如使用Mapper则所有的映射文件须集中放置在com.hannuus.gamble.web.validate.mapper中
+	如使用Mapper则所有的映射文件须集中放置在com.hannuus.validation.mapper中
 
 - ValidateParams 验证所需参数的封装类  
 	ruleId：用来标识某个业务场景所使用的所有校验规则所处的命名空间  
-	如ruleId为abc，则相关的校验规则实现类必须集中放置在com.hannuus.gamble.web.validate.validator.abc下  
+	如ruleId为abc，则相关的校验规则实现类必须集中放置在com.hannuus.gamble.validation.validator.abc下  
 	target：被校验的对象，可为任意类型
 
 - ValidateResult 验证结果封装类

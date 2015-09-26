@@ -11,8 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.hannuus.gamble.model.UserToken;
 import com.hannuus.gamble.web.service.CustomService;
-import com.hannuus.gamble.web.validate.ValidateParams;
-import com.hannuus.gamble.web.validate.ValidateResult;
+import com.hannuus.validation.ValidateParams;
+import com.hannuus.validation.ValidateResult;
 
 @Controller
 @RequestMapping("/test")

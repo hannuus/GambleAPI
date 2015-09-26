@@ -1,4 +1,4 @@
-package com.hannuus.gamble.web.validate;
+package com.hannuus.validation;
 
 /**
  * 校验结果

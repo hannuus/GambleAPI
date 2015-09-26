@@ -32,9 +32,9 @@ import com.hannuus.gamble.web.exception.api.InvalidAccessTokenException;
 import com.hannuus.gamble.web.exception.api.InvalidRequestURLException;
 import com.hannuus.gamble.web.service.LoginService;
 import com.hannuus.gamble.web.service.PermissionService;
-import com.hannuus.gamble.web.validate.ValidateEngine;
-import com.hannuus.gamble.web.validate.ValidateParams;
-import com.hannuus.gamble.web.validate.ValidateResult;
+import com.hannuus.validation.ValidateEngine;
+import com.hannuus.validation.ValidateParams;
+import com.hannuus.validation.ValidateResult;
 
 /**
  * Action基类

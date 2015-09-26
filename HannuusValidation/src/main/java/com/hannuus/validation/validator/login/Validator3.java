@@ -1,10 +1,10 @@
-package com.hannuus.gamble.web.validate.validator.login;
+package com.hannuus.validation.validator.login;
 
 import org.springframework.stereotype.Component;
 
-import com.hannuus.gamble.web.validate.ValidateParams;
-import com.hannuus.gamble.web.validate.ValidateResult;
-import com.hannuus.gamble.web.validate.Validator;
+import com.hannuus.validation.ValidateParams;
+import com.hannuus.validation.ValidateResult;
+import com.hannuus.validation.Validator;
 
 @Component
 public class Validator3 extends Validator {
