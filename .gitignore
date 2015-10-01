@@ -1,4 +1,8 @@
-#/gamble/target
+#
+/gamble/target
 /HannuusCore/target
 /HannuusDAO/target
 /HannuusDomainModel/target
+/HannuusValidation/target
+/HannuusPagination/target
+/target/
