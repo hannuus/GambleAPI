@@ -1,8 +1,14 @@
 #
 /gamble/target
+/gamble/.settings
 /HannuusCore/target
+/HannuusCore/.settings
 /HannuusDAO/target
+/HannuusDAO/.settings
 /HannuusDomainModel/target
+/HannuusDomainModel/.settings
 /HannuusValidation/target
+/HannuusValidation/.settings
 /HannuusPagination/target
+/HannuusPagination/.settings
 /target/
