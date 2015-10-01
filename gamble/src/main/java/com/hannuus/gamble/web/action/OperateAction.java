@@ -16,13 +16,13 @@ import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hannuus.gamble.comm.R;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
-import com.hannuus.gamble.domain.page.PageQueryCallback;
 import com.hannuus.gamble.model.Topic;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.service.OperateService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
+import com.hannuus.pagination.PageQueryCallback;
 
 /**
  * 运营Web API

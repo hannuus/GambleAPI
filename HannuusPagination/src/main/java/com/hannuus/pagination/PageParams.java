@@ -1,4 +1,4 @@
-package com.hannuus.gamble.domain.page;
+package com.hannuus.pagination;
 
 import com.hannuus.gamble.comm.R;
 

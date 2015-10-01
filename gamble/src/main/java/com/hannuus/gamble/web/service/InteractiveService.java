@@ -1,8 +1,8 @@
 package com.hannuus.gamble.web.service;
 
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Topic;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * 论坛交互API

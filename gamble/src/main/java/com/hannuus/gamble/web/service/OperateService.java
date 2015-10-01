@@ -2,10 +2,10 @@ package com.hannuus.gamble.web.service;
 
 import java.io.InputStream;
 
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Topic;
 import com.hannuus.gamble.model.User;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * 运营API

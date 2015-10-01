@@ -1,4 +1,4 @@
-package com.hannuus.gamble.domain.page;
+package com.hannuus.pagination;
 
 import java.util.List;
 

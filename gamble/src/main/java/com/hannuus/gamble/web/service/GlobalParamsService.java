@@ -2,9 +2,9 @@ package com.hannuus.gamble.web.service;
 
 import java.util.List;
 
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.GlobalParams;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * 全局参数API

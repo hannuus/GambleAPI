@@ -183,6 +183,11 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
+			<groupId>com.hannuus</groupId>
+			<artifactId>HannuusPagination</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		<dependency>
 			<groupId>baidu</groupId>
 			<artifactId>bacc-api-lib</artifactId>
 			<version>3.0.1</version>

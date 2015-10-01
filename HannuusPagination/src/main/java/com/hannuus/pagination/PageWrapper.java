@@ -1,4 +1,4 @@
-package com.hannuus.gamble.domain.page;
+package com.hannuus.pagination;
 
 /**
  * Pagination封送接口

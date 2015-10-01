@@ -7,11 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hannuus.gamble.dao.GlobalParamsMapper;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.GlobalParams;
 import com.hannuus.gamble.model.GlobalParamsExample;
 import com.hannuus.gamble.web.service.GlobalParamsService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * @author cuesky

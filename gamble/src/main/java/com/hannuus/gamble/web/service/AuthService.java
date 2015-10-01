@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.Resource;
 import com.hannuus.gamble.model.Role;
 import com.hannuus.gamble.model.RoleResourcePermission;
 import com.hannuus.gamble.model.User;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * 该接口用来操作所有权限相关的Domain

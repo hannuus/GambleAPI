@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hannuus.core.json.JsonResultStatus;
 import com.hannuus.gamble.comm.JsonVo;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
-import com.hannuus.gamble.domain.page.PageQueryCallback;
 import com.hannuus.gamble.model.Topic;
 import com.hannuus.gamble.web.service.InteractiveService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
+import com.hannuus.pagination.PageQueryCallback;
 
 /**
  * 论坛交互API

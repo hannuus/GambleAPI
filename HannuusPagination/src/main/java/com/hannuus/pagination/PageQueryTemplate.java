@@ -1,14 +1,10 @@
-package com.hannuus.gamble.template;
+package com.hannuus.pagination;
 
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 import org.springframework.ui.ModelMap;
 
 import com.hannuus.gamble.comm.R;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
-import com.hannuus.gamble.domain.page.PageQueryCallback;
-import com.hannuus.gamble.domain.page.PageWrapper;
 
 /**
  * 分页查询模板

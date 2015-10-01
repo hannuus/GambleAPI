@@ -16,13 +16,13 @@ import org.springframework.stereotype.Service;
 import com.hannuus.gamble.comm.R;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.dao.UserMapper;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Topic;
 import com.hannuus.gamble.model.TopicExample;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.model.UserExample;
 import com.hannuus.gamble.web.service.OperateService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * @author cuesky

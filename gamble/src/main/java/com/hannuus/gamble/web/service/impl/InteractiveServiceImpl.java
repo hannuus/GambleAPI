@@ -11,8 +11,6 @@ import com.hannuus.gamble.dao.HonorMapper;
 import com.hannuus.gamble.dao.ReplyMapper;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.dao.VoteUserMapper;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Honor;
 import com.hannuus.gamble.model.HonorExample;
 import com.hannuus.gamble.model.Topic;
@@ -20,6 +18,8 @@ import com.hannuus.gamble.model.TopicExample;
 import com.hannuus.gamble.model.VoteUser;
 import com.hannuus.gamble.model.VoteUserExample;
 import com.hannuus.gamble.web.service.InteractiveService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * @author cuesky

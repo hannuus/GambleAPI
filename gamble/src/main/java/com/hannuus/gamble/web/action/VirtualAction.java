@@ -8,12 +8,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hannuus.gamble.comm.JsonVo;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
-import com.hannuus.gamble.domain.page.PageQueryCallback;
 import com.hannuus.gamble.model.Reply;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.service.VirtualService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
+import com.hannuus.pagination.PageQueryCallback;
 
 /**
  * 该类用来行使如下操作：<br>

@@ -14,8 +14,6 @@ import com.hannuus.gamble.dao.GlobalParamsMapper;
 import com.hannuus.gamble.dao.ReplyMapper;
 import com.hannuus.gamble.dao.TopicMapper;
 import com.hannuus.gamble.dao.UserMapper;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.GlobalParams;
 import com.hannuus.gamble.model.GlobalParamsExample;
 import com.hannuus.gamble.model.Reply;
@@ -25,6 +23,8 @@ import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.model.UserExample;
 import com.hannuus.gamble.utils.VirtualUtils;
 import com.hannuus.gamble.web.service.VirtualService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * @author cuesky

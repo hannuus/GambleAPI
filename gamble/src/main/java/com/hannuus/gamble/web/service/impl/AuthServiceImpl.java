@@ -16,8 +16,6 @@ import com.hannuus.gamble.dao.RoleMapper;
 import com.hannuus.gamble.dao.RoleResourcePermissionMapper;
 import com.hannuus.gamble.dao.UserMapper;
 import com.hannuus.gamble.dao.UserRoleMapper;
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.PermissionExample;
 import com.hannuus.gamble.model.Resource;
@@ -32,6 +30,8 @@ import com.hannuus.gamble.model.UserRole;
 import com.hannuus.gamble.model.UserRoleExample;
 import com.hannuus.gamble.utils.GambleUtils;
 import com.hannuus.gamble.web.service.AuthService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
 
 /**
  * @author cuesky

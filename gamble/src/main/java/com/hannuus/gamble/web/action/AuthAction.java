@@ -10,15 +10,15 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.hannuus.gamble.domain.page.PageDTO;
-import com.hannuus.gamble.domain.page.PageParams;
-import com.hannuus.gamble.domain.page.PageQueryCallback;
 import com.hannuus.gamble.model.Permission;
 import com.hannuus.gamble.model.Resource;
 import com.hannuus.gamble.model.Role;
 import com.hannuus.gamble.model.RoleResourcePermission;
 import com.hannuus.gamble.model.User;
 import com.hannuus.gamble.web.service.AuthService;
+import com.hannuus.pagination.PageDTO;
+import com.hannuus.pagination.PageParams;
+import com.hannuus.pagination.PageQueryCallback;
 
 /**
  * Authority Web API
